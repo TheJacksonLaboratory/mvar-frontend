@@ -1,0 +1,78 @@
+
+<!--<div class="example-container">-->
+
+   <!--&lt;!&ndash;<app-upload-dialog></app-upload-dialog>&ndash;&gt;-->
+
+   <!--&lt;!&ndash;<button mat-raised-button color="primary" (click)="openUploadDialog()">Add Files</button>&ndash;&gt;-->
+
+  <!--<H3 class="primary-color">VCF File Feed Manager</H3>-->
+
+<!--</div>-->
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+                <mat-tab-group>
+                  <mat-tab label="New Files To be Submitted">
+                    <br>
+                    <div>
+                        <span><button mat-raised-button color="primary" (click)="openUploadDialog()">Upload Files</button></span>
+                    </div>
+                    <br>
+                    <mat-card *ngFor="let file of files">
+
+                      <mat-checkbox (change)="selectFile($event.checked, file.id)"> <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</mat-checkbox> <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon>  <mat-icon (click)="deleteFile(file.id)">delete_forever</mat-icon></span>
+
+                    </mat-card>
+
+                    <br>
+                    <div *ngIf="files?.length > 0">
+                      <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
+                      <span><button  [disabled]="selectedFiles.length <= 0" mat-raised-button color="primary">Submit</button></span>
+                    </div>
+
+                  </mat-tab>
+
+
+                  <mat-tab label="Processed Files">
+
+
+
+                    <mat-card  *ngFor="let file of processedFiles">
+
+                      <!--<span class="badge">{{file.id}} </span> {{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>-->
+                      <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>
+                    </mat-card>
+
+                  </mat-tab>
+
+
+                  <!--<mat-tab label="Job History">-->
+
+                    <!--<mat-card>-->
+
+                      <!--<b>Job ID: </b> 00001 <b>Metadata: </b> lgr_exom_seq_06_26_2018.xlsx <b>Status:</b> Pending-->
+
+                    <!--</mat-card>-->
+
+                    <!--<mat-card>-->
+
+                      <!--<b>Job ID: </b> 00002 <b>Metadata: </b> lgr_exome_seq_10_12_2018.xlsx <b>Status:</b> Pending-->
+
+                    <!--</mat-card>-->
+
+                    <!--<mat-card>-->
+
+                      <!--<b>Job ID: </b> 00003 <b>Metadata: </b> lgr_exome_seq_12_26_2018.xlsx <b>Status:</b> Completed-->
+
+                    <!--</mat-card>-->
+
+
+                  <!--</mat-tab>-->
+                </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

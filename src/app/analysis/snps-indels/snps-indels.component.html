@@ -1,0 +1,103 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+      <!--<div class="example-container">-->
+
+        <!--<H3 class="primary-color">Mouse SNPs and Indels</H3>-->
+
+          <app-search-criteria-box searchType="variant" (selectedSearchCriteria)="onSearchCriteriaChange($event)"></app-search-criteria-box>
+
+
+          <!--<div class="example-container mat-elevation-z8">-->
+            <table #varTable mat-table [dataSource]="varDataSource">
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Gene </th>
+                <td mat-cell *matCellDef="let element"> {{element.gene.symbol}} </td>
+              </ng-container>
+
+              <!-- Chormosome Column -->
+              <ng-container matColumnDef="chr">
+                <th mat-header-cell *matHeaderCellDef> Chromosome </th>
+                <td mat-cell *matCellDef="let element"> {{element.chr}} </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="pos">
+                <th mat-header-cell *matHeaderCellDef> Position </th>
+                <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+              </ng-container>
+
+              <!-- External id Column -->
+              <ng-container matColumnDef="dbSNPId">
+                <th mat-header-cell *matHeaderCellDef> External ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.dbSNPId}} </td>
+              </ng-container>
+
+              <!-- Ref Allele Column -->
+              <ng-container matColumnDef="ref">
+                <th mat-header-cell *matHeaderCellDef> Ref Allele </th>
+                <td mat-cell *matCellDef="let element"> {{element.ref}} </td>
+              </ng-container>
+
+              <!-- Alt Allele Column -->
+              <ng-container matColumnDef="alt">
+                <th mat-header-cell *matHeaderCellDef> Alt Allele </th>
+                <td mat-cell *matCellDef="let element"> {{element.alt}} </td>
+              </ng-container>
+
+              <!-- Type Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+              </ng-container>
+
+              <!-- Filter Column -->
+              <ng-container matColumnDef="filter">
+                <th mat-header-cell *matHeaderCellDef> Filter </th>
+                <td mat-cell *matCellDef="let element"> {{element.filter}} </td>
+              </ng-container>
+
+              <!-- Filter Column -->
+              <ng-container matColumnDef="functionalClass">
+                <th mat-header-cell *matHeaderCellDef> Functional Class </th>
+                <td mat-cell *matCellDef="let element"> {{element.functionalClass}} </td>
+              </ng-container>
+
+              <!-- Filter Column -->
+              <ng-container matColumnDef="sampleId">
+                <th mat-header-cell *matHeaderCellDef> Sample Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.sample.sampleId}} </td>
+              </ng-container>
+
+              <!-- # samples with this variation -->
+              <ng-container matColumnDef="sampleCount">
+                <th mat-header-cell *matHeaderCellDef>Samples with this variant</th>
+                <td mat-cell *matCellDef="let element"> {{element.sampleCount}} </td>
+              </ng-container>
+
+
+              <!-- Mutant Candidate -->
+              <ng-container matColumnDef="candidate">
+                <th mat-header-cell *matHeaderCellDef>Candidate Mutation</th>
+                <td mat-cell *matCellDef="let element"> {{element.candidate}} </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator #varPaginator [length]="pageLength"
+                           [pageSize]="pageSize"
+                           [pageSizeOptions]="pageSizeOptions"
+                           (page)="doPageChange($event)">
+            </mat-paginator>
+        <!--</div>-->
+        </div>
+    </div>
+  </div>
+</div>
