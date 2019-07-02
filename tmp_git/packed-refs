@@ -1,9 +1,0 @@
-# pack-refs with: peeled fully-peeled 
-42889c02870ba402607aaf6feb2ec4bcd4bc2a29 refs/remotes/origin/2.2.1
-484fef426b08a551aeadf82dcf0a93720a50887f refs/remotes/origin/gh-pages
-5367f89189ee1e69184b6f83abc14682656e7683 refs/remotes/origin/herokuLinks
-78e2a5c6445f03eeb080817534e08b1598a61049 refs/remotes/origin/master
-22b2e086a965558336a09ac97377272245b5d91b refs/tags/v1.2.0
-41c4879c1c64f3840eb8e81d4b7695c5884bdfaf refs/tags/v1.4.0
-^e8dc6b432ecb6b2518650242d5687592595ae576
-e8dc6b432ecb6b2518650242d5687592595ae576 refs/tags/v1.4.0-beta
