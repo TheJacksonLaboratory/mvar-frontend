@@ -14,7 +14,7 @@ import {MatPaginator, MatTable} from "@angular/material";
 })
 export class SnpsIndelsComponent implements OnInit {
 
-  @ViewChild('varPaginator') varPaginator: MatPaginator;
+  @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
 
   //Table items
   displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'filter', 'functionalClass', 'dbSNPId', 'sampleCount', 'candidate', 'sampleId'];

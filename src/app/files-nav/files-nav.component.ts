@@ -5,6 +5,7 @@ import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
 import { UploadService } from './upload.service';
 import { FilesService} from './files.service';
 import { File} from '../models';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-files-nav',
@@ -15,7 +16,7 @@ export class FilesNavComponent implements OnInit {
 
   isThereFileChanges: boolean;
 
-  constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService) {
+  constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router) {
 
     this.uploadService.isThereFileChanges.subscribe( value => {
         this.isThereFileChanges = value;
@@ -26,7 +27,7 @@ export class FilesNavComponent implements OnInit {
       });
   }
 
-  files: File[];
+  files: File[] = [];
   vcfFiles: File[];
   processedFiles: File[];
   metadataFiles: File[];
@@ -108,4 +109,20 @@ export class FilesNavComponent implements OnInit {
     //console.log(this.selectedFiles)
   }
 
+  submitLoad(){
+    if (this.selectedFiles.length > 0) {
+        console.log("Files to load = " + this.selectedFiles)
+
+        this.fileService.loadVcfFiles(this.selectedFiles).subscribe(data => {
+          //do nothing
+        });
+        //this.getNewFiles();
+        this.redirectTo(this.router.url);
+    }
+  }
+
+  redirectTo(uri) {
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate([uri]));
+  }
 }

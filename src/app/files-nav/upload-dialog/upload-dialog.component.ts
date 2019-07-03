@@ -11,7 +11,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 })
 export class UploadDialogComponent implements OnInit {
 
-  @ViewChild('filesUploadBtn') filesUploadBtn;
+  @ViewChild('filesUploadBtn', {static: true}) filesUploadBtn;
   public files: Set<File> = new Set();
 
   progress;
