@@ -4,7 +4,7 @@
 
   <h1 mat-dialog-title>Upload Files</h1>
   <div>
-    <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary"  class="add-files-btn" (click)="addFiles()">
+    <button [disabled]="uploading || uploadSuccessful" mat-raised-button class="btn btn-danger pull-right"   (click)="addFiles()">
       Add Files
     </button>
   </div>
@@ -23,7 +23,7 @@
   <!-- This are the actions of the dialog, containing the primary and the cancel button-->
   <mat-dialog-actions class="actions">
     <button *ngIf="showCancelButton" mat-button mat-dialog-close>Cancel</button>
-    <button *ngIf="files.size > 0" mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()">{{primaryButtonText}}</button>
+    <button *ngIf="files.size > 0" mat-raised-button class="btn btn-danger" [disabled]="!canBeClosed" (click)="closeDialog()">{{primaryButtonText}}</button>
   </mat-dialog-actions>
 
 </div>

@@ -1,14 +1,4 @@
 
-<!--<div class="example-container">-->
-
-   <!--&lt;!&ndash;<app-upload-dialog></app-upload-dialog>&ndash;&gt;-->
-
-   <!--&lt;!&ndash;<button mat-raised-button color="primary" (click)="openUploadDialog()">Add Files</button>&ndash;&gt;-->
-
-  <!--<H3 class="primary-color">VCF File Feed Manager</H3>-->
-
-<!--</div>-->
-
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -18,19 +8,36 @@
                   <mat-tab label="New Files To be Submitted">
                     <br>
                     <div>
-                        <span><button mat-raised-button color="primary" (click)="openUploadDialog()">Upload Files</button></span>
+                        <span><button mat-raised-button class="btn btn-danger" (click)="openUploadDialog()">Upload Files</button></span>
                     </div>
-                    <br>
-                    <mat-card *ngFor="let file of files">
 
-                      <mat-checkbox (change)="selectFile($event.checked, file.id)"> <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</mat-checkbox> <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon>  <mat-icon (click)="deleteFile(file.id)">delete_forever</mat-icon></span>
+                    <div *ngIf="files.length > 0" class="card">
+                      <div class="card-body">
 
-                    </mat-card>
+                          <table class="table">
+                            <tbody>
+                            <tr *ngFor="let file of files">
+                              <td >
+                                  <mat-checkbox (change)="selectFile($event.checked, file.name)" value=""></mat-checkbox>
+                              </td>
+                              <td>
+                                  <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
+                              </td>
+                              <td>
+                                  <span style="float: right">
+                                    <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
+                                    <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
+                                  </span>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
 
-                    <br>
                     <div *ngIf="files?.length > 0">
                       <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
-                      <span><button  [disabled]="selectedFiles.length <= 0" mat-raised-button color="primary">Submit</button></span>
+                      <span><button  [disabled]="selectedFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitLoad()">Submit</button></span>
                     </div>
 
                   </mat-tab>
@@ -49,28 +56,6 @@
                   </mat-tab>
 
 
-                  <!--<mat-tab label="Job History">-->
-
-                    <!--<mat-card>-->
-
-                      <!--<b>Job ID: </b> 00001 <b>Metadata: </b> lgr_exom_seq_06_26_2018.xlsx <b>Status:</b> Pending-->
-
-                    <!--</mat-card>-->
-
-                    <!--<mat-card>-->
-
-                      <!--<b>Job ID: </b> 00002 <b>Metadata: </b> lgr_exome_seq_10_12_2018.xlsx <b>Status:</b> Pending-->
-
-                    <!--</mat-card>-->
-
-                    <!--<mat-card>-->
-
-                      <!--<b>Job ID: </b> 00003 <b>Metadata: </b> lgr_exome_seq_12_26_2018.xlsx <b>Status:</b> Completed-->
-
-                    <!--</mat-card>-->
-
-
-                  <!--</mat-tab>-->
                 </mat-tab-group>
       </div>
     </div>
