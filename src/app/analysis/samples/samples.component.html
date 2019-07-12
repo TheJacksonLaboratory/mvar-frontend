@@ -2,13 +2,185 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-          <p>
-            samples works!
-          </p>
+
+          <app-search-criteria-box searchType="sample" (selectedSearchCriteria)="onSearchCriteriaChange($event)"></app-search-criteria-box>
 
           <mat-tab-group>
               <mat-tab label="Mouse SNPs / INDELs">
-                  <div></div>
+
+                  <!--<div class="row">-->
+                      <!--&lt;!&ndash;<div class="col-lg-12 col-md-12">&ndash;&gt;-->
+                      <!--<div [ngClass]="panelStyle">-->
+                          <!--<div class="card">-->
+
+
+                                  <!--<table #sampleTable mat-table [dataSource]="dataSource">-->
+                                  <table mat-table class="table-hover" [dataSource]="dataSource" multiTemplateDataRows>
+                                      <!-- Sample Id Column -->
+                                      <ng-container matColumnDef="id">
+                                          <th mat-header-cell *matHeaderCellDef> Sample Id </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.sampleId}} </td>
+                                      </ng-container>
+
+                                      <!--&lt;!&ndash; Sample Name Column &ndash;&gt;-->
+                                      <!--<ng-container matColumnDef="chr">-->
+                                          <!--<th mat-header-cell *matHeaderCellDef> Sample Name </th>-->
+                                          <!--<td mat-cell *matCellDef="let element"> {{element.chr}} </td>-->
+                                      <!--</ng-container>-->
+
+                                      <!-- Study Name Column -->
+                                      <ng-container matColumnDef="study">
+                                          <th mat-header-cell *matHeaderCellDef> Study </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.study}} </td>
+                                      </ng-container>
+
+                                      <!-- Study Name Column -->
+                                      <ng-container matColumnDef="researcher">
+                                          <th mat-header-cell *matHeaderCellDef> Principal Investigator </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.researcher}} </td>
+                                      </ng-container>
+
+                                      <!-- JAX Strain Id Column -->
+                                      <ng-container matColumnDef="jaxStrainId">
+                                          <th mat-header-cell *matHeaderCellDef> JAX Strain Id </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.jaxStrainId}} </td>
+                                      </ng-container>
+
+                                      <!--&lt;!&ndash; External Allele Name Column &ndash;&gt;-->
+                                      <!--<ng-container matColumnDef="pos">-->
+                                          <!--<th mat-header-cell *matHeaderCellDef> External Allele Name </th>-->
+                                          <!--<td mat-cell *matCellDef="let element"> {{element.pos}} </td>-->
+                                      <!--</ng-container>-->
+
+                                      <!--&lt;!&ndash; External Allele Symbol Column &ndash;&gt;-->
+                                      <!--<ng-container matColumnDef="pos">-->
+                                          <!--<th mat-header-cell *matHeaderCellDef> External Allele Symbol </th>-->
+                                          <!--<td mat-cell *matCellDef="let element"> {{element.pos}} </td>-->
+                                      <!--</ng-container>-->
+
+
+                                      <!--&lt;!&ndash; Phenotype Status Column &ndash;&gt;-->
+                                      <!--<ng-container matColumnDef="pos">-->
+                                          <!--<th mat-header-cell *matHeaderCellDef> Phenotype Status </th>-->
+                                          <!--<td mat-cell *matCellDef="let element"> {{element.pos}} </td>-->
+                                      <!--</ng-container>-->
+
+                                      <!-- Inheritance Status Column -->
+                                      <ng-container matColumnDef="inheritance">
+                                          <th mat-header-cell *matHeaderCellDef> Inheritance </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.inheritance}} </td>
+                                      </ng-container>
+
+                                      <!-- Genotype Status Column -->
+                                      <ng-container matColumnDef="genotype">
+                                          <th mat-header-cell *matHeaderCellDef> Genotype </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.genotype}} </td>
+                                      </ng-container>
+
+                                      <!-- Chr linkage Status Column -->
+                                      <ng-container matColumnDef="chrLinkage">
+                                          <th mat-header-cell *matHeaderCellDef> Chr linkage </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.chrLinkage}} </td>
+                                      </ng-container>
+
+                                      <!-- Strain of Origin  Column -->
+                                      <ng-container matColumnDef="strainOfOrigin">
+                                          <th mat-header-cell *matHeaderCellDef> Strain of Origin </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.strainOfOrigin}} </td>
+                                      </ng-container>
+
+                                      <!--&lt;!&ndash; Strain Background Column &ndash;&gt;-->
+                                      <!--<ng-container matColumnDef="pos">-->
+                                          <!--<th mat-header-cell *matHeaderCellDef> Strain Background </th>-->
+                                          <!--<td mat-cell *matCellDef="let element"> {{element.pos}} </td>-->
+                                      <!--</ng-container>-->
+
+                                      <!-- Phenotypes Column -->
+                                      <ng-container matColumnDef="phenotypes">
+                                          <th mat-header-cell *matHeaderCellDef> Phenotypes </th>
+                                          <td mat-cell *matCellDef="let element"> {{element.phenotypes.length}} </td>
+                                      </ng-container>
+
+
+
+
+                                      <ng-container matColumnDef="expandedDetail">
+                                          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                                              <div class="example-element-detail"
+                                                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                                  <div>
+                                                      <span> </span>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                      </ng-container>
+
+
+                                      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                                          class="example-element-row"
+                                          [class.example-expanded-row]="expandedElement === element"
+                                          (click)="doSomething(element)">
+                                      </tr>
+                                      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                  </table>
+
+                                  <mat-paginator #paginator [length]="pageLength"
+                                                 [pageSize]="pageSize"
+                                                 [pageSizeOptions]="pageSizeOptions"
+                                                 (page)="doPageChange($event)">
+                                  </mat-paginator>
+
+                          <!--</div>-->
+                      <!--</div>-->
+
+
+                      <!--<div class="col-lg-6 col-md-12">-->
+                          <!--<div class="card">-->
+                                      <!--<div class="card-header card-header-warning">-->
+                                          <!--<h4 class="card-title">Employees Stats</h4>-->
+                                          <!--<p class="card-category">New employees on 15th September, 2016</p>-->
+                                      <!--</div>-->
+                                      <!--<div class="card-body table-responsive">-->
+                                          <!--<table class="table table-hover">-->
+                                              <!--<thead class="text-warning">-->
+                                              <!--<th>ID</th>-->
+                                              <!--<th>Name</th>-->
+                                              <!--<th>Salary</th>-->
+                                              <!--<th>Country</th>-->
+                                              <!--</thead>-->
+                                              <!--<tbody>-->
+                                              <!--<tr>-->
+                                                  <!--<td>1</td>-->
+                                                  <!--<td>Dakota Rice</td>-->
+                                                  <!--<td>$36,738</td>-->
+                                                  <!--<td>Niger</td>-->
+                                              <!--</tr>-->
+                                              <!--<tr>-->
+                                                  <!--<td>2</td>-->
+                                                  <!--<td>Minerva Hooper</td>-->
+                                                  <!--<td>$23,789</td>-->
+                                                  <!--<td>Curaçao</td>-->
+                                              <!--</tr>-->
+                                              <!--<tr>-->
+                                                  <!--<td>3</td>-->
+                                                  <!--<td>Sage Rodriguez</td>-->
+                                                  <!--<td>$56,142</td>-->
+                                                  <!--<td>Netherlands</td>-->
+                                              <!--</tr>-->
+                                              <!--<tr>-->
+                                                  <!--<td>4</td>-->
+                                                  <!--<td>Philip Chaney</td>-->
+                                                  <!--<td>$38,735</td>-->
+                                                  <!--<td>Korea, South</td>-->
+                                              <!--</tr>-->
+                                              <!--</tbody>-->
+                                          <!--</table>-->
+                                      <!--</div>-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
               </mat-tab>
 
 

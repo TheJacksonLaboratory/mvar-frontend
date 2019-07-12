@@ -17,6 +17,14 @@ export class Gene {
   }
 }
 
+export class Phenotype {
+
+  id: number;
+  mpTermIdentifier;
+  mpTermName;
+  mpTermDescription;
+}
+
 export class  Sample {
   id: number;
   sampleId: string;
@@ -31,6 +39,8 @@ export class  Sample {
   fileName: string;
   phenotypeStatus; string;
   platform: string;
+  strainOfOrigin: string;
+  phenotypes: Phenotype[];
   // genomeBuild
 
   constructor() { }
