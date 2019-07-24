@@ -2,8 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-
-          <app-search-criteria-box searchType="sample" (selectedSearchCriteria)="onSearchCriteriaChange($event)"></app-search-criteria-box>
+          <div class="row">
+              <div class="col-md-8">
+                  <span><app-search-criteria-box searchType="sample" (selectedSearchCriteria)="onSearchCriteriaChange($event)"></app-search-criteria-box></span>
+              </div>
+              <div class="col-md-4">
+                  <span><button mat-raised-button class="btn btn-danger pull-right" (click)="openUploadDialog()">Upload Sample Metadata</button></span>
+              </div>
+          </div>
 
           <mat-tab-group>
               <mat-tab label="Mouse SNPs / INDELs">

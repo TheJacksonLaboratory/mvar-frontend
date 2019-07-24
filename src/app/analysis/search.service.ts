@@ -58,25 +58,26 @@ export class SearchService {
     console.log('selected items');
     console.log(paramsIn.selectedItems);
 
-    paramsIn.selectedItems.forEach(item =>{
-      if (item.selectedType === 'gene'){
-         genes.push(item.selectedValue.symbol);
-      }
+    if (paramsIn.selectedItems) {
+        paramsIn.selectedItems.forEach(item => {
+            if (item.selectedType === 'gene') {
+                genes.push(item.selectedValue.symbol);
+            }
 
-      if (item.selectedType === 'strain'){
-        strains.push(item.selectedValue.name);
-      }
+            if (item.selectedType === 'strain') {
+                strains.push(item.selectedValue.name);
+            }
 
-      if (item.selectedType === 'phenotype'){
-        phenotypes.push(item.selectedValue.mpTermName);
-      }
+            if (item.selectedType === 'phenotype') {
+                phenotypes.push(item.selectedValue.mpTermName);
+            }
 
-      if (item.selectedType === 'sample'){
-        samples.push(item.selectedValue.sampleId);
-      }
+            if (item.selectedType === 'sample') {
+                samples.push(item.selectedValue.sampleId);
+            }
 
-    });
-
+        });
+    }
     return this.http.get(variantQueryUrl, {params:
                           {gene: genes,
                                 strain:strains,

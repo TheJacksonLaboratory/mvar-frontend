@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UploadService } from '../upload.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-upload-dialog',
@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 export class UploadDialogComponent implements OnInit {
 
   @ViewChild('filesUploadBtn', {static: true}) filesUploadBtn;
+
   public files: Set<File> = new Set();
 
   progress;
@@ -20,13 +21,24 @@ export class UploadDialogComponent implements OnInit {
   showCancelButton = true;
   uploading = false;
   uploadSuccessful = false;
+  fileType = '';
+  titleText = '';
+  allProgressErrors;
+  allProgressInfo;
 
-  constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService) { }
+  constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.fileType = this.data.fileType;
+    this.titleText = this.data.titleText;
+  }
 
   ngOnInit() {
   }
 
   addFiles() {
+    if (this.fileType === 'vcf') {
+        this.filesUploadBtn.nativeElement.multiple = true;
+    }
     this.filesUploadBtn.nativeElement.click();
   }
 
@@ -50,10 +62,12 @@ export class UploadDialogComponent implements OnInit {
     this.uploading = true;
 
     // start the upload and save the progress map
-    this.progress = this.uploadService.upload(this.files);
+    this.progress = this.uploadService.upload(this.files, this.fileType);
 
     // convert the progress map into an array
-    let allProgressObservables = [];
+    const allProgressObservables = [];
+    this.allProgressErrors = [];
+    this.allProgressInfo = [];
     for (let key in this.progress) {
       allProgressObservables.push(this.progress[key].progress);
     }
@@ -70,8 +84,28 @@ export class UploadDialogComponent implements OnInit {
     // Hide the cancel-button
     this.showCancelButton = false;
 
+
     // When all progress-observables are completed...
     forkJoin(allProgressObservables).subscribe(end => {
+
+      console.log("fork end")
+      console.log(end);
+
+      end.forEach(value =>{
+        if (value.data) {
+
+          if (value.data.errors) {
+              value.data.errors.forEach(error => {
+                  this.allProgressErrors.push(error);
+              });
+          }
+
+          if (value.data.message){
+              this.allProgressInfo.push(value.data.message);
+          }
+        }
+      });
+
       // ... the dialog can be closed again...
       this.canBeClosed = true;
       this.dialogRef.disableClose = false;
@@ -79,12 +113,36 @@ export class UploadDialogComponent implements OnInit {
       // ... the upload was successful...
       this.uploadSuccessful = true;
 
-      // //emit file changes event
-      this.uploadService.isThereFileChanges.next(true);
+      if (this.fileType === 'vcf') {
+          // //emit file changes event
+          this.uploadService.isThereFileChanges.next(true);
+      }
+
+      if (this.fileType === 'sample'){
+          // //emit sample changes event
+          this.uploadService.isThereSampleChanges.next(true);
+      }
 
       // ... and the component is no longer uploading
       this.uploading = false;
+
+      console.log('allProgressErrors')
+      console.log(this.allProgressErrors)
+    }, error => {
+        this.allProgressErrors.push(error.error);
+
+        console.log('allProgressErrors')
+        console.log(this.allProgressErrors)
+
+        this.canBeClosed = true;
+        this.uploadSuccessful = true;
+    }, completed => {
+
     });
+
+
   }
+
+
 
 }

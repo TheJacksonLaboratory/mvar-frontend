@@ -33,6 +33,9 @@ export class SnpsIndelsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+      const params: any = {};
+      this._queryVariants(params)
   }
 
 
