@@ -11,6 +11,7 @@ const strainUrl = environment.MMRDB_API_STRAIN_URL;
 const phenotypeUrl = environment.MMRDB_API_PHENOTYPE_URL;
 const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
 const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
+const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,53 @@ export class SearchService {
                                 sample:samples,
                                 max: max,
                                 offset:offset}});
+  }
+
+  public getSamples(paramsIn: any): Observable<any> {
+
+      const strains: string[] = [];
+      const phenotypes: string[] = [];
+      const samples: string[] = [];
+      let studies: string[] = [];
+
+      let max = '';
+      let offset = '';
+
+      if (paramsIn.max){
+          max = paramsIn.max;
+      }
+      if (paramsIn.offset) {
+          offset = paramsIn.offset;
+      }
+
+      if (paramsIn.selectedItems){
+        paramsIn.selectedItems.forEach(item => {
+
+            if (item.selectedType === 'strain') {
+                strains.push(item.selectedValue.name);
+            }
+
+            if (item.selectedType === 'phenotype') {
+                phenotypes.push(item.selectedValue.mpTermName);
+            }
+
+            if (item.selectedType === 'sample') {
+                samples.push(item.selectedValue.sampleId);
+            }
+        });
+      }
+
+      if (paramsIn.studies){
+          studies = paramsIn.studies
+      }
+      return this.http.get(sampleQueryUrl, {params:
+              {
+              strain: strains,
+              phenotype: phenotypes,
+              sample: samples,
+              study: studies,
+              max: max,
+              offset: offset}});
   }
 
 }
