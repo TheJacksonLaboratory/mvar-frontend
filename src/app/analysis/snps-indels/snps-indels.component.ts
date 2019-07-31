@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import {Gene, Variant} from '../../models';
 import {SearchService} from '../search.service';
 import {PageEvent} from '@angular/material/paginator';
 import {MatPaginator, MatTable} from "@angular/material";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-snps-indels',
@@ -27,15 +28,30 @@ export class SnpsIndelsComponent implements OnInit {
   pageSizeOptions: number[] = [10, 50, 100, 500];
 
   //searchparams
-  currSearchParams: any;
+  currSearchParams: any = {}
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
 
       const params: any = {};
-      this._queryVariants(params)
+
+      this.route.paramMap.subscribe(paramsIn => {
+          console.log(paramsIn.get('sample'));
+
+          const sample = paramsIn.get('sample');
+          if (sample) {
+
+              this.currSearchParams.selectedItems = [{
+                  selectedType: 'sample',
+                  selectedValue: {sampleId: sample},
+                  displayedValue: paramsIn.get('sample')
+              }];
+          }
+      });
+
+      this._queryVariants(this.currSearchParams);
   }
 
 
@@ -43,17 +59,16 @@ export class SnpsIndelsComponent implements OnInit {
 
     const params: any = {};
 
-    if (searchCriteria.searchCriteriaList.length > 0) {
-      params.selectedItems = searchCriteria.searchCriteriaList;
-      this._queryVariants(params);
-    }else{
-      this.varDataSource = [];
+    if (searchCriteria.selectedItems.length > 0) {
+        this.currSearchParams.selectedItems = searchCriteria.selectedItems;
     }
+
+    this._queryVariants(this.currSearchParams);
 
   }
 
   private _queryVariants(params: any) {
-    this.currSearchParams = params
+
     this.searchService.queryVariant(params).subscribe(data => {
 
       let temp = data.variants as Variant[];

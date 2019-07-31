@@ -113,6 +113,9 @@ export class NavbarComponent implements OnInit {
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
+          if (titlee.indexOf(';') !== -1){
+              titlee = titlee.substring(0, titlee.indexOf(';'))
+          }
       }
 
       for(var item = 0; item < this.listTitles.length; item++){

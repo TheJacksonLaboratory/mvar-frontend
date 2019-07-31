@@ -13,37 +13,37 @@ export class SearchCriteriaBoxComponent implements OnInit {
     searchType: string;
 
   @Output()
-    selectedSearchCriteria = new EventEmitter<any>();
-
-  searchCriteriaItems: any[] = [];
+  searchCriteriaChange  = new EventEmitter<any>();
 
   selectable = true;
   removable = true;
-
-  @Input()
-  selectedSearchTerms: any[] = [];
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  @Input()
+  searchCriteria: any;
+
   remove(selected: any){
 
-    const indx = this.searchCriteriaItems.indexOf(selected)
+    const indx = this.searchCriteria.selectedItems.indexOf(selected)
     if (indx > -1){
-      this.searchCriteriaItems.splice(indx, 1)
+        this.searchCriteria.selectedItems.splice(indx, 1)
     }
-    this.selectedSearchCriteria.emit({searchCriteriaList: this.searchCriteriaItems});
+    this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
   public onSelectedItem(selected: any) {
     console.log('on selected')
     console.log(selected);
 
-    this.searchCriteriaItems.push(selected);
-
-    this.selectedSearchCriteria.emit({searchCriteriaList: this.searchCriteriaItems});
+    if (! this.searchCriteria.selectedItems) {
+        this.searchCriteria.selectedItems = []
+    }
+    this.searchCriteria.selectedItems.push(selected);
+    this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
 }

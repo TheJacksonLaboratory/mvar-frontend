@@ -7,7 +7,7 @@
 
         <!--<H3 class="primary-color">Mouse SNPs and Indels</H3>-->
 
-          <app-search-criteria-box searchType="variant" (selectedSearchCriteria)="onSearchCriteriaChange($event)"></app-search-criteria-box>
+          <app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>
 
 
           <!--<div class="example-container mat-elevation-z8">-->

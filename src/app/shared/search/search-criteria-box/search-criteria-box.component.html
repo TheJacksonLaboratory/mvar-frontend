@@ -1,11 +1,11 @@
 <div id="criteria-box" >
 <app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
 
-<mat-card *ngIf="searchCriteriaItems.length > 0">
+<mat-card *ngIf="searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0">
 
   <mat-chip-list #chipList aria-label="Search criteria selection">
     <mat-chip
-      *ngFor="let searchTerm of searchCriteriaItems"
+      *ngFor="let searchTerm of searchCriteria.selectedItems"
       [selectable]="selectable"
       [removable]="removable"
       (removed)="remove(searchTerm)">
