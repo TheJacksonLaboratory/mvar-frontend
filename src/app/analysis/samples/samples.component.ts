@@ -4,7 +4,9 @@ import {SearchService} from '../search.service';
 import {PageEvent} from '@angular/material/paginator';
 import {MatPaginator, MatTable} from "@angular/material";
 import {animate, state, style, transition, trigger} from '@angular/animations';
-
+import { MatDialog } from '@angular/material';
+import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
+import { UploadService } from '../../files-nav/upload.service';
 
 @Component({
   selector: 'app-samples',
@@ -39,7 +41,7 @@ export class SamplesComponent implements OnInit {
     panelStyle: string = 'col-lg-12 col-md-12';
     expandedElement: Sample | null;
 
-    constructor(private searchService: SearchService) {
+    constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService) {
     }
 
   ngOnInit() {
@@ -47,6 +49,12 @@ export class SamplesComponent implements OnInit {
       const params: any = {};
       params.studies = ['mmr', 'mmr_sv']
       this._getSamples(params)
+
+      this.uploadService.isThereSampleChanges.subscribe( value => {
+          if (value) {
+              this._getSamples(params);
+          }
+      });
   }
 
 
@@ -109,5 +117,11 @@ export class SamplesComponent implements OnInit {
         console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element
+    }
+
+
+    public openUploadDialog() {
+        const dialogRef: UploadDialogComponent = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
+
     }
 }

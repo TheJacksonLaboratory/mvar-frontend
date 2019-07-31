@@ -20,3 +20,17 @@
   position: relative;
   height: 100%;
 }
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+#error-message .mat-list .mat-list-item .mat-line{
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/*::ng-deep .mat-list .mat-list-item .mat-line{*/
+  /*word-wrap: break-word;*/
+  /*white-space: pre-wrap;*/
+/*}*/
