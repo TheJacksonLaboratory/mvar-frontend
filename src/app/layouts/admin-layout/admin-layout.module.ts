@@ -8,6 +8,7 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
 import { StructuralVarComponent } from '../../analysis/structural-var/structural-var.component';
@@ -68,6 +69,7 @@ import {
       MatDialogModule,
       MatCheckboxModule,
       MatChipsModule,
+      MatExpansionModule
   ],
   declarations: [
     DashboardComponent,

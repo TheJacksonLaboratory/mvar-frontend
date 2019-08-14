@@ -35,6 +35,7 @@ export class SearchBoxComponent implements OnInit {
 
   placeHolderTxt = '';
 
+
   constructor(private searchService: SearchService) {
     console.log('contructor searchBox, type = ' + this.searchType);
   }

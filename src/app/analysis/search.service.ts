@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable, ɵregisterNgModuleType} from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import {File} from '../models';
 import {forEachComment} from "tslint";
 import { environment } from '../../environments/environment';
+import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
 
 const geneUrl = environment.MMRDB_API_GENE_URL;
 const strainUrl = environment.MMRDB_API_STRAIN_URL;
@@ -46,12 +47,28 @@ export class SearchService {
     const samples: string[] = [];
     let max = '';
     let offset = '';
+    let rareVar = '';
+    let candidateVar = '';
+    let confirmedVar = '';
 
     if (paramsIn.max){
       max = paramsIn.max;
     }
     if (paramsIn.offset) {
       offset = paramsIn.offset;
+    }
+
+
+    if (paramsIn.rareVar){
+        rareVar = paramsIn.rareVar
+    }
+
+    if (paramsIn.candidateVar){
+        candidateVar = paramsIn.candidateVar;
+    }
+
+    if (paramsIn.confirmedVar){
+        confirmedVar = paramsIn.confirmedVar;
     }
 
     console.log('max = ' + paramsIn.max);
@@ -83,6 +100,9 @@ export class SearchService {
                                 strain:strains,
                                 phenotype:phenotypes,
                                 sample:samples,
+                                rareVar: rareVar,
+                                mutantVar: candidateVar,
+                                confirmedVar: confirmedVar,
                                 max: max,
                                 offset:offset}});
   }

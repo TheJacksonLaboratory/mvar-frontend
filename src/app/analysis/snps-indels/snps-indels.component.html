@@ -61,10 +61,28 @@
                 <td mat-cell *matCellDef="let element"> {{element.filter}} </td>
               </ng-container>
 
+              <!-- Impact Column -->
+              <ng-container matColumnDef="impact">
+                <th mat-header-cell *matHeaderCellDef> Impact </th>
+                <td mat-cell *matCellDef="let element"> {{element.impact}} </td>
+              </ng-container>
+
               <!-- Filter Column -->
               <ng-container matColumnDef="functionalClass">
                 <th mat-header-cell *matHeaderCellDef> Functional Class </th>
                 <td mat-cell *matCellDef="let element"> {{element.functionalClass}} </td>
+              </ng-container>
+
+              <!-- Filter Column -->
+              <ng-container matColumnDef="varFreq">
+                <th mat-header-cell *matHeaderCellDef> Variant Frequency % </th>
+                <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} </td>
+              </ng-container>
+
+              <!-- Filter Column -->
+              <ng-container matColumnDef="mutantCandidate">
+                <th mat-header-cell *matHeaderCellDef> Mutant Candidate </th>
+                <td mat-cell *matCellDef="let element"> {{element.mutantCandidate}} </td>
               </ng-container>
 
               <!-- Filter Column -->
@@ -74,10 +92,10 @@
               </ng-container>
 
               <!-- # samples with this variation -->
-              <ng-container matColumnDef="sampleCount">
-                <th mat-header-cell *matHeaderCellDef>Samples with this variant</th>
-                <td mat-cell *matCellDef="let element"> {{element.sampleCount}} </td>
-              </ng-container>
+              <!--<ng-container matColumnDef="sampleCount">-->
+                <!--<th mat-header-cell *matHeaderCellDef>Samples</th>-->
+                <!--<td mat-cell *matCellDef="let element"> {{element.sampleCount}} </td>-->
+              <!--</ng-container>-->
 
 
               <!-- Mutant Candidate -->
