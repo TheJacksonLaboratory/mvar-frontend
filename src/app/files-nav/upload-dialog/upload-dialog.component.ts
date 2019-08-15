@@ -86,22 +86,22 @@ export class UploadDialogComponent implements OnInit {
 
 
     // When all progress-observables are completed...
-    forkJoin(allProgressObservables).subscribe(end => {
+    forkJoin(allProgressObservables).subscribe((end: any) =>{
 
       console.log("fork end")
-      console.log(end);
+      //console.log(end);
 
-      end.forEach(value =>{
-        if (value.data) {
+      end.forEach((res: any) => {
+        if (res.data) {
 
-          if (value.data.errors) {
-              value.data.errors.forEach(error => {
+          if (res.data.errors) {
+              res.data.errors.forEach(error => {
                   this.allProgressErrors.push(error);
               });
           }
 
-          if (value.data.message){
-              this.allProgressInfo.push(value.data.message);
+          if (res.data.message){
+              this.allProgressInfo.push(res.data.message);
           }
         }
       });
@@ -136,11 +136,9 @@ export class UploadDialogComponent implements OnInit {
 
         this.canBeClosed = true;
         this.uploadSuccessful = true;
-    }, completed => {
-
-    });
-
-
+    },
+        () => console.log('end')
+    );
   }
 
 

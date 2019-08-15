@@ -1,0 +1,88 @@
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <!--<div class="card-header card-header-danger">-->
+            <!--<h4 class="card-title">Sample ID: {{sample.sampleId}}</h4>-->
+          <!--</div>-->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <b>Sample ID:</b> {{sample.sampleId}}
+              </div>
+              <div class="col-md-4">
+                <b>Study:</b> {{sample.study}}
+              </div>
+              <div class="col-md-4">
+                <b>Principal Investigator:</b> {{sample.researcher}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <b>Strain of Origin:</b> {{sample.strainOfOrigin}}
+              </div>
+              <div class="col-md-4">
+                <b>Inheritance:</b> {{sample.inheritance}}
+              </div>
+              <div class="col-md-4">
+                <b>Genotype: </b> {{sample.genotype}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <b>Phenotype Status:</b> {{sample.phenotypeStatus}}
+              </div>
+              <div class="col-md-4">
+                <b>Chromosome Linkage:</b> {{sample.chrLinkage}}
+              </div>
+              <div class="col-md-4">
+                <b>Patform:</b> {{sample.platform}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">Variations</a>
+              </div>
+              <div class="col-md-4">
+                <b>Rare variations</b> 454
+              </div>
+              <div class="col-md-4">
+                <b>Confirmed mutations</b> 24
+              </div>
+            </div>
+
+
+            <mat-tab-group>
+              <mat-tab label="Phenotypes">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                      <table style="width: 100%" class="table" mat-table class="table-hover" [dataSource]="phenotypeDataSource">
+                        <!-- Sample Id Column -->
+                        <ng-container matColumnDef="mpTermIdentifier">
+                          <th mat-header-cell *matHeaderCellDef> Identifier </th>
+                          <td mat-cell *matCellDef="let element"> {{element.mpTermIdentifier}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="mpTermName">
+                          <th mat-header-cell *matHeaderCellDef> Term Name</th>
+                          <td mat-cell *matCellDef="let element"> {{element.mpTermName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="samples">
+                          <th mat-header-cell *matHeaderCellDef> Samples </th>
+                          <td mat-cell *matCellDef="let element"> {{element.samples.length}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Notes">
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

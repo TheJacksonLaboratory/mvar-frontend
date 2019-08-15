@@ -36,12 +36,21 @@ export class SamplesComponent implements OnInit {
     pageSizeOptions: number[] = [10, 50, 100, 500];
 
     //searchparams
-    currSearchParams: any;
+    currSearchParams: any = {};
 
     panelStyle: string = 'col-lg-12 col-md-12';
     expandedElement: Sample | null;
 
     constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService) {
+
+        const params: any = {};
+        params.studies = ['mmr', 'mmr_sv']
+
+        this.uploadService.isThereSampleChanges.subscribe( value => {
+            if (value) {
+                this._getSamples(params);
+            }
+        });
     }
 
   ngOnInit() {
@@ -49,12 +58,6 @@ export class SamplesComponent implements OnInit {
       const params: any = {};
       params.studies = ['mmr', 'mmr_sv']
       this._getSamples(params)
-
-      this.uploadService.isThereSampleChanges.subscribe( value => {
-          if (value) {
-              this._getSamples(params);
-          }
-      });
   }
 
 
@@ -62,18 +65,16 @@ export class SamplesComponent implements OnInit {
 
         const params: any = {};
 
-        if (searchCriteria.searchCriteriaList.length > 0) {
-            params.selectedItems = searchCriteria.searchCriteriaList;
-            this._getSamples(params);
-        }else{
-            this._getSamples({})
+        if (searchCriteria.selecteItems && searchCriteria.selecteItems.length > 0) {
+            this.currSearchParams.selectedItems = searchCriteria.selecteItems;
         }
 
+        this._getSamples(this.currSearchParams);
     }
 
 
     private _getSamples(params: any) {
-      this.currSearchParams = params
+      // this.currSearchParams = params
       this.searchService.getSamples(params).subscribe(data => {
 
           let temp = data.samples as Sample[];
@@ -121,7 +122,7 @@ export class SamplesComponent implements OnInit {
 
 
     public openUploadDialog() {
-        const dialogRef: UploadDialogComponent = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
+        const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
 
     }
 }

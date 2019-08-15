@@ -57,6 +57,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'snpsIndels',     component: SnpsIndelsComponent },
+    { path: 'snpsIndels/:sample',     component: SnpsIndelsComponent},
     { path: 'structuralVar',     component: StructuralVarComponent },
     { path: 'filesNav', component: FilesNavComponent },
     { path: 'samples', component: SamplesComponent},

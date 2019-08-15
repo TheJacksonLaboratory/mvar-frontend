@@ -24,6 +24,8 @@ import { FilesService} from '../../files-nav/files.service';
 import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
+import { SampleDetailsComponent } from '../../analysis/samples/sample-details/sample-details.component';
+
 
 import {
   MatButtonModule,
@@ -79,7 +81,8 @@ import {
       UploadDialogComponent,
       SamplesComponent,
       AboutUsComponent,
-      AnalysisComponent
+      AnalysisComponent,
+      SampleDetailsComponent
   ],
   providers: [FilesService, UploadService, SearchService, {provide: MatDialogRef, useValue: {}}],
   entryComponents: [UploadDialogComponent],

@@ -24,7 +24,7 @@ export class UploadService {
   constructor(private http: HttpClient) { }
 
   public upload(files: Set<File>, fileType:string):
-  { [key: string]: { progress: Observable<number> } } {
+  { [key: string]: { progress: Observable<any> } } {
 
     this.setCall(fileType)
     // this will be the our resulting map
@@ -66,9 +66,14 @@ export class UploadService {
           progress.complete();
         }
 
-        console.log(event.status)
-          console.log(event.type);
-      }, error => {progress.error(error)} , complete => {});
+        // console.log(event.status)
+        //   console.log(event.type);
+      }, error => {
+        progress.error(error)
+      },
+          () =>{
+            console.log('end');
+        });
 
       // Save every progress-observable in a map of all observables
       status[file.name] = {
@@ -97,4 +102,5 @@ export class UploadService {
       this.paramName = 'vcfFile';
     }
   }
+
 }
