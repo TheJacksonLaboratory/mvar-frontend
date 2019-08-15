@@ -50,6 +50,10 @@ export class SearchService {
     let rareVar = '';
     let candidateVar = '';
     let confirmedVar = '';
+    let varTypes = [];
+    let varFuncClasses = [];
+    let varImpacts = [];
+    let lowQuality = false;
 
     if (paramsIn.max){
       max = paramsIn.max;
@@ -70,6 +74,15 @@ export class SearchService {
     if (paramsIn.confirmedVar){
         confirmedVar = paramsIn.confirmedVar;
     }
+
+    // if (paramsIn.varType){
+    //     varTypes = paramsIn.varType;
+    // }
+    //
+    // if (paramsIn.varFuncClass){
+    //     varFuncClasses = paramsIn.varFuncClass;
+    // }
+
 
     console.log('max = ' + paramsIn.max);
     console.log('selected items');
@@ -103,6 +116,11 @@ export class SearchService {
                                 rareVar: rareVar,
                                 mutantVar: candidateVar,
                                 confirmedVar: confirmedVar,
+                                type: paramsIn.varType ? paramsIn.varType : [],
+                                funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
+                                impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+                                lowQual: paramsIn.lowQual ? paramsIn.lowQual : '',
+                                withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
                                 max: max,
                                 offset:offset}});
   }

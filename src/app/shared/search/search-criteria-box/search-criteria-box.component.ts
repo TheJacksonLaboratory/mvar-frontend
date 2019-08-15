@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-
 @Component({
   selector: 'app-search-criteria-box',
   templateUrl: './search-criteria-box.component.html',
@@ -24,6 +23,7 @@ export class SearchCriteriaBoxComponent implements OnInit {
   mutantCandidatesCheck = false;
   confirmedMutationsCheck = false;
   varLowQual = false;
+  withoutExternalId = false;
 
   varTypeSNP = false;
   varTypeINS = false;
@@ -39,6 +39,8 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varImpactMODERATE = false;
   varImpactLOW = false;
   varImpactMODIFIER = false;
+
+
 
   constructor() { }
 
@@ -70,9 +72,10 @@ export class SearchCriteriaBoxComponent implements OnInit {
     this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
-  onSearchCriteriaChange(criteriaType: string, selected: boolean, value:any){
+  onSearchCriteriaChange(criteriaType: string, selected: boolean, value: any){
 
     console.log('changed criteria');
+      console.log(criteriaType + ' , ' + selected + ' , ' + value);
     if (! this.searchCriteria.selectedItems) {
         this.searchCriteria.selectedItems = []
     }
@@ -83,15 +86,15 @@ export class SearchCriteriaBoxComponent implements OnInit {
 
     //set variation type to search criteria
     if (criteriaType === 'varType') {
-        if (!this.searchCriteria.varTypes){
-            this.searchCriteria.varTypes = []
+        if (! this.searchCriteria.varType){
+            this.searchCriteria.varType = []
         }
 
-        const indx = this.searchCriteria.varTypes.indexOf(value);
+        const indx = this.searchCriteria.varType.indexOf(value);
         if (selected && indx === -1) {
-            this.searchCriteria.varTypes.push(value)
+            this.searchCriteria.varType.push(value)
         } else if (! selected && indx > -1) {
-            this.searchCriteria.varTypes.split(indx, 1)
+            this.searchCriteria.varType.splice(indx, 1)
         }
     }
 
@@ -103,29 +106,33 @@ export class SearchCriteriaBoxComponent implements OnInit {
 
         const indx = this.searchCriteria.varImpact.indexOf(value);
         if (selected && indx === -1) {
-            this.searchCriteria.varImpact.push(value)
+            this.searchCriteria.varImpact.push(value);
         } else if (! selected && indx > -1) {
-            this.searchCriteria.varImpact.split(indx, 1)
+            this.searchCriteria.varImpact.splice(indx, 1);
         }
     }
 
     //set functional class to search criteria
     if (criteriaType === 'varFuncClass') {
-        if (!this.searchCriteria.varFuncClass){
+        if (!this.searchCriteria.varFuncClass) {
             this.searchCriteria.varFuncClass = []
         }
 
         const indx = this.searchCriteria.varFuncClass.indexOf(value);
         if (selected && indx === -1) {
-            this.searchCriteria.varFuncClass.push(value)
+            this.searchCriteria.varFuncClass.push(value);
         } else if (! selected && indx > -1) {
-            this.searchCriteria.varFuncClass.split(indx, 1)
+            this.searchCriteria.varFuncClass.splice(indx, 1);
         }
     }
 
     //set low quality flag
     this.searchCriteria.lowQual = this.varLowQual;
 
+    //set external id
+    this.searchCriteria.withoutExternalId = this.withoutExternalId;
+
+    //emit change
     this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
