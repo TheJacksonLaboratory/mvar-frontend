@@ -16,6 +16,18 @@ export class FilesNavComponent implements OnInit {
 
   isThereFileChanges: boolean;
 
+  files: File[] = [];
+  snpVcfFiles: File[];
+  svVcfFiles: File[];
+  processedFiles: File[];
+  pendingFiles: File[];
+  metadataFiles: File[];
+
+  selectedSNPFiles: string[] = [];
+  selectedSVFiles: string[] = [];
+  selectedTab = 0;
+
+
   constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router) {
 
     this.uploadService.isThereFileChanges.subscribe( value => {
@@ -26,13 +38,6 @@ export class FilesNavComponent implements OnInit {
 
       });
   }
-
-  files: File[] = [];
-  vcfFiles: File[];
-  processedFiles: File[];
-  metadataFiles: File[];
-
-  selectedFiles: string[] = [];
 
   ngOnInit() {
 
@@ -50,6 +55,7 @@ export class FilesNavComponent implements OnInit {
 
       this.files = data.uploadedFiles;
       this.getProcessedFiles();
+      this.getPendingdFiles();
       this.getVcfFiles();
       this.getMetadataFiles();
     });
@@ -67,9 +73,20 @@ export class FilesNavComponent implements OnInit {
     console.log('getting all files');
   }
 
+  getPendingdFiles(): void {
+
+      this.fileService.getPendingFiles().subscribe(data => {
+
+          this.pendingFiles = data.uploadedFiles;
+      });
+
+      console.log('getting all files');
+  }
+
   getVcfFiles() {
 
-    this.vcfFiles = this.files.filter(file => file.extension === 'vcf');
+    this.snpVcfFiles = this.files.filter(file => file.extension === 'vcf' && file.varType === 'SNP&INDEL');
+    this.svVcfFiles = this.files.filter(file => file.extension === 'vcf' && file.varType === 'SV');
   }
 
   getMetadataFiles() {
@@ -91,38 +108,88 @@ export class FilesNavComponent implements OnInit {
 
   }
 
-  selectFile(checked: boolean, id: string) {
+  selectSNPFile(checked: boolean, id: string) {
 
-    const indx = this.selectedFiles.indexOf(id);
+    const indx = this.selectedSNPFiles.indexOf(id);
     console.log(indx);
     //
     if (checked) {
       if (indx == -1) {
-        this.selectedFiles.push(id);
+        this.selectedSNPFiles.push(id);
       }
     } else {
 
       if (indx != -1) {
-        this.selectedFiles.splice(indx, 1);
+        this.selectedSNPFiles.splice(indx, 1);
       }
     }
-    //console.log(this.selectedFiles)
+    //console.log(this.selectedSNPFiles)
   }
 
-  submitLoad(){
-    if (this.selectedFiles.length > 0) {
-        console.log("Files to load = " + this.selectedFiles)
+  selectSVFile(checked: boolean, id: string) {
 
-        this.fileService.loadVcfFiles(this.selectedFiles).subscribe(data => {
+        const indx = this.selectedSVFiles.indexOf(id);
+        console.log(indx);
+        //
+        if (checked) {
+            if (indx == -1) {
+                this.selectedSVFiles.push(id);
+            }
+        } else {
+
+            if (indx != -1) {
+                this.selectedSVFiles.splice(indx, 1);
+            }
+        }
+        //console.log(this.selectedSNPFiles)
+    }
+
+  submitSNPLoad(){
+    if (this.selectedSNPFiles.length > 0) {
+        console.log("Files to load = " + this.selectedSNPFiles)
+
+        this.fileService.loadVcfFiles(this.selectedSNPFiles, 'SNP&INDEL').subscribe(data => {
           //do nothing
+            this.selectedTab = 2;
+            this.getNewFiles();
         });
-        //this.getNewFiles();
-        this.redirectTo(this.router.url);
+
+        //reload this component
+        //this.redirectTo(this.router.url);
+        this.selectedTab = 1;
+        this.delay(2000).then(any=>{
+            //task after delay.
+            this.getNewFiles();
+        });
     }
   }
+
+    submitSVLoad(){
+        if (this.selectedSVFiles.length > 0) {
+            console.log("Files to load = " + this.selectedSNPFiles)
+
+            this.fileService.loadVcfFiles(this.selectedSVFiles, 'SV').subscribe(data => {
+                //do nothing
+                this.selectedTab = 2;
+                this.getNewFiles();
+            });
+
+            //reload this component
+            //this.redirectTo(this.router.url);
+            this.selectedTab = 1;
+            this.delay(2000).then(any=>{
+                //task after delay.
+                this.getNewFiles();
+            });
+        }
+    }
 
   redirectTo(uri) {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       this.router.navigate([uri]));
+  }
+
+  async delay(ms: number) {
+      await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }
 }
