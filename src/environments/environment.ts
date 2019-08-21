@@ -5,6 +5,7 @@ const  MMRDB_API_BASE_URL = 'http://localhost:8080/';
 export const environment = {
 
   MMRDB_API_VARIANT_SEARCH_URL:  MMRDB_API_BASE_URL + 'variant/query',
+  MMRDB_API_SV_VARIANT_SEARCH_URL:  MMRDB_API_BASE_URL + 'svVariant/query',
   MMRDB_API_GENE_URL:  MMRDB_API_BASE_URL + 'gene',
   MMRDB_API_STRAIN_URL:  MMRDB_API_BASE_URL + 'strain',
   MMRDB_API_PHENOTYPE_URL:  MMRDB_API_BASE_URL + 'phenotype',

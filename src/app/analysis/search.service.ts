@@ -13,6 +13,7 @@ const phenotypeUrl = environment.MMRDB_API_PHENOTYPE_URL;
 const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
 const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
+const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -45,44 +46,6 @@ export class SearchService {
     const strains: string[] = [];
     const phenotypes: string[] = [];
     const samples: string[] = [];
-    let max = '';
-    let offset = '';
-    let rareVar = '';
-    let candidateVar = '';
-    let confirmedVar = '';
-    let varTypes = [];
-    let varFuncClasses = [];
-    let varImpacts = [];
-    let lowQuality = false;
-
-    if (paramsIn.max){
-      max = paramsIn.max;
-    }
-    if (paramsIn.offset) {
-      offset = paramsIn.offset;
-    }
-
-
-    if (paramsIn.rareVar){
-        rareVar = paramsIn.rareVar
-    }
-
-    if (paramsIn.candidateVar){
-        candidateVar = paramsIn.candidateVar;
-    }
-
-    if (paramsIn.confirmedVar){
-        confirmedVar = paramsIn.confirmedVar;
-    }
-
-    // if (paramsIn.varType){
-    //     varTypes = paramsIn.varType;
-    // }
-    //
-    // if (paramsIn.varFuncClass){
-    //     varFuncClasses = paramsIn.varFuncClass;
-    // }
-
 
     console.log('max = ' + paramsIn.max);
     console.log('selected items');
@@ -113,17 +76,70 @@ export class SearchService {
                                 strain:strains,
                                 phenotype:phenotypes,
                                 sample:samples,
-                                rareVar: rareVar,
-                                mutantVar: candidateVar,
-                                confirmedVar: confirmedVar,
+                                rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
+                                mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
+                                confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
                                 type: paramsIn.varType ? paramsIn.varType : [],
                                 funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
                                 impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-                                lowQual: paramsIn.lowQual ? paramsIn.lowQual : '',
+                                lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
                                 withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
-                                max: max,
-                                offset:offset}});
+                                max: paramsIn.max ? paramsIn.max : '',
+                                offset: paramsIn.offset ? paramsIn.offset : ''}});
   }
+
+    public querySvVariant(paramsIn: any): Observable<any> {
+
+        //return this.http.get(svVariantQueryUrl)
+
+        console.log(paramsIn)
+
+        const genes: string[] = [];
+        const strains: string[] = [];
+        const phenotypes: string[] = [];
+        const samples: string[] = [];
+
+        console.log('max = ' + paramsIn.max);
+        console.log('selected items');
+        console.log(paramsIn.selectedItems);
+
+        if (paramsIn.selectedItems) {
+            paramsIn.selectedItems.forEach(item => {
+                if (item.selectedType === 'gene') {
+                    genes.push(item.selectedValue.symbol);
+                }
+
+                if (item.selectedType === 'strain') {
+                    strains.push(item.selectedValue.name);
+                }
+
+                if (item.selectedType === 'phenotype') {
+                    phenotypes.push(item.selectedValue.mpTermName);
+                }
+
+                if (item.selectedType === 'sample') {
+                    samples.push(item.selectedValue.sampleId);
+                }
+
+            });
+        }
+        return this.http.get(svVariantQueryUrl, {params:
+            {   gene: genes,
+                strain:strains,
+                phenotype:phenotypes,
+                sample:samples,
+                rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
+                mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
+                confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
+                type: paramsIn.varType ? paramsIn.varType : [],
+                funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
+                impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+                lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
+                withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+                max: paramsIn.max ? paramsIn.max : '',
+                offset: paramsIn.offset ? paramsIn.offset : ''}});
+
+    }
 
   public getSamples(paramsIn: any): Observable<any> {
 
