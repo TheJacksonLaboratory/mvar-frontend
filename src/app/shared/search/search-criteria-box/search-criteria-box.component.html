@@ -1,19 +1,85 @@
-<div id="criteria-box" >
-<app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+<div class="card">
+  <div class="card-body">
 
-<mat-card *ngIf="searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0">
+      <div class="row">
+        <div class="col-md-10">
+          <app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+        </div>
+        <div class="col-md-2" *ngIf="searchType == 'variant'">
+          <button mat-button color="warn" (click)="varFilterChange()">{{filtersTxt}}</button>
+        </div>
+      </div>
 
-  <mat-chip-list #chipList aria-label="Search criteria selection">
-    <mat-chip
-      *ngFor="let searchTerm of searchCriteria.selectedItems"
-      [selectable]="selectable"
-      [removable]="removable"
-      (removed)="remove(searchTerm)">
-      {{searchTerm.selectedType}} : {{searchTerm.displayedValue}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-    </mat-chip>
+    <div class="row">
+      <div class="col-md-12">
+          <mat-chip-list #chipList aria-label="Search criteria selection">
+            <mat-chip
+              *ngFor="let searchTerm of searchCriteria.selectedItems"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(searchTerm)">
+              {{searchTerm.selectedType}} : {{searchTerm.displayedValue}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+      </div>
+    </div>
 
-  </mat-chip-list>
+    <div class="row">
+      <div class="col-md-12">
+          <section class="example-section" *ngIf="searchType == 'variant'">
+            <label class="mat-checkbox-layout"><b>MMR Analysis:</b></label>
+            <mat-checkbox class="example-margin" [(ngModel)]="rareVariantsCheck" (change)="onSearchCriteriaChange('', true,'')">Rare Variants (low frequency < 1%) </mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="mutantCandidatesCheck" (change)="onSearchCriteriaChange('',true,'')" >Mutant Candidates (likely pathogenic) </mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="confirmedMutationsCheck" (change)="onSearchCriteriaChange('',true,'')">Confirmed Mutation (pathogenic)</mat-checkbox>
+          </section>
+      </div>
+    </div>
 
-</mat-card>
+    <div *ngIf="showVarFilters" class="row">
+      <div class="col-md-4">
+          <section class="example-section" *ngIf="searchType == 'variant'">
+            <label class="mat-checkbox-layout"><b>Variant type:</b></label>
+            <mat-checkbox class="example-margin" [(ngModel)]="varTypeSNP" (change)="onSearchCriteriaChange('varType', varTypeSNP, 'SNP')">SNP </mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varTypeINS" (change)="onSearchCriteriaChange('varType', varTypeINS, 'INS')">Insertion </mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varTypeDEL" (change)="onSearchCriteriaChange('varType', varTypeDEL, 'DEL')" >Deletion</mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varTypeUN" (change)="onSearchCriteriaChange('varType', varTypeUN, 'UN')">Unknown</mat-checkbox>
+          </section>
+      </div>
+      <div class="col-md-4">
+        <section class="example-section" *ngIf="searchType == 'variant'">
+          <label class="mat-checkbox-layout"><b>Functional Class:</b></label>
+          <mat-checkbox class="example-margin" [(ngModel)]="varFuncClassMISSENSE" (change)="onSearchCriteriaChange('varFuncClass', varFuncClassMISSENSE, 'MISSENSE')">Missense </mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="varFuncClassSILENT" (change)="onSearchCriteriaChange('varFuncClass', varFuncClassSILENT, 'SILENT')" >Silent</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="varFuncClassNONSENSE" (change)="onSearchCriteriaChange('varFuncClass', varFuncClassNONSENSE, 'NONSENSE')">Nonsense</mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="varFuncClassNONE" (change)="onSearchCriteriaChange('varFuncClass', varFuncClassNONE, 'NONE')">None</mat-checkbox>
+        </section>
+      </div>
+    </div>
+
+    <div *ngIf="showVarFilters" class="row">
+        <div class="col-md-4">
+          <section class="example-section" *ngIf="searchType == 'variant'">
+            <label class="mat-checkbox-layout"><b>Impact:</b> </label>
+            <mat-checkbox class="example-margin" [(ngModel)]="varImpactHIGH" (change)="onSearchCriteriaChange('varImpact', varImpactHIGH, 'HIGH')">High</mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varImpactMODERATE" (change)="onSearchCriteriaChange('varImpact', varImpactMODERATE, 'MODERATE')" >Moderate</mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varImpactLOW" (change)="onSearchCriteriaChange('varImpact', varImpactLOW, 'LOW')">Low</mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="varImpactMODIFIER" (change)="onSearchCriteriaChange('varImpact', varImpactMODIFIER, 'MODIFIER')">Modifier</mat-checkbox>
+          </section>
+        </div>
+        <div class="col-md-4">
+          <section class="example-section" *ngIf="searchType == 'variant'">
+            <label class="mat-checkbox-layout"><b>Quality:</b> </label>
+            <mat-checkbox class="example-margin" [(ngModel)]="varLowQual" (change)="onSearchCriteriaChange('',true,'')">Show low quality variants</mat-checkbox>
+          </section>
+        </div>
+      <div class="col-md-4">
+        <section class="example-section" *ngIf="searchType == 'variant'">
+          <label class="mat-checkbox-layout"><b>Identifier:</b> </label>
+          <mat-checkbox class="example-margin" [(ngModel)]="withoutExternalId" (change)="onSearchCriteriaChange('',true,'')">Without dbSNP ID</mat-checkbox>
+        </section>
+      </div>
+      </div>
+  </div>
+
 </div>

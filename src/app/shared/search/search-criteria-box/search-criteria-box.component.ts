@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-search-criteria-box',
@@ -7,7 +6,6 @@ import {MatChipInputEvent} from '@angular/material/chips';
   styleUrls: ['./search-criteria-box.component.css']
 })
 export class SearchCriteriaBoxComponent implements OnInit {
-
 
   @Input()
     searchType: string;
@@ -17,10 +15,38 @@ export class SearchCriteriaBoxComponent implements OnInit {
 
   selectable = true;
   removable = true;
+  showVarFilters = false;
+  filtersTxt = '';
+
+  //search criteria filters
+  rareVariantsCheck = false;
+  mutantCandidatesCheck = false;
+  confirmedMutationsCheck = false;
+  varLowQual = false;
+  withoutExternalId = false;
+
+  varTypeSNP = false;
+  varTypeINS = false;
+  varTypeDEL = false;
+  varTypeUN = false;
+
+  varFuncClassMISSENSE = false;
+  varFuncClassNONSENSE = false;
+  varFuncClassSILENT = false;
+  varFuncClassNONE = false;
+
+  varImpactHIGH = false;
+  varImpactMODERATE = false;
+  varImpactLOW = false;
+  varImpactMODIFIER = false;
+
+
 
   constructor() { }
 
   ngOnInit() {
+
+      this.filtersTxt = 'Show additional filters';
   }
 
   @Input()
@@ -46,4 +72,77 @@ export class SearchCriteriaBoxComponent implements OnInit {
     this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
+  onSearchCriteriaChange(criteriaType: string, selected: boolean, value: any){
+
+    console.log('changed criteria');
+      console.log(criteriaType + ' , ' + selected + ' , ' + value);
+    if (! this.searchCriteria.selectedItems) {
+        this.searchCriteria.selectedItems = []
+    }
+
+    this.searchCriteria.rareVar = this.rareVariantsCheck;
+    this.searchCriteria.candidateVar = this.mutantCandidatesCheck;
+    this.searchCriteria.confirmedVar = this.confirmedMutationsCheck;
+
+    //set variation type to search criteria
+    if (criteriaType === 'varType') {
+        if (! this.searchCriteria.varType){
+            this.searchCriteria.varType = []
+        }
+
+        const indx = this.searchCriteria.varType.indexOf(value);
+        if (selected && indx === -1) {
+            this.searchCriteria.varType.push(value)
+        } else if (! selected && indx > -1) {
+            this.searchCriteria.varType.splice(indx, 1)
+        }
+    }
+
+    //set impact to search criteria
+    if (criteriaType === 'varImpact') {
+        if (!this.searchCriteria.varImpact){
+            this.searchCriteria.varImpact = []
+        }
+
+        const indx = this.searchCriteria.varImpact.indexOf(value);
+        if (selected && indx === -1) {
+            this.searchCriteria.varImpact.push(value);
+        } else if (! selected && indx > -1) {
+            this.searchCriteria.varImpact.splice(indx, 1);
+        }
+    }
+
+    //set functional class to search criteria
+    if (criteriaType === 'varFuncClass') {
+        if (!this.searchCriteria.varFuncClass) {
+            this.searchCriteria.varFuncClass = []
+        }
+
+        const indx = this.searchCriteria.varFuncClass.indexOf(value);
+        if (selected && indx === -1) {
+            this.searchCriteria.varFuncClass.push(value);
+        } else if (! selected && indx > -1) {
+            this.searchCriteria.varFuncClass.splice(indx, 1);
+        }
+    }
+
+    //set low quality flag
+    this.searchCriteria.lowQual = this.varLowQual;
+
+    //set external id
+    this.searchCriteria.withoutExternalId = this.withoutExternalId;
+
+    //emit change
+    this.searchCriteriaChange.emit(this.searchCriteria);
+  }
+
+  varFilterChange() {
+    if (this.showVarFilters) {
+      this.showVarFilters = false;
+      this.filtersTxt = 'Show additional filters';
+    } else {
+      this.showVarFilters = true;
+      this.filtersTxt = 'Hide additional filters';
+    }
+  }
 }

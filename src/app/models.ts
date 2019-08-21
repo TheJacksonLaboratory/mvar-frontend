@@ -58,8 +58,11 @@ export class Variant {
   functionalClass: string;
   impact: string;
   filter: string;
-  candidate: string;
+  mutantCandidate: string;
   sampleCount: number;
+  varFreq: number;
+  assembly: string;
+  status: string;
 
   constructor() {
     this.gene = new Gene();

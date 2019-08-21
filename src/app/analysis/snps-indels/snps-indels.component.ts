@@ -18,7 +18,7 @@ export class SnpsIndelsComponent implements OnInit {
   @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
 
   //Table items
-  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'filter', 'functionalClass', 'dbSNPId', 'sampleCount', 'candidate', 'sampleId'];
+  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'filter', 'impact', 'functionalClass', 'dbSNPId', 'varFreq', 'mutantCandidate', 'sampleId'];
   varDataSource: Variant[] = [];
   varCount: number;
 
