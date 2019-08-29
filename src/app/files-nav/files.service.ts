@@ -47,8 +47,8 @@ export class FilesService {
     return this.http.delete(url + '/' + id);
   }
 
-  public loadVcfFiles(files: string[]){
+  public loadVcfFiles(files: string[], varType: string){
 
-      return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files}});
+      return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files, varType: varType}});
   }
 }

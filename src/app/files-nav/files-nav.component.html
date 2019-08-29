@@ -3,45 +3,94 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
+        <!--<div>-->
+          <span><button mat-raised-button class="btn btn-danger pull-right" (click)="openUploadDialog()">Upload Files</button></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
 
-                <mat-tab-group>
-                  <mat-tab label="New Files To be Submitted">
+                <mat-tab-group [selectedIndex]="selectedTab">
+                  <mat-tab label="Uploaded Files">
                     <br>
-                    <div>
-                        <span><button mat-raised-button class="btn btn-danger" (click)="openUploadDialog()">Upload Files</button></span>
-                    </div>
+                    <!--<div>-->
+                        <!--<span><button mat-raised-button class="btn btn-danger" (click)="openUploadDialog()">Upload Files</button></span>-->
+                    <!--</div>-->
 
-                    <div *ngIf="files.length > 0" class="card">
+                    <div *ngIf="snpVcfFiles?.length > 0" class="card">
                       <div class="card-body">
 
-                          <table class="table">
-                            <tbody>
-                            <tr *ngFor="let file of files">
-                              <td >
-                                  <mat-checkbox (change)="selectFile($event.checked, file.name)" value=""></mat-checkbox>
-                              </td>
-                              <td>
-                                  <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
-                              </td>
-                              <td>
-                                  <span style="float: right">
-                                    <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
-                                    <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
-                                  </span>
-                              </td>
-                            </tr>
-                            </tbody>
-                          </table>
+                        <table class="table">
+                          <tbody>
+                          <tr *ngFor="let file of snpVcfFiles">
+                            <td >
+                                <mat-checkbox (change)="selectSNPFile($event.checked, file.name)" value=""></mat-checkbox>
+                            </td>
+                            <td>
+                                <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
+                            </td>
+                            <td>
+                                <span style="float: right">
+                                  <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
+                                  <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
+                                </span>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+
+                        <div *ngIf="files?.length > 0">
+                          <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
+                          <span><button [disabled]="selectedSNPFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitSNPLoad()">Submit</button></span>
+                        </div>
+
                       </div>
                     </div>
 
-                    <div *ngIf="files?.length > 0">
-                      <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
-                      <span><button  [disabled]="selectedFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitLoad()">Submit</button></span>
+                    <div *ngIf="svVcfFiles?.length > 0" class="card">
+                      <div class="card-body">
+
+                        <table class="table">
+                          <tbody>
+                          <tr *ngFor="let file of svVcfFiles">
+                            <td >
+                              <mat-checkbox (change)="selectSVFile($event.checked, file.name)" value=""></mat-checkbox>
+                            </td>
+                            <td>
+                              <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
+                            </td>
+                            <td>
+                                <span style="float: right">
+                                  <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
+                                  <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
+                                </span>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+
+                        <div *ngIf="files?.length > 0">
+                          <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
+                          <span><button [disabled]="selectedSVFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitSVLoad()">Submit SVs</button></span>
+                        </div>
+
+                      </div>
                     </div>
 
                   </mat-tab>
 
+
+                  <mat-tab label="Pending">
+
+
+
+                    <mat-card  *ngFor="let file of pendingFiles">
+
+                      <!--<span class="badge">{{file.id}} </span> {{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>-->
+                      <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}
+                    </mat-card>
+
+                  </mat-tab>
 
                   <mat-tab label="Processed Files">
 

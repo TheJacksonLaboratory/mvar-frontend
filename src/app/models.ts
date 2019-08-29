@@ -3,6 +3,7 @@ export interface File {
   name: string;
   extension: string;
   status: string;
+  varType: String;
 }
 
 export class Gene {
