@@ -30,6 +30,12 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varTypeDEL = false;
   varTypeUN = false;
 
+  svVarTypeINV = false;
+  svVarTypeINS = false;
+  svVarTypeDEL = false;
+  svVarTypeDUP = false;
+  svVarTypeTRA = false;
+
   varFuncClassMISSENSE = false;
   varFuncClassNONSENSE = false;
   varFuncClassSILENT = false;
@@ -39,8 +45,6 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varImpactMODERATE = false;
   varImpactLOW = false;
   varImpactMODIFIER = false;
-
-
 
   constructor() { }
 

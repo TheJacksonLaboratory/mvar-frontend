@@ -73,5 +73,25 @@ export class Variant {
   public setGene(gene: Gene) {
     this.gene = gene;
   }
+}
 
+export class SvVariant {
+    id: number;
+    //gene: Gene;
+    chr: string;
+    pos: number;
+    endPos: number;
+    svLength: number;
+    svType: string;
+    sample: Sample;
+    filter: string;
+    mutantCandidate: string;
+    varFreq: number;
+    assembly: string;
+    status: string;
+
+    constructor() {
+        ///this.gene = new Gene();
+        this.sample = new Sample();
+    }
 }
