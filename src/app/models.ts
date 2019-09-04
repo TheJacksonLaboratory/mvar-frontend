@@ -42,6 +42,10 @@ export class  Sample {
   platform: string;
   strainOfOrigin: string;
   phenotypes: Phenotype[];
+  totalVarCount: number;
+  rareVarCount: number;
+  candidateVarCount: number;
+  confirmedVarCount: number;
   // genomeBuild
 
   constructor() { }
