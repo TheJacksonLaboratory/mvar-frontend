@@ -19,17 +19,18 @@
                         <td mat-cell *matCellDef="let element"> {{element.svType}} </td>
                     </ng-container>
 
-                    <!-- Chormosome Column -->
-                    <ng-container matColumnDef="chr">
-                        <th mat-header-cell *matHeaderCellDef> Chromosome </th>
-                        <td mat-cell *matCellDef="let element"> {{element.chr}} </td>
+                    <!-- Start pos: Chr (start pos) -->
+                    <ng-container matColumnDef="startPos">
+                        <th mat-header-cell *matHeaderCellDef> Start - Chr (pos) </th>
+                        <td mat-cell *matCellDef="let element"> Chr: {{element.chr}} ({{element.pos}}) </td>
                     </ng-container>
 
-                    <!-- Position Column -->
-                    <ng-container matColumnDef="pos">
-                        <th mat-header-cell *matHeaderCellDef> Position </th>
-                        <td mat-cell *matCellDef="let element"> {{element.pos}}-{{element.endPos}} </td>
+                    <!-- End pos: Chr (end pos) -->
+                    <ng-container matColumnDef="endPos">
+                        <th mat-header-cell *matHeaderCellDef> End - Chr (pos) </th>
+                        <td mat-cell *matCellDef="let element"> Chr: {{element.chr2}} ({{element.endPos}}) </td>
                     </ng-container>
+
 
                     <!-- Length Column -->
                     <ng-container matColumnDef="svLength">

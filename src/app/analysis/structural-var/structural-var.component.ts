@@ -20,7 +20,7 @@ export class StructuralVarComponent implements OnInit {
     @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
 
     //Table items
-    displayedColumns = ['chr', 'svType', 'pos', 'svLength', 'filter', 'varFreq', 'mutantCandidate', 'sampleId'];
+    displayedColumns = ['svType', 'startPos', 'endPos', 'svLength', 'filter', 'varFreq', 'mutantCandidate', 'sampleId'];
     svVarDataSource: SvVariant[] = [];
     varCount: number;
 

@@ -79,6 +79,7 @@ export class SvVariant {
     id: number;
     //gene: Gene;
     chr: string;
+    chr2: string;
     pos: number;
     endPos: number;
     svLength: number;
