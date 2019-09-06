@@ -51,6 +51,21 @@ export class StructuralVarComponent implements OnInit {
                     displayedValue: paramsIn.get('sample')
                 }];
             }
+
+            const candidateVar = paramsIn.get('candidateVar');
+            if (candidateVar) {
+                this.currSearchParams.candidateVar = true;
+            }
+
+            const rareVar = paramsIn.get('rareVar');
+            if (rareVar) {
+                this.currSearchParams.rareVar = true;
+            }
+
+            const confirmedVar = paramsIn.get('confirmedVar');
+            if (confirmedVar) {
+                this.currSearchParams.confirmedVar = true;
+            }
         });
 
         this._queryVariants(this.currSearchParams);
@@ -73,14 +88,7 @@ export class StructuralVarComponent implements OnInit {
 
         this.searchService.querySvVariant(params).subscribe(data => {
 
-            //let temp = data.variants as SvVariant[];
-
-            // temp.forEach(variant => {
-            //     if (!variant.gene) {variant.gene = new Gene()};
-            // });
-
             this.svVarDataSource = data.svVariants as SvVariant[];
-
             this.varCount = data.svVariantCount;
             this.pageLength = this.varCount;
 

@@ -2,9 +2,7 @@
     <div class="row">
       <div class="col-lg-12 col-md-12">
         <div class="card">
-          <!--<div class="card-header card-header-danger">-->
-            <!--<h4 class="card-title">Sample ID: {{sample.sampleId}}</h4>-->
-          <!--</div>-->
+
           <div class="card-body">
             <div class="row">
               <div class="col-md-4">
@@ -57,16 +55,16 @@
                     <tr>
                       <td>SNPs & Indels</td>
                       <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">{{sample.totalVarCount}}</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">{{sample.rareVarCount}}</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">{{sample.candidateVarCount}}</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">{{sample.confirmedVarCount}}</a></td>
+                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId, rareVar: true} ]">{{sample.rareVarCount}}</a></td>
+                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId, candidateVar: true} ]">{{sample.candidateVarCount}}</a></td>
+                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId, confirmedVar: true} ]">{{sample.confirmedVarCount}}</a></td>
                     </tr>
                     <tr>
                       <td>Structural Variants</td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">352,313</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">190</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">45</a></td>
-                      <td><a [routerLink]="['/snpsIndels', {sample: sample.sampleId} ]">4</a></td>
+                      <td><a [routerLink]="['/structuralVar', {sample: sample.sampleId} ]">{{sample.totalSvVarCount}}</a></td>
+                      <td><a [routerLink]="['/structuralVar', {sample: sample.sampleId, rareVar: true} ]">{{sample.rareSvVarCount}}</a></td>
+                      <td><a [routerLink]="['/structuralVar', {sample: sample.sampleId, candidateVar: true} ]">{{sample.candidateSvVarCount}}</a></td>
+                      <td><a [routerLink]="['/structuralVar', {sample: sample.sampleId, confirmedVar: true} ]">{{sample.confirmedSvVarCount}}</a></td>
                     </tr>
                     </tbody>
                   </table>

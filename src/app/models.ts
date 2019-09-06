@@ -46,6 +46,10 @@ export class  Sample {
   rareVarCount: number;
   candidateVarCount: number;
   confirmedVarCount: number;
+  totalSvVarCount: number;
+  rareSvVarCount: number;
+  candidateSvVarCount: number;
+  confirmedSvVarCount: number;
   // genomeBuild
 
   constructor() { }
