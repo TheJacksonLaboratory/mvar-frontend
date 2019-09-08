@@ -5,9 +5,9 @@
         <div class="col-md-10">
           <app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
         </div>
-        <div class="col-md-2" *ngIf="searchType == 'variant' || searchType == 'svVariant'">
-          <button mat-button color="warn" (click)="varFilterChange()">{{filtersTxt}}</button>
-        </div>
+        <!--<div class="col-md-2" *ngIf="searchType == 'variant' || searchType == 'svVariant'">-->
+          <!--<button mat-button color="warn" (click)="varFilterChange()">{{filtersTxt}}</button>-->
+        <!--</div>-->
       </div>
 
     <div class="row">

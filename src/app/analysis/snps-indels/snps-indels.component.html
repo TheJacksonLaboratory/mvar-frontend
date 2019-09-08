@@ -5,15 +5,27 @@
 
           <div class="card">
             <!--card header-->
-              <div class="card-header card-header-tabs card-header-primary">
-                <h6>Mouse SNPs and Indels</h6>
+              <!--<div class="card-header card-header-tabs card-header-primary">-->
+                <!--<h6>Mouse SNPs and Indels</h6>-->
 
-                <app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>
-              </div>
+                <!--<app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>-->
+              <!--</div>-->
 
 
             <!--Card Body-->
               <div class="card-body table-responsive">
+
+                <span class="pull-right">
+                              <a mat-button class="nav-link active" (click)="showFilters()">
+                                                  <i class="material-icons">filter_list</i> Show Additional Filters
+                                                  <div class="ripple-container"></div>
+                              </a>
+                </span>
+                <app-search-criteria-box searchType="variant"
+                                         [searchCriteria]="currSearchParams"
+                                         (searchCriteriaChange)="onSearchCriteriaChange($event)"
+                                         [showVarFilters]="showVarFilters">
+                </app-search-criteria-box>
 
                   <table #varTable mat-table [dataSource]="varDataSource">
 

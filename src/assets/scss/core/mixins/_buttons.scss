@@ -124,6 +124,9 @@
   &.btn-danger {
     @include bmd-flat-button-variant($btn-danger-bg);
   }
+  &.btn-blue {
+    @include bmd-flat-button-variant($btn-blue-bg);
+  }
 }
 
 @mixin bmd-outline-button-color() {
@@ -160,6 +163,9 @@
   }
   &.btn-outline-danger {
     @include bmd-flat-button-variant($btn-danger-bg, $btn-danger-bg, $btn-danger-bg, $btn-danger-bg);
+  }
+  &.btn-outline-blue {
+    @include bmd-flat-button-variant($btn-blue-bg, $btn-blue-bg, $btn-blue-bg, $btn-blue-bg);
   }
 }
 
@@ -230,6 +236,9 @@
   }
   &.btn-rose {
     @include bmd-raised-button-variant($btn-rose-color, $btn-rose-bg, $btn-rose-border-color);
+  }
+  &.btn-blue {
+    @include bmd-raised-button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-color);
   }
   &,
   &.btn-default{

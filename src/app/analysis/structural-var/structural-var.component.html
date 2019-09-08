@@ -2,8 +2,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-
-
                 <div class="card">
                     <!--&lt;!&ndash;card header&ndash;&gt;-->
                     <!--<div class="card-header card-header-tabs card-header-primary">-->
@@ -15,8 +13,18 @@
 
                     <!--Card Body-->
                     <div class="card-body table-responsive">
-                        <h6>Mouse Structural Variants</h6>
-                        <app-search-criteria-box searchType="svVariant" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>
+                        <!--<h6>Mouse Structural Variants</h6>-->
+                        <span class="pull-right">
+                              <a mat-button class="nav-link active" (click)="showFilters()">
+                                                  <i class="material-icons">filter_list</i> Show Additional Filters
+                                                  <div class="ripple-container"></div>
+                                              </a>
+                        </span>
+                        <app-search-criteria-box searchType="svVariant"
+                                                 [searchCriteria]="currSearchParams"
+                                                 (searchCriteriaChange)="onSearchCriteriaChange($event)"
+                                                 [showVarFilters]="showVarFilters">
+                        </app-search-criteria-box>
 
                         <!--<div class="example-container mat-elevation-z8">-->
                         <table #varTable mat-table [dataSource]="svVarDataSource">

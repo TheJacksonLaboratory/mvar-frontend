@@ -30,6 +30,8 @@ export class SnpsIndelsComponent implements OnInit {
   //searchparams
   currSearchParams: any = {}
 
+  showVarFilters = false;
+
   constructor(private searchService: SearchService, private route: ActivatedRoute) {
   }
 
@@ -122,6 +124,13 @@ export class SnpsIndelsComponent implements OnInit {
     }
   }
 
+  showFilters() {
+    if (this.showVarFilters) {
+        this.showVarFilters = false;
+    } else {
+        this.showVarFilters = true;
+    }
+  }
 }
 
 

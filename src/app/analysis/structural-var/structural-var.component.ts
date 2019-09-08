@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-structural-var',
   templateUrl: './structural-var.component.html',
-  styleUrls: ['./structural-var.component.css']
+  styleUrls: ['./structural-var.component.scss']
 })
 export class StructuralVarComponent implements OnInit {
 
@@ -28,6 +28,8 @@ export class StructuralVarComponent implements OnInit {
     pageLength = 100;
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100, 500];
+
+    showVarFilters = false;
 
     //searchparams
     currSearchParams: any = {}
@@ -115,6 +117,14 @@ export class StructuralVarComponent implements OnInit {
 
             this.currSearchParams.max = pageEvent.pageSize;
             this._queryVariants(this.currSearchParams);
+        }
+    }
+
+    showFilters(){
+        if (this.showVarFilters) {
+            this.showVarFilters = false;
+        } else {
+            this.showVarFilters = true;
         }
     }
 
