@@ -7,11 +7,20 @@ import {SearchService} from '../search.service';
 import {PageEvent} from '@angular/material/paginator';
 import {MatPaginator, MatTable} from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-snps-indels',
   templateUrl: './snps-indels.component.html',
-  styleUrls: ['./snps-indels.component.css']
+  styleUrls: ['./snps-indels.component.css'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed, void', style({height: '0px', minHeight: '0'})),
+            state('expanded', style({height: '*'})),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+            transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
 export class SnpsIndelsComponent implements OnInit {
 
@@ -31,6 +40,8 @@ export class SnpsIndelsComponent implements OnInit {
   currSearchParams: any = {}
 
   showVarFilters = false;
+
+  expandedElement: Variant | null;
 
   constructor(private searchService: SearchService, private route: ActivatedRoute) {
   }
@@ -131,6 +142,12 @@ export class SnpsIndelsComponent implements OnInit {
         this.showVarFilters = true;
     }
   }
+
+    expandCollapse(element:any){
+        console.log(element)
+        this.expandedElement = this.expandedElement === element ? null : element
+
+    }
 }
 
 

@@ -13,6 +13,7 @@ export class Gene {
   chr: string;
   symbol: string;
   mgiId: string;
+  description: string;
 
   constructor() {
   }
@@ -24,6 +25,18 @@ export class Phenotype {
   mpTermIdentifier;
   mpTermName;
   mpTermDescription;
+}
+
+export class Strain {
+
+  id: number;
+  identifier: string;
+  name: string;
+  description: string;
+  carriesAlleleSymbol: string;
+  carriesAlleleName: string;
+  carriesAlleleType: string;
+  carriesAlleleIdentifier: string;
 }
 
 export class  Sample {
@@ -50,9 +63,12 @@ export class  Sample {
   rareSvVarCount: number;
   candidateSvVarCount: number;
   confirmedSvVarCount: number;
+  strain: Strain;
   // genomeBuild
 
-  constructor() { }
+  constructor() {
+    this.strain = new Strain();
+  }
 }
 
 export class Variant {
@@ -64,14 +80,22 @@ export class Variant {
   pos: number;
   type: string;
   sample: Sample;
-  functionalClass: string;
-  impact: string;
   filter: string;
   mutantCandidate: string;
   sampleCount: number;
   varFreq: number;
   assembly: string;
   status: string;
+  dbSNPId: string;
+  snpEffImpact: string;
+  snpEffFunctionalClass: string;
+  snpEffEffect: string;
+  snpEffCodonChange: string;
+  snpEffAminoAcidChange: string;
+  snpEffGeneName: string;
+  snpEffGeneBiotype: string;
+  snpEffTranscriptId: string;
+  snpEffExonId: string;
 
   constructor() {
     this.gene = new Gene();
