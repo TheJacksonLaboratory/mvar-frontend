@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">
-              <b>Gene:</b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i class="material-icons vertical-align-middle" (click)="openGeneDialog()">info</i></span>
+              <b>Gene: </b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i class="material-icons vertical-align-middle" (click)="openGeneDialog()">info</i></span>
             </div>
             <div class="col-md-4">
               <b>Chromosome:</b> {{variant.chr}}
@@ -17,7 +17,7 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <b>Position:</b> {{variant.pos}} ({{variant.assembly}})
+              <b>Position: </b> {{variant.pos}} ({{variant.assembly}})
             </div>
             <div class="col-md-4">
               <b>Ref. Allele:</b> {{variant.ref}}
@@ -28,13 +28,13 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <b>Sample:</b> {{variant.sample.sampleId}}
+              <b>Sample: </b> {{variant.sample.sampleId}} <span *ngIf="variant.sample"><i class="material-icons vertical-align-middle" (click)="openSampleDialog()">info</i></span>
             </div>
             <div class="col-md-4">
-              <b>Study:</b> {{variant.sample.study}}
+              <b>Study: </b> {{variant.sample.study}}
             </div>
             <div class="col-md-4">
-              <b>Strain Of Origin:</b> {{variant.sample.strain.name}} <span *ngIf="variant.sample.strain.name"><i class="material-icons vertical-align-middle" (click)="openStrainDialog()">info</i></span>
+              <b>Strain Of Origin: </b> {{variant.sample.strain.name}} <span *ngIf="variant.sample.strain.name"><i class="material-icons vertical-align-middle" (click)="openStrainDialog()">info</i></span>
             </div>
           </div>
           <div class="row detail-anno1-title">
@@ -44,51 +44,51 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Effect:</b> {{variant.snpEffEffect}}
+              <b>Effect: </b> {{variant.snpEffEffect}}
             </div>
             <div class="col-md-4">
-              <b>Functional Class:</b> {{variant.snpEffFunctionalClass}}
+              <b>Functional Class: </b> {{variant.snpEffFunctionalClass}}
             </div>
             <div class="col-md-4">
-              <b>Impact:</b> {{variant.snpEffImpact}}
-            </div>
-          </div>
-          <div class="row detail-anno1">
-            <div class="col-md-4">
-              <b>Exon Id:</b> {{variant.snpEffExonId}}
-            </div>
-            <div class="col-md-4">
-              <b>Codon Change:</b> {{variant.snpEffCodonChange}}
-            </div>
-            <div class="col-md-4">
-              <b>Amino Acid Change:</b> {{variant.snpEffAminoAcidChange}}
+              <b>Impact: </b> {{variant.snpEffImpact}}
             </div>
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Transcript Id:</b> {{variant.snpEffTranscriptId}}
+              <b>Exon Id: </b> {{variant.snpEffExonId}}
+            </div>
+            <div class="col-md-4">
+              <b>Codon Change: </b> {{variant.snpEffCodonChange}}
+            </div>
+            <div class="col-md-4">
+              <b>Amino Acid Change: </b> {{variant.snpEffAminoAcidChange}}
+            </div>
+          </div>
+          <div class="row detail-anno1">
+            <div class="col-md-4">
+              <b>Transcript Id: </b> <a *ngIf="variant.snpEffTranscriptId" [href]="ensemblTransUrl + variant.snpEffTranscriptId" target="_blank">{{variant.snpEffTranscriptId}}</a>
             </div>
             <div class="col-md-4">
               <b>Gene Name:</b> {{variant.snpEffGeneName}}
             </div>
             <div class="col-md-4">
-              <b>Gene Biotype:</b> {{variant.snpEffGeneBiotype}}
+              <b>Gene Biotype: </b> {{variant.snpEffGeneBiotype}}
             </div>
           </div>
           <div class="row detail-anno1-title">
             <div class="col-md-12">
-              <b><u>Analysis:</u></b>
+              <b><u>Analysis: </u></b>
             </div>
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Rare Variant (low frequency < 1%): </b> <span *ngIf="variant.varFreq < 0.01">Yes</span> <span *ngIf="variant.varFreq > 0.01">No</span> <span *ngIf="! variant.varFreq">No</span>
+              <b>Rare Variant (low frequency < 1%): </b> <span *ngIf="variant.varFreq < 0.01">&#10003;</span> <span *ngIf="variant.varFreq > 0.01">&#10007;</span> <span *ngIf="! variant.varFreq">&#10007;</span>
             </div>
             <div class="col-md-4">
-              <b>Mutant Candidate (likely pathogenic): </b> <span *ngIf="variant.mutantCandidate === 'Y' "></span> <span *ngIf="variant.mutantCandidate !== 'Y'">No</span>
+              <b>Mutant Candidate (likely pathogenic): </b> <span *ngIf="variant.mutantCandidate === 'Y' ">&#10003;</span> <span *ngIf="variant.mutantCandidate !== 'Y'">&#10007;</span>
             </div>
             <div class="col-md-4">
-              <b>Confirmed Mutation: </b> <span *ngIf="variant.status === 'CONFIRMED_ANNOTATED' ">Yes</span> <span *ngIf="variant.status !== 'CONFIRMED_ANNOTATED' ">No</span>
+              <b>Confirmed Mutation: </b> <span *ngIf="variant.status === 'CONFIRMED_ANNOTATED' ">&#10003;</span> <span *ngIf="variant.status !== 'CONFIRMED_ANNOTATED' ">&#10007;</span>
             </div>
           </div>
 

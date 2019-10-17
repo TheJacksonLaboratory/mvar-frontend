@@ -16,6 +16,7 @@ export const environment = {
   MGI_GENE_URL: 'http://www.informatics.jax.org/marker/',
   MGI_STRAIN_URL: 'http://www.informatics.jax.org/strain/',
   NCBI_DBSNP_URL: 'https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?do_not_redirect&rs=',
+  ENSEMBL_TRANSCRIPT_URL: 'http://useast.ensembl.org/Mus_musculus/Transcript/Summary?t=',
   production: false
 };
 
