@@ -114,7 +114,7 @@ export class SamplesComponent implements OnInit {
     }
 
 
-    doSomething(element:any){
+    expandCollapse(element:any){
         console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element

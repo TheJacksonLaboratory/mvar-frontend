@@ -13,6 +13,10 @@ export const environment = {
   MMRDB_API_SAMPLE_URL:  MMRDB_API_BASE_URL + 'sample',
   MMRDB_API_VCF_FILE_URL:  MMRDB_API_BASE_URL + 'vcfFile',
   MMRDB_API_SAMPLE_FILE_URL:  MMRDB_API_BASE_URL + 'sampleFile',
+  MGI_GENE_URL: 'http://www.informatics.jax.org/marker/',
+  MGI_STRAIN_URL: 'http://www.informatics.jax.org/strain/',
+  NCBI_DBSNP_URL: 'https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?do_not_redirect&rs=',
+  ENSEMBL_TRANSCRIPT_URL: 'http://useast.ensembl.org/Mus_musculus/Transcript/Summary?t=',
   production: false
 };
 

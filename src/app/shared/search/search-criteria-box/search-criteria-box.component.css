@@ -14,3 +14,9 @@
 .example-margin {
   margin: 0 5px 0px;
 }
+
+.card{
+  /*background: #e3f2fd;*/
+  /*background: #70a6dc29;*/
+  background: #fafafa;
+}

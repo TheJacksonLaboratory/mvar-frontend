@@ -45,8 +45,13 @@ export class FilesNavComponent implements OnInit {
   }
 
 
-  public openUploadDialog() {
+  public openVcfUploadDialog() {
     const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%',data:{fileType:'vcf', titleText:'Upload VCF Files'} });
+  }
+
+  public openSampleUploadDialog() {
+    const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
+
   }
 
   getNewFiles(): void {

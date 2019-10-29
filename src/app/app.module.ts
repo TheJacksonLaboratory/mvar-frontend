@@ -18,9 +18,7 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { SamplesComponent } from './analysis/samples/samples.component';
-import { AboutUsComponent } from './about-us/about-us.component';
-import { SampleDetailsComponent } from './analysis/samples/sample-details/sample-details.component';
+
 
 @NgModule({
   imports: [
@@ -34,7 +32,7 @@ import { SampleDetailsComponent } from './analysis/samples/sample-details/sample
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 
-import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
+
 import { StructuralVarComponent } from '../../analysis/structural-var/structural-var.component';
 import { FilesNavComponent } from '../../files-nav/files-nav.component';
 import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
@@ -26,6 +26,13 @@ import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
 import { SampleDetailsComponent } from '../../analysis/samples/sample-details/sample-details.component';
+import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
+import { SnpIndelDetailsComponent } from '../../analysis/snps-indels/snp-indel-details/snp-indel-details.component';
+import { GeneComponent } from '../../analysis/gene/gene.component';
+import { GeneDialogComponent } from '../../analysis/dialogs/gene-dialog/gene-dialog.component';
+import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
+import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
+import { StrainComponent } from '../../analysis/strain/strain.component';
 
 
 import {
@@ -84,10 +91,16 @@ import {
       SamplesComponent,
       AboutUsComponent,
       AnalysisComponent,
-      SampleDetailsComponent
+      SampleDetailsComponent,
+      SnpIndelDetailsComponent,
+      GeneComponent,
+      GeneDialogComponent,
+      StrainDialogComponent,
+      SampleDialogComponent,
+      StrainComponent
   ],
   providers: [FilesService, UploadService, SearchService, {provide: MatDialogRef, useValue: {}}],
-  entryComponents: [UploadDialogComponent],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent],
 })
 
 export class AdminLayoutModule {}

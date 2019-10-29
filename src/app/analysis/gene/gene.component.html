@@ -1,0 +1,33 @@
+
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <b>Name:</b> {{gene.name}}
+          </div>
+          <div class="col-md-6">
+            <b>Type:</b> {{gene.type}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <b>Chromosome:</b> {{gene.chr}}
+          </div>
+          <div class="col-md-6">
+            <b>MGI Identifier: </b> <a [href]="mgiGeneUrl + gene.mgiId" target="_blank">{{gene.mgiId}}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" >
+            <b>Description:</b>
+            <div *ngIf="gene.description" [innerHTML]="gene.description.substring(gene.description.indexOf('<BR>') + 8)"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

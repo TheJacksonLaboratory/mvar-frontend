@@ -9,13 +9,19 @@ export class SearchCriteriaBoxComponent implements OnInit {
 
   @Input()
     searchType: string;
+  @Input()
+    showVarFilters: boolean;
+  @Input()
+    searchCriteria: any;
 
   @Output()
   searchCriteriaChange  = new EventEmitter<any>();
 
+
+
   selectable = true;
   removable = true;
-  showVarFilters = false;
+
   filtersTxt = '';
 
   //search criteria filters
@@ -45,9 +51,6 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varImpactMODERATE = false;
   varImpactLOW = false;
   varImpactMODIFIER = false;
-
-  @Input()
-  searchCriteria: any;
 
   constructor() { }
 

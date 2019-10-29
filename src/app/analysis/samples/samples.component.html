@@ -6,20 +6,29 @@
 
           <div class="card">
               <!--card header-->
-              <div class="card-header card-header-tabs card-header-danger">
-                  <span><b>Samples</b></span>
-                  <span>
+              <!--<div class="card-header card-header-tabs card-header-danger">-->
+                  <!--<span><b>Samples</b></span>-->
+                  <!--<span>-->
+                      <!--<a mat-button class="nav-link active" (click)="openUploadDialog()">-->
+                                          <!--<i class="material-icons">add</i> Add Samples-->
+                                          <!--<div class="ripple-container"></div>-->
+                                      <!--</a>-->
+                  <!--</span>-->
+                  <!--<app-search-criteria-box searchType="sample" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>-->
+              <!--</div>-->
+
+
+              <!--Card Body-->
+              <div class="card-body table-responsive">
+
+                  <span class="pull-right">
                       <a mat-button class="nav-link active" (click)="openUploadDialog()">
                                           <i class="material-icons">add</i> Add Samples
                                           <div class="ripple-container"></div>
                                       </a>
                   </span>
                   <app-search-criteria-box searchType="sample" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>
-              </div>
 
-
-              <!--Card Body-->
-              <div class="card-body table-responsive">
 
                   <!--<table #sampleTable mat-table [dataSource]="dataSource">-->
                   <table mat-table class="table-hover" [dataSource]="dataSource" multiTemplateDataRows>
@@ -93,7 +102,7 @@
                       <tr mat-row *matRowDef="let element; columns: displayedColumns;"
                           class="example-element-row"
                           [class.example-expanded-row]="expandedElement === element"
-                          (click)="doSomething(element)">
+                          (click)="expandCollapse(element)">
                       </tr>
                       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 
