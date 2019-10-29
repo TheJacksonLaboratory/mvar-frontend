@@ -118,7 +118,93 @@ export class SamplesComponent implements OnInit {
         console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element
+
+        if (this.expandedElement){
+            this.getSampleVariantStats(element);
+            this.getSampleSvVariantStats(element);
+        }
     }
+
+    getSampleVariantStats(element: any){
+        console.log('getting var stat data')
+        const params: any = {};
+        params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
+        params.max = 1;
+
+        //total count
+        this.searchService.queryVariant(params).subscribe( data => {
+
+            element.totalVarCount = data.variantCount;
+            console.log(element.totalVarCount);
+        });
+
+        //rare variants
+        params.rareVar = true;
+        this.searchService.queryVariant(params).subscribe( data => {
+
+            element.rareVarCount = data.variantCount;
+            console.log(element.rareVarCount);
+        });
+
+        //likely pathogenic
+        params.rareVar = null;
+        params.candidateVar = true;
+        this.searchService.queryVariant(params).subscribe( data => {
+
+            element.candidateVarCount = data.variantCount;
+            console.log(element.candidateVarCount);
+        });
+
+        //confirmed mutations
+        params.candidateVar = null;
+        params.confirmedVar = true;
+        this.searchService.queryVariant(params).subscribe( data => {
+
+            element.confirmedVarCount = data.variantCount;
+            console.log(element.confirmedVarCount);
+        });
+    }
+
+    getSampleSvVariantStats(element: any) {
+        console.log('getting sv var stat data')
+        const params: any = {};
+        params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
+        params.max = 1;
+
+        //total count
+        this.searchService.querySvVariant(params).subscribe( data => {
+
+            element.totalSvVarCount = data.svVariantCount;
+            console.log(element.totalSvVarCount);
+        });
+
+        //rare variants
+        params.rareVar = true;
+        this.searchService.querySvVariant(params).subscribe( data => {
+
+            element.rareSvVarCount = data.svVariantCount;
+            console.log(element.rareSvVarCount);
+        });
+
+        //likely pathogenic
+        params.rareVar = null;
+        params.candidateVar = true;
+        this.searchService.querySvVariant(params).subscribe( data => {
+
+            element.candidateSvVarCount = data.svVariantCount;
+            console.log(element.candidateSvVarCount);
+        });
+
+        //confirmed mutations
+        params.candidateVar = null;
+        params.confirmedVar = true;
+        this.searchService.querySvVariant(params).subscribe( data => {
+
+            element.confirmedSvVarCount = data.svVariantCount;
+            console.log(element.confirmedSvVarCount);
+        });
+    }
+
 
 
     public openUploadDialog() {

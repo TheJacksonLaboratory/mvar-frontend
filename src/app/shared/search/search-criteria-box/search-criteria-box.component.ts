@@ -46,15 +46,29 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varImpactLOW = false;
   varImpactMODIFIER = false;
 
+  @Input()
+  searchCriteria: any;
+
   constructor() { }
 
   ngOnInit() {
 
       this.filtersTxt = 'Show additional filters';
-  }
 
-  @Input()
-  searchCriteria: any;
+      if (this.searchCriteria){
+          if (this.searchCriteria.candidateVar){
+              this.mutantCandidatesCheck = true
+          }
+
+          if (this.searchCriteria.rareVar){
+              this.rareVariantsCheck = true
+          }
+
+          if (this.searchCriteria.confirmedVar){
+              this.confirmedMutationsCheck = true
+          }
+      }
+  }
 
   remove(selected: any){
 

@@ -49,6 +49,21 @@ export class SnpsIndelsComponent implements OnInit {
                   displayedValue: paramsIn.get('sample')
               }];
           }
+
+          const candidateVar = paramsIn.get('candidateVar');
+          if (candidateVar) {
+              this.currSearchParams.candidateVar = true;
+          }
+
+          const rareVars = paramsIn.get('rareVar');
+          if (rareVars) {
+              this.currSearchParams.rareVar = true;
+          }
+
+          const confirmedVar = paramsIn.get('confirmedVar');
+          if (confirmedVar) {
+              this.currSearchParams.confirmedVar = true;
+          }
       });
 
       this._queryVariants(this.currSearchParams);
