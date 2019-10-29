@@ -77,6 +77,8 @@ export class SnpsIndelsComponent implements OnInit {
           if (confirmedVar) {
               this.currSearchParams.confirmedVar = true;
           }
+
+          this._queryVariants(this.currSearchParams);
       });
 
       this._queryVariants(this.currSearchParams);

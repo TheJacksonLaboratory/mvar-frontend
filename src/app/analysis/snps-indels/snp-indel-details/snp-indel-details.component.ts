@@ -6,7 +6,8 @@ import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.compone
 import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
 import {SampleDialogComponent} from '../../dialogs/sample-dialog/sample-dialog.component';
 import {environment} from '../../../../environments/environment';
-import {RouterEvent, Router} from "@angular/router";
+import {RouterEvent, Router} from '@angular/router';
+import {AnnotatedVarDialogComponent} from '../../dialogs/annotated-var-dialog/annotated-var-dialog.component';
 
 @Component({
   selector: 'app-snp-indel-details',
@@ -22,7 +23,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     dbSNPUrl = environment.NCBI_DBSNP_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
 
-    dialogRef: MatDialogRef;
+    dialogRef: any;
 
     constructor(public dialog: MatDialog, public router: Router) { }
 
@@ -40,7 +41,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     openGeneDialog() {
       console.log("open gene dialog");
         this.dialogRef = this.dialog.open(GeneDialogComponent, {
-          width: '50%', height: '30%',
+          width: '50%', height: '50%',
           data: {
               gene: this.variant.gene
           }
@@ -50,7 +51,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     openStrainDialog() {
         console.log("open strain dialog");
         this.dialogRef = this.dialog.open(StrainDialogComponent, {
-            width: '50%', height: '30%',
+            width: '50%', height: '50%',
             data: {
                 strain: this.variant.sample.strain
             }
@@ -60,9 +61,19 @@ export class SnpIndelDetailsComponent implements OnInit {
     openSampleDialog() {
         console.log("open sample dialog");
         this.dialogRef = this.dialog.open(SampleDialogComponent, {
-            width: '80%', height: '50%',
+            width: '80%', height: '80%',
             data: {
                 sample: this.variant.sample
+            }
+        });
+    }
+
+    openAnnotatedVarDialog() {
+        console.log("open annotated var dialog");
+        this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
+            width: '50%', height: '70%',
+            data: {
+                variant: this.variant
             }
         });
     }

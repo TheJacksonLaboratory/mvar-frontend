@@ -22,6 +22,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {SearchService} from "../../analysis/search.service";
 import { UploadService } from '../../files-nav/upload.service';
 import { FilesService} from '../../files-nav/files.service';
+import { AnnotationService} from "../../analysis/annotation.service";
 import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
@@ -33,6 +34,9 @@ import { GeneDialogComponent } from '../../analysis/dialogs/gene-dialog/gene-dia
 import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
 import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
 import { StrainComponent } from '../../analysis/strain/strain.component';
+import { AnnotatedVarComponent } from '../../analysis/annotated-var/annotated-var.component';
+import { AnnotatedVarDialogComponent } from '../../analysis/dialogs/annotated-var-dialog/annotated-var-dialog.component';
+
 
 
 import {
@@ -97,10 +101,12 @@ import {
       GeneDialogComponent,
       StrainDialogComponent,
       SampleDialogComponent,
-      StrainComponent
+      StrainComponent,
+      AnnotatedVarComponent,
+      AnnotatedVarDialogComponent
   ],
-  providers: [FilesService, UploadService, SearchService, {provide: MatDialogRef, useValue: {}}],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent],
+  providers: [FilesService, UploadService, SearchService, AnnotationService, {provide: MatDialogRef, useValue: {}}],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent],
 })
 
 export class AdminLayoutModule {}

@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Variation:</b> {{variant.varTxt}}
+                    </div>
+                    <div class="col-md-6">
+                        <b>Type:</b> {{variant.type}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Sample:</b> {{variant.sample.sampleId}}
+                    </div>
+                    <div class="col-md-6">
+                        <b>Genome Build:</b> {{variant.assembly}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Variant Frequency:</b> {{variant.varFreq}}
+                    </div>
+                    <div class="col-md-6">
+                        <b>Mutant Candidate:</b> {{variant.mutantCandidate}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                            <form >
+
+                                <mat-form-field>
+                                    <mat-select placeholder="Variant Annotation" [(value)]="annotatedMutation.status" [formControl]="annotationFC">
+                                        <mat-option value="CONFIRMED_MUTATION">Confirmed Phenotypic Mutation</mat-option>
+                                        <mat-option value="VERIFY_MUTATION">Verify Phenotypic Mutation</mat-option>
+                                        <mat-option value="REMOVED">Remove</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field  class="example-full-width">
+                                    <textarea matTextareaAutosize matAutosizeMinRows="10" matInput placeholder="Notes" [formControl]="notesFC" [value]="annotatedMutation.notes"></textarea>
+                                </mat-form-field>
+
+
+                                <div class="pull-right">
+                                    <span>
+                                        <a mat-button class="nav-link active" [disabled]="saveDisabled" (click)="saveAnnotation()">
+                                          <i class="material-icons">save</i> Save
+                                          <div class="ripple-container"></div>
+                                        </a>
+
+
+                                        <a mat-button class="nav-link active" (click)="onClose()">
+                                            <i class="material-icons">close</i> Close
+                                            <div class="ripple-container"></div>
+                                        </a>
+
+                                    </span>
+                                </div>
+
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<p>annotated var works</p>-->

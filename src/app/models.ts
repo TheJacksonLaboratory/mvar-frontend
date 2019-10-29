@@ -37,6 +37,9 @@ export class Strain {
   carriesAlleleName: string;
   carriesAlleleType: string;
   carriesAlleleIdentifier: string;
+
+  constructor(){
+  }
 }
 
 export class  Sample {
@@ -96,6 +99,8 @@ export class Variant {
   snpEffGeneBiotype: string;
   snpEffTranscriptId: string;
   snpEffExonId: string;
+  annotatedMutation: AnnotatedMutation;
+  varTxt: string;
 
   constructor() {
     this.gene = new Gene();
@@ -122,9 +127,25 @@ export class SvVariant {
     varFreq: number;
     assembly: string;
     status: string;
+    annotatedMutation: AnnotatedMutation;
 
     constructor() {
         ///this.gene = new Gene();
         this.sample = new Sample();
     }
+}
+
+export class AnnotatedMutation {
+
+  id: number;
+  status: string;
+  notes: string;
+  updatedBy: string;
+  udadateDate: string;
+  sample: Sample;
+
+  constructor(){
+    this.status = '';
+    this.notes = '' ;
+  }
 }
