@@ -27,7 +27,7 @@
                                          [showVarFilters]="showVarFilters">
                 </app-search-criteria-box>
 
-                  <table #varTable mat-table [dataSource]="varDataSource" multiTemplateDataRows>
+                  <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" multiTemplateDataRows>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="symbol">
@@ -124,7 +124,7 @@
 
                     <ng-container matColumnDef="expandedDetail">
                       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                        <div class="example-element-detail"
+                        <div *ngIf="element === expandedElement" class="example-element-detail"
                              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                           <div style="width: 100%">
                             <app-snp-indel-details [variant]="element"></app-snp-indel-details>
@@ -139,13 +139,9 @@
                         (click)="expandCollapse(element)">
                     </tr>
 
-
-
                     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 
-                    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>-->
-                    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
                   </table>
 
                   <mat-paginator #varPaginator [length]="pageLength"

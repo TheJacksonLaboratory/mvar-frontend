@@ -14,7 +14,7 @@ import { UploadService } from '../../files-nav/upload.service';
   styleUrls: ['./samples.component.scss'],
     animations: [
         trigger('detailExpand', [
-            state('collapsed, void', style({height: '0px', minHeight: '0'})),
+            state('collapsed, void', style({height: '0px', minHeight: '0', display: 'none'})),
             state('expanded', style({height: '*'})),
             transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
             transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
@@ -33,7 +33,7 @@ export class SamplesComponent implements OnInit {
     // MatPaginator Inputs
     pageLength = 100;
     pageSize = 10;
-    pageSizeOptions: number[] = [10, 50, 100, 500];
+    pageSizeOptions: number[] = [10, 50, 100];
 
     //searchparams
     currSearchParams: any = {};
@@ -69,6 +69,8 @@ export class SamplesComponent implements OnInit {
             this.currSearchParams.selectedItems = searchCriteria.selecteItems;
         }
 
+        this.currSearchParams.offset = 0;
+        this.paginator.pageIndex = 0;
         this._getSamples(this.currSearchParams);
     }
 
@@ -77,18 +79,12 @@ export class SamplesComponent implements OnInit {
       // this.currSearchParams = params
       this.searchService.getSamples(params).subscribe(data => {
 
-          let temp = data.samples as Sample[];
-
-          // temp.forEach(variant => {
-          //     if (!variant.gene) {variant.gene = new Gene()};
-          // });
-          this.dataSource = temp;
-
+          this.dataSource = data.samples;
           this.count = data.sampleCount;
           this.pageLength = this.count;
 
           console.log('sample count = ' + this.count)
-          console.log(this.dataSource);
+          //console.log(this.dataSource);
 
       });
   }
@@ -97,17 +93,8 @@ export class SamplesComponent implements OnInit {
 
         console.log(pageEvent.pageSize + pageEvent.pageIndex);
         if (this.currSearchParams) {
-
-            if (this.currSearchParams.max != pageEvent.pageSize) {
-                this.currSearchParams.offset = 0;
-                this.paginator.pageIndex = 0;
-
-                window.scroll(0, 0);
-            }
-            else {
-                this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
-            }
-
+            console.log("max:" + this.currSearchParams.max)
+            this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
             this.currSearchParams.max = pageEvent.pageSize;
             this._getSamples(this.currSearchParams);
         }
@@ -115,7 +102,7 @@ export class SamplesComponent implements OnInit {
 
 
     expandCollapse(element:any){
-        console.log(element)
+        //console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element
 
@@ -204,8 +191,6 @@ export class SamplesComponent implements OnInit {
             console.log(element.confirmedSvVarCount);
         });
     }
-
-
 
     public openUploadDialog() {
         const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
