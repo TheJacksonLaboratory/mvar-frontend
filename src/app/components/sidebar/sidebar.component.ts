@@ -9,7 +9,7 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Mouse Mutant Database',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Login',  icon:'person', class: '' },
+    { path: '/login', title: 'User Login',  icon:'person', class: '' },
     // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/samples', title: 'Samples',  icon:'scatter_plot', class: '' },
     { path: '/snpsIndels', title: 'Mouse SNPs / INDELs',  icon:'table_chart', class: '' },

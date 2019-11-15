@@ -1,5 +1,5 @@
 import {Injectable, ɵregisterNgModuleType} from '@angular/core';
-import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import {File} from '../models';
@@ -178,7 +178,8 @@ export class SearchService {
       if (paramsIn.studies){
           studies = paramsIn.studies
       }
-      return this.http.get(sampleQueryUrl, {params:
+      return this.http.get(sampleQueryUrl, {
+          params:
               {
               strain: strains,
               phenotype: phenotypes,

@@ -8,6 +8,7 @@ import {StructuralVarComponent} from "../../analysis/structural-var/structural-v
 import {FilesNavComponent} from "../../files-nav/files-nav.component";
 import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
+import {LoginComponent} from '../../login/login.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -55,6 +56,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'login',   component: LoginComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'snpsIndels',     component: SnpsIndelsComponent },
     { path: 'snpsIndels/:sample/:rareVar/:candidateVar/:confirmedVar',     component: SnpsIndelsComponent},
