@@ -16,7 +16,6 @@ import { FilesNavComponent } from '../../files-nav/files-nav.component';
 import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
 import { SearchBoxComponent } from '../../shared/search/search-box/search-box.component';
 import { SearchCriteriaBoxComponent } from '../../shared/search/search-criteria-box/search-criteria-box.component';
-import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {SearchService} from '../../analysis/search.service';
