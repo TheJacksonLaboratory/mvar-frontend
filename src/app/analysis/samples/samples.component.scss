@@ -12,15 +12,16 @@ th, td {
   white-space: nowrap;
 }
 
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
+tr.example-detail-row {
+  height: 0;
 }
 
 .example-element-row td {
   border-bottom-width: 0;
+  border-top-width: 0;
 }
 
-tr.example-detail-row {
-  height: 0;
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
 }

@@ -34,7 +34,7 @@ export class SnpsIndelsComponent implements OnInit {
   // MatPaginator Inputs
   pageLength = 100;
   pageSize = 10;
-  pageSizeOptions: number[] = [10, 50, 100, 500];
+  pageSizeOptions: number[] = [10, 50, 100];
 
   //searchparams
   currSearchParams: any = {}
@@ -93,6 +93,8 @@ export class SnpsIndelsComponent implements OnInit {
         this.currSearchParams.selectedItems = searchCriteria.selectedItems;
     }
 
+    this.currSearchParams.offset = 0;
+    this.varPaginator.pageIndex = 0;
     this._queryVariants(this.currSearchParams);
 
   }
@@ -121,17 +123,7 @@ export class SnpsIndelsComponent implements OnInit {
 
     console.log(pageEvent.pageSize + pageEvent.pageIndex);
     if (this.currSearchParams) {
-
-      if (this.currSearchParams.max != pageEvent.pageSize) {
-        this.currSearchParams.offset = 0;
-        this.varPaginator.pageIndex = 0;
-
-        window.scroll(0, 0);
-      }
-      else {
-        this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
-      }
-
+      this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
       this.currSearchParams.max = pageEvent.pageSize;
       this._queryVariants(this.currSearchParams);
     }
