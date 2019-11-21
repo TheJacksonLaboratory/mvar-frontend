@@ -16,13 +16,12 @@ import { FilesNavComponent } from '../../files-nav/files-nav.component';
 import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
 import { SearchBoxComponent } from '../../shared/search/search-box/search-box.component';
 import { SearchCriteriaBoxComponent } from '../../shared/search/search-criteria-box/search-criteria-box.component';
-import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
-import {SearchService} from "../../analysis/search.service";
+import {SearchService} from '../../analysis/search.service';
 import { UploadService } from '../../files-nav/upload.service';
 import { FilesService} from '../../files-nav/files.service';
-import { AnnotationService} from "../../analysis/annotation.service";
+import { AnnotationService} from '../../analysis/annotation.service';
 import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
@@ -36,8 +35,11 @@ import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/samp
 import { StrainComponent } from '../../analysis/strain/strain.component';
 import { AnnotatedVarComponent } from '../../analysis/annotated-var/annotated-var.component';
 import { AnnotatedVarDialogComponent } from '../../analysis/dialogs/annotated-var-dialog/annotated-var-dialog.component';
-
-
+import { LoginComponent} from '../../login/login.component';
+import { AuthenticationService} from '../../login/authentication.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor} from '../../helpers/jwt.interceptor';
+import { ErrorInterceptor} from '../../helpers/error.interceptor';
 
 import {
   MatButtonModule,
@@ -53,7 +55,7 @@ import {
   MatListModule,
   MatProgressBarModule,
   MatCheckboxModule,
-  MatAutocompleteModule,
+  MatAutocompleteModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -80,7 +82,7 @@ import {
       MatDialogModule,
       MatCheckboxModule,
       MatChipsModule,
-      MatExpansionModule
+      MatExpansionModule,
   ],
   declarations: [
     DashboardComponent,
@@ -103,9 +105,13 @@ import {
       SampleDialogComponent,
       StrainComponent,
       AnnotatedVarComponent,
-      AnnotatedVarDialogComponent
+      AnnotatedVarDialogComponent,
+      LoginComponent
   ],
-  providers: [FilesService, UploadService, SearchService, AnnotationService, {provide: MatDialogRef, useValue: {}}],
+  providers: [FilesService, UploadService, SearchService, AnnotationService, AuthenticationService,
+      {provide: MatDialogRef, useValue: {}},
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent],
 })
 

@@ -1,0 +1,44 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.login-card {
+  width: 400px;
+  margin: 10% auto;
+}
+.mat-card-title{
+  font-size: 16px;
+}
+.center {
+  margin:0 auto;
+}
+
+.login-button {
+  display: block;
+  border: none;
+  height: 50px;
+  color:#fff;
+  font-size: 18px;
+  background: #3458bf;
+  width: 100%;
+}
+
+.login-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.login-error {
+  margin-bottom: 20px;
+  color:#ff3300;
+  text-align: left;
+}
+
+.login-alert {
+  margin-bottom: 20px;
+  color: green;
+  text-align: left;
+}
