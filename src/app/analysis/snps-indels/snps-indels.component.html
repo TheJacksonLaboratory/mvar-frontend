@@ -16,6 +16,10 @@
               <div class="card-body table-responsive">
 
                 <span class="pull-right">
+                              <a mat-button class="nav-link active" (click)="exportCSV()">
+                                                  <i class="material-icons">import_export</i> Export results to CSV file
+                                                  <div class="ripple-container"></div>
+                              </a>
                               <a mat-button class="nav-link active" (click)="showFilters()">
                                                   <i class="material-icons">filter_list</i> Show Additional Filters
                                                   <div class="ripple-container"></div>
@@ -27,83 +31,83 @@
                                          [showVarFilters]="showVarFilters">
                 </app-search-criteria-box>
 
-                  <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" multiTemplateDataRows>
+                  <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" matSort multiTemplateDataRows>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="symbol">
-                      <th mat-header-cell *matHeaderCellDef> Gene </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gene </th>
                       <td mat-cell *matCellDef="let element"> {{element.gene.symbol}} </td>
                     </ng-container>
 
                     <!-- Chormosome Column -->
                     <ng-container matColumnDef="chr">
-                      <th mat-header-cell *matHeaderCellDef> Chromosome </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Chromosome </th>
                       <td mat-cell *matCellDef="let element"> {{element.chr}} </td>
                     </ng-container>
 
                     <!-- Position Column -->
                     <ng-container matColumnDef="pos">
-                      <th mat-header-cell *matHeaderCellDef> Position </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Position </th>
                       <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
                     </ng-container>
 
-                    <!-- External id Column -->
-                    <ng-container matColumnDef="dbSNPId">
-                      <th mat-header-cell *matHeaderCellDef> External ID </th>
-                      <td mat-cell *matCellDef="let element"> {{element.dbSNPId}} </td>
-                    </ng-container>
+                    <!--&lt;!&ndash; External id Column &ndash;&gt;-->
+                    <!--<ng-container matColumnDef="dbSNPId">-->
+                      <!--<th mat-header-cell *matHeaderCellDef> External ID </th>-->
+                      <!--<td mat-cell *matCellDef="let element"> {{element.dbSNPId}} </td>-->
+                    <!--</ng-container>-->
 
                     <!-- Ref Allele Column -->
                     <ng-container matColumnDef="ref">
-                      <th mat-header-cell *matHeaderCellDef> Ref Allele </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ref Allele </th>
                       <td mat-cell *matCellDef="let element"> {{element.ref}} </td>
                     </ng-container>
 
                     <!-- Alt Allele Column -->
                     <ng-container matColumnDef="alt">
-                      <th mat-header-cell *matHeaderCellDef> Alt Allele </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Alt Allele </th>
                       <td mat-cell *matCellDef="let element"> {{element.alt}} </td>
                     </ng-container>
 
                     <!-- Type Column -->
                     <ng-container matColumnDef="type">
-                      <th mat-header-cell *matHeaderCellDef> Type </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
                       <td mat-cell *matCellDef="let element"> {{element.type}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->
-                    <ng-container matColumnDef="filter">
-                      <th mat-header-cell *matHeaderCellDef> Filter </th>
-                      <td mat-cell *matCellDef="let element"> {{element.filter}} </td>
-                    </ng-container>
+                    <!--<ng-container matColumnDef="filter">-->
+                      <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Filter </th>-->
+                      <!--<td mat-cell *matCellDef="let element"> {{element.filter}} </td>-->
+                    <!--</ng-container>-->
 
                     <!-- Impact Column -->
-                    <ng-container matColumnDef="impact">
-                      <th mat-header-cell *matHeaderCellDef> Impact </th>
+                    <ng-container matColumnDef="snpEffImpact">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Impact </th>
                       <td mat-cell *matCellDef="let element"> {{element.snpEffImpact}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->
-                    <ng-container matColumnDef="functionalClass">
-                      <th mat-header-cell *matHeaderCellDef> Functional Class </th>
+                    <ng-container matColumnDef="snpEffFunctionalClass">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Functional Class </th>
                       <td mat-cell *matCellDef="let element"> {{element.snpEffFunctionalClass}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->
                     <ng-container matColumnDef="varFreq">
-                      <th mat-header-cell *matHeaderCellDef> Variant Frequency % </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Variant Frequency % </th>
                       <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->
                     <ng-container matColumnDef="mutantCandidate">
-                      <th mat-header-cell *matHeaderCellDef> Mutant Candidate </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mutant Candidate </th>
                       <td mat-cell *matCellDef="let element"> {{element.mutantCandidate}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->
                     <ng-container matColumnDef="sampleId">
-                      <th mat-header-cell *matHeaderCellDef> Sample Id </th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample Id </th>
                       <td mat-cell *matCellDef="let element"> {{element.sample.sampleId}} </td>
                     </ng-container>
 

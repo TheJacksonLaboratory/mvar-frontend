@@ -40,22 +40,23 @@ import { AuthenticationService} from '../../login/authentication.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor} from '../../helpers/jwt.interceptor';
 import { ErrorInterceptor} from '../../helpers/error.interceptor';
+import {MatSortModule} from '@angular/material/sort'
 
 import {
-  MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule,
-  MatTabsModule,
-  MatCardModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatProgressBarModule,
-  MatCheckboxModule,
-  MatAutocompleteModule
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatCardModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatCheckboxModule,
+    MatAutocompleteModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -83,6 +84,7 @@ import {
       MatCheckboxModule,
       MatChipsModule,
       MatExpansionModule,
+      MatSortModule
   ],
   declarations: [
     DashboardComponent,

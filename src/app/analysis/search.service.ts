@@ -14,6 +14,7 @@ const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
 const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
+const variantExportCSVUrl = environment.MMRDB_API_VARIANT_EXPORT_CSV_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -40,52 +41,127 @@ export class SearchService {
 
   public queryVariant(paramsIn: any): Observable<any> {
 
-    console.log(paramsIn)
+    // console.log(paramsIn)
+    //
+    // const genes: string[] = [];
+    // const strains: string[] = [];
+    // const phenotypes: string[] = [];
+    // const samples: string[] = [];
+    //
+    // console.log('max = ' + paramsIn.max);
+    // console.log('selected items');
+    // console.log(paramsIn.selectedItems);
+    //
+    // if (paramsIn.selectedItems) {
+    //     paramsIn.selectedItems.forEach(item => {
+    //         if (item.selectedType === 'gene') {
+    //             genes.push(item.selectedValue.symbol);
+    //         }
+    //
+    //         if (item.selectedType === 'strain') {
+    //             strains.push(item.selectedValue.name);
+    //         }
+    //
+    //         if (item.selectedType === 'phenotype') {
+    //             phenotypes.push(item.selectedValue.mpTermName);
+    //         }
+    //
+    //         if (item.selectedType === 'sample') {
+    //             samples.push(item.selectedValue.sampleId);
+    //         }
+    //
+    //     });
+    // }
+    // return this.http.get(variantQueryUrl, {params:
+    //                       {gene: genes,
+    //                             strain:strains,
+    //                             phenotype:phenotypes,
+    //                             sample:samples,
+    //                             rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
+    //                             mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
+    //                             confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
+    //                             type: paramsIn.varType ? paramsIn.varType : [],
+    //                             funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
+    //                             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+    //                             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
+    //                             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+    //                             max: paramsIn.max ? paramsIn.max : '',
+    //                             offset: paramsIn.offset ? paramsIn.offset : ''}});
 
-    const genes: string[] = [];
-    const strains: string[] = [];
-    const phenotypes: string[] = [];
-    const samples: string[] = [];
+    return this.sendVariantQueryRequest(paramsIn, variantQueryUrl);
+  }
 
-    console.log('max = ' + paramsIn.max);
-    console.log('selected items');
-    console.log(paramsIn.selectedItems);
+  public exportVariantsToCSV(paramsIn: any) {
+      return this.sendVariantQueryRequest(paramsIn, variantExportCSVUrl).subscribe(
+          response => this.downloadExportFile(response, 'text/csv'));
+  }
 
-    if (paramsIn.selectedItems) {
-        paramsIn.selectedItems.forEach(item => {
-            if (item.selectedType === 'gene') {
-                genes.push(item.selectedValue.symbol);
-            }
+  private downloadExportFile(data: any, type: string) {
+      let blob = new Blob([data], { type: type});
+      let url = window.URL.createObjectURL(blob);
+      let pwa = window.open(url);
+      if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+          alert( 'Please disable your Pop-up blocker and try again.');
+      };
+  }
+  private sendVariantQueryRequest (paramsIn: any, url: string): Observable<any> {
 
-            if (item.selectedType === 'strain') {
-                strains.push(item.selectedValue.name);
-            }
+      console.log(paramsIn)
 
-            if (item.selectedType === 'phenotype') {
-                phenotypes.push(item.selectedValue.mpTermName);
-            }
+      const genes: string[] = [];
+      const strains: string[] = [];
+      const phenotypes: string[] = [];
+      const samples: string[] = [];
 
-            if (item.selectedType === 'sample') {
-                samples.push(item.selectedValue.sampleId);
-            }
+      console.log('max = ' + paramsIn.max);
+      console.log('selected items');
+      console.log(paramsIn.selectedItems);
 
-        });
-    }
-    return this.http.get(variantQueryUrl, {params:
-                          {gene: genes,
-                                strain:strains,
-                                phenotype:phenotypes,
-                                sample:samples,
-                                rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
-                                mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
-                                confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
-                                type: paramsIn.varType ? paramsIn.varType : [],
-                                funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
-                                impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-                                lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
-                                withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
-                                max: paramsIn.max ? paramsIn.max : '',
-                                offset: paramsIn.offset ? paramsIn.offset : ''}});
+      if (paramsIn.selectedItems) {
+          paramsIn.selectedItems.forEach(item => {
+              if (item.selectedType === 'gene') {
+                  genes.push(item.selectedValue.symbol);
+              }
+
+              if (item.selectedType === 'strain') {
+                  strains.push(item.selectedValue.name);
+              }
+
+              if (item.selectedType === 'phenotype') {
+                  phenotypes.push(item.selectedValue.mpTermName);
+              }
+
+              if (item.selectedType === 'sample') {
+                  samples.push(item.selectedValue.sampleId);
+              }
+
+          });
+      }
+
+      const options= {gene: genes,
+          strain:strains,
+          phenotype:phenotypes,
+          sample:samples,
+          rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
+          mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
+          confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
+          type: paramsIn.varType ? paramsIn.varType : [],
+          funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
+          impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+          lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
+          withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+          max: paramsIn.max ? paramsIn.max : '',
+          offset: paramsIn.offset ? paramsIn.offset : '',
+          sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
+          sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''}
+
+
+      if (url === variantExportCSVUrl){
+          return this.http.get(url, {responseType: 'arraybuffer', params: options});
+      } else {
+          return this.http.get(url, {params: options});
+      }
+
   }
 
     public querySvVariant(paramsIn: any): Observable<any> {

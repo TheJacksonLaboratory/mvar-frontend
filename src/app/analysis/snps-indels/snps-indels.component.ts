@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith, switchMap} from 'rxjs/operators';
@@ -8,6 +8,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {MatPaginator, MatTable} from "@angular/material";
 import { ActivatedRoute } from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-snps-indels',
@@ -22,12 +23,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         ]),
     ],
 })
-export class SnpsIndelsComponent implements OnInit {
+export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
   @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
+  @ViewChild( MatSort ) sort: MatSort;
 
   //Table items
-  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'filter', 'impact', 'functionalClass', 'dbSNPId', 'varFreq', 'mutantCandidate', 'sampleId'];
+  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type','snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
   varDataSource: Variant[] = [];
   varCount: number;
 
@@ -81,7 +83,24 @@ export class SnpsIndelsComponent implements OnInit {
           this._queryVariants(this.currSearchParams);
       });
 
+      //this.varDataSource.sort(this.sort)
+
       this._queryVariants(this.currSearchParams);
+  }
+
+  ngAfterViewInit() {
+
+      this.sort.sortChange.subscribe(() => {
+          console.log("Sorting")
+          console.log(this.sort.active)
+          console.log(this.sort.direction)
+
+          this.currSearchParams.sortBy = this.sort.active;
+          this.currSearchParams.sortDirection = this.sort.direction;
+          this.currSearchParams.offset = 0;
+          this.varPaginator.pageIndex = 0;
+          this._queryVariants(this.currSearchParams)
+      });
   }
 
 
@@ -141,6 +160,20 @@ export class SnpsIndelsComponent implements OnInit {
         console.log(element)
         this.expandedElement = this.expandedElement === element ? null : element
 
+    }
+
+    exportCSV(){
+        console.log("current var count = " + this.varCount)
+
+        const exportSearchCriteria = this.currSearchParams;
+        if (this.varCount && this.varCount > 0){
+            exportSearchCriteria.offset = 0;
+            exportSearchCriteria.max = this.varCount;
+
+            if (confirm(this.varCount + " records will be exported to a CSV file, do you want to continue?")){
+                this.searchService.exportVariantsToCSV(exportSearchCriteria);
+            }
+        }
     }
 }
 
