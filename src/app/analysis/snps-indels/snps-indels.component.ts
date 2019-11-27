@@ -26,7 +26,7 @@ import {MatSort} from '@angular/material/sort';
 export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
   @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
-  @ViewChild( MatSort ) sort: MatSort;
+  @ViewChild( MatSort, {static: true}) sort: MatSort;
 
   //Table items
   displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type','snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
