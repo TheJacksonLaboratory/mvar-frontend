@@ -34,7 +34,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
   varCount: number;
 
   // MatPaginator Inputs
-  pageLength = 100;
+  pageLength = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 50, 100];
 
@@ -55,16 +55,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
       this.route.paramMap.subscribe(paramsIn => {
           console.log(paramsIn.get('sample'));
 
-          const sample = paramsIn.get('sample');
-          if (sample) {
-
-              this.currSearchParams.selectedItems = [{
-                  selectedType: 'sample',
-                  selectedValue: {sampleId: sample},
-                  displayedValue: paramsIn.get('sample')
-              }];
-          }
-
           const candidateVar = paramsIn.get('candidateVar');
           if (candidateVar) {
               this.currSearchParams.candidateVar = true;
@@ -80,26 +70,35 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
               this.currSearchParams.confirmedVar = true;
           }
 
-          this._queryVariants(this.currSearchParams);
+          const sample = paramsIn.get('sample');
+          if (sample) {
+
+              this.currSearchParams.selectedItems = [{
+                  selectedType: 'sample',
+                  selectedValue: {sampleId: sample},
+                  displayedValue: paramsIn.get('sample')
+              }];
+
+              this._queryVariants(this.currSearchParams);
+          }
       });
-
-      //this.varDataSource.sort(this.sort)
-
-      this._queryVariants(this.currSearchParams);
   }
 
   ngAfterViewInit() {
 
       this.sort.sortChange.subscribe(() => {
           console.log("Sorting")
-          console.log(this.sort.active)
-          console.log(this.sort.direction)
 
           this.currSearchParams.sortBy = this.sort.active;
           this.currSearchParams.sortDirection = this.sort.direction;
           this.currSearchParams.offset = 0;
           this.varPaginator.pageIndex = 0;
-          this._queryVariants(this.currSearchParams)
+
+          if (this.currSearchParams.selectedItems) {
+              if (this.sort.active && this.currSearchParams.selectedItems.length > 0) {
+                  this._queryVariants(this.currSearchParams)
+              }
+          }
       });
   }
 
@@ -108,15 +107,25 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     const params: any = {};
 
-    if (searchCriteria.selectedItems.length > 0) {
-        this.currSearchParams.selectedItems = searchCriteria.selectedItems;
-    }
-
     this.currSearchParams.offset = 0;
     this.varPaginator.pageIndex = 0;
-    this._queryVariants(this.currSearchParams);
+    this.clearSort();
 
+    if(searchCriteria.selectedItems.length > 0) {
+        console.log('On search criteria change')
+        console.log(searchCriteria.selectedItems)
+        this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        this._queryVariants(this.currSearchParams);
+    } else {
+        this.varDataSource = []
+        this.varCount = 0
+        this.pageLength = 0
+    }
   }
+
+  private clearSort() {
+        this.sort.sort({id: '', start: 'asc', disableClear: false});
+    }
 
   private _queryVariants(params: any) {
 
