@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from "@angular/router";
 import * as Chartist from 'chartist';
+import { SearchService} from "../analysis/search.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +10,8 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  searchOption = 'variant';
+  constructor(private searchService: SearchService, private router: Router) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -145,6 +148,18 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+  }
+
+  onSelectedItem(event: any){
+      console.log("dashboard search")
+      this.searchService.setSelectedSearchItems(event);
+      if (this.searchOption === 'variant') {
+          this.router.navigate(['/snpsIndels'])
+      } else if (this.searchOption === 'svVariant') {
+          this.router.navigate(['/structuralVar'])
+      } else if (this.searchOption === 'sample') {
+          this.router.navigate(['/samples'])
+      }
   }
 
 }

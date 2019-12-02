@@ -21,7 +21,25 @@ const variantExportCSVUrl = environment.MMRDB_API_VARIANT_EXPORT_CSV_URL;
 })
 export class SearchService {
 
-  constructor(private http: HttpClient) { }
+  selectedSearchItems: any;
+  selectedSearchItemSubject: BehaviorSubject<any>;
+
+  constructor(private http: HttpClient) {
+      this.selectedSearchItems = {}
+      this.selectedSearchItemSubject = new BehaviorSubject(this.selectedSearchItems)
+  }
+
+  getSelectedSearchItems(){
+      return this.selectedSearchItems
+  }
+
+  setSelectedSearchItems(searchItems: any){
+      console.log("setting search item")
+      console.log(searchItems)
+
+      this.selectedSearchItems = searchItems;
+      this.selectedSearchItemSubject.next(searchItems);
+  }
 
   public searchGene(symbol: string): Observable<any> {
     return this.http.get(geneUrl + '?symbol=' + symbol);
@@ -128,7 +146,7 @@ export class SearchService {
               }
 
               if (item.selectedType === 'phenotype') {
-                  phenotypes.push(item.selectedValue.mpTermName);
+                  phenotypes.push(item.selectedValue.mpTermIdentifier);
               }
 
               if (item.selectedType === 'sample') {

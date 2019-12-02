@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {Gene} from '../../../models';
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.css']
 })
-export class SearchBoxComponent implements OnInit {
+export class SearchBoxComponent implements OnInit, OnChanges {
 
   @Input()
     searchType: string;
@@ -20,6 +20,7 @@ export class SearchBoxComponent implements OnInit {
     selectedSearchItem = new EventEmitter<any>();
 
   myControl = new FormControl();
+  myControlSubscription: any;
 
   geneOptions: any[] = [];
   geneCount: number;
@@ -36,55 +37,112 @@ export class SearchBoxComponent implements OnInit {
   placeHolderTxt = '';
 
 
+
   constructor(private searchService: SearchService) {
     console.log('contructor searchBox, type = ' + this.searchType);
   }
 
   ngOnInit() {
     console.log('searchBox, type = ' + this.searchType);
-    if (this.searchType === 'variant') {
+    this.setSearchBox()
+    // if (this.searchType === 'variant') {
+    //
+    //   this.placeHolderTxt = 'Search for snps and indels by sample id, gene, strain, or phenotype';
+    //   this.myControl.valueChanges.subscribe(value => {
+    //       this.geneOptions = [];
+    //       this.strainOptions = [];
+    //       this.phenotypeOptions = [];
+    //       this.sampleOptions = [];
+    //       if (value && value.length > 0) {
+    //         this._variantFilter(value);
+    //       }
+    //     }
+    //   );
+    // }
+    //
+    // if (this.searchType === 'svVariant') {
+    //
+    //   this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
+    //   this.myControl.valueChanges.subscribe(value => {
+    //           //this.geneOptions = [];
+    //           this.strainOptions = [];
+    //           this.phenotypeOptions = [];
+    //           this.sampleOptions = [];
+    //           if (value && value.length > 0) {
+    //               this._svVariantFilter(value);
+    //           }
+    //       }
+    //   );
+    // }
+    //
+    // if (this.searchType === 'sample') {
+    //
+    //     this.placeHolderTxt = 'Search for samples by sample id, strain, or phenotype';
+    //     this.myControl.valueChanges.subscribe(value => {
+    //             this.strainOptions = [];
+    //             this.phenotypeOptions = [];
+    //             this.sampleOptions = [];
+    //             if (value && value.length > 2) {
+    //                 this._sampleFilter(value);
+    //             }
+    //         }
+    //     );
+    // }
+  }
 
-      this.placeHolderTxt = 'Search for snps and indels by sample id, gene, strain, or phenotype';
-      this.myControl.valueChanges.subscribe(value => {
-          this.geneOptions = [];
-          this.strainOptions = [];
-          this.phenotypeOptions = [];
-          this.sampleOptions = [];
-          if (value && value.length > 0) {
-            this._variantFilter(value);
-          }
-        }
-      );
-    }
+  ngOnChanges(changes: SimpleChanges){
+      console.log(changes.searchType.currentValue)
+      this.setSearchBox()
+  }
 
-    if (this.searchType === 'svVariant') {
+  setSearchBox(){
+      if (this.myControlSubscription ) {
+          this.myControlSubscription.unsubscribe();
+      }
 
-      this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
-      this.myControl.valueChanges.subscribe(value => {
-              //this.geneOptions = [];
-              this.strainOptions = [];
-              this.phenotypeOptions = [];
-              this.sampleOptions = [];
-              if (value && value.length > 0) {
-                  this._svVariantFilter(value);
+      if (this.searchType === 'variant') {
+
+          this.placeHolderTxt = 'Search for snps and indels by sample id, gene, strain, or phenotype';
+          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+                  this.geneOptions = [];
+                  this.strainOptions = [];
+                  this.phenotypeOptions = [];
+                  this.sampleOptions = [];
+                  if (value && value.length > 0) {
+                      this._variantFilter(value);
+                  }
               }
-          }
-      );
-    }
+          );
+      }
 
-    if (this.searchType === 'sample') {
+      if (this.searchType === 'svVariant') {
 
-        this.placeHolderTxt = 'Search for samples by sample id, strain, or phenotype';
-        this.myControl.valueChanges.subscribe(value => {
-                this.strainOptions = [];
-                this.phenotypeOptions = [];
-                this.sampleOptions = [];
-                if (value && value.length > 2) {
-                    this._sampleFilter(value);
-                }
-            }
-        );
-    }
+          this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
+          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+                  //this.geneOptions = [];
+                  this.strainOptions = [];
+                  this.phenotypeOptions = [];
+                  this.sampleOptions = [];
+                  if (value && value.length > 0) {
+                      this._svVariantFilter(value);
+                  }
+              }
+          );
+      }
+
+      if (this.searchType === 'sample') {
+
+          this.placeHolderTxt = 'Search for samples by sample id, strain, or phenotype';
+          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+                  this.strainOptions = [];
+                  this.phenotypeOptions = [];
+                  this.sampleOptions = [];
+                  if (value && value.length > 2) {
+                      this._sampleFilter(value);
+                  }
+              }
+          );
+      }
   }
 
   private _sampleFilter(value: string) {

@@ -1,11 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit} from '@angular/core';
+import {SearchService} from "../../../analysis/search.service";
+import {parseSelectorToR3Selector} from "@angular/compiler/src/core";
 
 @Component({
   selector: 'app-search-criteria-box',
   templateUrl: './search-criteria-box.component.html',
   styleUrls: ['./search-criteria-box.component.css']
 })
-export class SearchCriteriaBoxComponent implements OnInit {
+export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
 
   @Input()
     searchType: string;
@@ -52,7 +54,7 @@ export class SearchCriteriaBoxComponent implements OnInit {
   varImpactLOW = false;
   varImpactMODIFIER = false;
 
-  constructor() { }
+  constructor(private searchService: SearchService) { }
 
   ngOnInit() {
 
@@ -71,6 +73,20 @@ export class SearchCriteriaBoxComponent implements OnInit {
               this.confirmedMutationsCheck = true
           }
       }
+
+      const selectedItems = this.searchService.getSelectedSearchItems();
+      if (selectedItems && selectedItems.selectedValue) {
+          console.log("box")
+          console.log(selectedItems)
+          this.onSelectedItem(selectedItems);
+          this.searchService.setSelectedSearchItems({})
+      }
+  }
+  ngAfterViewInit() {
+      // const selectedItems = this.searchService.getSelectedSearchItems();
+      // if (selectedItems) {
+      //     this.onSelectedItem(selectedItems);
+      // }
   }
 
   remove(selected: any){
