@@ -27,13 +27,13 @@
                                       <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'" align="start">
                                           E.g.
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">behavior/neurological phenotype</a> |
+                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">Behavior/neurological phenotype</a> |
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
                                       </mat-hint>
                                       <mat-hint *ngIf="searchOption === 'sample'" align="start">
                                           E.g.
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'sample','selectedValue':{'sampleId':'6603'}, 'displayedValue':'6603'})">MMR-6603</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">behavior/neurological phenotype</a> |
+                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">Behavior/neurological phenotype</a> |
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
                                       </mat-hint>
                                   </div>
@@ -56,127 +56,136 @@
           <br>
       </div>
       <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="card card-stats">
                   <div class="card-header card-header-warning card-header-icon">
                       <div class="card-icon">
                           <i class="material-icons">scatter_plot</i>
                       </div>
-                      <p class="card-category">SNPs/INDELs Sequenced Samples</p>
-                      <h3 class="card-title">440
-                          <!--<small>GB</small>-->
-                      </h3>
+                      <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount}}</strong></p>
+                      <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount}}</strong></p>
+                      <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount}}</strong></p>
+                      <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount}}</strong></p>
+                      <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount}}</strong></p>
+                      <!--<h3 class="card-title">440-->
+                          <!--&lt;!&ndash;<small>GB</small>&ndash;&gt;-->
+                      <!--</h3>-->
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">access_time</i> updated 1 month ago
+                          <i class="material-icons">table_chart</i> MMRDB database stats
                       </div>
                   </div>
               </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-success card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">table_chart</i>
-                      </div>
-                      <p class="card-category">SNPs/INDELs Cadidate Mutations</p>
-                      <h3 class="card-title">10402</h3>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> updated 1 month ago
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
+          <!--<div class="col-lg-3 col-md-6 col-sm-6">-->
+              <!--<div class="card card-stats">-->
+                  <!--<div class="card-header card-header-success card-header-icon">-->
+                      <!--<div class="card-icon">-->
+                          <!--<i class="material-icons">table_chart</i>-->
+                      <!--</div>-->
+                      <!--<p class="card-category">SNPs/INDELs Cadidate Mutations</p>-->
+                      <!--<h3 class="card-title">10402</h3>-->
+                  <!--</div>-->
+                  <!--<div class="card-footer">-->
+                      <!--<div class="stats">-->
+                          <!--<i class="material-icons">access_time</i> updated 1 month ago-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+          <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="card card-stats">
                   <div class="card-header card-header-danger card-header-icon">
                       <div class="card-icon">
-                          <i class="material-icons">info_outline</i>
+                          <i class="material-icons">pie_chart</i>
                       </div>
-                      <p class="card-category">New Updates</p>
-                      <h3 class="card-title">25</h3>
+                      <p class="card-title">Confirmed Mendelian Pathogenic SNP and Small Indel Mutations: <strong>800</strong></p>
+                      <p class="card-title">Confirmed Mendelian Pathogenic Structural Mutations: <strong>60</strong></p>
+                      <p class="card-title">Identified Likely Mendelian Pathogenic SNP and Small Indel Mutations: <strong>33453</strong></p>
+                      <p class="card-title">Identified Likely Mendelian Pathogenic Structural Mutations: <strong>33453</strong></p>
+                      <p class="card-title">Publications: <strong>15</strong></p>
+                      <!--<p class="card-category">New Updates</p>-->
+                      <!--<h3 class="card-title">25</h3>-->
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">access_time</i> updated 1 month ago
+                          <i class="material-icons">table_chart</i> Analysis Stats
                       </div>
                   </div>
               </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-info card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">public</i>
-                      </div>
-                      <p class="card-category">Publications</p>
-                      <h3 class="card-title">15</h3>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">update</i> Just Updated
-                      </div>
-                  </div>
-              </div>
-          </div>
+          <!--<div class="col-lg-3 col-md-6 col-sm-6">-->
+              <!--<div class="card card-stats">-->
+                  <!--<div class="card-header card-header-info card-header-icon">-->
+                      <!--<div class="card-icon">-->
+                          <!--<i class="material-icons">public</i>-->
+                      <!--</div>-->
+                      <!--<p class="card-category">Publications</p>-->
+                      <!--<h3 class="card-title">15</h3>-->
+                  <!--</div>-->
+                  <!--<div class="card-footer">-->
+                      <!--<div class="stats">-->
+                          <!--<i class="material-icons">update</i> Just Updated-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
       </div>
-      <div class="row">
-          <br>
-      </div>
-      <div class="row">
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-success">
-                      <div class="ct-chart" id="dailySalesChart"></div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Daily Users</h4>
-                      <p class="card-category">
-                          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today traffic.</p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> updated 4 minutes ago
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-warning">
-                      <div class="ct-chart" id="websiteViewsChart"></div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Email Subscriptions</h4>
-                      <!--<p class="card-category">Last Campaign Performance</p>-->
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> updated 4 minutes ago
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-danger">
-                      <div class="ct-chart" id="completedTasksChart"></div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Completed Tasks</h4>
-                      <!--<p class="card-category">Last Campaign Performance</p>-->
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> updated 4 minutes ago
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+      <!--<div class="row">-->
+          <!--<br>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+          <!--<div class="col-md-4">-->
+              <!--<div class="card card-chart">-->
+                  <!--<div class="card-header card-header-success">-->
+                      <!--<div class="ct-chart" id="dailySalesChart"></div>-->
+                  <!--</div>-->
+                  <!--<div class="card-body">-->
+                      <!--<h4 class="card-title">Daily Users</h4>-->
+                      <!--<p class="card-category">-->
+                          <!--<span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today traffic.</p>-->
+                  <!--</div>-->
+                  <!--<div class="card-footer">-->
+                      <!--<div class="stats">-->
+                          <!--<i class="material-icons">access_time</i> updated 4 minutes ago-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-md-4">-->
+              <!--<div class="card card-chart">-->
+                  <!--<div class="card-header card-header-warning">-->
+                      <!--<div class="ct-chart" id="websiteViewsChart"></div>-->
+                  <!--</div>-->
+                  <!--<div class="card-body">-->
+                      <!--<h4 class="card-title">Email Subscriptions</h4>-->
+                      <!--&lt;!&ndash;<p class="card-category">Last Campaign Performance</p>&ndash;&gt;-->
+                  <!--</div>-->
+                  <!--<div class="card-footer">-->
+                      <!--<div class="stats">-->
+                          <!--<i class="material-icons">access_time</i> updated 4 minutes ago-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-md-4">-->
+              <!--<div class="card card-chart">-->
+                  <!--<div class="card-header card-header-danger">-->
+                      <!--<div class="ct-chart" id="completedTasksChart"></div>-->
+                  <!--</div>-->
+                  <!--<div class="card-body">-->
+                      <!--<h4 class="card-title">Completed Tasks</h4>-->
+                      <!--&lt;!&ndash;<p class="card-category">Last Campaign Performance</p>&ndash;&gt;-->
+                  <!--</div>-->
+                  <!--<div class="card-footer">-->
+                      <!--<div class="stats">-->
+                          <!--<i class="material-icons">access_time</i> updated 4 minutes ago-->
+                      <!--</div>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</div>-->
       <!--<div class="row">-->
           <!--<div class="col-lg-6 col-md-12">-->
               <!--<div class="card">-->

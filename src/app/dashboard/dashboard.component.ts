@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from "@angular/router";
 import * as Chartist from 'chartist';
 import { SearchService} from "../analysis/search.service";
+import {MMRDBStats} from "../models";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,8 @@ import { SearchService} from "../analysis/search.service";
 export class DashboardComponent implements OnInit {
 
   searchOption = 'variant';
+  mmrdbStats: MMRDBStats;
+
   constructor(private searchService: SearchService, private router: Router) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
@@ -148,6 +151,12 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+
+      this.searchService.getStats();
+
+      this.searchService.mmrdbStatsSubject.subscribe(data => {
+          this.mmrdbStats = data;
+      });
   }
 
   onSelectedItem(event: any){

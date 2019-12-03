@@ -2,7 +2,7 @@ import {Injectable, ɵregisterNgModuleType} from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import {File} from '../models';
+import {File, MMRDBStats} from '../models';
 import {forEachComment} from "tslint";
 import { environment } from '../../environments/environment';
 import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
@@ -24,9 +24,18 @@ export class SearchService {
   selectedSearchItems: any;
   selectedSearchItemSubject: BehaviorSubject<any>;
 
+
+  //stats
+  mmrdbStats: MMRDBStats;
+  mmrdbStatsSubject: BehaviorSubject<MMRDBStats>;
+
   constructor(private http: HttpClient) {
       this.selectedSearchItems = {}
       this.selectedSearchItemSubject = new BehaviorSubject(this.selectedSearchItems)
+
+      this.mmrdbStats = new MMRDBStats();
+      this.mmrdbStatsSubject = new BehaviorSubject(this.mmrdbStats);
+
   }
 
   getSelectedSearchItems(){
@@ -281,6 +290,55 @@ export class SearchService {
               study: studies,
               max: max,
               offset: offset}});
+  }
+
+  getStats(){
+
+      // exomeSamplesCount = -1;
+      // wholeGenomeSamplesCount = -1;
+      // snpIndelVariantsCount = -1;
+      // svVariantsCount = -1;
+      // strainCount = -1;
+      // confirmedSnpIndelMutations = -1;
+      // snpIndelCandidateCount = -1;
+      // svMutantCandidateCount = -1;
+      // publicationCount = -1;
+      if (this.mmrdbStats.exomeSamplesCount === -1) {
+          this.http.get<any>(sampleQueryUrl, {params: {study:'MMR', max: 1}}).subscribe(data => {
+             this.mmrdbStats.exomeSamplesCount = data.sampleCount;
+             this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.wholeGenomeSamplesCount === -1) {
+          this.http.get<any>(sampleQueryUrl, {params: {study:'MMR-WGS', max: 1}}).subscribe(data => {
+              this.mmrdbStats.wholeGenomeSamplesCount = data.sampleCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.snpIndelVariantsCount === -1) {
+          this.http.get<any>(variantQueryUrl, {params: {max: 1}}).subscribe(data => {
+              this.mmrdbStats.snpIndelVariantsCount = data.variantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.svVariantsCount === -1) {
+          this.http.get<any>(svVariantQueryUrl, {params: {max: 1}}).subscribe(data => {
+              this.mmrdbStats.svVariantsCount = data.svVariantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.strainCount === -1) {
+          return this.http.get(strainUrl, {params: {inmmr:'y'}}).subscribe(data => {
+              this.mmrdbStats.strainCount = data.strainCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+
   }
 
 }
