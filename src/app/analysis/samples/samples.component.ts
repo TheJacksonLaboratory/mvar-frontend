@@ -52,12 +52,9 @@ export class SamplesComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
 
     public onSearchCriteriaChange(searchCriteria: any){
-        console.log('sample search criteria changed')
-        console.log(searchCriteria)
         const params: any = {};
 
         if (searchCriteria.selecteItems && searchCriteria.selecteItems.length > 0) {
@@ -79,7 +76,6 @@ export class SamplesComponent implements OnInit {
           this.pageLength = this.count;
 
           console.log('sample count = ' + this.count)
-          //console.log(this.dataSource);
 
       });
   }
@@ -97,7 +93,6 @@ export class SamplesComponent implements OnInit {
 
 
     expandCollapse(element:any){
-        //console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element
 
@@ -108,7 +103,6 @@ export class SamplesComponent implements OnInit {
     }
 
     getSampleVariantStats(element: any){
-        console.log('getting var stat data')
         const params: any = {};
         params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
         params.max = 1;
@@ -117,7 +111,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.totalVarCount = data.variantCount;
-            console.log(element.totalVarCount);
         });
 
         //rare variants
@@ -125,7 +118,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.rareVarCount = data.variantCount;
-            console.log(element.rareVarCount);
         });
 
         //likely pathogenic
@@ -134,7 +126,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.candidateVarCount = data.variantCount;
-            console.log(element.candidateVarCount);
         });
 
         //confirmed mutations
@@ -143,12 +134,11 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.confirmedVarCount = data.variantCount;
-            console.log(element.confirmedVarCount);
         });
     }
 
     getSampleSvVariantStats(element: any) {
-        console.log('getting sv var stat data')
+
         const params: any = {};
         params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
         params.max = 1;
@@ -157,7 +147,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.totalSvVarCount = data.svVariantCount;
-            console.log(element.totalSvVarCount);
         });
 
         //rare variants
@@ -165,7 +154,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.rareSvVarCount = data.svVariantCount;
-            console.log(element.rareSvVarCount);
         });
 
         //likely pathogenic
@@ -174,7 +162,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.candidateSvVarCount = data.svVariantCount;
-            console.log(element.candidateSvVarCount);
         });
 
         //confirmed mutations
@@ -183,7 +170,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.confirmedSvVarCount = data.svVariantCount;
-            console.log(element.confirmedSvVarCount);
         });
     }
 
