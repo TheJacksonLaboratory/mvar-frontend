@@ -27,13 +27,13 @@
                                       <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'" align="start">
                                           E.g.
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">Behavior/neurological phenotype</a> |
+                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
                                       </mat-hint>
                                       <mat-hint *ngIf="searchOption === 'sample'" align="start">
                                           E.g.
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'sample','selectedValue':{'sampleId':'6603'}, 'displayedValue':'6603'})">MMR-6603</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005386'}, 'displayedValue':'behavior/neurological phenotype'})">Behavior/neurological phenotype</a> |
+                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
                                       </mat-hint>
                                   </div>
@@ -62,11 +62,13 @@
                       <div class="card-icon">
                           <i class="material-icons">scatter_plot</i>
                       </div>
-                      <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount}}</strong></p>
-                      <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount}}</strong></p>
-                      <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount}}</strong></p>
-                      <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount}}</strong></p>
-                      <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount}}</strong></p>
+                      <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount | number}}</strong></p>
+                      <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount | number}}</strong></p>
+                      <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount | number}}</strong></p>
+                      <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount | number}}</strong></p>
+                      <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount | number}}</strong></p>
+                      <!--<br>-->
+                      <!--<br>-->
                       <!--<h3 class="card-title">440-->
                           <!--&lt;!&ndash;<small>GB</small>&ndash;&gt;-->
                       <!--</h3>-->
@@ -100,11 +102,13 @@
                       <div class="card-icon">
                           <i class="material-icons">pie_chart</i>
                       </div>
-                      <p class="card-title">Confirmed Mendelian Pathogenic SNP and Small Indel Mutations: <strong>800</strong></p>
-                      <p class="card-title">Confirmed Mendelian Pathogenic Structural Mutations: <strong>60</strong></p>
-                      <p class="card-title">Identified Likely Mendelian Pathogenic SNP and Small Indel Mutations: <strong>33453</strong></p>
-                      <p class="card-title">Identified Likely Mendelian Pathogenic Structural Mutations: <strong>33453</strong></p>
-                      <p class="card-title">Publications: <strong>15</strong></p>
+                      <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
+                      <p class="card-title">Confirmed SNP and Small Indel Mutations: <strong>{{mmrdbStats.confirmedSnpIndelMutationCount | number}}</strong></p>
+                      <p class="card-title">Confirmed Structural Mutations: <strong>{{mmrdbStats.confirmedSVMutationCount| number}}</strong></p>
+                      <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations: <strong>{{mmrdbStats.snpIndelCandidateCount | number}}</strong></p>
+                      <p class="card-title">Likely Pathogenic Structural Mutations: <strong>{{mmrdbStats.svMutantCandidateCount | number}}</strong></p>
+                      <!--<h5 class="card-title">Documents</h5>-->
+                      <!--<p class="card-title">Publications: <strong>15</strong></p>-->
                       <!--<p class="card-category">New Updates</p>-->
                       <!--<h3 class="card-title">25</h3>-->
                   </div>

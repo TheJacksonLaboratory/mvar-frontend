@@ -169,7 +169,8 @@ export class MMRDBStats {
     snpIndelVariantsCount: number;
     svVariantsCount: number;
     strainCount: number;
-    confirmedSnpIndelMutations: number;
+    confirmedSnpIndelMutationCount: number;
+    confirmedSVMutationCount: number;
     snpIndelCandidateCount: number;
     svMutantCandidateCount: number;
     publicationCount: number;
@@ -180,7 +181,8 @@ export class MMRDBStats {
         this.snpIndelVariantsCount = -1;
         this.svVariantsCount = -1;
         this.strainCount = -1;
-        this.confirmedSnpIndelMutations = -1;
+        this.confirmedSnpIndelMutationCount = -1;
+        this.confirmedSVMutationCount = -1;
         this.snpIndelCandidateCount = -1;
         this.svMutantCandidateCount = -1;
         this.publicationCount = -1;

@@ -68,53 +68,6 @@ export class SearchService {
 
   public queryVariant(paramsIn: any): Observable<any> {
 
-    // console.log(paramsIn)
-    //
-    // const genes: string[] = [];
-    // const strains: string[] = [];
-    // const phenotypes: string[] = [];
-    // const samples: string[] = [];
-    //
-    // console.log('max = ' + paramsIn.max);
-    // console.log('selected items');
-    // console.log(paramsIn.selectedItems);
-    //
-    // if (paramsIn.selectedItems) {
-    //     paramsIn.selectedItems.forEach(item => {
-    //         if (item.selectedType === 'gene') {
-    //             genes.push(item.selectedValue.symbol);
-    //         }
-    //
-    //         if (item.selectedType === 'strain') {
-    //             strains.push(item.selectedValue.name);
-    //         }
-    //
-    //         if (item.selectedType === 'phenotype') {
-    //             phenotypes.push(item.selectedValue.mpTermName);
-    //         }
-    //
-    //         if (item.selectedType === 'sample') {
-    //             samples.push(item.selectedValue.sampleId);
-    //         }
-    //
-    //     });
-    // }
-    // return this.http.get(variantQueryUrl, {params:
-    //                       {gene: genes,
-    //                             strain:strains,
-    //                             phenotype:phenotypes,
-    //                             sample:samples,
-    //                             rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
-    //                             mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
-    //                             confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
-    //                             type: paramsIn.varType ? paramsIn.varType : [],
-    //                             funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
-    //                             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-    //                             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
-    //                             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
-    //                             max: paramsIn.max ? paramsIn.max : '',
-    //                             offset: paramsIn.offset ? paramsIn.offset : ''}});
-
     return this.sendVariantQueryRequest(paramsIn, variantQueryUrl);
   }
 
@@ -293,16 +246,8 @@ export class SearchService {
   }
 
   getStats(){
-
-      // exomeSamplesCount = -1;
-      // wholeGenomeSamplesCount = -1;
-      // snpIndelVariantsCount = -1;
-      // svVariantsCount = -1;
-      // strainCount = -1;
-      // confirmedSnpIndelMutations = -1;
-      // snpIndelCandidateCount = -1;
-      // svMutantCandidateCount = -1;
-      // publicationCount = -1;
+      
+      //TODO consolidate these service calls to a single request, and use stats domain when available.
       if (this.mmrdbStats.exomeSamplesCount === -1) {
           this.http.get<any>(sampleQueryUrl, {params: {study:'MMR', max: '1'}}).subscribe(data => {
              this.mmrdbStats.exomeSamplesCount = data.sampleCount;
@@ -332,12 +277,40 @@ export class SearchService {
       }
 
       if (this.mmrdbStats.strainCount === -1) {
-          return this.http.get<any>(strainUrl, {params: {inmmr:'y'}}).subscribe(data => {
+          this.http.get<any>(strainUrl, {params: {inmmr:'y'}}).subscribe(data => {
               this.mmrdbStats.strainCount = data.strainCount;
               this.mmrdbStatsSubject.next(this.mmrdbStats)
           });
       }
 
+      console.log('this.mmrdbStats.confirmedSnpIndelMutationCount = ' + this.mmrdbStats.confirmedSnpIndelMutationCount)
+      if (this.mmrdbStats.confirmedSnpIndelMutationCount === -1) {
+          this.http.get<any>(variantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
+              this.mmrdbStats.confirmedSnpIndelMutationCount = data.variantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.confirmedSVMutationCount === -1) {
+          this.http.get<any>(svVariantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
+              this.mmrdbStats.confirmedSVMutationCount = data.svVariantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.snpIndelCandidateCount === -1) {
+          this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
+              this.mmrdbStats.snpIndelCandidateCount = data.variantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
+
+      if (this.mmrdbStats.svMutantCandidateCount === -1) {
+          this.http.get<any>(svVariantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
+              this.mmrdbStats.svMutantCandidateCount = data.svVariantCount;
+              this.mmrdbStatsSubject.next(this.mmrdbStats)
+          });
+      }
 
   }
 
