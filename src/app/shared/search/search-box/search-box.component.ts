@@ -45,49 +45,6 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   ngOnInit() {
     console.log('searchBox, type = ' + this.searchType);
     this.setSearchBox()
-    // if (this.searchType === 'variant') {
-    //
-    //   this.placeHolderTxt = 'Search for snps and indels by sample id, gene, strain, or phenotype';
-    //   this.myControl.valueChanges.subscribe(value => {
-    //       this.geneOptions = [];
-    //       this.strainOptions = [];
-    //       this.phenotypeOptions = [];
-    //       this.sampleOptions = [];
-    //       if (value && value.length > 0) {
-    //         this._variantFilter(value);
-    //       }
-    //     }
-    //   );
-    // }
-    //
-    // if (this.searchType === 'svVariant') {
-    //
-    //   this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
-    //   this.myControl.valueChanges.subscribe(value => {
-    //           //this.geneOptions = [];
-    //           this.strainOptions = [];
-    //           this.phenotypeOptions = [];
-    //           this.sampleOptions = [];
-    //           if (value && value.length > 0) {
-    //               this._svVariantFilter(value);
-    //           }
-    //       }
-    //   );
-    // }
-    //
-    // if (this.searchType === 'sample') {
-    //
-    //     this.placeHolderTxt = 'Search for samples by sample id, strain, or phenotype';
-    //     this.myControl.valueChanges.subscribe(value => {
-    //             this.strainOptions = [];
-    //             this.phenotypeOptions = [];
-    //             this.sampleOptions = [];
-    //             if (value && value.length > 2) {
-    //                 this._sampleFilter(value);
-    //             }
-    //         }
-    //     );
-    // }
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -119,7 +76,6 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
           this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                  //this.geneOptions = [];
                   this.strainOptions = [];
                   this.phenotypeOptions = [];
                   this.sampleOptions = [];

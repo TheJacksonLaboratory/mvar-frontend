@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SearchService} from "../../../analysis/search.service";
-import {parseSelectorToR3Selector} from "@angular/compiler/src/core";
 
 @Component({
   selector: 'app-search-criteria-box',
@@ -83,10 +82,6 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
       }
   }
   ngAfterViewInit() {
-      // const selectedItems = this.searchService.getSelectedSearchItems();
-      // if (selectedItems) {
-      //     this.onSelectedItem(selectedItems);
-      // }
   }
 
   remove(selected: any){

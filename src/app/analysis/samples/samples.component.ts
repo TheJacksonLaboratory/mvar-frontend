@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
-import {Gene, Variant, Sample, Phenotype} from '../../models';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Sample} from '../../models';
 import {SearchService} from '../search.service';
-import {PageEvent} from '@angular/material/paginator';
-import {MatPaginator, MatTable} from "@angular/material";
+import {MatDialog, MatPaginator} from "@angular/material";
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { MatDialog } from '@angular/material';
-import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
-import { UploadService } from '../../files-nav/upload.service';
+import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog.component';
+import {UploadService} from '../../files-nav/upload.service';
 
 @Component({
   selector: 'app-samples',
@@ -31,7 +29,7 @@ export class SamplesComponent implements OnInit {
     count: number;
 
     // MatPaginator Inputs
-    pageLength = 100;
+    pageLength = 0;
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
 
@@ -53,16 +51,13 @@ export class SamplesComponent implements OnInit {
         });
     }
 
-  ngOnInit() {
+    ngOnInit() {
 
-      const params: any = {};
-      params.studies = ['mmr', 'mmr_sv']
-      this._getSamples(params)
-  }
-
+    }
 
     public onSearchCriteriaChange(searchCriteria: any){
-
+        console.log('sample search criteria changed')
+        console.log(searchCriteria)
         const params: any = {};
 
         if (searchCriteria.selecteItems && searchCriteria.selecteItems.length > 0) {

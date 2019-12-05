@@ -246,7 +246,7 @@ export class SearchService {
   }
 
   getStats(){
-      
+
       //TODO consolidate these service calls to a single request, and use stats domain when available.
       if (this.mmrdbStats.exomeSamplesCount === -1) {
           this.http.get<any>(sampleQueryUrl, {params: {study:'MMR', max: '1'}}).subscribe(data => {
