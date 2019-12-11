@@ -35,6 +35,12 @@ export class FilesService {
 
   }
 
+  public getErrorFiles(): Observable<any> {
+
+    return this.http.get(url + '?status=error');
+
+  }
+
   public downloadFile(id: string){
 
     const downloadUrl = url + '/' + id + '/download'
@@ -48,7 +54,8 @@ export class FilesService {
   }
 
   public loadVcfFiles(files: string[], varType: string){
-
+      console.log (' and we are here')
+      console.log (files)
       return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files, varType: varType}});
   }
 }

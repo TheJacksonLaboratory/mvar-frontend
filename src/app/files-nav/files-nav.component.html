@@ -1,12 +1,6 @@
 
 <div class="main-content">
   <div class="container-fluid">
-    <!--<div class="row">-->
-      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<div>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<span><button mat-raised-button class="btn btn-danger pull-right" (click)="openUploadDialog()">Upload Files</button></span>&ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--</div>-->
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -24,10 +18,6 @@
                                         <i class="material-icons">cloud_upload</i> Upload VCF Files
                                         <div class="ripple-container"></div>
                     </a>
-                   <!--<button mat-raised-button class="btn btn-blue" (click)="openUploadDialog()">-->
-                                  <!--<i class="material-icons">cloud_upload</i> Add VCF Files-->
-                                  <!--<div class="ripple-container"></div>-->
-                                  <!--</button>-->
                  </span>
                 </div>
               </div>
@@ -36,109 +26,132 @@
               <div class="row">
                 <div class="col-md-12">
                       <mat-tab-group [selectedIndex]="selectedTab">
-                        <mat-tab label="Uploaded Files">
-                          <!--<div>-->
-                              <!--<span><button mat-raised-button class="btn btn-danger" (click)="openUploadDialog()">Upload Files</button></span>-->
-                          <!--</div>-->
-
+                        <mat-tab label="New Files">
                           <div *ngIf="snpVcfFiles?.length > 0" class="card">
                             <div class="card-body">
-                              <p><b>SNP/INDEL Variant Sample VCF Files</b></p>
-                              <table class="table">
-                                <tbody>
-                                <tr *ngFor="let file of snpVcfFiles">
-                                  <td >
-                                      <mat-checkbox (change)="selectSNPFile($event.checked, file.name)" value=""></mat-checkbox>
-                                  </td>
-                                  <td>
-                                      <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
-                                  </td>
-                                  <td>
-                                      <span style="float: right">
-                                        <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
-                                        <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
-                                      </span>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-
-                              <div *ngIf="files?.length > 0">
-                                <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
-                                <!--<span><button [disabled]="selectedSNPFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitSNPLoad()">Submit</button></span>-->
-
-                              <!--<span><a mat-button [disabled]="selectedSNPFiles.length <= 0" class="nav-link active" (click)="submitSNPLoad()">-->
-                                  <!--<i class="material-icons">check</i> Submit-->
-                                  <!--<div class="ripple-container"></div>-->
-                                  <!--</a>-->
-                              <!--</span>-->
-
-                              <span><button [disabled]="selectedSNPFiles.length <= 0" mat-raised-button class="btn btn-blue" (click)="submitSNPLoad()">
-                                <i class="material-icons">check</i> Submit
-                                <div class="ripple-container"></div>
-                                </button>
-                              </span>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><b>SNP/INDEL Variant Sample VCF Files</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                      <div class="pull-right">
+                                        <a mat-button class="nav-link active" (click)="selectAllSNPChecks()">
+                                          <i class="material-icons">check_circle</i> Select All
+                                          <div class="ripple-container"></div>
+                                        </a>
+                                        <a mat-button [disabled]="! isSelectedSNPFiles" class="nav-link active" (click)="submitSNPLoad()">
+                                          <i class="material-icons">check</i> Submit
+                                          <div class="ripple-container"></div>
+                                        </a>
+                                      </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                      <table class="table">
+                                        <tbody>
+                                        <tr *ngFor="let file of snpVcfFiles">
+                                          <td >
+                                              <mat-checkbox [(checked)]="file.selected" (change)="selectSNPFile($event.checked, file)" value=""></mat-checkbox>
+                                          </td>
+                                          <td>
+                                              <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
+                                          </td>
+                                          <td>
+                                              <span style="float: right">
+                                                <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
+                                                <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
+                                              </span>
+                                          </td>
+                                        </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngIf="files?.length > 0">
+                                    <p>To submit the files for data upload and processing, please select the desired files and press the submit button</p>
+                                  </div>
+                                </div>
                               </div>
 
                             </div>
                           </div>
 
+
+                          <!-- SV -->
                           <div *ngIf="svVcfFiles?.length > 0" class="card">
                             <div class="card-body">
-                              <p><b>Structural Variant Sample VCF Files</b></p>
-                              <table class="table">
-                                <tbody>
-                                <tr *ngFor="let file of svVcfFiles">
-                                  <td >
-                                    <mat-checkbox (change)="selectSVFile($event.checked, file.name)" value=""></mat-checkbox>
-                                  </td>
-                                  <td>
-                                    <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
-                                  </td>
-                                  <td>
-                                      <span style="float: right">
-                                        <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
-                                        <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
-                                      </span>
-                                  </td>
-                                </tr>
-                                </tbody>
-                              </table>
-
-                              <div *ngIf="files?.length > 0">
-                                <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
-                                <!--<span><button [disabled]="selectedSVFiles.length <= 0" mat-raised-button class="btn btn-danger" (click)="submitSVLoad()">Submit</button></span>-->
-                              <!---->
-                                <span><button [disabled]="selectedSVFiles.length <= 0" mat-raised-button class="btn btn-blue" (click)="submitSVLoad()">
-                                  <i class="material-icons">check</i> Submit
-                                  <div class="ripple-container"></div>
-                                  </button>
-                                </span>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><b>Structural Variant Sample VCF Files</b></p>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="pull-right">
+                                    <a mat-button class="nav-link active" (click)="selectAllSVChecks()">
+                                      <i class="material-icons">check_circle</i> Select All
+                                      <div class="ripple-container"></div>
+                                    </a>
+                                    <a mat-button  [disabled]="! isSelectedSVFiles" class="nav-link active" (click)="submitSVLoad()">
+                                      <i class="material-icons">check</i> Submit
+                                      <div class="ripple-container"></div>
+                                    </a>
+                                  </div>
+                                </div>
                               </div>
-
+                              <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table">
+                                      <tbody>
+                                      <tr *ngFor="let file of svVcfFiles">
+                                        <td >
+                                          <mat-checkbox [checked]="file.selected" (change)="selectSVFile($event.checked, file)" value=""></mat-checkbox>
+                                        </td>
+                                        <td>
+                                          <p><b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}</p>
+                                        </td>
+                                        <td>
+                                            <span style="float: right">
+                                              <mat-icon (click)="downloadFile(file.id)" [matTooltipPosition]="'above'" matTooltip="download">save_alt</mat-icon>
+                                              <mat-icon (click)="deleteFile(file.id)" [matTooltipPosition]="'above'" matTooltip="delete" >delete_forever</mat-icon>
+                                            </span>
+                                        </td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngIf="files?.length > 0">
+                                      <p>To submit the files for data upload and processing, please select the files and press the submit button</p>
+                                    </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
 
                         </mat-tab>
 
                         <!-- pending files -->
-                        <mat-tab label="Pending">
+                        <mat-tab label="Processing Files">
 
                           <mat-card  *ngFor="let file of pendingFiles">
+                            <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}} <b>status: </b>{{file.status}}
+                          </mat-card>
 
-                            <!--<span class="badge">{{file.id}} </span> {{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>-->
-                            <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}
+                          <mat-card  *ngFor="let file of errorFiles">
+                                <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}} <b>status: </b>{{file.status}}
                           </mat-card>
 
                         </mat-tab>
 
-                        <mat-tab label="Processed Files">
+                        <mat-tab label="Successful Processed Files">
 
 
                         <!-- processed files -->
                         <mat-card  *ngFor="let file of processedFiles">
-
-                          <!--<span class="badge">{{file.id}} </span> {{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>-->
                           <b>ID: </b>{{file.id}} <b>Name: </b>{{file.name}}  <span style="float: right"><mat-icon (click)="downloadFile(file.id)">save_alt</mat-icon></span>
                         </mat-card>
 
