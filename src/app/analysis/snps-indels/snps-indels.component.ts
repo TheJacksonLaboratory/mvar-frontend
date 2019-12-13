@@ -1,13 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Gene, Variant} from '../../models';
 import {SearchService} from '../search.service';
-import {PageEvent} from '@angular/material/paginator';
-import {MatPaginator, MatTable} from "@angular/material";
-import { ActivatedRoute } from '@angular/router';
+import {MatPaginator} from "@angular/material";
+import {ActivatedRoute} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-snps-indels',
@@ -22,17 +19,18 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         ]),
     ],
 })
-export class SnpsIndelsComponent implements OnInit {
+export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
   @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
+  @ViewChild( MatSort, {static: true}) sort: MatSort;
 
   //Table items
-  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'filter', 'impact', 'functionalClass', 'dbSNPId', 'varFreq', 'mutantCandidate', 'sampleId'];
+  displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type','snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
   varDataSource: Variant[] = [];
   varCount: number;
 
   // MatPaginator Inputs
-  pageLength = 100;
+  pageLength = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [10, 50, 100];
 
@@ -53,16 +51,6 @@ export class SnpsIndelsComponent implements OnInit {
       this.route.paramMap.subscribe(paramsIn => {
           console.log(paramsIn.get('sample'));
 
-          const sample = paramsIn.get('sample');
-          if (sample) {
-
-              this.currSearchParams.selectedItems = [{
-                  selectedType: 'sample',
-                  selectedValue: {sampleId: sample},
-                  displayedValue: paramsIn.get('sample')
-              }];
-          }
-
           const candidateVar = paramsIn.get('candidateVar');
           if (candidateVar) {
               this.currSearchParams.candidateVar = true;
@@ -78,10 +66,35 @@ export class SnpsIndelsComponent implements OnInit {
               this.currSearchParams.confirmedVar = true;
           }
 
-          this._queryVariants(this.currSearchParams);
-      });
+          const sample = paramsIn.get('sample');
+          if (sample) {
 
-      this._queryVariants(this.currSearchParams);
+              this.currSearchParams.selectedItems = [{
+                  selectedType: 'sample',
+                  selectedValue: {sampleId: sample},
+                  displayedValue: paramsIn.get('sample')
+              }];
+
+              this._queryVariants(this.currSearchParams);
+          }
+      });
+  }
+
+  ngAfterViewInit() {
+
+      this.sort.sortChange.subscribe(() => {
+
+          this.currSearchParams.sortBy = this.sort.active;
+          this.currSearchParams.sortDirection = this.sort.direction;
+          this.currSearchParams.offset = 0;
+          this.varPaginator.pageIndex = 0;
+
+          if (this.currSearchParams.selectedItems) {
+              if (this.sort.active && this.currSearchParams.selectedItems.length > 0) {
+                  this._queryVariants(this.currSearchParams)
+              }
+          }
+      });
   }
 
 
@@ -89,15 +102,23 @@ export class SnpsIndelsComponent implements OnInit {
 
     const params: any = {};
 
-    if (searchCriteria.selectedItems.length > 0) {
-        this.currSearchParams.selectedItems = searchCriteria.selectedItems;
-    }
-
     this.currSearchParams.offset = 0;
     this.varPaginator.pageIndex = 0;
-    this._queryVariants(this.currSearchParams);
+    this.clearSort();
 
+    if(searchCriteria.selectedItems.length > 0) {
+        this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        this._queryVariants(this.currSearchParams);
+    } else {
+        this.varDataSource = []
+        this.varCount = 0
+        this.pageLength = 0
+    }
   }
+
+  private clearSort() {
+        this.sort.sort({id: '', start: 'asc', disableClear: false});
+    }
 
   private _queryVariants(params: any) {
 
@@ -113,15 +134,11 @@ export class SnpsIndelsComponent implements OnInit {
       this.varCount = data.variantCount;
       this.pageLength = this.varCount;
 
-      console.log('var count = ' + this.varCount)
-      console.log(this.varDataSource);
-
     });
   }
 
   doPageChange(pageEvent: any) {
 
-    console.log(pageEvent.pageSize + pageEvent.pageIndex);
     if (this.currSearchParams) {
       this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
       this.currSearchParams.max = pageEvent.pageSize;
@@ -138,9 +155,20 @@ export class SnpsIndelsComponent implements OnInit {
   }
 
     expandCollapse(element:any){
-        console.log(element)
         this.expandedElement = this.expandedElement === element ? null : element
 
+    }
+
+    exportCSV(){
+        const exportSearchCriteria = this.currSearchParams;
+        if (this.varCount && this.varCount > 0){
+            exportSearchCriteria.offset = 0;
+            exportSearchCriteria.max = this.varCount;
+
+            if (confirm(this.varCount + " records will be exported to a CSV file, do you want to continue?")){
+                this.searchService.exportVariantsToCSV(exportSearchCriteria);
+            }
+        }
     }
 }
 

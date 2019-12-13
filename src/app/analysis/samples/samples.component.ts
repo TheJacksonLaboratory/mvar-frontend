@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
-import {Gene, Variant, Sample, Phenotype} from '../../models';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Sample} from '../../models';
 import {SearchService} from '../search.service';
-import {PageEvent} from '@angular/material/paginator';
-import {MatPaginator, MatTable} from "@angular/material";
+import {MatDialog, MatPaginator} from "@angular/material";
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { MatDialog } from '@angular/material';
-import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
-import { UploadService } from '../../files-nav/upload.service';
+import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog.component';
+import {UploadService} from '../../files-nav/upload.service';
 
 @Component({
   selector: 'app-samples',
@@ -31,7 +29,7 @@ export class SamplesComponent implements OnInit {
     count: number;
 
     // MatPaginator Inputs
-    pageLength = 100;
+    pageLength = 0;
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
 
@@ -53,16 +51,10 @@ export class SamplesComponent implements OnInit {
         });
     }
 
-  ngOnInit() {
-
-      const params: any = {};
-      params.studies = ['mmr', 'mmr_sv']
-      this._getSamples(params)
-  }
-
+    ngOnInit() {
+    }
 
     public onSearchCriteriaChange(searchCriteria: any){
-
         const params: any = {};
 
         if (searchCriteria.selecteItems && searchCriteria.selecteItems.length > 0) {
@@ -84,7 +76,6 @@ export class SamplesComponent implements OnInit {
           this.pageLength = this.count;
 
           console.log('sample count = ' + this.count)
-          //console.log(this.dataSource);
 
       });
   }
@@ -102,7 +93,6 @@ export class SamplesComponent implements OnInit {
 
 
     expandCollapse(element:any){
-        //console.log(element)
 
         this.expandedElement = this.expandedElement === element ? null : element
 
@@ -113,7 +103,6 @@ export class SamplesComponent implements OnInit {
     }
 
     getSampleVariantStats(element: any){
-        console.log('getting var stat data')
         const params: any = {};
         params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
         params.max = 1;
@@ -122,7 +111,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.totalVarCount = data.variantCount;
-            console.log(element.totalVarCount);
         });
 
         //rare variants
@@ -130,7 +118,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.rareVarCount = data.variantCount;
-            console.log(element.rareVarCount);
         });
 
         //likely pathogenic
@@ -139,7 +126,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.candidateVarCount = data.variantCount;
-            console.log(element.candidateVarCount);
         });
 
         //confirmed mutations
@@ -148,12 +134,11 @@ export class SamplesComponent implements OnInit {
         this.searchService.queryVariant(params).subscribe( data => {
 
             element.confirmedVarCount = data.variantCount;
-            console.log(element.confirmedVarCount);
         });
     }
 
     getSampleSvVariantStats(element: any) {
-        console.log('getting sv var stat data')
+
         const params: any = {};
         params.selectedItems = [{selectedType: 'sample', selectedValue: element}];
         params.max = 1;
@@ -162,7 +147,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.totalSvVarCount = data.svVariantCount;
-            console.log(element.totalSvVarCount);
         });
 
         //rare variants
@@ -170,7 +154,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.rareSvVarCount = data.svVariantCount;
-            console.log(element.rareSvVarCount);
         });
 
         //likely pathogenic
@@ -179,7 +162,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.candidateSvVarCount = data.svVariantCount;
-            console.log(element.candidateSvVarCount);
         });
 
         //confirmed mutations
@@ -188,7 +170,6 @@ export class SamplesComponent implements OnInit {
         this.searchService.querySvVariant(params).subscribe( data => {
 
             element.confirmedSvVarCount = data.svVariantCount;
-            console.log(element.confirmedSvVarCount);
         });
     }
 

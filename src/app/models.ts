@@ -161,3 +161,30 @@ export class User {
     access_token?: string;
     refresh_token?: string;
 }
+
+export class MMRDBStats {
+
+    exomeSamplesCount: number;
+    wholeGenomeSamplesCount: number;
+    snpIndelVariantsCount: number;
+    svVariantsCount: number;
+    strainCount: number;
+    confirmedSnpIndelMutationCount: number;
+    confirmedSVMutationCount: number;
+    snpIndelCandidateCount: number;
+    svMutantCandidateCount: number;
+    publicationCount: number;
+
+    constructor() {
+        this.exomeSamplesCount = -1;
+        this.wholeGenomeSamplesCount = -1;
+        this.snpIndelVariantsCount = -1;
+        this.svVariantsCount = -1;
+        this.strainCount = -1;
+        this.confirmedSnpIndelMutationCount = -1;
+        this.confirmedSVMutationCount = -1;
+        this.snpIndelCandidateCount = -1;
+        this.svMutantCandidateCount = -1;
+        this.publicationCount = -1;
+    }
+}
