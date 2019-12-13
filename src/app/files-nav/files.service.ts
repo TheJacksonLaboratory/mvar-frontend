@@ -18,8 +18,6 @@ export class FilesService {
 
   public getNewFiles(): Observable<any> {
 
-      //return of(this.files);
-
       return this.http.get(url + '?status=new');
   }
 
@@ -54,8 +52,6 @@ export class FilesService {
   }
 
   public loadVcfFiles(files: string[], varType: string){
-      console.log (' and we are here')
-      console.log (files)
       return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files, varType: varType}});
   }
 }

@@ -111,7 +111,7 @@ export class FilesNavComponent implements OnInit {
 
     getVcfFiles() {
 
-        this.snpVcfFiles = this.files.filter(file => file.extension === 'vcf' && file.varType === 'SNP&INDEL');
+        this.snpVcfFiles = this.files.filter(file => file.extension === 'vcf' && file.varType === 'SNP_INDEL');
         this.svVcfFiles = this.files.filter(file => file.extension === 'vcf' && file.varType === 'SV');
     }
 
@@ -159,7 +159,7 @@ export class FilesNavComponent implements OnInit {
 
             selectedFiles.forEach(file => {
                 console.log('we are here')
-                this.fileService.loadVcfFiles([file.name], 'SNP&INDEL').subscribe(data => {
+                this.fileService.loadVcfFiles([file.name], 'SNP_INDEL').subscribe(data => {
                    //do nothing
                 });
             });
@@ -179,7 +179,9 @@ export class FilesNavComponent implements OnInit {
         console.log('selected sv files = ' + selectedFiles.length)
         if ( selectedFiles.length > 0){
             selectedFiles.forEach(file =>{
-                this.fileService.loadVcfFiles([file.name], 'SV')
+                this.fileService.loadVcfFiles([file.name], 'SV').subscribe(data => {
+                    //do nothing
+                });
             });
 
             //reload this component
