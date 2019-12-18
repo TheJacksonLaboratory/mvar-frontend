@@ -27,55 +27,61 @@
                         </app-search-criteria-box>
 
                         <!--<div class="example-container mat-elevation-z8">-->
-                        <table #varTable mat-table [dataSource]="svVarDataSource">
+                        <table #varTable mat-table [dataSource]="svVarDataSource" matSort>
 
                             <!-- Type Column -->
                             <ng-container matColumnDef="svType">
-                                <th mat-header-cell *matHeaderCellDef> Type </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
                                 <td mat-cell *matCellDef="let element"> {{element.svType}} </td>
                             </ng-container>
 
                             <!-- Start pos: Chr (start pos) -->
-                            <ng-container matColumnDef="startPos">
-                                <th mat-header-cell *matHeaderCellDef> Start - Chr (pos) </th>
+                            <ng-container matColumnDef="pos">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Start - Chr (pos) </th>
                                 <td mat-cell *matCellDef="let element"> Chr: {{element.chr}} ({{element.pos}}) </td>
                             </ng-container>
 
                             <!-- End pos: Chr (end pos) -->
                             <ng-container matColumnDef="endPos">
-                                <th mat-header-cell *matHeaderCellDef> End - Chr (pos) </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> End - Chr (pos) </th>
                                 <td mat-cell *matCellDef="let element"> Chr: {{element.chr2}} ({{element.endPos}}) </td>
                             </ng-container>
 
 
                             <!-- Length Column -->
                             <ng-container matColumnDef="svLength">
-                                <th mat-header-cell *matHeaderCellDef> Length </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
                                 <td mat-cell *matCellDef="let element"> {{element.svLength}} </td>
                             </ng-container>
 
 
-                            <!-- Filter Column -->
-                            <ng-container matColumnDef="filter">
-                                <th mat-header-cell *matHeaderCellDef> Filter </th>
-                                <td mat-cell *matCellDef="let element"> {{element.filter}} </td>
+                            <!-- In Exon-->
+                            <ng-container matColumnDef="inExon">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> In Exon </th>
+                                <td mat-cell *matCellDef="let element"> {{(element.inExon)?'Yes':'No'}} </td>
+                            </ng-container>
+
+                            <!-- supp --suporting callers-->
+                            <ng-container matColumnDef="supp">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sup. Callers </th>
+                                <td mat-cell *matCellDef="let element"> {{element.supp}} </td>
                             </ng-container>
 
                             <!-- Variant Frequency -->
                             <ng-container matColumnDef="varFreq">
-                                <th mat-header-cell *matHeaderCellDef> Variant Frequency % </th>
-                                <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Occurrence % </th>
+                                <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} % </td>
                             </ng-container>
 
                             <!-- Mutant Candidate -->
                             <ng-container matColumnDef="mutantCandidate">
-                                <th mat-header-cell *matHeaderCellDef> Mutant Candidate </th>
-                                <td mat-cell *matCellDef="let element"> {{element.mutantCandidate}} </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mut. Candidate </th>
+                                <td mat-cell *matCellDef="let element"> {{(element.mutantCandidate === 'Y')?'Yes':'No'}} </td>
                             </ng-container>
 
                             <!-- Sample Id -->
                             <ng-container matColumnDef="sampleId">
-                                <th mat-header-cell *matHeaderCellDef> Sample Id </th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample Id </th>
                                 <td mat-cell *matCellDef="let element"> {{element.sample.sampleId}} </td>
                             </ng-container>
 

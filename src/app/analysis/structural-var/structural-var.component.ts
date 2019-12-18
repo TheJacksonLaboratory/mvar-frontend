@@ -1,31 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
-import {Gene, SvVariant, Variant} from '../../models';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {SvVariant} from '../../models';
 import {SearchService} from '../search.service';
-import {PageEvent} from '@angular/material/paginator';
-import {MatPaginator, MatTable} from "@angular/material";
-import { ActivatedRoute } from '@angular/router';
+import {MatPaginator} from "@angular/material";
+import {ActivatedRoute} from '@angular/router';
+import {MatSort} from '@angular/material/sort';
 
 
 @Component({
-  selector: 'app-structural-var',
-  templateUrl: './structural-var.component.html',
-  styleUrls: ['./structural-var.component.scss']
+    selector: 'app-structural-var',
+    templateUrl: './structural-var.component.html',
+    styleUrls: ['./structural-var.component.scss']
 })
-export class StructuralVarComponent implements OnInit {
-
+export class StructuralVarComponent implements AfterViewInit, OnInit {
 
     @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['svType', 'startPos', 'endPos', 'svLength', 'filter', 'varFreq', 'mutantCandidate', 'sampleId'];
+    displayedColumns = ['svType', 'pos', 'endPos', 'svLength', 'varFreq', 'inExon', 'supp', 'mutantCandidate', 'sampleId'];
     svVarDataSource: SvVariant[] = [];
     varCount: number;
 
     // MatPaginator Inputs
-    pageLength = 100;
+    pageLength = 0;
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100, 500];
 
@@ -44,16 +41,6 @@ export class StructuralVarComponent implements OnInit {
         this.route.paramMap.subscribe(paramsIn => {
             console.log(paramsIn.get('sample'));
 
-            const sample = paramsIn.get('sample');
-            if (sample) {
-
-                this.currSearchParams.selectedItems = [{
-                    selectedType: 'sample',
-                    selectedValue: {sampleId: sample},
-                    displayedValue: paramsIn.get('sample')
-                }];
-            }
-
             const candidateVar = paramsIn.get('candidateVar');
             if (candidateVar) {
                 this.currSearchParams.candidateVar = true;
@@ -68,22 +55,58 @@ export class StructuralVarComponent implements OnInit {
             if (confirmedVar) {
                 this.currSearchParams.confirmedVar = true;
             }
-        });
 
-        this._queryVariants(this.currSearchParams);
+            const sample = paramsIn.get('sample');
+            if (sample) {
+
+                this.currSearchParams.selectedItems = [{
+                    selectedType: 'sample',
+                    selectedValue: {sampleId: sample},
+                    displayedValue: paramsIn.get('sample')
+                }];
+
+                this._queryVariants(this.currSearchParams);
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+
+        this.sort.sortChange.subscribe(() => {
+            console.log('sort changed')
+            this.currSearchParams.sortBy = this.sort.active;
+            this.currSearchParams.sortDirection = this.sort.direction;
+            this.currSearchParams.offset = 0;
+            this.varPaginator.pageIndex = 0;
+
+            if (this.currSearchParams.selectedItems) {
+                if (this.sort.active && this.currSearchParams.selectedItems.length > 0) {
+                    this._queryVariants(this.currSearchParams)
+                }
+            }
+        });
     }
 
 
-    public onSearchCriteriaChange(searchCriteria: any){
-
+    public onSearchCriteriaChange(searchCriteria: any) {
+        console.log('search criteria changed')
         const params: any = {};
+        this.currSearchParams.offset = 0;
+        this.varPaginator.pageIndex = 0;
+        this.clearSort();
 
         if (searchCriteria.selectedItems.length > 0) {
             this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+            this._queryVariants(this.currSearchParams);
+        } else {
+            this.svVarDataSource = []
+            this.varCount = 0
+            this.pageLength = 0
         }
+    }
 
-        this._queryVariants(this.currSearchParams);
-
+    private clearSort() {
+        this.sort.sort({id: '', start: 'asc', disableClear: false});
     }
 
     private _queryVariants(params: any) {
@@ -102,25 +125,14 @@ export class StructuralVarComponent implements OnInit {
 
     doPageChange(pageEvent: any) {
 
-        console.log(pageEvent.pageSize + pageEvent.pageIndex);
         if (this.currSearchParams) {
-
-            if (this.currSearchParams.max != pageEvent.pageSize) {
-                this.currSearchParams.offset = 0;
-                this.varPaginator.pageIndex = 0;
-
-                window.scroll(0, 0);
-            }
-            else {
-                this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
-            }
-
+            this.currSearchParams.offset = pageEvent.pageIndex * pageEvent.pageSize;
             this.currSearchParams.max = pageEvent.pageSize;
             this._queryVariants(this.currSearchParams);
         }
     }
 
-    showFilters(){
+    showFilters() {
         if (this.showVarFilters) {
             this.showVarFilters = false;
         } else {

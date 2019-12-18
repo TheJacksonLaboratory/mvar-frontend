@@ -31,6 +31,7 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
   confirmedMutationsCheck = false;
   varLowQual = false;
   withoutExternalId = false;
+  svInExon = false;
 
   varTypeSNP = false;
   varTypeINS = false;
@@ -163,6 +164,9 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
 
     //set external id
     this.searchCriteria.withoutExternalId = this.withoutExternalId;
+
+    //Sv inExon
+    this.searchCriteria.inExon = this.svInExon;
 
     //emit change
     this.searchCriteriaChange.emit(this.searchCriteria);

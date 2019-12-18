@@ -133,6 +133,9 @@ export class SvVariant {
     assembly: string;
     status: string;
     annotatedMutation: AnnotatedMutation;
+    supp: number;
+    suppVec: string;
+    inExon: boolean;
 
     constructor() {
         ///this.gene = new Gene();
