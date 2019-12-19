@@ -101,44 +101,16 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Rare Variant (low frequency < 1%): </b> <span *ngIf="variant.varFreq < 0.01">&#10003;</span> <span *ngIf="variant.varFreq > 0.01">&#10007;</span> <span *ngIf="! variant.varFreq">&#10007;</span>
+              <b>Low Frequency Variant (< 1%): </b> <span *ngIf="variant.varFreq < 0.01">Yes</span> <span *ngIf="variant.varFreq > 0.01">No</span> <span *ngIf="! variant.varFreq">No</span>
             </div>
             <div class="col-md-4">
-              <b>Mutant Candidate (likely pathogenic): </b> <span *ngIf="variant.mutantCandidate === 'Y' ">&#10003;</span> <span *ngIf="variant.mutantCandidate !== 'Y'">&#10007;</span>
+              <b>Mutant Candidate (likely pathogenic): </b> <span *ngIf="variant.mutantCandidate === 'Y' ">Yes</span> <span *ngIf="variant.mutantCandidate !== 'Y'">No</span>
             </div>
             <div class="col-md-4">
               <b>Annotation: </b> <span *ngIf="variant.annotatedMutation">{{variant.annotatedMutation.status}} </span> <span *ngIf="!variant.annotatedMutation">None </span> <span *ngIf="variant.mutantCandidate === 'Y' "><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>
             </div>
           </div>
 
-          <!--<mat-tab-group>-->
-            <!--<mat-tab label="Phenotypes">-->
-              <!--<div class="row">-->
-                <!--<div class="col-lg-12 col-md-12">-->
-                  <!--<table style="width: 100%" class="table" mat-table class="table-hover" [dataSource]="phenotypeDataSource">-->
-                    <!--&lt;!&ndash; Sample Id Column &ndash;&gt;-->
-                    <!--<ng-container matColumnDef="mpTermIdentifier">-->
-                      <!--<th mat-header-cell *matHeaderCellDef> Identifier </th>-->
-                      <!--<td mat-cell *matCellDef="let element"> {{element.mpTermIdentifier}} </td>-->
-                    <!--</ng-container>-->
-                    <!--<ng-container matColumnDef="mpTermName">-->
-                      <!--<th mat-header-cell *matHeaderCellDef> Term Name</th>-->
-                      <!--<td mat-cell *matCellDef="let element"> {{element.mpTermName}} </td>-->
-                    <!--</ng-container>-->
-                    <!--<ng-container matColumnDef="samples">-->
-                      <!--<th mat-header-cell *matHeaderCellDef> Samples </th>-->
-                      <!--<td mat-cell *matCellDef="let element"> {{element.samples.length}} </td>-->
-                    <!--</ng-container>-->
-
-                    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-                    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</mat-tab>-->
-            <!--<mat-tab label="Notes">-->
-            <!--</mat-tab>-->
-          <!--</mat-tab-group>-->
         </div>
       </div>
     </div>

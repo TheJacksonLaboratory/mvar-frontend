@@ -15,6 +15,7 @@ const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
 const variantExportCSVUrl = environment.MMRDB_API_VARIANT_EXPORT_CSV_URL;
+const svVariantExportCSVUrl = environment.MMRDB_API_SV_VARIANT_EXPORT_CSV_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -118,7 +119,7 @@ export class SearchService {
           });
       }
 
-      const options= {gene: genes,
+      const options = {gene: genes,
           strain:strains,
           phenotype:phenotypes,
           sample:samples,
@@ -146,8 +147,15 @@ export class SearchService {
 
     public querySvVariant(paramsIn: any): Observable<any> {
 
-        //return this.http.get(svVariantQueryUrl)
+        return this.sendSvVariantQueryRequest(paramsIn, svVariantQueryUrl);
+    }
 
+    public exportSvVariantsToCSV(paramsIn: any) {
+        return this.sendSvVariantQueryRequest(paramsIn, svVariantExportCSVUrl).subscribe(
+            response => this.downloadExportFile(response, 'text/csv'));
+    }
+
+    private sendSvVariantQueryRequest (paramsIn: any, url: string): Observable<any> {
         console.log(paramsIn)
 
         const genes: string[] = [];
@@ -179,8 +187,7 @@ export class SearchService {
 
             });
         }
-        return this.http.get(svVariantQueryUrl, {params:
-            {   gene: genes,
+        const options = { gene: genes,
                 strain:strains,
                 phenotype:phenotypes,
                 sample:samples,
@@ -196,8 +203,14 @@ export class SearchService {
                 max: paramsIn.max ? paramsIn.max : '',
                 offset: paramsIn.offset ? paramsIn.offset : '',
                 sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
-                sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''}});
+                sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''}
 
+
+        if (url === svVariantExportCSVUrl){
+            return this.http.get(url, {responseType: 'arraybuffer', params: options});
+        } else {
+            return this.http.get(url, {params: options});
+        }
     }
 
   public getSamples(paramsIn: any): Observable<any> {
