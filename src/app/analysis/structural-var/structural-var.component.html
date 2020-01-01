@@ -81,7 +81,7 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample Id </th>
                                 <td mat-cell *matCellDef="let element"> {{element.sample.sampleId}} </td>
                             </ng-container>
-                            
+
                             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>

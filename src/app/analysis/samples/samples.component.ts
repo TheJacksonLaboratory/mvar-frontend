@@ -24,7 +24,7 @@ export class SamplesComponent implements OnInit {
     @ViewChild('paginator', {static: true}) paginator: MatPaginator;
 
     //Table items
-    displayedColumns = ['id', 'study', 'researcher', 'jaxStrainId', 'inheritance', 'genotype', 'chrLinkage', 'strainOfOrigin', 'phenotypes'];
+    displayedColumns = ['id', 'sampleName', 'study', 'strainName', 'chrLinkage', 'inheritance', 'phenotypes']; //'genotype', 'chrLinkage',
     dataSource: Sample[] = [];
     count: number;
 
@@ -49,6 +49,7 @@ export class SamplesComponent implements OnInit {
                 this._getSamples(params);
             }
         });
+        this._getSamples(params);
     }
 
     ngOnInit() {

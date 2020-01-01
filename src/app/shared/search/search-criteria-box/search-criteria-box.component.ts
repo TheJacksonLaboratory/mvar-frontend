@@ -54,6 +54,9 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
   varImpactLOW = false;
   varImpactMODIFIER = false;
 
+  studyOptions = [];
+  selectedStudy = 'All'
+
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
@@ -80,6 +83,16 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
           console.log(selectedItems)
           this.onSelectedItem(selectedItems);
           this.searchService.setSelectedSearchItems({})
+      }
+
+      if (this.searchType == 'sample'){
+          this.searchService.getSampleStudies().subscribe(data =>{
+
+               this.studyOptions = data.studies;
+               this.studyOptions.push('All')
+               this.studyOptions.sort()
+
+          });
       }
   }
   ngAfterViewInit() {
@@ -180,5 +193,13 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
       this.showVarFilters = true;
       this.filtersTxt = 'Hide additional filters';
     }
+  }
+
+  onSampleStudyChange(study: string){
+      console.log('Study Change: ' + study);
+      this.searchCriteria.study = study;
+
+      //emit change
+      this.searchCriteriaChange.emit(this.searchCriteria);
   }
 }

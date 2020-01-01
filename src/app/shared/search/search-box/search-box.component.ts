@@ -89,12 +89,12 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'sample') {
 
-          this.placeHolderTxt = 'Search for samples by sample id, strain, or phenotype';
+          this.placeHolderTxt = 'Search for samples by sample name, sample id, strain, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.strainOptions = [];
                   this.phenotypeOptions = [];
                   this.sampleOptions = [];
-                  if (value && value.length > 2) {
+                  if (value && value.length > 0) {
                       this._sampleFilter(value);
                   }
               }
