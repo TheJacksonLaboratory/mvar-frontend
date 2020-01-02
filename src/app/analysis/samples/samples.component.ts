@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {Sample} from '../../models';
 import {SearchService} from '../search.service';
 import {MatDialog, MatPaginator} from "@angular/material";
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog.component';
 import {UploadService} from '../../files-nav/upload.service';
+import {MatSort} from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-samples',
@@ -19,9 +21,10 @@ import {UploadService} from '../../files-nav/upload.service';
         ]),
     ],
 })
-export class SamplesComponent implements OnInit {
+export class SamplesComponent implements OnInit, AfterViewInit {
 
     @ViewChild('paginator', {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
     displayedColumns = ['id', 'sampleName', 'study', 'strainName', 'chrLinkage', 'inheritance', 'phenotypes']; //'genotype', 'chrLinkage',
@@ -49,10 +52,25 @@ export class SamplesComponent implements OnInit {
                 this._getSamples(params);
             }
         });
-        this._getSamples(params);
+        //this._getSamples(params);
     }
 
     ngOnInit() {
+    }
+
+    ngAfterViewInit() {
+
+        this.sort.sortChange.subscribe(() => {
+
+            if (this.pageLength > 0 ) {
+                this.currSearchParams.sortBy = this.sort.active;
+                this.currSearchParams.sortDirection = this.sort.direction;
+                this.currSearchParams.offset = 0;
+                this.paginator.pageIndex = 0;
+
+                this._getSamples(this.currSearchParams)
+            }
+        });
     }
 
     public onSearchCriteriaChange(searchCriteria: any){
@@ -64,9 +82,14 @@ export class SamplesComponent implements OnInit {
 
         this.currSearchParams.offset = 0;
         this.paginator.pageIndex = 0;
+        this.clearSort();
         this._getSamples(this.currSearchParams);
     }
 
+
+    private clearSort() {
+        this.sort.sort({id: '', start: 'asc', disableClear: false});
+    }
 
     private _getSamples(params: any) {
       // this.currSearchParams = params
@@ -178,4 +201,5 @@ export class SamplesComponent implements OnInit {
         const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
 
     }
+
 }

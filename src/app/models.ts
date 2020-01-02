@@ -50,7 +50,8 @@ export class Strain {
 export class  Sample {
   id: number;
   sampleId: string;
-  jaxStrainId: string;
+  jaxRegistryId: string;
+  newMutantId: string;
   inheritance: string;
   sampleName: string;
   limsSampleName: string;
@@ -72,7 +73,9 @@ export class  Sample {
   candidateSvVarCount: number;
   confirmedSvVarCount: number;
   strain: Strain;
-  // genomeBuild
+  strainBackground: string;
+  refGenome: string;
+  limsSampleId: string;
 
   constructor() {
     this.strain = new Strain();

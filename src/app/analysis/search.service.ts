@@ -265,7 +265,9 @@ export class SearchService {
                     sample: samples,
                     study: studies,
                     max: max,
-                    offset: offset
+                    offset: offset,
+                    sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
+                    sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''
                 }
         });
     }
