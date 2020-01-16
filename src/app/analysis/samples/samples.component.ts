@@ -7,6 +7,7 @@ import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog
 import {UploadService} from '../../files-nav/upload.service';
 import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from '../dialogs/help-dialog/help-dialog.component';
+import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
 
 
 @Component({
@@ -43,6 +44,8 @@ export class SamplesComponent implements OnInit, AfterViewInit {
     panelStyle: string = 'col-lg-12 col-md-12';
     expandedElement: Sample | null;
 
+    spinnerDialogRef: any;
+
     constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService) {
 
         const params: any = {};
@@ -53,7 +56,6 @@ export class SamplesComponent implements OnInit, AfterViewInit {
                 this._getSamples(params);
             }
         });
-        //this._getSamples(params);
     }
 
     ngOnInit() {
@@ -63,27 +65,37 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
         this.sort.sortChange.subscribe(() => {
 
-            if (this.pageLength > 0 ) {
-                this.currSearchParams.sortBy = this.sort.active;
-                this.currSearchParams.sortDirection = this.sort.direction;
-                this.currSearchParams.offset = 0;
-                this.paginator.pageIndex = 0;
+            this.currSearchParams.sortBy = this.sort.active;
+            this.currSearchParams.sortDirection = this.sort.direction;
+            this.currSearchParams.offset = 0;
+            this.paginator.pageIndex = 0;
 
-                this._getSamples(this.currSearchParams)
+            if (this.currSearchParams.selectedItems) {
+                if (this.sort.active && this.currSearchParams.selectedItems.length > 0) {
+                    this._getSamples(this.currSearchParams)
+                }
             }
         });
+
+        if (! this.currSearchParams.selectedItems && ! this.currSearchParams.study){
+            console.log(' no selected items')
+            this.currSearchParams.study = 'All'
+            this._getSamples(this.currSearchParams)
+        }
     }
 
     public onSearchCriteriaChange(searchCriteria: any){
         const params: any = {};
-
-        if (searchCriteria.selecteItems && searchCriteria.selecteItems.length > 0) {
-            this.currSearchParams.selectedItems = searchCriteria.selecteItems;
-        }
-
         this.currSearchParams.offset = 0;
         this.paginator.pageIndex = 0;
         this.clearSort();
+
+        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0 ) || searchCriteria.study) {
+            this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        } else {
+            searchCriteria.study = 'All'
+        }
+
         this._getSamples(this.currSearchParams);
     }
 
@@ -94,6 +106,7 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
     private _getSamples(params: any) {
       // this.currSearchParams = params
+      this.openSpinnerDialog()
       this.searchService.getSamples(params).subscribe(data => {
 
           this.dataSource = data.samples;
@@ -102,7 +115,11 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
           console.log('sample count = ' + this.count)
 
-      });
+          this.spinnerDialogRef.close();
+
+        }, (error) => {
+          this.spinnerDialogRef.close();
+        });
   }
 
     doPageChange(pageEvent: any) {
@@ -203,7 +220,6 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
     }
 
-
     openHelpDialog() {
         console.log("open help dialog");
         const dialogRef = this.dialog.open(HelpDialogComponent, {
@@ -214,4 +230,11 @@ export class SamplesComponent implements OnInit, AfterViewInit {
         });
     }
 
+    openSpinnerDialog() {
+        console.log("open spinner dialog");
+        this.spinnerDialogRef = this.dialog.open(SpinnerDialogComponent, {
+            panelClass: 'transparent',
+            disableClose: true
+        });
+    }
 }
