@@ -17,6 +17,7 @@ import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dial
 import { SearchBoxComponent } from '../../shared/search/search-box/search-box.component';
 import { SearchCriteriaBoxComponent } from '../../shared/search/search-criteria-box/search-criteria-box.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatChipsModule} from '@angular/material/chips';
 import {SearchService} from '../../analysis/search.service';
 import { UploadService } from '../../files-nav/upload.service';
@@ -30,6 +31,8 @@ import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.comp
 import { SnpIndelDetailsComponent } from '../../analysis/snps-indels/snp-indel-details/snp-indel-details.component';
 import { GeneComponent } from '../../analysis/gene/gene.component';
 import { GeneDialogComponent } from '../../analysis/dialogs/gene-dialog/gene-dialog.component';
+import { HelpDialogComponent} from '../../analysis/dialogs/help-dialog/help-dialog.component';
+import { SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component'
 import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
 import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
 import { StrainComponent } from '../../analysis/strain/strain.component';
@@ -58,6 +61,7 @@ import {
     MatCheckboxModule,
     MatAutocompleteModule
 } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -84,7 +88,8 @@ import {
       MatCheckboxModule,
       MatChipsModule,
       MatExpansionModule,
-      MatSortModule
+      MatSortModule,
+      MatProgressSpinnerModule
   ],
   declarations: [
     DashboardComponent,
@@ -103,6 +108,8 @@ import {
       SnpIndelDetailsComponent,
       GeneComponent,
       GeneDialogComponent,
+      HelpDialogComponent,
+      SpinnerDialogComponent,
       StrainDialogComponent,
       SampleDialogComponent,
       StrainComponent,
@@ -114,7 +121,7 @@ import {
       {provide: MatDialogRef, useValue: {}},
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
 })
 
 export class AdminLayoutModule {}

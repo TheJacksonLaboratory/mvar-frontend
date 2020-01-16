@@ -42,6 +42,16 @@ tr.example-detail-row {
   height: 0;
 }
 
+::ng-deep .mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+
+
+  background: #616161e6;
+  font-size: small;
+  color: white !important;
+}
+
 /*.mat-table__wrapper .mat-table {*/
   /*min-width: auto !important;*/
   /*width: 100% !important;*/

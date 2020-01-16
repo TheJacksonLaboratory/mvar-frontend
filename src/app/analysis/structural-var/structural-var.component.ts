@@ -4,6 +4,9 @@ import {SearchService} from '../search.service';
 import {MatPaginator} from "@angular/material";
 import {ActivatedRoute} from '@angular/router';
 import {MatSort} from '@angular/material/sort';
+import {HelpDialogComponent} from '../dialogs/help-dialog/help-dialog.component';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
 
 
 @Component({
@@ -31,7 +34,9 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
     //searchparams
     currSearchParams: any = {}
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute) {
+    spinnerDialogRef: any;
+
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -110,7 +115,7 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
     }
 
     private _queryVariants(params: any) {
-
+        this.openSpinnerDialog();
         this.searchService.querySvVariant(params).subscribe(data => {
 
             this.svVarDataSource = data.svVariants as SvVariant[];
@@ -120,6 +125,10 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
             console.log('var count = ' + this.varCount)
             console.log(this.svVarDataSource);
 
+            this.spinnerDialogRef.close();
+        },
+        (error) => {
+            this.spinnerDialogRef.close();
         });
     }
 
@@ -150,6 +159,24 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
                 this.searchService.exportSvVariantsToCSV(exportSearchCriteria);
             }
         }
+    }
+
+    openHelpDialog() {
+        console.log("open help dialog");
+        const dialogRef = this.dialog.open(HelpDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                helpType: 'SVGeneral'
+            }
+        });
+    }
+
+    openSpinnerDialog() {
+        console.log("open spinner dialog");
+        this.spinnerDialogRef = this.dialog.open(SpinnerDialogComponent, {
+            panelClass: 'transparent',
+            disableClose: true
+        });
     }
 
 }

@@ -6,6 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog.component';
 import {UploadService} from '../../files-nav/upload.service';
 import {MatSort} from '@angular/material/sort';
+import {HelpDialogComponent} from '../dialogs/help-dialog/help-dialog.component';
 
 
 @Component({
@@ -200,6 +201,17 @@ export class SamplesComponent implements OnInit, AfterViewInit {
     public openUploadDialog() {
         const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
 
+    }
+
+
+    openHelpDialog() {
+        console.log("open help dialog");
+        const dialogRef = this.dialog.open(HelpDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                helpType: 'sampleGeneral'
+            }
+        });
     }
 
 }

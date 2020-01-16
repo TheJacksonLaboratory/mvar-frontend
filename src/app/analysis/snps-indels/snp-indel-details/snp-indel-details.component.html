@@ -49,7 +49,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>
+              <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" rel="noopener noreferrer" target="_blank">{{snpid}}, </a></span>
             </div>
           </div>
           <div class="row detail-anno1-title">
@@ -85,7 +85,7 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Transcript Id: </b> <a *ngIf="variant.snpEffTranscriptId" [href]="ensemblTransUrl + variant.snpEffTranscriptId" target="_blank">{{variant.snpEffTranscriptId}}</a>
+              <b>Transcript Id: </b> <a *ngIf="variant.snpEffTranscriptId" [href]="ensemblTransUrl + variant.snpEffTranscriptId" rel="noopener noreferrer" target="_blank">{{variant.snpEffTranscriptId}}</a>
             </div>
             <div class="col-md-4">
               <b>Gene Name:</b> {{variant.snpEffGeneName}}
@@ -101,13 +101,14 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Low Frequency Variant (< 1%): </b> <span *ngIf="variant.varFreq < 0.01">Yes</span> <span *ngIf="variant.varFreq > 0.01">No</span> <span *ngIf="! variant.varFreq">No</span>
+              <b>Low Frequency Variant (< 1%): </b> <span>{{(variant.varFreq < 0.01)?'Yes':'No'}}</span>
             </div>
             <div class="col-md-4">
-              <b>Mutant Candidate (likely pathogenic): </b> <span *ngIf="variant.mutantCandidate === 'Y' ">Yes</span> <span *ngIf="variant.mutantCandidate !== 'Y'">No</span>
+              <b>Mutant Candidate (likely pathogenic): </b> <span>{{(variant.mutantCandidate === 'Y')?'Yes':'Unknown'}}</span>
             </div>
             <div class="col-md-4">
-              <b>Annotation: </b> <span *ngIf="variant.annotatedMutation">{{variant.annotatedMutation.status}} </span> <span *ngIf="!variant.annotatedMutation">None </span> <span *ngIf="variant.mutantCandidate === 'Y' "><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>
+              <b>Annotation: </b> <span>{{variant.annotatedMutation?variant.annotatedMutation.status:'None'}}</span><!--<i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>-->
+              <!--<span *ngIf="variant.annotatedMutation">{{variant.annotatedMutation.status}} </span> <span *ngIf="!variant.annotatedMutation">None </span> <span *ngIf="variant.mutantCandidate === 'Y' "><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>-->
             </div>
           </div>
 
