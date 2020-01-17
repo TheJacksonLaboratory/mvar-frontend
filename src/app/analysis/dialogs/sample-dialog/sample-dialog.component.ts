@@ -1,35 +1,35 @@
-import { Component, OnInit, Inject, ViewChild, OnChanges, AfterViewInit } from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, OnInit, Inject, ViewChild, OnChanges, AfterViewInit} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Sample} from '../../../models';
 
 
-export interface DialogData{
+export interface DialogData {
     sample: Sample;
 }
 
 @Component({
-  selector: 'app-sample-dialog',
-  templateUrl: './sample-dialog.component.html',
-  styleUrls: ['./sample-dialog.component.scss']
+    selector: 'app-sample-dialog',
+    templateUrl: './sample-dialog.component.html',
+    styleUrls: ['./sample-dialog.component.scss']
 })
 export class SampleDialogComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('sample_details', {static: true}) sampleDetails;
-  sample: Sample;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    this.sample = data.sample
-  }
+    @ViewChild('sample_details', {static: true}) sampleDetails;
+    sample: Sample;
 
-  ngOnInit() {
-    console.log("init sample dialog")
-  }
+    constructor(public dialogRef: MatDialogRef<SampleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        this.sample = data.sample
+    }
 
-  // ngOnChanges(){
-  //   this.sampleDetails.loadStats()
-  // }
+    ngOnInit() {
+    }
 
-  ngAfterViewInit(){
-      this.sampleDetails.loadStats()
-  }
+    ngAfterViewInit() {
+        this.sampleDetails.loadStats()
+    }
+
+    closeDialog() {
+        this.dialogRef.close(true);
+    }
 
 }

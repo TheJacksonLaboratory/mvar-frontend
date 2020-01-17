@@ -1,19 +1,25 @@
 <div mat-dialog-content>
-
     <div class="row">
-        <div class="col-lg-12 col-md-12">
-    <span class="pull-right">
-        <a mat-button class="nav-link active" (click)="closeDialog()">
-          <i class="material-icons">close</i> Close
-          <div class="ripple-container"></div>
-        </a>
-    </span>
+        <div class="col-lg-6 col-md-6">
+            <h3 *ngIf="helpType ==='SNPandIndelGeneral'">SNPs/INELs</h3>
+            <h3 *ngIf="helpType ==='sampleGeneral'">Samples</h3>
+            <h3 *ngIf="helpType ==='SVGeneral'">Structural Variants</h3>
+        </div>
+        <div class="col-lg-6 col-md-6">
+                <span class="pull-right align-content-end">
+                    <a mat-button class="nav-link active" (click)="closeDialog()">
+                      <i class="material-icons">close</i> Close
+                      <div class="ripple-container"></div>
+                    </a>
+                </span>
         </div>
     </div>
+
+
     <div *ngIf="helpType ==='SNPandIndelGeneral'" class="row">
         <div class="col-lg-12 col-md-12">
-            <h5><strong>SNPs/INELs</strong></h5>
-            <p> Variant calls from reference (GRCm38) based alignment of Illumina short read data (exome and whole
+
+            <p><br>Variant calls from reference (GRCm38) based alignment of Illumina short read data (exome and whole
                 genome), and generated from a standard GATK pipeline with modification for laboratory mouse genomes
                 (Fairfield et al., 2015).</p>
 
@@ -25,12 +31,14 @@
 
             <p><strong>Impact</strong> – predicted impact annotation, e.g. from SNPEff, Putative_impact: A simple
                 estimation of putative impact / deleteriousness : (HIGH, MODERATE, LOW, MODIFIER), reference <a
-                        href="http://snpeff.sourceforge.net/SnpEff_manual.html" rel="noopener noreferrer" target="_blank">http://snpeff.sourceforge.net/SnpEff_manual.html</a>
+                        href="http://snpeff.sourceforge.net/SnpEff_manual.html" rel="noopener noreferrer"
+                        target="_blank">http://snpeff.sourceforge.net/SnpEff_manual.html</a>
                 for details</p>
 
             <p><strong>Functional Class</strong> – predicted variant function according to position and base change,
                 e.g. from SNPEff, Functional class (NONE, SILENT, MISSENSE, NONSENSE), reference <a
-                        href="http://snpeff.sourceforge.net/SnpEff_manual.html" rel="noopener noreferrer" target="_blank">http://snpeff.sourceforge.net/SnpEff_manual.html</a>
+                        href="http://snpeff.sourceforge.net/SnpEff_manual.html" rel="noopener noreferrer"
+                        target="_blank">http://snpeff.sourceforge.net/SnpEff_manual.html</a>
                 for details</p>
 
             <p><strong>Occurrence %</strong> - the frequency of the variant within the MMRdb variant database by variant
@@ -48,9 +56,9 @@
     </div>
     <div *ngIf="helpType ==='sampleGeneral'" class="row">
         <div class="col-lg-12 col-md-12">
-            <h5><strong>Samples</strong></h5>
 
-            <p><strong>Sample ID</strong> – The ID assigned to each sample when it is added to MMRdb. Use this I.D. to
+            <p><br>
+                <strong>Sample ID</strong> – The ID assigned to each sample when it is added to MMRdb. Use this I.D. to
                 search for additional sample information under ‘Samples’</p>
 
             <p><strong>Sample Name</strong> – The name of the sample provided by the owner of the sample / data</p>
@@ -78,7 +86,7 @@
             <p><strong>Likely pathogenic</strong> – A variant is a likely pathogenic (y) if its occurrence is low (0-1%
                 frequency where variants found in a single sample are ~0%), its genotype is supported by the phenotype
                 of the sample and the inheritance of the phenotype (e.g. for autosomal recessive phenotypes, an affected
-                individual must be homozygous), and if linkage information is available, the variant must be linked)</p>
+                individual must be homozygous), and if linkage information is available, the variant must be linked</p>
 
             <p><strong>Confirmed mutations</strong> – This is reserved for those mutation candidate / likely pathogenic
                 variants that have been confirmed through linkage analysis and / or PCR validation to be the putative
@@ -90,7 +98,47 @@
 
     <div *ngIf="helpType ==='SVGeneral'" class="row">
         <div class="col-lg-12 col-md-12">
-            <h5><strong>Structural Variants</strong></h5>
+
+            <p><br>Structural variant calls from reference (GRCm38) based on whole genome sequence data, and generated
+                from
+                a consensus structural variant calling pipeline based on 4 callers (Breakdancer, Delly, Lumpy, and
+                Manta) for laboratory mouse genomes.</p>
+
+            <p><strong>Type</strong> – Structural variant type classed into the following:</p>
+            <ul>
+                <li>INS – Insertion</li>
+                <li>INV – Inversion</li>
+                <li>DEL – Deletion</li>
+                <li>DUP – Duplication</li>
+                <li>TRA – Translocation</li>
+            </ul>
+
+
+            <p><strong>Start Position</strong> – Starting position of the SV call. Note for translocation events this
+                position represents a single breakpoint, rather than the start of a range.</p>
+
+            <p><strong>End Position</strong> – Ending position of the SV call. Note for translocation events this
+                position represents a single breakpoint, rather than the end of a range.</p>
+
+            <p><strong>Length</strong> – Size of the SV event. Note: For Insertion calls accurate size prediction is not
+                possible with available tools. Rather start and end position show region where an insertion is predicted
+                to be present. For translocations, start and end position represent predicted locations of where a
+                translocation event has occurred, and size prediction is not possible.</p>
+
+            <p><strong>Occurrence %</strong> - The frequency of the structural variant within the MMRdb variant
+                database.
+
+            <p><strong>Supporting Callers</strong> – The number of structural variant callers supporting each call.
+                Total possible callers are four.</p>
+
+            <p><strong>Mutation Candidate</strong> – A variant is a likely pathogenic (y) if its occurrence is low (0-1%
+                frequency where variants found in a single sample are ~0%), its genotype is supported by the phenotype
+                of the sample and the inheritance of the phenotype (e.g. for autosomal recessive phenotypes, an affected
+                individual must be homozygous), and if linkage information is available, the variant must be linked</p>
+
+            <p><strong>Sample ID</strong> – The ID assigned to each sample when it is added to MMRdb. Use this I.D. to
+                search for additional sample information under ‘Samples’</p>
+
 
         </div>
     </div>
