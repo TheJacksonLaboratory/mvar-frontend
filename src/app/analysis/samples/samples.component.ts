@@ -177,6 +177,11 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
             element.confirmedVarCount = data.variantCount;
         });
+
+        this.searchService.getSampleStatistics(element.id).subscribe(data => {
+            element.sampleStats = data.stats;
+            console.log(element.sampleStats)
+        });
     }
 
     getSampleSvVariantStats(element: any) {

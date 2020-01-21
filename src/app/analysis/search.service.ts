@@ -14,6 +14,7 @@ const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
 const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 const sampleStudiesQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/study';
+const sampleStatsUrl = environment.MMRDB_API_SAMPLE_STATS_URL;
 const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
 const variantExportCSVUrl = environment.MMRDB_API_VARIANT_EXPORT_CSV_URL;
 const svVariantExportCSVUrl = environment.MMRDB_API_SV_VARIANT_EXPORT_CSV_URL;
@@ -66,6 +67,10 @@ export class SearchService {
 
     public searchSample(sampleId: string): Observable<any> {
         return this.http.get(sampleUrl + '?sampleId=' + sampleId);
+    }
+
+    public getSampleStatistics(sampleId: number): Observable<any> {
+        return this.http.get(sampleStatsUrl + '/' + sampleId);
     }
 
     public queryVariant(paramsIn: any): Observable<any> {

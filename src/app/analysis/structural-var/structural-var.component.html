@@ -69,8 +69,8 @@
 
                             <!-- Variant Frequency -->
                             <ng-container matColumnDef="varFreq">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Occurrence % </th>
-                                <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} % </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Pct Occurrence</th>
+                                <td mat-cell *matCellDef="let element"> {{element.varFreq}} </td>  <!-- javascript: num.toFixed(2); -->
                             </ng-container>
 
                             <!-- Mutant Candidate -->

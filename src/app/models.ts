@@ -76,10 +76,32 @@ export class  Sample {
   strainBackground: string;
   refGenome: string;
   limsSampleId: string;
+  sampleStats: SampleStatistics;
 
   constructor() {
     this.strain = new Strain();
+    //this.sampleStats = new SampleStatistics();
   }
+}
+
+export class SampleStatistics {
+    id: number;
+    totalNumReads: number;
+    pctTargetBasesCovered_10x: number;
+    pctTargetBasesCovered_50x: number;
+    pctTargetBasesCovered_100x: number;
+    pctTargetBasesCovered_40x: number;
+    pctTargetBasesCovered_2x: number;
+    pctSelectedBases: number;
+    numPfUniqueReads: number;
+    meanTargetCoverage: number;
+    pctPfUqReadsAligned: number;
+    totalNumHqReads: number;
+    pctTargetBasesCovered_30x: number;
+    pctTargetBasesCovered_20x: number;
+    numIndels: number;
+    numSnps: number;
+
 }
 
 export class Variant {

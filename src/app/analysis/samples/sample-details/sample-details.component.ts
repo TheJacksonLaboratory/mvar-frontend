@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import {Sample, Phenotype} from "../../../models";
+import {Sample, Phenotype, SampleStatistics} from "../../../models";
 import {MatTable} from "@angular/material";
 import {SearchService} from "../../search.service";
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -17,6 +17,7 @@ export class SampleDetailsComponent implements OnInit{
   sample: Sample;
   displayedColumns = ['mpTermIdentifier','mpTermName', 'samples']
   phenotypeDataSource: Phenotype[] = [];
+  sampleStats: SampleStatistics;
 
   dialogRef: any;
 
@@ -73,6 +74,11 @@ export class SampleDetailsComponent implements OnInit{
           this.sample.confirmedVarCount = data.variantCount;
           console.log(this.sample.confirmedVarCount);
       });
+
+      this.searchService.getSampleStatistics(this.sample.id).subscribe(data => {
+          this.sample.sampleStats = data;
+          console.log(this.sample.sampleStats)
+      });
   }
 
   getSampleSvVariantStats() {
@@ -113,6 +119,7 @@ export class SampleDetailsComponent implements OnInit{
           this.sample.confirmedSvVarCount = data.svVariantCount;
           console.log(this.sample.confirmedSvVarCount);
       });
+
   }
 
 
