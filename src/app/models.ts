@@ -1,9 +1,14 @@
-export interface File {
+export class File {
   id: number;
   name: string;
   extension: string;
   status: string;
   varType: String;
+  selected: boolean;
+
+  constructor(){
+      this.selected = false;
+  }
 }
 
 export class Gene {

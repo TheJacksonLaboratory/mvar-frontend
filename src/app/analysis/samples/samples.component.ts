@@ -42,7 +42,7 @@ export class SamplesComponent implements OnInit {
     constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService) {
 
         const params: any = {};
-        params.studies = ['mmr', 'mmr_sv']
+        //params.studies = ['mmr', 'mmr_sv']
 
         this.uploadService.isThereSampleChanges.subscribe( value => {
             if (value) {
