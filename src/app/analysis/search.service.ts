@@ -192,8 +192,11 @@ export class SearchService {
                 impact: paramsIn.varImpact ? paramsIn.varImpact : [],
                 lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
                 withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+                inExon: paramsIn.inExon ? paramsIn.inExon : '',
                 max: paramsIn.max ? paramsIn.max : '',
-                offset: paramsIn.offset ? paramsIn.offset : ''}});
+                offset: paramsIn.offset ? paramsIn.offset : '',
+                sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
+                sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''}});
 
     }
 

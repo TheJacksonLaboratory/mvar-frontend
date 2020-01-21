@@ -31,7 +31,7 @@
       <div class="col-md-12">
           <section class="example-section">
             <label class="mat-checkbox-layout"><b>MMR Analysis:</b></label>
-            <mat-checkbox class="example-margin" [(ngModel)]="rareVariantsCheck" (change)="onSearchCriteriaChange('', true,'')">Rare Variants (low frequency < 1%) </mat-checkbox>
+            <mat-checkbox class="example-margin" [(ngModel)]="rareVariantsCheck" (change)="onSearchCriteriaChange('', true,'')">Low Frequency Variants (< 1%) </mat-checkbox>
             <mat-checkbox class="example-margin" [(ngModel)]="mutantCandidatesCheck" (change)="onSearchCriteriaChange('',true,'')" >Mutant Candidates (likely pathogenic) </mat-checkbox>
             <mat-checkbox class="example-margin" [(ngModel)]="confirmedMutationsCheck" (change)="onSearchCriteriaChange('',true,'')">Confirmed Mutation (pathogenic)</mat-checkbox>
           </section>
@@ -89,7 +89,7 @@
       <div class="col-md-12">
         <section class="example-section">
           <label class="mat-checkbox-layout"><b>MMR Analysis:</b></label>
-          <mat-checkbox class="example-margin" [(ngModel)]="rareVariantsCheck" (change)="onSearchCriteriaChange('', true,'')">Rare Variants (low frequency < 1%) </mat-checkbox>
+          <mat-checkbox class="example-margin" [(ngModel)]="rareVariantsCheck" (change)="onSearchCriteriaChange('', true,'')">Low Frequency Variants (< 1%) </mat-checkbox>
           <mat-checkbox class="example-margin" [(ngModel)]="mutantCandidatesCheck" (change)="onSearchCriteriaChange('',true,'')" >Mutant Candidates (likely pathogenic) </mat-checkbox>
           <mat-checkbox class="example-margin" [(ngModel)]="confirmedMutationsCheck" (change)="onSearchCriteriaChange('',true,'')">Confirmed Mutation (pathogenic)</mat-checkbox>
         </section>
@@ -99,7 +99,7 @@
     <div *ngIf="showVarFilters && searchType === 'svVariant'" class="row">
       <div class="col-md-12">
         <section class="example-section">
-          <label class="mat-checkbox-layout"><b>Variant type:</b></label>
+          <label class="mat-checkbox-layout"><b>Variant Type:</b></label>
           <mat-checkbox class="example-margin" [(ngModel)]="svVarTypeINS" (change)="onSearchCriteriaChange('varType', svVarTypeINS, 'INS')">Insertion </mat-checkbox>
           <mat-checkbox class="example-margin" [(ngModel)]="svVarTypeINV" (change)="onSearchCriteriaChange('varType', svVarTypeINV, 'INV')">Inversion </mat-checkbox>
           <mat-checkbox class="example-margin" [(ngModel)]="svVarTypeDEL" (change)="onSearchCriteriaChange('varType', svVarTypeDEL, 'DEL')" >Deletion</mat-checkbox>
@@ -110,27 +110,18 @@
     </div>
 
     <div *ngIf="showVarFilters && searchType === 'svVariant'" class="row">
-      <!--<div class="col-md-4">-->
-        <!--<section class="example-section">-->
-          <!--<label class="mat-checkbox-layout"><b>Impact:</b> </label>-->
-          <!--<mat-checkbox class="example-margin" [(ngModel)]="varImpactHIGH" (change)="onSearchCriteriaChange('varImpact', varImpactHIGH, 'HIGH')">High</mat-checkbox>-->
-          <!--<mat-checkbox class="example-margin" [(ngModel)]="varImpactMODERATE" (change)="onSearchCriteriaChange('varImpact', varImpactMODERATE, 'MODERATE')" >Moderate</mat-checkbox>-->
-          <!--<mat-checkbox class="example-margin" [(ngModel)]="varImpactLOW" (change)="onSearchCriteriaChange('varImpact', varImpactLOW, 'LOW')">Low</mat-checkbox>-->
-          <!--<mat-checkbox class="example-margin" [(ngModel)]="varImpactMODIFIER" (change)="onSearchCriteriaChange('varImpact', varImpactMODIFIER, 'MODIFIER')">Modifier</mat-checkbox>-->
-        <!--</section>-->
-      <!--</div>-->
       <div class="col-md-4">
         <section class="example-section">
           <label class="mat-checkbox-layout"><b>Quality:</b> </label>
           <mat-checkbox class="example-margin" [(ngModel)]="varLowQual" (change)="onSearchCriteriaChange('',true,'')">Show low quality variants</mat-checkbox>
         </section>
       </div>
-      <!--<div class="col-md-4">-->
-        <!--<section class="example-section">-->
-          <!--<label class="mat-checkbox-layout"><b>Identifier:</b> </label>-->
-          <!--<mat-checkbox class="example-margin" [(ngModel)]="withoutExternalId" (change)="onSearchCriteriaChange('',true,'')">Without dbSNP ID</mat-checkbox>-->
-        <!--</section>-->
-      <!--</div>-->
+      <div class="col-md-4">
+        <section class="example-section">
+          <label class="mat-checkbox-layout"><b>Region:</b> </label>
+          <mat-checkbox class="example-margin" [(ngModel)]="svInExon" (change)="onSearchCriteriaChange('',true,'')">In Exon</mat-checkbox>
+        </section>
+      </div>
     </div>
 
   </div>

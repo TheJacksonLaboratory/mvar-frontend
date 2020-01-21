@@ -12,18 +12,28 @@
               <b>Chromosome:</b> {{variant.chr}}
             </div>
             <div class="col-md-4">
-              <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>
+              <b>Position: </b> {{variant.pos}} ({{variant.assembly}})
+            </div>
+            <!--<div class="col-md-4">-->
+              <!--<b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>-->
+            <!--</div>-->
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="a"><b>Ref. Allele:</b> {{variant.ref}}</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="a"><b>Allele: </b> {{variant.alt}}</div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <b>Position: </b> {{variant.pos}} ({{variant.assembly}})
+              <b>Sample Count: </b> {{variant.sampleCount}}
             </div>
             <div class="col-md-4">
-              <b>Ref. Allele:</b> {{variant.ref}}
-            </div>
-            <div class="col-md-4">
-              <b>Allele: </b> {{variant.alt}}
+              <b>Variation Occurrence Frequency: </b> {{variant.varFreq}} %
             </div>
           </div>
           <div class="row">
@@ -35,6 +45,11 @@
             </div>
             <div class="col-md-4">
               <b>Strain Of Origin: </b> <span *ngIf="variant.sample.strain">{{variant.sample.strain.name}}<i class="material-icons vertical-align-middle" (click)="openStrainDialog()">info</i></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>
             </div>
           </div>
           <div class="row detail-anno1-title">
@@ -55,13 +70,17 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Exon Id: </b> {{variant.snpEffExonId}}
+              <b>Exon #: </b> {{variant.snpEffExonId}}
             </div>
-            <div class="col-md-4">
-              <b>Codon Change: </b> {{variant.snpEffCodonChange}}
+          </div>
+          <div class="row detail-anno1">
+            <div class="col-md-12">
+              <p><b>Codon Change: </b> {{variant.snpEffCodonChange}}</p>
             </div>
-            <div class="col-md-4">
-              <b>Amino Acid Change: </b> {{variant.snpEffAminoAcidChange}}
+          </div>
+          <div class="row detail-anno1">
+            <div class="col-md-12">
+              <p><b>Amino Acid Change: </b> {{variant.snpEffAminoAcidChange}}</p>
             </div>
           </div>
           <div class="row detail-anno1">

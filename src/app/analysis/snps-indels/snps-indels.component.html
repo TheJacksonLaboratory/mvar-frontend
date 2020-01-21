@@ -75,11 +75,11 @@
                       <td mat-cell *matCellDef="let element"> {{element.type}} </td>
                     </ng-container>
 
-                    <!-- Filter Column -->
-                    <!--<ng-container matColumnDef="filter">-->
-                      <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Filter </th>-->
-                      <!--<td mat-cell *matCellDef="let element"> {{element.filter}} </td>-->
-                    <!--</ng-container>-->
+                     <!--Filter Column -->
+                    <ng-container matColumnDef="filter">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Filter </th>
+                      <td mat-cell *matCellDef="let element"> {{element.filter}} </td>
+                    </ng-container>
 
                     <!-- Impact Column -->
                     <ng-container matColumnDef="snpEffImpact">
@@ -95,14 +95,14 @@
 
                     <!-- Filter Column -->
                     <ng-container matColumnDef="varFreq">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Variant Frequency % </th>
-                      <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} </td>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Occurrence % </th>
+                      <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} % </td>
                     </ng-container>
 
                     <!-- Filter Column -->
                     <ng-container matColumnDef="mutantCandidate">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mutant Candidate </th>
-                      <td mat-cell *matCellDef="let element"> {{element.mutantCandidate}} </td>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mut. Candidate </th>
+                      <td mat-cell *matCellDef="let element">{{(element.mutantCandidate === 'Y')?'Yes':'No'}} </td>
                     </ng-container>
 
                     <!-- Filter Column -->

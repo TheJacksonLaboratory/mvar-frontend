@@ -59,7 +59,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'variant') {
 
-          this.placeHolderTxt = 'Search for snps and indels by sample id, gene, strain, or phenotype';
+          this.placeHolderTxt = 'Search for snps and indels by gene, sample id, strain, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.geneOptions = [];
                   this.strainOptions = [];
@@ -74,8 +74,9 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'svVariant') {
 
-          this.placeHolderTxt = 'Search for structural variants by sample id, strain, or phenotype';
+          this.placeHolderTxt = 'Search for structural variants by gene, sample id, strain, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+                  this.geneOptions = [];
                   this.strainOptions = [];
                   this.phenotypeOptions = [];
                   this.sampleOptions = [];
@@ -126,7 +127,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   private _svVariantFilter(value: string) {
      const filterValue = value.toLowerCase();
 
-        //this._searchGenes(filterValue);
+        this._searchGenes(filterValue);
 
         this._searchStrains(filterValue);
 
