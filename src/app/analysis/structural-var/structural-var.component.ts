@@ -140,4 +140,16 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
         }
     }
 
+    exportCSV(){
+        const exportSearchCriteria = this.currSearchParams;
+        if (this.varCount && this.varCount > 0){
+            exportSearchCriteria.offset = 0;
+            exportSearchCriteria.max = this.varCount;
+
+            if (confirm(this.varCount + " structural variant records will be exported to a CSV file, do you want to continue?")){
+                this.searchService.exportSvVariantsToCSV(exportSearchCriteria);
+            }
+        }
+    }
+
 }
