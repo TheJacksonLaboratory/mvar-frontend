@@ -65,4 +65,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'filesNav', component: FilesNavComponent },
     { path: 'samples', component: SamplesComponent},
     { path: 'aboutUs', component: AboutUsComponent },
+    { path: 'aboutUs/:selectedTab', component: AboutUsComponent },
 ];

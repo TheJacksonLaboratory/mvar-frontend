@@ -20,7 +20,7 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['svType', 'pos', 'endPos', 'svLength', 'varFreq', 'inExon', 'supp', 'mutantCandidate', 'sampleId'];
+    displayedColumns = ['svType', 'pos', 'endPos', 'svLength', 'sampleCount', 'varFreq', 'inExon', 'supp', 'mutantCandidate', 'sampleId'];
     svVarDataSource: SvVariant[] = [];
     varCount: number;
 
@@ -177,6 +177,18 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
             panelClass: 'transparent',
             disableClose: true
         });
+    }
+
+    getSvLength(length: string){
+        if (length) {
+            if (length === '0') {
+                return 'N/A'
+            } else {
+                return Math.abs(length as number)
+            }
+        } else {
+            return length;
+        }
     }
 
 }

@@ -1,100 +1,145 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-body">
-                      <div class="row">
-                          <br>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-1">
-                          </div>
-                          <div class="col-md-3">
-                              <mat-form-field>
-                                  <mat-label>Select search type</mat-label>
-                                  <mat-select [(value)]="searchOption" disableOptionCentering>
-                                      <mat-option value="variant">SNP and INDEL Variants</mat-option>
-                                      <mat-option value="svVariant">Structural Variants</mat-option>
-                                      <mat-option value="sample">Samples</mat-option>
-                                  </mat-select>
-                              </mat-form-field>
-                          </div>
-                          <div class="col-md-7">
-                              <!--<div class="card-body">-->
-                                  <div>
-                                      <app-search-box [searchType]="searchOption" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
-                                      <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'" align="start">
-                                          E.g.
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
-                                      </mat-hint>
-                                      <mat-hint *ngIf="searchOption === 'sample'" align="start">
-                                          E.g.
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'sample','selectedValue':{'sampleId':'MMR:000001'}, 'displayedValue':'MMR:000001'})">MMR:000001</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
-                                      </mat-hint>
-                                  </div>
-                              <!--</div>-->
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10">
-                              <h3>Mouse Mutant Resource Database</h3>
-                              <p>Over the last several years we have built the technical capacity for exome sequencing in mice and implemented this method of mutation identification in our Mouse Mutant Resource (MMR).  We were the first to publish this approach for the discovery of mutations in the mouse genome (Fairfield et al., 2011, Genome Biology).  Over 175 strains of mice with a variety of Mendelian diseases have been sequenced and analyzed using this technology. To maximize the usefulness of our sequencing data, we developed an analysis pipeline as well as a genetic variant database. The database currently houses over 4 million single nucleotide variants and small insertions or deletions, and provides a strain variation dataset of unprecedented breadth. </p>
-                              <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More About MMRDB</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-          <br>
-      </div>
-      <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-warning card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">scatter_plot</i>
-                      </div>
-                      <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount | number}}</strong></p>
-                      <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount | number}}</strong></p>
-                      <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount | number}}</strong></p>
-                      <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount | number}}</strong></p>
-                      <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount | number}}</strong></p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">table_chart</i> MMRDB database stats
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-danger card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">pie_chart</i>
-                      </div>
-                      <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
-                      <p class="card-title">Confirmed SNP and Small Indel Mutations: <strong>{{mmrdbStats.confirmedSnpIndelMutationCount | number}}</strong></p>
-                      <p class="card-title">Confirmed Structural Mutations: <strong>{{mmrdbStats.confirmedSVMutationCount| number}}</strong></p>
-                      <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations: <strong>{{mmrdbStats.snpIndelCandidateCount | number}}</strong></p>
-                      <p class="card-title">Likely Pathogenic Structural Mutations: <strong>{{mmrdbStats.svMutantCandidateCount | number}}</strong></p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">table_chart</i> Analysis Stats
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-3">
+                                <mat-form-field>
+                                    <mat-label>Select search type</mat-label>
+                                    <mat-select [(value)]="searchOption" disableOptionCentering>
+                                        <mat-option value="variant">SNP and INDEL Variants</mat-option>
+                                        <mat-option value="svVariant">Structural Variants</mat-option>
+                                        <mat-option value="sample">Samples</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-7">
+                                <!--<div class="card-body">-->
+                                <div>
+                                    <app-search-box [searchType]="searchOption"
+                                                    (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+                                    <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'"
+                                              align="start">
+                                        E.g.
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a>
+                                        |
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye
+                                            phenotype</a> |
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
+                                    </mat-hint>
+                                    <mat-hint *ngIf="searchOption === 'sample'" align="start">
+                                        E.g.
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'sample','selectedValue':{'sampleId':'MMR:000001'}, 'displayedValue':'MMR:000001'})">MMR:000001</a>
+                                        |
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye
+                                            phenotype</a> |
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
+                                    </mat-hint>
+                                </div>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <h3>Mouse Mutant Resource Database</h3>
+                                <p>The Mouse Mutant Resource Database provides access to naturally occurring and induced
+                                    variant data from laboratory mouse strains with Mendelian disease phenotypes, as
+                                    well as phenotypically normal controls across more than 50 genetic backgrounds. The
+                                    variant data are aggregated to facilitate rapid discovery of rare variants, powering
+                                    the discovery of naturally occurring mutations that underlie (primarily) Mendelian
+                                    phenotypes. Phenotypes are annotated using high level Mammalian Phenotype Ontology
+                                    (<a href="http://www.informatics.jax.org/vocab/mp_ontology"
+                                        rel="noopener noreferrer" target="_blank">http://www.informatics.jax.org/vocab/mp_ontology</a>)
+                                    terms, however for many of the
+                                    strains, additional phenotype information is available through the Mouse Genome
+                                    Database by searching strains by the strain ID (typically the JAX strain ID) or by
+                                    searching genes by allele symbol or name (<a href="www.informatics.jax.org"
+                                                                                 rel="noopener noreferrer"
+                                                                                 target="_blank">www.informatics.jax.org</a>).
+                                    Many of the
+                                    phenotypes have been genetically mapped and chromosomal linkage data are provided.
+                                    Where linkage data were not available at the time of sequencing, sibling control
+                                    data were included. MMRdb uses inheritance, chromosomal linkage (where available),
+                                    and variant occurrence data to nominate variants for causation. Aggregated, filtered
+                                    variant calls (across many samples) or per sample VCF files can be exported. Tools
+                                    for uploading variant call sets for annotation are underway. In the meantime, user
+                                    variant calls can be integrated for annotation by contacting us directly. For more
+                                    information about MMRdb and MMRdb data, see the About page. </p>
+                                <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More
+                                    About MMRDB
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">scatter_plot</i>
+                        </div>
+                        <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount |
+                            number}}</strong></p>
+                        <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount
+                            | number}}</strong></p>
+                        <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount |
+                            number}}</strong></p>
+                        <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount |
+                            number}}</strong></p>
+                        <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount
+                            | number}}</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> MMRDB database stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">pie_chart</i>
+                        </div>
+                        <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
+                        <p class="card-title">Confirmed SNP and Small Indel Mutations: <strong>{{mmrdbStats.confirmedSnpIndelMutationCount
+                            | number}}</strong></p>
+                        <p class="card-title">Confirmed Structural Mutations: <strong>{{mmrdbStats.confirmedSVMutationCount|
+                            number}}</strong></p>
+                        <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations: <strong>{{mmrdbStats.snpIndelCandidateCount
+                            | number}}</strong></p>
+                        <p class="card-title">Likely Pathogenic Structural Mutations: <strong>{{mmrdbStats.svMutantCandidateCount
+                            | number}}</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> Analysis Stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  </div>
+    </div>
 </div>
