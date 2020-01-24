@@ -179,12 +179,12 @@ export class StructuralVarComponent implements AfterViewInit, OnInit {
         });
     }
 
-    getSvLength(length: string){
+    getSvLength(length: number){
         if (length) {
-            if (length === '0') {
+            if (length === 0) {
                 return 'N/A'
             } else {
-                return Math.abs(length as number)
+                return Math.abs(length)
             }
         } else {
             return length;

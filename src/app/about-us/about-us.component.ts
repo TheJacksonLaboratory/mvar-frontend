@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router'
 })
 export class AboutUsComponent implements OnInit {
 
-  selectedTab: number;
+  selectedTab: any;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -16,7 +16,7 @@ export class AboutUsComponent implements OnInit {
 
       this.route.paramMap.subscribe(paramsIn => {
 
-          const selectedTabIn = paramsIn.get('selectedTab') as number;
+          const selectedTabIn = paramsIn.get('selectedTab');
           if (selectedTabIn) {
               this.selectedTab = selectedTabIn;
           }
