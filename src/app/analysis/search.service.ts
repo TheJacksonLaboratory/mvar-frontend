@@ -15,6 +15,7 @@ const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 const sampleStudiesQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/study';
 const sampleStatsUrl = environment.MMRDB_API_SAMPLE_STATS_URL;
+const dbStatsUrl = environment.MMRDB_API_DB_STATS_URL;
 const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
 const variantExportCSVUrl = environment.MMRDB_API_VARIANT_EXPORT_CSV_URL;
 const svVariantExportCSVUrl = environment.MMRDB_API_SV_VARIANT_EXPORT_CSV_URL;
@@ -279,71 +280,63 @@ export class SearchService {
 
     getStats() {
 
-        //TODO consolidate these service calls to a single request, and use stats domain when available.
-        if (this.mmrdbStats.exomeSamplesCount === -1) {
-            this.http.get<any>(sampleQueryUrl, {params: {study: 'MMR', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.exomeSamplesCount = data.sampleCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+        this.http.get<any>(dbStatsUrl, {params: {max: '-1'}}).subscribe(data => {
 
-        if (this.mmrdbStats.wholeGenomeSamplesCount === -1) {
-            this.http.get<any>(sampleQueryUrl, {params: {study: 'MMR-WGS', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.wholeGenomeSamplesCount = data.sampleCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+            console.log(data)
+            for (let indx in data) {
+                switch (data[indx].name) {
+                    case 'WES_SAMPLE_COUNT':
+                        this.mmrdbStats.exomeSamplesCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.snpIndelVariantsCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {max: '1'}}).subscribe(data => {
-                this.mmrdbStats.snpIndelVariantsCount = data.variantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'WGS_SAMPLE_COUNT':
+                        this.mmrdbStats.wholeGenomeSamplesCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.svVariantsCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {max: '1'}}).subscribe(data => {
-                this.mmrdbStats.svVariantsCount = data.svVariantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'SNP_VARIANTS':
+                        this.mmrdbStats.snpVariantsCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.strainCount === -1) {
-            this.http.get<any>(strainUrl, {params: {inmmr: 'y'}}).subscribe(data => {
-                this.mmrdbStats.strainCount = data.strainCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'INDEL_VARIANTS':
+                        this.mmrdbStats.indelVariantsCount = data[indx].statValue;
+                        break;
 
-        console.log('this.mmrdbStats.confirmedSnpIndelMutationCount = ' + this.mmrdbStats.confirmedSnpIndelMutationCount)
-        if (this.mmrdbStats.confirmedSnpIndelMutationCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.confirmedSnpIndelMutationCount = data.variantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'STRUCT_VARIANTS':
+                        this.mmrdbStats.svVariantsCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.confirmedSVMutationCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.confirmedSVMutationCount = data.svVariantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'SEQ_MOUSE_STRAIN':
+                        this.mmrdbStats.strainCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.snpIndelCandidateCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.snpIndelCandidateCount = data.variantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'SNP_VARIANTS_CONFIRMED':
+                        this.mmrdbStats.confirmedSnpMutationCount = data[indx].statValue;
+                        break;
 
-        if (this.mmrdbStats.svMutantCandidateCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
-                this.mmrdbStats.svMutantCandidateCount = data.svVariantCount;
-                this.mmrdbStatsSubject.next(this.mmrdbStats)
-            });
-        }
+                    case 'INDEL_VARIANTS_CONFIRMED':
+                        this.mmrdbStats.confirmedIndelMutationCount = data[indx].statValue;
+                        break;
 
+                    case 'STRUCT_VARIANTS_CONFIRMED':
+                        this.mmrdbStats.confirmedSVMutationCount = data[indx].statValue;
+                        break;
+
+                    case 'SNP_VARIANTS_CANDIDATE':
+                        this.mmrdbStats.snpCandidateCount = data[indx].statValue;
+                        break;
+
+                    case 'INDEL_VARIANTS_CANDIDATE':
+                        this.mmrdbStats.indelCandidateCount = data[indx].statValue;
+                        break;
+
+                    case 'STRUCT_VARIANTS_CANDIDATE':
+                        this.mmrdbStats.svCandidateCount = data[indx].statValue;
+                        break;
+                }
+            }
+        });
+
+        console.log(this.mmrdbStats)
     }
 
     getSampleStudies(): Observable<any> {

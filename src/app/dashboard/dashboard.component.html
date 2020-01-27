@@ -98,16 +98,20 @@
                         <div class="card-icon">
                             <i class="material-icons">scatter_plot</i>
                         </div>
+                        <p class="card-title"><strong>Samples</strong></p>
                         <p class="card-title">Exome Sequenced Samples: <strong>{{mmrdbStats.exomeSamplesCount |
                             number}}</strong></p>
                         <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mmrdbStats.wholeGenomeSamplesCount
                             | number}}</strong></p>
-                        <p class="card-title">SNP and Indel Variations: <strong>{{mmrdbStats.snpIndelVariantsCount |
-                            number}}</strong></p>
-                        <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svVariantsCount |
-                            number}}</strong></p>
-                        <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mmrdbStats.strainCount
+                        <p class="card-title">Sequenced Strains with Mendelian Disease: <strong>{{mmrdbStats.strainCount
                             | number}}</strong></p>
+                        <p class="card-title"><strong>Variations</strong></p>
+                        <p class="card-title">SNPs: <strong>{{mmrdbStats.snpVariantsCount |
+                            number}}</strong></p>
+                        <p class="card-title">Small Indels: <strong>{{mmrdbStats.indelVariantsCount |
+                            number}}</strong></p>
+                        <p class="card-title">Structural: <strong>{{mmrdbStats.svVariantsCount |
+                            number}}</strong></p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -122,15 +126,22 @@
                         <div class="card-icon">
                             <i class="material-icons">pie_chart</i>
                         </div>
-                        <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
-                        <p class="card-title">Confirmed SNP and Small Indel Mutations: <strong>{{mmrdbStats.confirmedSnpIndelMutationCount
+                        <p class="card-title"><strong>Likely Pathogenic Mendelian Mutations</strong></p>
+                        <p class="card-title">SNPs: <strong>{{mmrdbStats.snpCandidateCount
                             | number}}</strong></p>
-                        <p class="card-title">Confirmed Structural Mutations: <strong>{{mmrdbStats.confirmedSVMutationCount|
-                            number}}</strong></p>
-                        <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations: <strong>{{mmrdbStats.snpIndelCandidateCount
+                        <p class="card-title">Small Indels: <strong>{{mmrdbStats.indelCandidateCount
                             | number}}</strong></p>
-                        <p class="card-title">Likely Pathogenic Structural Mutations: <strong>{{mmrdbStats.svMutantCandidateCount
+                        <p class="card-title">Structural Variations: <strong>{{mmrdbStats.svCandidateCount
                             | number}}</strong></p>
+                        <!--<h5 class="card-title">Mendelian Pathogenic Mutations</h5>-->
+                        <p class="card-title"><strong>Confirmed Pathogenic Mendelian Mutations</strong></p>
+                        <p class="card-title">SNPs: <strong>{{mmrdbStats.confirmedSnpMutationCount
+                            | number}}</strong></p>
+                        <p class="card-title">Small Indels: <strong>{{mmrdbStats.confirmedIndelMutationCount
+                            | number}}</strong></p>
+                        <p class="card-title">Structural Variants: <strong>{{mmrdbStats.confirmedSVMutationCount
+                            | number}}</strong></p>
+
                     </div>
                     <div class="card-footer">
                         <div class="stats">
