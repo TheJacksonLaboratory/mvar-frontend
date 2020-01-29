@@ -41,6 +41,7 @@ export class SampleDetailsComponent implements OnInit{
       const params: any = {};
       params.selectedItems = [{selectedType: 'sample', selectedValue: this.sample}];
       params.max = 1;
+      params.lowQual = true;
 
       //total count
       this.searchService.queryVariant(params).subscribe( data => {
