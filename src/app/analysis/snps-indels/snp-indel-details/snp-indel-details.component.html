@@ -101,7 +101,7 @@
           </div>
           <div class="row detail-anno1">
             <div class="col-md-4">
-              <b>Low Frequency Variant (< 1%): </b> <span>{{(variant.varFreq < 0.01)?'Yes':'No'}}</span>
+              <b>Low Frequency Variant (<= 1%): </b> <span>{{(variant.varFreq <= 0.01)?'Yes':'No'}}</span>
             </div>
             <div class="col-md-4">
               <b>Mutant Candidate (likely pathogenic): </b> <span>{{(variant.mutantCandidate === 'Y')?'Yes':'Unknown'}}</span>
