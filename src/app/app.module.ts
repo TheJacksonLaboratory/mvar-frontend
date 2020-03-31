@@ -29,7 +29,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     HttpModule,
     ComponentsModule,
     RouterModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,

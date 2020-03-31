@@ -21,7 +21,7 @@
                                                   <div class="ripple-container"></div>
                               </a>
                               <a mat-button class="nav-link active" (click)="showFilters()">
-                                                  <i class="material-icons">filter_list</i> Show Additional Filters
+                                                  <i class="material-icons">filter_list</i> Show Filters
                                                   <div class="ripple-container"></div>
                               </a>
                               <a mat-button class="nav-link active" (click)="openHelpDialog()">
@@ -32,7 +32,7 @@
                 <app-search-criteria-box searchType="variant"
                                          [searchCriteria]="currSearchParams"
                                          (searchCriteriaChange)="onSearchCriteriaChange($event)"
-                                         [showVarFilters]="showVarFilters">
+                                         [(showVarFilters)]="showVarFilters">
                 </app-search-criteria-box>
 
                   <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" matSort multiTemplateDataRows>

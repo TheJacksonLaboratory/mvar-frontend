@@ -141,6 +141,9 @@ export class SearchService {
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
             max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
@@ -212,8 +215,11 @@ export class SearchService {
             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
             inExon: paramsIn.inExon ? paramsIn.inExon : '',
-            max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            max: paramsIn.max ? paramsIn.max : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
             sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''
         }

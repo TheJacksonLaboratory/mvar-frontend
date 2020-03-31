@@ -111,7 +111,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         this.varPaginator.pageIndex = 0;
         this.clearSort();
 
-        if (searchCriteria.selectedItems.length > 0) {
+        if (searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) {
             this.currSearchParams.selectedItems = searchCriteria.selectedItems;
             this._queryVariants(this.currSearchParams);
         } else {

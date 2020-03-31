@@ -44,6 +44,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor} from '../../helpers/jwt.interceptor';
 import { ErrorInterceptor} from '../../helpers/error.interceptor';
 import {MatSortModule} from '@angular/material/sort'
+import { NumberDirective} from '../../directives/numbers-only.directive'
 
 import {
     MatButtonModule,
@@ -115,7 +116,8 @@ import {
       StrainComponent,
       AnnotatedVarComponent,
       AnnotatedVarDialogComponent,
-      LoginComponent
+      LoginComponent,
+      NumberDirective
   ],
   providers: [FilesService, UploadService, SearchService, AnnotationService, AuthenticationService,
       {provide: MatDialogRef, useValue: {}},
