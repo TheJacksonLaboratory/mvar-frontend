@@ -23,6 +23,11 @@
         {{option.name}}
       </mat-option>
 
+      <span *ngIf="strainCount > 0"> <span><b>Strain Background</b></span><span style="font-size:x-small"> Count({{strainBackgroundCount}})</span></span>
+      <mat-option *ngFor="let option of strainBackgroundOptions" (onSelectionChange)="selectedChanged('strainBackground', option, option)">
+        {{option}}
+      </mat-option>
+
 
       <span *ngIf="phenotypeCount > 0"> <span><b>Phenotypes</b></span><span style="font-size:x-small"> Count({{phenotypeCount}})</span></span>
       <mat-option *ngFor="let option of phenotypeOptions" (onSelectionChange)="selectedChanged('phenotype', option, option.mpTermName)">
