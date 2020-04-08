@@ -155,6 +155,7 @@ export class SearchService {
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            seqSource: paramsIn.varSeqSource ? paramsIn.varSeqSource : [],
             max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
@@ -236,6 +237,7 @@ export class SearchService {
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            source: paramsIn.source ? paramsIn.source : [],
             max: paramsIn.max ? paramsIn.max : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
             sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''

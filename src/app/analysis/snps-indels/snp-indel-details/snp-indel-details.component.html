@@ -52,6 +52,28 @@
               <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" rel="noopener noreferrer" target="_blank">{{snpid}}, </a></span>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-4">
+              <b>Allele Count: </b> {{variant.alleleCount}}
+            </div>
+            <div class="col-md-4">
+              <b>Allele Frequency: </b> {{variant.alleleFrequency}}
+            </div>
+            <div class="col-md-4">
+              <b>Read Depth: </b> {{variant.readDepth}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <b>Quality: </b> {{variant.qual}}
+            </div>
+            <div class="col-md-4">
+              <b>Filter: </b> {{variant.filter}}
+            </div>
+            <div class="col-md-4">
+              <b>Seq. Source: </b> {{(variant.seqSource === 'WGS')?'Whole Genome (WGS)' : (variant.seqSource === 'WES')? 'Whole Exome (WES)': ''}}
+            </div>
+          </div>
           <div class="row detail-anno1-title">
             <div class="col-md-12">
               <b><u>SNP Effect Annotations:</u></b>

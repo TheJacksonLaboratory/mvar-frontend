@@ -5,9 +5,22 @@
 
   <h1 mat-dialog-title>{{titleText}}</h1>
   <div>
-    <button [disabled]="uploading || uploadSuccessful" mat-raised-button class="btn btn-danger pull-right"   (click)="addFiles()">
-      Select Files
-    </button>
+    <div class="row">
+      <div class="col-md-6">
+          <mat-form-field>
+            <mat-label>Sequence Type</mat-label>
+            <mat-select>
+              <mat-option  (onSelectionChange)="setSequenceSource('WES', $event)" value="WES">Whole Exome</mat-option>
+              <mat-option  (onSelectionChange)="setSequenceSource('WGS', $event)"value="WGS">Whole Genome</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <button [disabled]="pedingSeqSource || uploading || uploadSuccessful" mat-raised-button class="btn btn-danger pull-right"   (click)="addFiles()">
+          Select Files
+        </button>
+      </div>
+    </div>
   </div>
 
 

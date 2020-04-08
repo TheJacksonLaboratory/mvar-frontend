@@ -28,7 +28,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
+    displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'seqSource', 'snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
     varDataSource: Variant[] = [];
     varCount: number;
 

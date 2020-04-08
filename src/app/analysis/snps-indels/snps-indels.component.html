@@ -79,6 +79,12 @@
                       <td mat-cell *matCellDef="let element"> {{element.type}} </td>
                     </ng-container>
 
+                    <!-- Source Column -->
+                    <ng-container matColumnDef="seqSource">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Seq. Source </th>
+                      <td mat-cell *matCellDef="let element"> {{(element.seqSource === 'WGS')?'Genome' : (element.seqSource === 'WES')? 'Exome': ''}} </td>
+                    </ng-container>
+
                      <!--Filter Column -->
                     <ng-container matColumnDef="filter">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Filter </th>

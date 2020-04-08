@@ -86,6 +86,9 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     startPos = '';
     endPos = '';
 
+    sourceWGS = false;
+    sourceWES = false;
+
     constructor(private searchService: SearchService) {
     }
 
@@ -200,6 +203,20 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
                 this.searchCriteria.varFuncClass.push(value);
             } else if (!selected && indx > -1) {
                 this.searchCriteria.varFuncClass.splice(indx, 1);
+            }
+        }
+
+        // set var sequence source
+        if (criteriaType === 'varSeqSource') {
+            if (!this.searchCriteria.varSeqSource) {
+                this.searchCriteria.varSeqSource = []
+            }
+
+            const indx = this.searchCriteria.varSeqSource.indexOf(value);
+            if (selected && indx === -1) {
+                this.searchCriteria.varSeqSource.push(value);
+            } else if (!selected && indx > -1) {
+                this.searchCriteria.varSeqSource.splice(indx, 1);
             }
         }
 

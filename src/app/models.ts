@@ -114,6 +114,10 @@ export class Variant {
   type: string;
   sample: Sample;
   filter: string;
+  alleleCount: number;
+  alleleFrequency: number;
+  readDepth: number;
+  qual: number;
   mutantCandidate: string;
   sampleCount: number;
   varFreq: number;
@@ -131,6 +135,7 @@ export class Variant {
   snpEffExonId: string;
   annotatedMutation: AnnotatedMutation;
   varTxt: string;
+  seqSource: string;
 
   constructor() {
     this.gene = new Gene();
@@ -161,6 +166,7 @@ export class SvVariant {
     supp: number;
     suppVec: string;
     inExon: boolean;
+    source: string;
 
     constructor() {
         ///this.gene = new Gene();
