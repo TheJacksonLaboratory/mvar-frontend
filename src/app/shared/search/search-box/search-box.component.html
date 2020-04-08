@@ -8,7 +8,7 @@
 
       <span *ngIf="sampleCount > 0"> <span><b>Samples</b></span><span style="font-size:x-small"> Count({{sampleCount}})</span></span>
       <mat-option *ngFor="let option of sampleOptions" (onSelectionChange)="selectedChanged('sample', option, option.sampleId)">
-        {{option.sampleId}}
+        ({{option.sampleId}}) {{option.sampleName}}{{option.jaxRegistryId?', JR:' + option.jaxRegistryId:''}}{{option.newMutantId?', NM:' + option.newMutantId:''}}
       </mat-option>
 
 

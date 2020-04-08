@@ -2,12 +2,19 @@
   <div class="card-body">
 
       <div class="row">
-        <div class="col-md-10">
+        <div *ngIf="searchType === 'sample'"class="col-md-2">
+          <mat-form-field>
+            <mat-label>Study</mat-label>
+            <mat-select [(value)]="selectedStudy" disableOptionCentering (selectionChange)="onSampleStudyChange($event.value)">
+              <mat-option *ngFor="let study of studyOptions"
+                          value="{{study}}">{{study}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-9">
           <app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
         </div>
-        <!--<div class="col-md-2" *ngIf="searchType == 'variant' || searchType == 'svVariant'">-->
-          <!--<button mat-button color="warn" (click)="varFilterChange()">{{filtersTxt}}</button>-->
-        <!--</div>-->
       </div>
 
     <div class="row">

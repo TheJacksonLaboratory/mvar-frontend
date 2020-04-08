@@ -9,15 +9,26 @@
                 <b>Sample ID:</b> {{sample.sampleId}}
               </div>
               <div class="col-md-4">
-                <b>Study:</b> {{sample.study}}
+                <b>Sample Name</b> {{sample.sampleName}}
               </div>
               <div class="col-md-4">
-                <b>Principal Investigator:</b> {{sample.researcher}}
+                <b>Study:</b> {{sample.study}}
               </div>
             </div>
             <div class="row">
               <div class="col-md-4">
-                <b>Strain of Origin:</b> {{sample.strainOfOrigin}}
+                <b>Strain: </b> <span *ngIf="sample.strain">{{sample.strain.name}}<i class="material-icons vertical-align-middle" (click)="openStrainDialog()">info</i></span>
+              </div>
+              <div class="col-md-4">
+                <b>Strain Background:</b> {{sample.strainBackground}}
+              </div>
+              <div class="col-md-4">
+                <b> Jax Registry Id: </b>  <a *ngIf="sample.jaxRegistryId" [href]="jaxRegistryUrl + sample.jaxRegistryId" target="_blank">{{sample.jaxRegistryId}}</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <b>Chromosome Linkage:</b> {{sample.chrLinkage}}
               </div>
               <div class="col-md-4">
                 <b>Inheritance:</b> {{sample.inheritance}}
@@ -31,10 +42,21 @@
                 <b>Phenotype Status:</b> {{sample.phenotypeStatus}}
               </div>
               <div class="col-md-4">
-                <b>Chromosome Linkage:</b> {{sample.chrLinkage}}
+                <b>Reference Genome:</b> {{sample.refGenome}}
               </div>
               <div class="col-md-4">
-                <b>Patform:</b> {{sample.platform}}
+                <b>New Mutant Id:</b> {{sample.newMutantId}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <b>Lims Sample Id:</b> {{sample.limsSampleId}}
+              </div>
+              <div class="col-md-4">
+                <b>Platform:</b> {{sample.platform}}
+              </div>
+              <div class="col-md-4">
+                <b>Principal Investigator:</b> {{sample.researcher}}
               </div>
             </div>
             <div class="row">
@@ -79,7 +101,7 @@
                         <!-- Sample Id Column -->
                         <ng-container matColumnDef="mpTermIdentifier">
                           <th mat-header-cell *matHeaderCellDef> Identifier </th>
-                          <td mat-cell *matCellDef="let element"> {{element.mpTermIdentifier}} </td>
+                          <td mat-cell *matCellDef="let element"> <a *ngIf="element.mpTermIdentifier" [href]="jaxPhenotypeURL + element.mpTermIdentifier" target="_blank">{{element.mpTermIdentifier}}</a> </td>
                         </ng-container>
                         <ng-container matColumnDef="mpTermName">
                           <th mat-header-cell *matHeaderCellDef> Term Name</th>

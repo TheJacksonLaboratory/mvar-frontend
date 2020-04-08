@@ -2,6 +2,9 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {Sample, Phenotype} from "../../../models";
 import {MatTable} from "@angular/material";
 import {SearchService} from "../../search.service";
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-sample-details',
@@ -15,7 +18,12 @@ export class SampleDetailsComponent implements OnInit{
   displayedColumns = ['mpTermIdentifier','mpTermName', 'samples']
   phenotypeDataSource: Phenotype[] = [];
 
-  constructor(private searchService: SearchService) {
+  dialogRef: any;
+
+  jaxRegistryUrl = environment.JAX_STRAIN_REGISTRY_URL;
+  jaxPhenotypeURL = environment.JAX_MAMMALIAN_PHENOTYPE_URL;
+
+  constructor(public dialog: MatDialog, private searchService: SearchService) {
   }
 
   ngOnInit() {
@@ -108,4 +116,13 @@ export class SampleDetailsComponent implements OnInit{
   }
 
 
+    openStrainDialog() {
+        console.log("open strain dialog");
+        this.dialogRef = this.dialog.open(StrainDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                strain: this.sample.strain
+            }
+        });
+    }
 }

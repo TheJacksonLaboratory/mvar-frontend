@@ -1,10 +1,13 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Gene, Variant} from '../../models';
 import {SearchService} from '../search.service';
-import {MatPaginator} from "@angular/material";
+import {MatPaginator} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatSort} from '@angular/material/sort';
+import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
 
 @Component({
     selector: 'app-snps-indels',
@@ -41,7 +44,10 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     expandedElement: Variant | null;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute) {
+    dialogRef: any;
+    spinnerDialogRef: any;
+
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -101,7 +107,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     public onSearchCriteriaChange(searchCriteria: any) {
 
         const params: any = {};
-
         this.currSearchParams.offset = 0;
         this.varPaginator.pageIndex = 0;
         this.clearSort();
@@ -121,7 +126,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     private _queryVariants(params: any) {
-
+        this.openSpinnerDialog();
         this.searchService.queryVariant(params).subscribe(data => {
 
             let temp = data.variants as Variant[];
@@ -137,6 +142,10 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             this.varCount = data.variantCount;
             this.pageLength = this.varCount;
 
+            this.spinnerDialogRef.close();
+        },
+        (error) => {
+            this.spinnerDialogRef.close();
         });
     }
 
@@ -172,6 +181,24 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 this.searchService.exportVariantsToCSV(exportSearchCriteria);
             }
         }
+    }
+
+    openHelpDialog() {
+        console.log("open help dialog");
+        this.dialogRef = this.dialog.open(HelpDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                helpType: 'SNPandIndelGeneral'
+            }
+        });
+    }
+
+    openSpinnerDialog() {
+        console.log("open spinner dialog");
+        this.spinnerDialogRef = this.dialog.open(SpinnerDialogComponent, {
+                panelClass: 'transparent',
+                disableClose: true
+        });
     }
 }
 

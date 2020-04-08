@@ -1,4 +1,16 @@
-<h3>Sample: {{sample.sampleId}}</h3>
 <div mat-dialog-content>
-  <app-sample-details #sample_details [sample]="sample"></app-sample-details>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <h3>Sample: {{sample.sampleId}}</h3>
+        </div>
+        <div class="col-lg-6 col-md-6">
+                <span class="pull-right align-content-end">
+                    <a mat-button class="nav-link active" (click)="closeDialog()">
+                      <i class="material-icons">close</i> Close
+                      <div class="ripple-container"></div>
+                    </a>
+                </span>
+        </div>
+    </div>
+    <app-sample-details #sample_details [sample]="sample"></app-sample-details>
 </div>
