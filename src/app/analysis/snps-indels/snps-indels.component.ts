@@ -8,6 +8,7 @@ import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
+import {AuthenticationService} from '../../login/authentication.service';
 
 @Component({
     selector: 'app-snps-indels',
@@ -47,7 +48,11 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     dialogRef: any;
     spinnerDialogRef: any;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog) {
+    isUserLoggedIn = false;
+    currentUser: any;
+
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog,
+                private authenticationService: AuthenticationService) {
     }
 
     ngOnInit() {
@@ -84,6 +89,13 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 this._queryVariants(this.currSearchParams);
             }
         });
+
+        this.currentUser = this.authenticationService.currentUserValue;
+        if (this.currentUser && this.currentUser.access_token) {
+            this.isUserLoggedIn = true;
+        } else {
+            this.isUserLoggedIn = false;
+        }
     }
 
     ngAfterViewInit() {

@@ -133,7 +133,7 @@ export class Variant {
   snpEffGeneBiotype: string;
   snpEffTranscriptId: string;
   snpEffExonId: string;
-  annotatedMutation: AnnotatedMutation;
+  variantAnnotations: VariantAnnotation[];
   varTxt: string;
   seqSource: string;
 
@@ -162,11 +162,12 @@ export class SvVariant {
     varFreq: number;
     assembly: string;
     status: string;
-    annotatedMutation: AnnotatedMutation;
+    variantAnnotation: VariantAnnotation;
     supp: number;
     suppVec: string;
     inExon: boolean;
     source: string;
+    varTxt: string;
 
     constructor() {
         ///this.gene = new Gene();
@@ -174,14 +175,17 @@ export class SvVariant {
     }
 }
 
-export class AnnotatedMutation {
+export class VariantAnnotation {
 
   id: number;
   status: string;
   notes: string;
-  updatedBy: string;
+  updateBy: string;
   udadateDate: string;
   sample: Sample;
+  annotation: string;
+  isSv: string;
+  varTxt: string;
 
   constructor(){
     this.status = '';

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {Variant, AnnotatedMutation} from '../../models';
+import {SvVariant, Variant, VariantAnnotation} from '../../models';
 import {AnnotationService} from '../annotation.service';
 import { MatInputModule } from '@angular/material/input';
 
 import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-annotated-var',
@@ -16,51 +16,45 @@ export class AnnotatedVarComponent implements OnInit {
   @Input()
   variant: Variant;
 
+  @Input()
+  svVariant: SvVariant;
+
+  @Input()
+  variantAnnotation: VariantAnnotation;
+
   @Output()
   closeDialogEvent = new EventEmitter<any>();
 
-  notesFC = new FormControl();
-  annotationFC = new FormControl();
   saveDisabled = true;
 
+    annotationForm = new FormGroup({
+        annotation: new FormControl('', [
+            Validators.required
+        ]),
+        status: new FormControl('', [
+            Validators.required
+        ]),
+        notes: new FormControl('', [
+            Validators.required
+        ]),
+    });
 
-
-    annotatedMutation: AnnotatedMutation = new AnnotatedMutation();
-
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private annotationService: AnnotationService) {
+  }
 
   ngOnInit() {
 
-      this.getAnnotatedVariant()
-
-      this.notesFC.valueChanges.subscribe(value => {
-          this.annotatedMutation.notes = this.notesFC.value;
-          this.valueChanges()
-      });
-
-      this.annotationFC.valueChanges.subscribe(value => {
-          this.valueChanges()
-      });
-  }
-
-  valueChanges() {
-      if (this.annotatedMutation.status && this.annotatedMutation.notes && this.annotatedMutation.notes.length > 0) {
-          this.saveDisabled = false;
-      }
-  }
-
-  getAnnotatedVariant() {
-
-      const params: any = {}
-
-      if (this.variant.annotatedMutation) {
-          params.id = this.variant.annotatedMutation.id;
-          this.annotationService.getVariantAnnotation(params).subscribe(data => {
-              this.annotatedMutation = data;
-          });
+      if (! this.variantAnnotation) {
+          this.variantAnnotation = new VariantAnnotation();
       } else {
-        this.getVariant()
+          this.annotationForm.setValue({
+              annotation: this.variantAnnotation.annotation,
+              status: this.variantAnnotation.status,
+              notes: this.variantAnnotation.notes
+          })
       }
+
+      console.log("variant = " + this.variant.id)
   }
 
   getVariant() {
@@ -71,25 +65,35 @@ export class AnnotatedVarComponent implements OnInit {
           params.id = this.variant.id;
           this.annotationService.getVariant(params).subscribe(data => {
               this.variant = data;
+          });
+      }
 
-              if (this.variant.annotatedMutation) {
-                  this.annotatedMutation = this.variant.annotatedMutation;
-              }
+      if (this.svVariant) {
+          params.id = this.svVariant.id;
+          this.annotationService.getSvVariant(params).subscribe(data => {
+              this.svVariant = data;
           });
       }
   }
 
   saveAnnotation(){
 
-    this.annotatedMutation.sample = this.variant.sample;
+    this.variantAnnotation.sample = this.variant ? this.variant.sample : this.svVariant.sample;
+    this.variantAnnotation.isSv = this.svVariant ? 'YES' : 'NO';
+    this.variantAnnotation.status = this.annotationForm.controls.status.value;
+    this.variantAnnotation.notes = this.annotationForm.controls.notes.value;
+    this.variantAnnotation.annotation = this.annotationForm.controls.annotation.value;
+
     const params: any = {}
-    params.annotatedMutation  = this.annotatedMutation;
-    params.variantId = this.variant.id
+    params.variantAnnotation  = this.variantAnnotation;
+    params.variantId = this.variant ? this.variant.id : this.svVariant.id;
     this.annotationService.updateVariantAnnotation(params).subscribe(data => {
       console.log(data);
-      this.annotatedMutation = data;
+      this.variant.variantAnnotations.push(this.variantAnnotation)
+
+      //this.variantAnnotation = data;
+      this.closeDialogEvent.emit(true);
     });
-    this.saveDisabled = true;
   }
 
   onClose(){

@@ -31,24 +31,38 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                            <form >
+                            <form [formGroup]="annotationForm">
 
                                 <mat-form-field>
-                                    <mat-select placeholder="Variant Annotation" [(value)]="annotatedMutation.status" [formControl]="annotationFC">
-                                        <mat-option value="CONFIRMED_MUTATION">Confirmed Phenotypic Mutation</mat-option>
-                                        <mat-option value="VERIFY_MUTATION">Verify Phenotypic Mutation</mat-option>
-                                        <mat-option value="REMOVED">Remove</mat-option>
+                                    <mat-select placeholder="Variant Annotation"  formControlName="annotation">
+                                        <mat-option value="PATHOGENIC">Confirmed Pathogenic Mutation</mat-option>
                                     </mat-select>
+                                    <!--<mat-error *ngIf="annotation.hasError('required')">-->
+                                        <!--Annotation is required.-->
+                                    <!--</mat-error>-->
+                                </mat-form-field>
+
+                                <mat-form-field>
+                                    <mat-select placeholder="Status"  formControlName="status">
+                                        <mat-option value="active">Active</mat-option>
+                                        <mat-option value="inactive">Inactive</mat-option>
+                                    </mat-select>
+                                    <!--<mat-error *ngIf="status.hasError('required')">-->
+                                        <!--Status is required.-->
+                                    <!--</mat-error>-->
                                 </mat-form-field>
 
                                 <mat-form-field  class="example-full-width">
-                                    <textarea matTextareaAutosize matAutosizeMinRows="10" matInput placeholder="Notes" [formControl]="notesFC" [value]="annotatedMutation.notes"></textarea>
+                                    <textarea matTextareaAutosize matAutosizeMinRows="8" matInput placeholder="Notes" formControlName="notes" ></textarea>
+                                    <!--<mat-error *ngIf="status.hasError('required')">-->
+                                        <!--Notes are required.-->
+                                    <!--</mat-error>-->
                                 </mat-form-field>
 
 
                                 <div class="pull-right">
                                     <span>
-                                        <a mat-button class="nav-link active" [disabled]="saveDisabled" (click)="saveAnnotation()">
+                                        <a mat-button class="nav-link active" [disabled]="annotationForm.invalid" (click)="saveAnnotation()">
                                           <i class="material-icons">save</i> Save
                                           <div class="ripple-container"></div>
                                         </a>

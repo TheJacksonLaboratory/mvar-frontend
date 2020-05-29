@@ -1,9 +1,9 @@
 .detail-anno1{
   padding-left:5em;
-  background-color:aliceblue;
+  //background-color:aliceblue;
 }
 .detail-anno1-title{
-  background-color:aliceblue;
+  //background-color:aliceblue;
 }
 
 .vertical-align-middle {
@@ -17,4 +17,16 @@ p{
 div.a {
   display: inline-block;
   word-break: break-all;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width:auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
