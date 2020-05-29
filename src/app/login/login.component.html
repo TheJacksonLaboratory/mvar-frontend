@@ -19,7 +19,7 @@
         <div fxLayout="row" fxLayoutAlign="center" class="spinner" *ngIf="loading">
           <mat-progress-bar mode="query"></mat-progress-bar>
         </div>
-        <div class="login-alert" *ngIf="alert.length">{{alert}}</div>
+        <!--<div class="login-alert" *ngIf="alert.length">{{alert}}</div>-->
         <div class="login-error" *ngIf="error.length">
           {{error}}
         </div>
@@ -29,9 +29,9 @@
         <button class="login-button" [disabled]="loading" mat-raised-button (click)="login()">Login</button>
       </mat-card-actions>
 
-      <p>You don't have an account?
-        <a routerLink="/register" class="btn btn-link">Register</a>
-      </p>
+      <!--<p>You don't have an account?-->
+        <!--<a routerLink="/register" class="btn btn-link">Register</a>-->
+      <!--</p>-->
   </div>
 
     <!--log out-->

@@ -76,10 +76,32 @@ export class  Sample {
   strainBackground: string;
   refGenome: string;
   limsSampleId: string;
+  sampleStats: SampleStatistics;
 
   constructor() {
     this.strain = new Strain();
+    //this.sampleStats = new SampleStatistics();
   }
+}
+
+export class SampleStatistics {
+    id: number;
+    totalNumReads: number;
+    pctTargetBasesCovered_10x: number;
+    pctTargetBasesCovered_50x: number;
+    pctTargetBasesCovered_100x: number;
+    pctTargetBasesCovered_40x: number;
+    pctTargetBasesCovered_2x: number;
+    pctSelectedBases: number;
+    numPfUniqueReads: number;
+    meanTargetCoverage: number;
+    pctPfUqReadsAligned: number;
+    totalNumHqReads: number;
+    pctTargetBasesCovered_30x: number;
+    pctTargetBasesCovered_20x: number;
+    numIndels: number;
+    numSnps: number;
+
 }
 
 export class Variant {
@@ -177,25 +199,28 @@ export class MMRDBStats {
 
     exomeSamplesCount: number;
     wholeGenomeSamplesCount: number;
-    snpIndelVariantsCount: number;
+    snpVariantsCount: number;
+    indelVariantsCount: number;
     svVariantsCount: number;
     strainCount: number;
-    confirmedSnpIndelMutationCount: number;
+    confirmedSnpMutationCount: number;
+    confirmedIndelMutationCount
     confirmedSVMutationCount: number;
-    snpIndelCandidateCount: number;
-    svMutantCandidateCount: number;
+    snpCandidateCount: number;
+    indelCandidateCount: number;
+    svCandidateCount: number;
     publicationCount: number;
 
     constructor() {
-        this.exomeSamplesCount = -1;
-        this.wholeGenomeSamplesCount = -1;
-        this.snpIndelVariantsCount = -1;
-        this.svVariantsCount = -1;
-        this.strainCount = -1;
-        this.confirmedSnpIndelMutationCount = -1;
-        this.confirmedSVMutationCount = -1;
-        this.snpIndelCandidateCount = -1;
-        this.svMutantCandidateCount = -1;
-        this.publicationCount = -1;
+        // this.exomeSamplesCount = -1;
+        // this.wholeGenomeSamplesCount = -1;
+        // this.snpIndelVariantsCount = -1;
+        // this.svVariantsCount = -1;
+        // this.strainCount = -1;
+        // this.confirmedSnpIndelMutationCount = -1;
+        // this.confirmedSVMutationCount = -1;
+        // this.snpIndelCandidateCount = -1;
+        // this.svMutantCandidateCount = -1;
+        // this.publicationCount = -1;
     }
 }

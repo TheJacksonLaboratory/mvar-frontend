@@ -4,6 +4,7 @@
         <div class="card">
 
           <div class="card-body">
+            <div>
             <div class="row">
               <div class="col-md-4">
                 <b>Sample ID:</b> {{sample.sampleId}}
@@ -53,10 +54,74 @@
                 <b>Lims Sample Id:</b> {{sample.limsSampleId}}
               </div>
               <div class="col-md-4">
-                <b>Platform:</b> {{sample.platform}}
+                <b>Patform:</b> {{sample.platform}}
               </div>
               <div class="col-md-4">
                 <b>Principal Investigator:</b> {{sample.researcher}}
+              </div>
+            </div>
+            </div>
+            <div *ngIf="sample.sampleStats != undefined" class="row">
+              <div class="col-md-12">
+                <b>Sample Stats:</b>
+              </div>
+            </div>
+            <div *ngIf="sample.sampleStats != undefined" class="col-lg-12 col-md-12 detail-head">
+              <div class="row">
+                <div class="col-md-3">
+                  <b>total num reads:</b> {{sample.sampleStats.totalNumReads}}
+                </div>
+                <div class="col-md-3">
+                  <b>total num hq reads:</b> {{sample.sampleStats.totalNumHqReads}}
+                </div>
+                <div class="col-md-3">
+                  <b>num pf unique reads:</b> {{sample.sampleStats.numPfUniqueReads}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct of uq reads aligned:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <b>pct selected bases:</b> {{sample.sampleStats.pctSelectedBases}}
+                </div>
+                <div class="col-md-3">
+                  <b>mean target coverage:</b> {{sample.sampleStats.meanTargetCoverage}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct target bases covered 2X:</b> {{sample.sampleStats.pctTargetBasesCovered_2x}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct target bases covered 10X:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <b>pct target bases covered 20X:</b> {{sample.sampleStats.pctTargetBasesCovered_20x}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct target bases covered 30X:</b> {{sample.sampleStats.pctTargetBasesCovered_30x}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct target bases covered 40X:</b> {{sample.sampleStats.pctTargetBasesCovered_40x}}
+                </div>
+                <div class="col-md-3">
+                  <b>pct target bases covered 50X:</b> {{sample.sampleStats.pctTargetBasesCovered_50x}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <b>pct target bases covered 100X:</b> {{sample.sampleStats.pctTargetBasesCovered_100x}}
+                </div>
+                <div class="col-md-3">
+                  <b>number of spns:</b> {{sample.sampleStats.numSnps}}
+                </div>
+                <div class="col-md-3">
+                  <b>number of indels:</b> {{sample.sampleStats.numIndels}}
+                </div>
+                <div class="col-md-3">
+
+                </div>
               </div>
             </div>
             <div class="row">
@@ -69,7 +134,7 @@
                 <thead class="text-dark">
                     <th>Type</th>
                     <th>Total Count</th>
-                    <th>Rare Variants (< 1% frequency)  </th>
+                    <th>Low Frequency (< 1%)  </th>
                     <th>Likely Pathogenic</th>
                     <th>Confirmed Mutations</th>
                     </thead>

@@ -51,7 +51,7 @@
                             <!-- Length Column -->
                             <ng-container matColumnDef="svLength">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
-                                <td mat-cell *matCellDef="let element"> {{element.svLength}} </td>
+                                <td mat-cell *matCellDef="let element"> {{getSvLength(element.svLength)}} </td>
                             </ng-container>
 
 
@@ -67,10 +67,16 @@
                                 <td mat-cell *matCellDef="let element"> {{element.supp}} </td>
                             </ng-container>
 
+                            <!-- sample count Frequency -->
+                            <ng-container matColumnDef="sampleCount">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample Count</th>
+                                <td mat-cell *matCellDef="let element"> {{element.sampleCount}} </td>
+                            </ng-container>
+
                             <!-- Variant Frequency -->
                             <ng-container matColumnDef="varFreq">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Occurrence % </th>
-                                <td mat-cell *matCellDef="let element"> {{element.varFreq * 100}} % </td>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prop. Occurrence</th>
+                                <td mat-cell *matCellDef="let element"> {{element.varFreq}} </td>  <!-- javascript: num.toFixed(2); -->
                             </ng-container>
 
                             <!-- Mutant Candidate -->
