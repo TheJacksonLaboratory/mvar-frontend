@@ -5,6 +5,20 @@
 
           <div class="card-body">
             <div>
+              <div class="row">
+                <div class="col-md-4">
+                  <h4>Properties</h4>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                  <span class="pull-right">
+                      <button mat-icon-button [disabled]="! isUserLoggedIn" (click)="openEditDialog()" matTooltip="Edit sample">
+                      <mat-icon  style="cursor: pointer;">create</mat-icon> <span>Edit</span>
+                      </button>
+                  </span>
+                </div>
+              </div>
             <div class="row">
               <div class="col-md-4">
                 <b>Sample ID:</b> {{sample.sampleId}}
@@ -63,7 +77,7 @@
             </div>
             <div *ngIf="sample.sampleStats != undefined" class="row">
               <div class="col-md-12">
-                <b>Sample Stats:</b>
+                <h4>Sample Stats</h4>
               </div>
             </div>
             <div *ngIf="sample.sampleStats != undefined" class="col-lg-12 col-md-12 detail-head">
@@ -126,7 +140,7 @@
             </div>
             <div class="row">
                   <div class="col-md-12">
-                    <b>Variants:</b>
+                    <h4>Variant Summary</h4>
                   </div>
             </div>
             <div class="col-lg-12 col-md-12">

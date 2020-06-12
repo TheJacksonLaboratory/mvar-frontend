@@ -10,14 +10,14 @@
               <div class="card-body table-responsive">
 
                   <span class="pull-right">
-                      <a mat-button class="nav-link active" (click)="openUploadDialog()">
+                      <button mat-button [disabled]="! isUserLoggedIn()" class="nav-link active" (click)="openUploadDialog()">
                                           <i class="material-icons">add</i> Add Samples
-                                          <div class="ripple-container"></div>
-                                      </a>
+                                          <!--<div class="ripple-container"></div>-->
+                                      </button>
                       <a mat-button class="nav-link active" (click)="openHelpDialog()">
                                                 <i class="material-icons">help_outline</i> Help
                                                 <div class="ripple-container"></div>
-                              </a>
+                      </a>
                   </span>
                   <app-search-criteria-box searchType="sample" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>
 

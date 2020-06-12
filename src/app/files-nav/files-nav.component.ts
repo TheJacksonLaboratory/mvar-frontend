@@ -6,6 +6,7 @@ import {UploadService} from './upload.service';
 import {FilesService} from './files.service';
 import {File} from '../models';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../login/authentication.service';
 
 @Component({
     selector: 'app-files-nav',
@@ -30,7 +31,10 @@ export class FilesNavComponent implements OnInit {
 
     selectedTab = 0;
 
-    constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router) {
+    isUserLoggedIn = false;
+    currentUser: any;
+
+    constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router, private authenticationService: AuthenticationService) {
 
         this.uploadService.isThereFileChanges.subscribe(value => {
             this.isThereFileChanges = value;
@@ -42,6 +46,13 @@ export class FilesNavComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.currentUser = this.authenticationService.currentUserValue;
+        if (this.currentUser && this.currentUser.access_token) {
+            this.isUserLoggedIn = true;
+        } else {
+            this.isUserLoggedIn = false;
+        }
 
         this.getNewFiles();
     }
@@ -160,7 +171,7 @@ export class FilesNavComponent implements OnInit {
             selectedFiles.forEach(file => {
                 console.log('we are here')
                 this.fileService.loadVcfFiles([file.name], 'SNPNINDEL').subscribe(data => {
-                   //do nothing
+                    //do nothing
                 });
             });
             //reload this component
@@ -177,8 +188,8 @@ export class FilesNavComponent implements OnInit {
 
         const selectedFiles = this.svVcfFiles.filter(file => file.selected === true);
         console.log('selected sv files = ' + selectedFiles.length)
-        if ( selectedFiles.length > 0){
-            selectedFiles.forEach(file =>{
+        if (selectedFiles.length > 0) {
+            selectedFiles.forEach(file => {
                 this.fileService.loadVcfFiles([file.name], 'SV').subscribe(data => {
                     //do nothing
                 });
@@ -202,15 +213,15 @@ export class FilesNavComponent implements OnInit {
         await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
     }
 
-    selectAllSNPChecks(){
-        if (! this.selectAllSNPFiles) {
-            this.snpVcfFiles.forEach(file =>{
+    selectAllSNPChecks() {
+        if (!this.selectAllSNPFiles) {
+            this.snpVcfFiles.forEach(file => {
                 file.selected = true;
             });
             this.selectAllSNPFiles = true;
             this.isSelectedSNPFiles = true;
         } else {
-            this.snpVcfFiles.forEach(file =>{
+            this.snpVcfFiles.forEach(file => {
                 file.selected = false;
             });
             this.selectAllSNPFiles = false;
@@ -218,8 +229,8 @@ export class FilesNavComponent implements OnInit {
         }
     }
 
-    selectAllSVChecks(){
-        if (! this.selectAllSvFiles) {
+    selectAllSVChecks() {
+        if (!this.selectAllSvFiles) {
             this.svVcfFiles.forEach(file => {
                 file.selected = true;
             });

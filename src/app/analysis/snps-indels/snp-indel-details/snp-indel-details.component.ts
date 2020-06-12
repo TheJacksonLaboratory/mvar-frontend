@@ -86,7 +86,7 @@ export class SnpIndelDetailsComponent implements OnInit {
         console.log("open annotated var dialog ");
         console.log (annotation)
         this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
-            width: '50%', height: '70%',
+            width: '40%', height: '75%',
             data: {
                 variant: this.variant,
                 variantAnnotation: annotation,
@@ -95,12 +95,7 @@ export class SnpIndelDetailsComponent implements OnInit {
         });
 
         this.dialogRef.afterClosed().subscribe( result =>{
-            console.log('CLOSING DIALOG')
-            console.log(this.variant.variantAnnotations)
-            //this.varAnnotaionsDataSource = this.variant.variantAnnotations;
-
             this.annoTable.renderRows();
-
         });
     }
 

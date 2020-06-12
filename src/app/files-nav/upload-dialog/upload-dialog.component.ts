@@ -35,6 +35,9 @@ export class UploadDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.fileType === 'sample'){
+      this.pedingSeqSource = false;
+    }
   }
 
   addFiles() {
