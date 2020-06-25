@@ -28,6 +28,9 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   strainOptions: any[] = [];
   strainCount: number;
 
+  strainBackgroundOptions: any[] = [];
+  strainBackgroundCount: number;
+
   phenotypeOptions: any[] = [];
   phenotypeCount: number;
 
@@ -59,7 +62,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'variant') {
 
-          this.placeHolderTxt = 'Search for snps and indels by gene, sample, jax registry id, new mutant id, strain, or phenotype';
+          this.placeHolderTxt = 'Search for snps and indels by gene, sample, jax registry id, new mutant id, strain, strain background, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.geneOptions = [];
                   this.strainOptions = [];
@@ -74,7 +77,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'svVariant') {
 
-          this.placeHolderTxt = 'Search for structural variants by gene, sample, jax registry id, new mutant id, strain, or phenotype';
+          this.placeHolderTxt = 'Search for structural variants by gene, sample, jax registry id, new mutant id, strain, strain background, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.geneOptions = [];
                   this.strainOptions = [];
@@ -89,7 +92,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'sample') {
 
-          this.placeHolderTxt = 'Search for samples by id, name, jax registry id, new mutant id, strain, or phenotype';
+          this.placeHolderTxt = 'Search for samples by id, name, jax registry id, new mutant id, strain, strain background, or phenotype';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.strainOptions = [];
                   this.phenotypeOptions = [];
@@ -107,6 +110,8 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       this._searchStrains(filterValue);
 
+      this._searchStrainBackground(filterValue);
+
       this._searchPhenotypes(filterValue);
 
       this._searchSamples(filterValue);
@@ -119,6 +124,8 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     this._searchStrains(filterValue);
 
+    this._searchStrainBackground(filterValue);
+
     this._searchPhenotypes(filterValue);
 
     this._searchSamples(filterValue);
@@ -130,6 +137,8 @@ export class SearchBoxComponent implements OnInit, OnChanges {
         this._searchGenes(filterValue);
 
         this._searchStrains(filterValue);
+
+        this._searchStrainBackground(filterValue);
 
         this._searchPhenotypes(filterValue);
 
@@ -160,6 +169,14 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     });
   }
+
+    private _searchStrainBackground(filterValue: string) {
+        this.searchService.searchStrainBackground(filterValue).subscribe(data => {
+
+            this.strainBackgroundCount = data.count;
+            this.strainBackgroundOptions = data.strainBackgrounds;
+        });
+    }
 
   private _searchStrains(filterValue: string) {
     this.searchService.searchStrain(filterValue).subscribe(data => {

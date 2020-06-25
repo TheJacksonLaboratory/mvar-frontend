@@ -25,6 +25,8 @@ export class UploadDialogComponent implements OnInit {
   titleText = '';
   allProgressErrors;
   allProgressInfo;
+  seqSource = '';
+  pedingSeqSource = true;
 
   constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
@@ -62,7 +64,7 @@ export class UploadDialogComponent implements OnInit {
     this.uploading = true;
 
     // start the upload and save the progress map
-    this.progress = this.uploadService.upload(this.files, this.fileType);
+    this.progress = this.uploadService.upload(this.files, this.fileType, this.seqSource);
 
     // convert the progress map into an array
     const allProgressObservables = [];
@@ -141,6 +143,12 @@ export class UploadDialogComponent implements OnInit {
     );
   }
 
+  setSequenceSource(source: string, event) {
 
+      if (event.isUserInput === true) {
+          this.seqSource = source
+          this.pedingSeqSource = false;
+      }
+  }
 
 }

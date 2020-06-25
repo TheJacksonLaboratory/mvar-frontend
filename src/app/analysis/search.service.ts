@@ -14,6 +14,7 @@ const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
 const variantQueryUrl = environment.MMRDB_API_VARIANT_SEARCH_URL;
 const sampleQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/query';
 const sampleStudiesQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/study';
+const sampleStrainBackgroundQueryUrl = environment.MMRDB_API_SAMPLE_URL + '/strainBackground';
 const sampleStatsUrl = environment.MMRDB_API_SAMPLE_STATS_URL;
 const dbStatsUrl = environment.MMRDB_API_DB_STATS_URL;
 const svVariantQueryUrl = environment.MMRDB_API_SV_VARIANT_SEARCH_URL;
@@ -70,6 +71,10 @@ export class SearchService {
         return this.http.get(sampleUrl + '?sampleId=' + sampleId);
     }
 
+    public searchStrainBackground(strain: string): Observable<any> {
+        return this.http.get(sampleStrainBackgroundQueryUrl + '?strain=' + strain);
+    }
+
     public getSampleStatistics(sampleId: number): Observable<any> {
         return this.http.get(sampleStatsUrl + '/' + sampleId);
     }
@@ -100,6 +105,7 @@ export class SearchService {
 
         const genes: string[] = [];
         const strains: string[] = [];
+        const strainBackgrounds: string[] = [];
         const phenotypes: string[] = [];
         const samples: string[] = [];
 
@@ -117,6 +123,10 @@ export class SearchService {
                     strains.push(item.selectedValue.name);
                 }
 
+                if (item.selectedType === 'strainBackground') {
+                    strainBackgrounds.push(item.selectedValue);
+                }
+
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermIdentifier);
                 }
@@ -132,6 +142,7 @@ export class SearchService {
             gene: genes,
             strain: strains,
             phenotype: phenotypes,
+            strainBackground: strainBackgrounds,
             sample: samples,
             rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
             mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
@@ -141,6 +152,10 @@ export class SearchService {
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            seqSource: paramsIn.varSeqSource ? paramsIn.varSeqSource : [],
             max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
@@ -171,6 +186,7 @@ export class SearchService {
 
         const genes: string[] = [];
         const strains: string[] = [];
+        const strainBackgrounds: string[] = [];
         const phenotypes: string[] = [];
         const samples: string[] = [];
 
@@ -188,6 +204,10 @@ export class SearchService {
                     strains.push(item.selectedValue.name);
                 }
 
+                if (item.selectedType === 'strainBackground') {
+                    strainBackgrounds.push(item.selectedValue);
+                }
+
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermName);
                 }
@@ -201,6 +221,7 @@ export class SearchService {
         const options = {
             gene: genes,
             strain: strains,
+            strainBackground: strainBackgrounds,
             phenotype: phenotypes,
             sample: samples,
             rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
@@ -212,8 +233,12 @@ export class SearchService {
             lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
             inExon: paramsIn.inExon ? paramsIn.inExon : '',
-            max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            source: paramsIn.source ? paramsIn.source : [],
+            max: paramsIn.max ? paramsIn.max : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
             sortDirection: paramsIn.sortDirection ? paramsIn.sortDirection : ''
         }
@@ -229,6 +254,7 @@ export class SearchService {
     public getSamples(paramsIn: any): Observable<any> {
 
         const strains: string[] = [];
+        const strainBackgrounds: string[] = [];
         const phenotypes: string[] = [];
         const samples: string[] = [];
         let studies: string[] = [];
@@ -250,6 +276,10 @@ export class SearchService {
                     strains.push(item.selectedValue.name);
                 }
 
+                if (item.selectedType === 'strainBackground') {
+                    strainBackgrounds.push(item.selectedValue);
+                }
+
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermName);
                 }
@@ -267,6 +297,7 @@ export class SearchService {
             params:
                 {
                     strain: strains,
+                    strainBackground: strainBackgrounds,
                     phenotype: phenotypes,
                     sample: samples,
                     study: studies,

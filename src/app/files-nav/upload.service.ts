@@ -23,7 +23,7 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
-  public upload(files: Set<File>, fileType:string):
+  public upload(files: Set<File>, fileType: string, seqSource: string):
   { [key: string]: { progress: Observable<any> } } {
 
     this.setCall(fileType)
@@ -34,6 +34,10 @@ export class UploadService {
       // create a new multipart-form for every file
       const formData: FormData = new FormData();
       formData.append(this.paramName, file, file.name);
+
+      if (fileType === 'vcf') {
+          formData.append('seqSource', seqSource);
+      }
 
       // create a http-post request and pass the form
       // tell it to report the upload progress

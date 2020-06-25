@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Variant, Sample, Phenotype} from '../../../models';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {Variant, Sample, Phenotype, VariantAnnotation} from '../../../models';
 import {MatDialogRef, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
@@ -8,6 +8,8 @@ import {SampleDialogComponent} from '../../dialogs/sample-dialog/sample-dialog.c
 import {environment} from '../../../../environments/environment';
 import {RouterEvent, Router} from '@angular/router';
 import {AnnotatedVarDialogComponent} from '../../dialogs/annotated-var-dialog/annotated-var-dialog.component';
+import {AuthenticationService} from "../../../login/authentication.service";
+
 
 @Component({
   selector: 'app-snp-indel-details',
@@ -18,14 +20,18 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @Input()
     variant: Variant;
-    displayedColumns = ['mpTermIdentifier', 'mpTermName', 'samples']
+    displayedColumns = ['annotation', 'status', 'updatedBy', 'updateDate', 'notes', 'action']
     phenotypeDataSource: Phenotype[] = [];
     dbSNPUrl = environment.NCBI_DBSNP_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
 
     dialogRef: any;
+    isUserLoggedIn = false;
+    currentUser: any;
 
-    constructor(public dialog: MatDialog, public router: Router) { }
+    @ViewChild(MatTable, {static: true}) annoTable: MatTable<any>;
+
+    constructor(public dialog: MatDialog, public router: Router, private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
     this.phenotypeDataSource = this.variant.sample.phenotypes;
@@ -36,6 +42,14 @@ export class SnpIndelDetailsComponent implements OnInit {
                     this.dialogRef.close();
                 }
             });
+
+        this.currentUser = this.authenticationService.currentUserValue;
+        if (this.currentUser && this.currentUser.access_token) {
+            this.isUserLoggedIn = true;
+        } else {
+            this.isUserLoggedIn = false;
+        }
+
     }
 
     openGeneDialog() {
@@ -68,13 +82,25 @@ export class SnpIndelDetailsComponent implements OnInit {
         });
     }
 
-    openAnnotatedVarDialog() {
-        console.log("open annotated var dialog");
+    openAnnotatedVarDialog(annotation: VariantAnnotation) {
+        console.log("open annotated var dialog ");
+        console.log (annotation)
         this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
             width: '50%', height: '70%',
             data: {
-                variant: this.variant
+                variant: this.variant,
+                variantAnnotation: annotation,
+                svVariant: null,
             }
+        });
+
+        this.dialogRef.afterClosed().subscribe( result =>{
+            console.log('CLOSING DIALOG')
+            console.log(this.variant.variantAnnotations)
+            //this.varAnnotaionsDataSource = this.variant.variantAnnotations;
+
+            this.annoTable.renderRows();
+
         });
     }
 

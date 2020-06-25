@@ -1,10 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Variant} from '../../../models';
+import {SvVariant, Variant, VariantAnnotation} from '../../../models';
 
 
-export interface DialogData{
+export interface DialogData {
     variant: Variant;
+    variantAnnotation: VariantAnnotation;
+    svVariant: SvVariant;
 }
 
 @Component({
@@ -15,9 +17,13 @@ export interface DialogData{
 export class AnnotatedVarDialogComponent implements OnInit {
 
   variant: Variant;
+  svVariant: SvVariant;
+  variantAnnotation: VariantAnnotation;
 
   constructor(public dialogRef: MatDialogRef<AnnotatedVarDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     this.variant = data.variant;
+    this.variantAnnotation = data.variantAnnotation;
+    this.svVariant = data.svVariant;
   }
 
   ngOnInit() {

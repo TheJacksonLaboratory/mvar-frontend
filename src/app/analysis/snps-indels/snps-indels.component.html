@@ -21,7 +21,7 @@
                                                   <div class="ripple-container"></div>
                               </a>
                               <a mat-button class="nav-link active" (click)="showFilters()">
-                                                  <i class="material-icons">filter_list</i> Show Additional Filters
+                                                  <i class="material-icons">filter_list</i> Show Filters
                                                   <div class="ripple-container"></div>
                               </a>
                               <a mat-button class="nav-link active" (click)="openHelpDialog()">
@@ -32,7 +32,7 @@
                 <app-search-criteria-box searchType="variant"
                                          [searchCriteria]="currSearchParams"
                                          (searchCriteriaChange)="onSearchCriteriaChange($event)"
-                                         [showVarFilters]="showVarFilters">
+                                         [(showVarFilters)]="showVarFilters">
                 </app-search-criteria-box>
 
                   <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" matSort multiTemplateDataRows>
@@ -77,6 +77,12 @@
                     <ng-container matColumnDef="type">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
                       <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                    </ng-container>
+
+                    <!-- Source Column -->
+                    <ng-container matColumnDef="seqSource">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Seq. Source </th>
+                      <td mat-cell *matCellDef="let element"> {{(element.seqSource === 'WGS')?'Genome' : (element.seqSource === 'WES')? 'Exome': ''}} </td>
                     </ng-container>
 
                      <!--Filter Column -->
