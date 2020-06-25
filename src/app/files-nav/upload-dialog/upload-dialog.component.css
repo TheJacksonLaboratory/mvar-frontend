@@ -34,3 +34,11 @@
   /*word-wrap: break-word;*/
   /*white-space: pre-wrap;*/
 /*}*/
+
+.blu-btn {
+  display: block;
+  border: none;
+  height: 50px;
+  color:#fff;
+  background: #3458bf;
+}

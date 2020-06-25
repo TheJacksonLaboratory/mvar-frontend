@@ -10,14 +10,14 @@
               <div class="row">
                 <div class="col-md-12">
                  <span class="pull-right">
-                      <a mat-button class="nav-link active" (click)="openSampleUploadDialog()">
-                                          <i class="material-icons">add</i> Add Samples
-                                          <div class="ripple-container"></div>
-                                      </a>
-                    <a mat-button class="nav-link active" (click)="openVcfUploadDialog()">
+                      <!--<a mat-button class="nav-link active" (click)="openSampleUploadDialog()">-->
+                                          <!--<i class="material-icons">add</i> Add Samples-->
+                                          <!--<div class="ripple-container"></div>-->
+                                      <!--</a>-->
+                    <button mat-button [disabled]="! isUserLoggedIn" class="nav-link active" (click)="openVcfUploadDialog()">
                                         <i class="material-icons">cloud_upload</i> Upload VCF Files
                                         <div class="ripple-container"></div>
-                    </a>
+                    </button>
                  </span>
                 </div>
               </div>

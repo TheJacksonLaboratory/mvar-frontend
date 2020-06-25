@@ -25,6 +25,7 @@ export class AnnotatedVarComponent implements OnInit {
   @Output()
   closeDialogEvent = new EventEmitter<any>();
 
+  isNewAnnotation = false;
   saveDisabled = true;
 
     annotationForm = new FormGroup({
@@ -39,12 +40,13 @@ export class AnnotatedVarComponent implements OnInit {
         ]),
     });
 
-  constructor(private annotationService: AnnotationService) {
+      constructor(private annotationService: AnnotationService) {
   }
 
   ngOnInit() {
 
       if (! this.variantAnnotation) {
+          this.isNewAnnotation = true;
           this.variantAnnotation = new VariantAnnotation();
       } else {
           this.annotationForm.setValue({
@@ -89,10 +91,25 @@ export class AnnotatedVarComponent implements OnInit {
     params.variantId = this.variant ? this.variant.id : this.svVariant.id;
     this.annotationService.updateVariantAnnotation(params).subscribe(data => {
       console.log(data);
-      this.variant.variantAnnotations.push(this.variantAnnotation)
 
+      this.variantAnnotation = data;
+
+      if (this.isNewAnnotation) {
+          this.variant.variantAnnotations.push(this.variantAnnotation)
+      }
       //this.variantAnnotation = data;
       this.closeDialogEvent.emit(true);
+    }, error => {
+        console.log(error)
+        if (error.status === 403) {
+            alert('Insufficient privileges to annotate variants. Please contact laura.reinholdt@jax.org');
+        } else {
+            alert('An error occurred. Please contact the administrator');
+        }
+        this.closeDialogEvent.emit(true);
+
+    },  () => {
+        this.closeDialogEvent.emit(true);
     });
   }
 

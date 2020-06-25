@@ -8,6 +8,7 @@ import {UploadService} from '../../files-nav/upload.service';
 import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from '../dialogs/help-dialog/help-dialog.component';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
+import {AuthenticationService} from "../../login/authentication.service";
 
 
 @Component({
@@ -46,7 +47,7 @@ export class SamplesComponent implements OnInit, AfterViewInit {
 
     spinnerDialogRef: any;
 
-    constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService) {
+    constructor(private searchService: SearchService, public dialog: MatDialog, public uploadService: UploadService, private authenticationService: AuthenticationService) {
 
         const params: any = {};
         //params.studies = ['mmr', 'mmr_sv']
@@ -241,5 +242,14 @@ export class SamplesComponent implements OnInit, AfterViewInit {
             panelClass: 'transparent',
             disableClose: true
         });
+    }
+
+    isUserLoggedIn() {
+        const currentUser = this.authenticationService.currentUserValue;
+        if (currentUser && currentUser.access_token) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
