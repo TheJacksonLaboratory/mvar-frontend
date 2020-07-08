@@ -75,69 +75,25 @@
               </div>
             </div>
             </div>
-            <div *ngIf="sample.sampleStats != undefined" class="row">
+            <div *ngIf="sample.sampleStats && sample.sampleStats.length > 0" class="row">
               <div class="col-md-12">
-                <h4>Sample Stats</h4>
+                <h4>Sample Stats
+                  <i *ngIf="! expandStatStatus" class="material-icons vertical-align-middle" (click)="expandStats(true)">keyboard_arrow_down</i>
+                  <i *ngIf="expandStatStatus" class="material-icons vertical-align-middle" (click)="expandStats(false)">keyboard_arrow_up</i>
+                </h4>
               </div>
             </div>
-            <div *ngIf="sample.sampleStats != undefined" class="col-lg-12 col-md-12 detail-head">
-              <div class="row">
-                <div class="col-md-3">
-                  <b>total num reads:</b> {{sample.sampleStats.totalNumReads}}
+            <div *ngIf="expandStatStatus">
+                <div *ngFor="let stats of sample.sampleStats" class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width">
+                      <mat-label>{{stats.type}}</mat-label>
+                      <textarea matInput rows="10" cols="120" [value]="stats.statsTxt" disabled="true"></textarea>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  <b>total num hq reads:</b> {{sample.sampleStats.totalNumHqReads}}
-                </div>
-                <div class="col-md-3">
-                  <b>num pf unique reads:</b> {{sample.sampleStats.numPfUniqueReads}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct of uq reads aligned:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct selected bases:</b> {{sample.sampleStats.pctSelectedBases}}
-                </div>
-                <div class="col-md-3">
-                  <b>mean target coverage:</b> {{sample.sampleStats.meanTargetCoverage}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 2X:</b> {{sample.sampleStats.pctTargetBasesCovered_2x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 10X:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct target bases covered 20X:</b> {{sample.sampleStats.pctTargetBasesCovered_20x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 30X:</b> {{sample.sampleStats.pctTargetBasesCovered_30x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 40X:</b> {{sample.sampleStats.pctTargetBasesCovered_40x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 50X:</b> {{sample.sampleStats.pctTargetBasesCovered_50x}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct target bases covered 100X:</b> {{sample.sampleStats.pctTargetBasesCovered_100x}}
-                </div>
-                <div class="col-md-3">
-                  <b>number of spns:</b> {{sample.sampleStats.numSnps}}
-                </div>
-                <div class="col-md-3">
-                  <b>number of indels:</b> {{sample.sampleStats.numIndels}}
-                </div>
-                <div class="col-md-3">
+            </div>
 
-                </div>
-              </div>
-            </div>
             <div class="row">
                   <div class="col-md-12">
                     <h4>Variant Summary</h4>

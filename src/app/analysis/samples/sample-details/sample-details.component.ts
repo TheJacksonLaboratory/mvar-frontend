@@ -28,6 +28,8 @@ export class SampleDetailsComponent implements OnInit {
     isUserLoggedIn = false;
     currentUser: any;
 
+    expandStatStatus = false;
+
     constructor(public dialog: MatDialog, private searchService: SearchService, private authenticationService: AuthenticationService) {
     }
 
@@ -88,7 +90,7 @@ export class SampleDetailsComponent implements OnInit {
         });
 
         this.searchService.getSampleStatistics(this.sample.id).subscribe(data => {
-            this.sample.sampleStats = data;
+            this.sample.sampleStats = data.stats;
             console.log(this.sample.sampleStats)
         });
     }
@@ -151,5 +153,9 @@ export class SampleDetailsComponent implements OnInit {
                 sample: this.sample
             }
         });
+    }
+
+    expandStats(status){
+        this.expandStatStatus = status
     }
 }
