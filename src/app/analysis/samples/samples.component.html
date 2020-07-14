@@ -10,10 +10,13 @@
               <div class="card-body table-responsive">
 
                   <span class="pull-right">
-                      <button mat-button [disabled]="! isUserLoggedIn()" class="nav-link active" (click)="openUploadDialog()">
+                      <button mat-button [disabled]="! isUserLoggedIn()" class="nav-link active" (click)="openUploadDialog('sample')">
                                           <i class="material-icons">add</i> Add Samples
                                           <!--<div class="ripple-container"></div>-->
                                       </button>
+                      <button style="margin-top: 0px" mat-button [disabled]="! isUserLoggedIn()" class="nav-link active" (click)="openUploadDialog('sampleStats')" matTooltip="Upload sample stats">
+                        <i class="material-icons">cloud_upload</i> Upload Sample Stats
+                      </button>
                       <a mat-button class="nav-link active" (click)="openHelpDialog()">
                                                 <i class="material-icons">help_outline</i> Help
                                                 <div class="ripple-container"></div>

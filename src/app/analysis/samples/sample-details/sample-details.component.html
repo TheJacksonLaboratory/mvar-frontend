@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-4">
                   <span class="pull-right">
-                      <button mat-icon-button [disabled]="! isUserLoggedIn" (click)="openEditDialog()" matTooltip="Edit sample">
-                      <mat-icon  style="cursor: pointer;">create</mat-icon> <span>Edit</span>
+                      <button mat-button [disabled]="! isUserLoggedIn" class="nav-link active" (click)="openEditDialog()" matTooltip="Edit sample">
+                        <i class="material-icons">create</i> Edit
                       </button>
                   </span>
                 </div>
