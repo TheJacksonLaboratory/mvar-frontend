@@ -12,7 +12,17 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-md-9">
+        <div *ngIf="searchType === 'sample'"class="col-md-2">
+          <mat-form-field>
+            <mat-label>Sequence Type</mat-label>
+            <mat-select [(value)]="selectedSeqtype" disableOptionCentering (selectionChange)="onSeqTypeChange($event.value)">
+              <mat-option *ngFor="let seqType of squenceType"
+                          value="{{seqType}}">{{seqType}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-7">
           <app-search-box [searchType]="searchType" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
         </div>
       </div>

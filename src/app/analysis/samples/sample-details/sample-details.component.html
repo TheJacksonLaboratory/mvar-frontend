@@ -153,7 +153,25 @@
                   </div>
                 </div>
               </mat-tab>
-              <mat-tab label="Notes">
+              <mat-tab label="Files">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <table style="width: 100%" class="table" mat-table class="table-hover" [dataSource]="fileDataSource">
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                      </ng-container>
+                      <!-- Action Column -->
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action</th>
+                        <td mat-cell *matCellDef="let element"> <span style="float: right"><mat-icon (click)="downloadFile(element.id)" matTooltip="Download">save_alt</mat-icon></span></td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="fileTableColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: fileTableColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
               </mat-tab>
             </mat-tab-group>
           </div>

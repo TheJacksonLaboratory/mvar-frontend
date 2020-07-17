@@ -81,7 +81,9 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     varImpactMODIFIER = false;
 
     studyOptions = [];
+    squenceType = ['All', 'WES', 'WGS']
     selectedStudy = 'All'
+    selectedSeqtype = 'All'
 
     startPos = '';
     endPos = '';
@@ -261,6 +263,14 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     onSampleStudyChange(study: string) {
         console.log('Study Change: ' + study);
         this.searchCriteria.study = study;
+
+        //emit change
+        this.searchCriteriaChange.emit(this.searchCriteria);
+    }
+
+    onSeqTypeChange(seqType: string) {
+        console.log('seqType Change: ' + seqType);
+        this.searchCriteria.seqType = seqType;
 
         //emit change
         this.searchCriteriaChange.emit(this.searchCriteria);

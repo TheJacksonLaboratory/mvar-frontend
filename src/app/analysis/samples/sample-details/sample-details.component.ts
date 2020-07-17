@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Phenotype, Sample, SampleStatistics} from '../../../models';
+import {Phenotype, Sample, SampleStatistics, File} from '../../../models';
 import {SearchService} from '../../search.service';
 import {MatDialog} from '@angular/material/dialog';
 import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
 import {environment} from '../../../../environments/environment';
 import {SampleEditDialogComponent} from '../../dialogs/sample-edit-dialog/sample-edit-dialog.component';
 import {AuthenticationService} from '../../../login/authentication.service';
+import {FilesService} from "../../../files-nav/files.service";
 
 @Component({
     selector: 'app-sample-details',
@@ -30,7 +31,11 @@ export class SampleDetailsComponent implements OnInit {
 
     expandStatStatus = false;
 
-    constructor(public dialog: MatDialog, private searchService: SearchService, private authenticationService: AuthenticationService) {
+    fileDataSource: File[] = [];
+    fileTableColumns = ['name', 'action']
+
+    constructor(public dialog: MatDialog, private searchService: SearchService,
+                private authenticationService: AuthenticationService, private fileService: FilesService ) {
     }
 
     ngOnInit() {
@@ -42,11 +47,22 @@ export class SampleDetailsComponent implements OnInit {
         } else {
             this.isUserLoggedIn = false;
         }
+
+        this.loadSampleFiles();
     }
 
     loadStats() {
         this.getSampleVariantStats();
         this.getSampleSvVariantStats();
+    }
+
+    loadSampleFiles() {
+
+        const sampleFilesReq = this.fileService.getSampleFiles(this.sample.sampleName);
+        sampleFilesReq.subscribe(data =>{
+
+            this.fileDataSource = data.uploadedFiles;
+        });
     }
 
     getSampleVariantStats() {
@@ -136,7 +152,6 @@ export class SampleDetailsComponent implements OnInit {
 
     }
 
-
     openStrainDialog() {
         this.dialogRef = this.dialog.open(StrainDialogComponent, {
             width: '50%', height: '50%',
@@ -157,5 +172,11 @@ export class SampleDetailsComponent implements OnInit {
 
     expandStats(status){
         this.expandStatStatus = status
+    }
+
+    downloadFile(id: string) {
+
+        this.fileService.downloadFile(id);
+
     }
 }
