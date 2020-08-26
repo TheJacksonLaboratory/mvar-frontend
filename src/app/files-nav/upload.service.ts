@@ -6,8 +6,8 @@ import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-const urlVcfFile = environment.MMRDB_API_VCF_FILE_URL + '/upload/';
-const urlSampleFile = environment.MMRDB_API_SAMPLE_FILE_URL + '/upload/';
+const urlVcfFile = environment.MVAR_API_VCF_FILE_URL + '/upload/';
+const urlSampleFile = environment.MVAR_API_SAMPLE_FILE_URL + '/upload/';
 
 
 @Injectable({

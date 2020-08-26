@@ -47,6 +47,14 @@ export class Strain {
   }
 }
 
+export class VarCanonIdentifier {
+  id: number;
+  caid: string;
+  variantRefTxt: string;
+  constructor() {
+  }
+}
+
 export class  Sample {
   id: number;
   sampleId: string;
@@ -76,74 +84,42 @@ export class  Sample {
   strainBackground: string;
   refGenome: string;
   limsSampleId: string;
-  sampleStats: SampleStatistics;
 
   constructor() {
     this.strain = new Strain();
-    //this.sampleStats = new SampleStatistics();
   }
-}
-
-export class SampleStatistics {
-    id: number;
-    totalNumReads: number;
-    pctTargetBasesCovered_10x: number;
-    pctTargetBasesCovered_50x: number;
-    pctTargetBasesCovered_100x: number;
-    pctTargetBasesCovered_40x: number;
-    pctTargetBasesCovered_2x: number;
-    pctSelectedBases: number;
-    numPfUniqueReads: number;
-    meanTargetCoverage: number;
-    pctPfUqReadsAligned: number;
-    totalNumHqReads: number;
-    pctTargetBasesCovered_30x: number;
-    pctTargetBasesCovered_20x: number;
-    numIndels: number;
-    numSnps: number;
-
 }
 
 export class Variant {
   id: number;
+  canonIdentifier: VarCanonIdentifier;
   gene: Gene;
   chr: string;
   ref: string;
   alt: string;
   pos: number;
   type: string;
-  sample: Sample;
-  filter: string;
-  alleleCount: number;
-  alleleFrequency: number;
-  readDepth: number;
-  qual: number;
-  mutantCandidate: string;
-  sampleCount: number;
-  varFreq: number;
+  hgvs: string;
   assembly: string;
-  status: string;
-  dbSNPId: string;
-  snpEffImpact: string;
-  snpEffFunctionalClass: string;
-  snpEffEffect: string;
-  snpEffCodonChange: string;
-  snpEffAminoAcidChange: string;
-  snpEffGeneName: string;
-  snpEffGeneBiotype: string;
-  snpEffTranscriptId: string;
-  snpEffExonId: string;
-  variantAnnotations: VariantAnnotation[];
-  varTxt: string;
-  seqSource: string;
+  impact: string;
+  accession: string;
+  externalId: string;
+  functionalClassCode: string;
+  dnaHgvsNotation: string;
+  proteinHgvsNotation: string;
+  
+  variantRefTxt: string;
 
   constructor() {
     this.gene = new Gene();
-    this.sample = new Sample();
+    this.canonIdentifier = new VarCanonIdentifier();
   }
 
   public setGene(gene: Gene) {
     this.gene = gene;
+  }
+  public setVarCanonIdentifier(canonIdentifier: VarCanonIdentifier) {
+    this.canonIdentifier = canonIdentifier;
   }
 }
 
@@ -162,12 +138,10 @@ export class SvVariant {
     varFreq: number;
     assembly: string;
     status: string;
-    variantAnnotation: VariantAnnotation;
+    annotatedMutation: AnnotatedMutation;
     supp: number;
     suppVec: string;
     inExon: boolean;
-    source: string;
-    varTxt: string;
 
     constructor() {
         ///this.gene = new Gene();
@@ -175,17 +149,14 @@ export class SvVariant {
     }
 }
 
-export class VariantAnnotation {
+export class AnnotatedMutation {
 
   id: number;
   status: string;
   notes: string;
-  updateBy: string;
+  updatedBy: string;
   udadateDate: string;
   sample: Sample;
-  annotation: string;
-  isSv: string;
-  varTxt: string;
 
   constructor(){
     this.status = '';
@@ -205,32 +176,29 @@ export class User {
     refresh_token?: string;
 }
 
-export class MMRDBStats {
+export class MVARStats {
 
     exomeSamplesCount: number;
     wholeGenomeSamplesCount: number;
-    snpVariantsCount: number;
-    indelVariantsCount: number;
+    snpIndelVariantsCount: number;
     svVariantsCount: number;
     strainCount: number;
-    confirmedSnpMutationCount: number;
-    confirmedIndelMutationCount
+    confirmedSnpIndelMutationCount: number;
     confirmedSVMutationCount: number;
-    snpCandidateCount: number;
-    indelCandidateCount: number;
-    svCandidateCount: number;
+    snpIndelCandidateCount: number;
+    svMutantCandidateCount: number;
     publicationCount: number;
 
     constructor() {
-        // this.exomeSamplesCount = -1;
-        // this.wholeGenomeSamplesCount = -1;
-        // this.snpIndelVariantsCount = -1;
-        // this.svVariantsCount = -1;
-        // this.strainCount = -1;
-        // this.confirmedSnpIndelMutationCount = -1;
-        // this.confirmedSVMutationCount = -1;
-        // this.snpIndelCandidateCount = -1;
-        // this.svMutantCandidateCount = -1;
-        // this.publicationCount = -1;
+        this.exomeSamplesCount = -1;
+        this.wholeGenomeSamplesCount = -1;
+        this.snpIndelVariantsCount = -1;
+        this.svVariantsCount = -1;
+        this.strainCount = -1;
+        this.confirmedSnpIndelMutationCount = -1;
+        this.confirmedSVMutationCount = -1;
+        this.snpIndelCandidateCount = -1;
+        this.svMutantCandidateCount = -1;
+        this.publicationCount = -1;
     }
 }

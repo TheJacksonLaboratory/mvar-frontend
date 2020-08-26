@@ -6,8 +6,8 @@ import {File} from '../models';
 import { environment } from '../../environments/environment';
 
 
-const url = environment.MMRDB_API_VCF_FILE_URL;
-const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
+const url = environment.MVAR_API_VCF_FILE_URL;
+const sampleUrl = environment.MVAR_API_SAMPLE_URL;
 
 @Injectable({
   providedIn: 'root'

@@ -5,393 +5,79 @@
                 <div class="card">
                     <br>
                     <div class="card-body">
-                        <mat-tab-group [selectedIndex]="selectedTab">
-                            <mat-tab label="Mouse Mutant Resource Database">
+                        <mat-tab-group>
+                            <mat-tab label="Mouse Variant Allele Registry">
+                                <h3>MOUSE VARIANT ALLELE REGISTRY</h3>
 
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1"><p><br></p></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-                                        <h3>MOUSE MUTANT RESOURCE DATABASE</h3>
+                                <p> Model organisms are essential to understanding the biological and disease
+                                    consequences of human genome variation. Bioinformatics resources that support
+                                    meaningful comparisons of mouse and human genotype-to-phenotype data and knowledge
+                                    are needed to support the translation from bench to bedside and back again <b>[1]</b>.
+                                    There is no genome variation resource for mouse comparable to resources available
+                                    for human genome variation data such as EXAC <b>[2]</b>, ClinVar <b>[3]</b>, or ClinGen 
+                                    <b>[4]</b>. NCBI resources such as dbSNP and ClinVar no longer accept data from model organisms.
+                                    While the European Bioinformatics Institute (EBI) will be accepting SNP data for
+                                    mouse, the resource will not include all relevant mouse variation data and will not
+                                    include all of the mouse-specific information (functional and phenotypic attributes)
+                                    that are central to data interpretation and analysis.
+                                </p>
 
-                                            <p> For more than 80 years, the Mouse Mutant Resource at The Jackson Laboratory (JAX)
-                                                has characterized naturally occurring variants causing Mendelian phenotypes in the
-                                                vast population of laboratory mice that are maintained in JAX vivaria. Roughly 150
-                                                novel phenotypes arise in these colonies each year as expected based on known
-                                                frequencies of spontaneous mutation and expected rates of fixation under selective
-                                                breeding paradigms. The goal of forward genetics is to rapidly identify the genetic
-                                                variants that cause heritable phenotypes. High throughput sequencing technologies
-                                                and population scale variant data allow for rapid prioritization of the most
-                                                plausible pathogenic mutations based on their frequency among these highly related,
-                                                primarily isogenic strains of Mus musculus domesticus. The Mouse Mutant Database
-                                                provides access to aggregated, annotated variant calls generated from high
-                                                throughput sequencing of these strains with an emphasis on strains harboring
-                                                recently acquired mutations that cause Mendelian disease phenotypes. Our V.2 dataset
-                                                currently encompasses over 33.5 million SNP and INDEL variants and 11.6 million
-                                                structural variants from ~450 samples representing more than 350 unique mouse
-                                                strains. Database expansion and improvements for V.3 will include enhanced tools for
-                                                structural variant visualization, as well as tools for direct upload and annotation
-                                                of user-generated VCF files. This work is funded by NIH OD021325.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <p>
+                                    Although the Mouse Genome Informatics database (MGI) <b>[5]</b> serves as a comprehensive
+                                    mouse allele registry, the data are not structured in a format consistent with the
+                                    <a href="http://varnomen.hgvs.org/">Human Genome Variation Society (HGVS)</a>
+                                    format. Furthermore, not all sources of mouse variation reside in MGI. For example, the
+                                    Mutant Mouse Resource (MMR) created a stand-alone database for variants discovered
+                                    via large-scale exome sequencing of mutant mice with Mendelian disease phenotypes
+                                    but these data cannot currently be integrated with variation data in MGI because of
+                                    data format differences. Plans to establish a collaborative effort on function of
+                                    variation in long non-coding RNAs between MGI and the Robinson laboratory cannot
+                                    proceed efficiently until the representation of sequence level variation in MGI is
+                                    possible. GeneWeaver <b>[6]</b> currently incorporates gene-level annotations from MGI but
+                                    is currently incorporating sequence variation incrementally because of the lack of a
+                                    central repository of these data for mouse. MGI can only integrate with the JAX CKB <b>[7]</b>
+                                    resource for cancer model information at the gene level because of the lack of
+                                    sequence variant representation.
+                                </p>
+                                <p>
+                                    The lack of a genome sequence variation resource for mouse is a significant barrier
+                                    to comparing variation and its biological consequences between mouse and human and
+                                    limits the impact of many research and resource development programs within JAX.
+                                    This DIF project seeks to address this resource gap by bringing together
+                                    investigators that have active projects in the area of genome variation in either
+                                    mouse or human or both. Many of the investigators on this project have developed
+                                    independent resources to curate or manage genome variation. This project aims to
+                                    unify these efforts and build a common data resource.
+
+                                </p>
+                                <ol>
+                                    <li>Manolio, T.A., et al., <i>Bedside Back to Bench: Building Bridges between Basic and
+                                        Clinical Genomic Research.</i> Cell, 2017. <b>169</b>(1): p. 6-12.</li>
+                                    <li>Karczewski, K.J., et al., <i>The ExAC browser: displaying reference data information 
+                                        from over 60 000 exomes.</i> Nucleic Acids Res, 2017. <b>45</b>(D1): p.D840-D845.</li>
+                                    <li>Landrum, M.J., et al., <i>ClinVar: public archive of  relationships among sequence 
+                                       variation and human phenotype.</i> Nucleic Acids Res, 2014. <b>42</b>(Database issue): p. D980-5.</li>
+                                    <li>Rehm, H.L., et al., <i>ClinGen--the Clinical Genome Resource.</i> N Engl J Med, 2015. <b>372</b>
+                                        (23): p. 2235-42.</li>
+                                    <li>Bult, C.J., et al., <i>Mouse genome database 2016.</i> Nucleic Acids Res, 2016. <b>44</b>
+                                        (D1): p. D840-7.</li>
+                                    <li>Bubier, J.A., et al., <i>GeneWeaver: finding consilience in heterogeneous cross-species                  functional 
+                                       genomics data.</i> Mamm Genome, 2015. <b>26</b>(9-10): p. 556-66.</li>
+                                    <li>Patterson, S.E., et al., <i>The clinical trial landscape in oncology and connectivity of
+                                        somatic mutational profiles to targeted therapies.</i> Hum Genomics, 2016. <b>10</b>: p. 4.</li>
+                                </ol>
                             </mat-tab>
                             <mat-tab label="Team">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1"><p><br></p></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-                                            <ul style="list-style-type: none">
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/research-and-faculty/faculty/laura-reinholdt" rel="noopener noreferrer" target="_blank">
-                                                                Laura Reinholdt, Ph.D.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>ASSOCIATE PROFESSOR, PROGRAM PI</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/research-and-faculty/faculty/research-scientists/david-bergstrom" rel="noopener noreferrer" target="_blank">
-                                                                David Bergstrom, Ph.D.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>RESEARCH SCIENTIST, PROGRAM PI</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/people/francisco-castellanos" rel="noopener noreferrer" target="_blank">
-                                                                Francisco Castellanos, M.S.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>SENIOR SCIENTIFIC SOFTWARE ENGINEER</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/people/anuj-srivastava" rel="noopener noreferrer" target="_blank">
-                                                                Anuj Srivastava, Ph.D.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>SENIOR COMPUTATIONAL SCIENTIST</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/people/michael-lloyd" rel="noopener noreferrer" target="_blank">
-                                                                Michael Lloyd, Ph.D.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>BIOINFORMATICS ANALYST II</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.linkedin.com/in/oraya-j-zinder-a12064ba" rel="noopener noreferrer" target="_blank">
-                                                                Oraya Zinder, B.S.
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>RESEARCH INTERN, DATA ANALYST</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/people/son-yong-karst" rel="noopener noreferrer" target="_blank">
-                                                                Son Yong Karst
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>SENIOR BIOMEDICAL TECHNICIAN</strong></p>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <h3>
-                                                            <a href="https://www.jax.org/people/belinda-harris" rel="noopener noreferrer" target="_blank">
-                                                                Belinda Harris
-                                                            </a>
-                                                        </h3>
-                                                        <p><strong>SENIOR RESEARCH TECHNOLOGIST</strong></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div></div>
                             </mat-tab>
 
 
                             <mat-tab label="Publications">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1"><p><br></p></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-                                                <ul style="list-style-type: none">
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/30996023-the-genome-of-c57bl6j-eve-the-mother-of-the-laboratory-mouse-genome-reference-strain" rel="noopener noreferrer" target="_blank">
-                                                                The Genome of C57BL/6J "Eve", the Mother of the Laboratory Mouse Genome Reference Strain
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Sarsani VK, Raghupathy N, Fiddes IT, Armstrong J, Thibaud-Nissen F, Zinder O,
-                                                            Bolisetty M, Howe K, Hinerfeld D, Ruan X, Rowe L, Barter M, Ananda G, Paten B,
-                                                            Weinstock GM, Churchill GA, Wiles MV, Schneider VA, Srivastava A, Reinholdt LG.
-                                                            <br>
-                                                            G3 (Bethesda). 2019 Jun 5;9(6):1795-1805. doi: 10.1534/g3.119.400071. PubMed PMID: 30996023; PubMed Central PMCID: PMC6553538.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/30250212-biallelic-mutations-in-fdxr-cause-neurodegeneration-associated-with-inflammation" rel="noopener noreferrer" target="_blank">
-                                                                Biallelic mutations in FDXR cause neurodegeneration associated with inflammation
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Slone J, Peng Y, Chamberlin A, Harris B, Kaylor J, McDonald MT, Lemmon M,
-                                                            El-Dairi MA, Tchapyjnikov D, Gonzalez-Krellwitz LA, Sellars EA, McConkie-Rosell
-                                                            A, Reinholdt LG, Huang T.
-                                                            <br>
-                                                            J Hum Genet. 2018 Dec;63(12):1211-1222. doi:10.1038/s10038-018-0515-y. Epub 2018 Sep 25. PubMed PMID: 30250212; PubMed Central PMCID: PMC6451867.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/29040572-biallelic-mutations-in-the-ferredoxin-reductase-gene-cause-novel-mitochondriopathy-with-optic-atrophy" rel="noopener noreferrer" target="_blank">
-                                                                Biallelic mutations in the ferredoxin reductase gene cause novel mitochondriopathy with optic atrophy
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Peng Y, Shinde DN, Valencia CA, Mo JS, Rosenfeld J, Truitt Cho M, Chamberlin
-                                                            A, Li Z, Liu J, Gui B, Brockhage R, Basinger A, Alvarez-Leon B, Heydemann P,
-                                                            Magoulas PL, Lewis AM, Scaglia F, Gril S, Chong SC, Bower M, Monaghan KG,
-                                                            Willaert R, Plona MR, Dineen R, Milan F, Hoganson G, Powis Z, Helbig KL,
-                                                            Keller-Ramey J, Harris B, Anderson LC, Green T, Sukoff Rizzo SJ, Kaylor J, Chen
-                                                            J, Guan MX, Sellars E, Sparagana SP, Gibson JB, Reinholdt LG, Tang S, Huang T.
-                                                            <br>
-                                                            Hum Mol Genet. 2017 Dec 15;26(24):4937-4950. doi: 10.1093/hmg/ddx377. Erratum in: Hum Mol Genet. 2018 Jun 15;27(12):2224. PubMed PMID: 29040572; PubMed Central PMCID: PMC5886230.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/28490646-a-missense-mutation-in-grm6-reduces-but-does-not-eliminate-mglur6-expression-or-rod-depolarizing-bipolar-cell-function/" rel="noopener noreferrer" target="_blank">
-                                                                A missense mutation in Grm6 reduces but does not eliminate mGluR6 expression or rod depolarizing bipolar cell function
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Peachey NS, Hasan N, FitzMaurice B, Burrill S, Pangeni G, Karst SY, Reinholdt
-                                                            L, Berry ML, Strobel M, Gregg RG, McCall MA, Chang B.
-                                                            <br>
-                                                            J Neurophysiol. 2017 Aug 1;118(2):845-854. doi: 10.1152/jn.00888.2016. Epub 2017 May 10. PubMed PMID: 28490646; PubMed Central PMCID: PMC5539458.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/26950939-spontaneous-8bp-deletion-in-nbeal2-recapitulates-the-gray-platelet-syndrome-in-mice" rel="noopener noreferrer" target="_blank">
-                                                                Spontaneous 8bp Deletion in Nbeal2 Recapitulates the Gray Platelet Syndrome in Mice
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Tomberg K, Khoriaty R, Westrick RJ, Fairfield HE, Reinholdt LG, Brodsky GL,
-                                                            Davizon-Castillo P, Ginsburg D, Di Paola J.
-                                                            <br>
-                                                            PLoS One. 2016 Mar 7;11(3):e0150852. doi: 10.1371/journal.pone.0150852. eCollection 2016. PubMed PMID: 26950939; PubMed Central PMCID: PMC4780761.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/26763459-gnaqm1j-an-enu-induced-mutant-allele-affecting-pigmentation-in-the-mouse" rel="noopener noreferrer" target="_blank">
-                                                                Gnaq(M1J): An ENU-Induced Mutant Allele Affecting Pigmentation in the Mouse
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Pratt CH, Dionne LA, Fairfield H, Dadras SS, Potter CS, Sundberg JP.
-                                                            <br>
-                                                            J Invest Dermatol. 2016 Jan;136(1):334-336. doi: 10.1038/JID.2015.382. PubMed PMID:
-                                                            26763459; PubMed Central PMCID: PMC4731045.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/26234751-discovery-and-characterization-of-spontaneous-mouse-models-of-craniofacial-dysmorphology" rel="noopener noreferrer" target="_blank">
-                                                                Discovery and characterization of spontaneous mouse models of craniofacial dysmorphology
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Palmer K, Fairfield H, Borgeia S, Curtain M, Hassan MG, Dionne L, Yong Karst S, Coombs H, Bronson RT, Reinholdt LG, Bergstrom DE, Donahue LR, Cox TC, Murray SA.
-                                                            <br>
-                                                            Dev Biol. 2016 Jul 15;415(2):216-227. doi:10.1016/j.ydbio.2015.07.023. Epub 2015 Jul 31. PubMed PMID: 26234751; PubMed Central PMCID: PMC4733616.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/25917818-exome-sequencing-reveals-pathogenic-mutations-in-91-strains-of-mice-with-mendelian-disorders" rel="noopener noreferrer" target="_blank">
-                                                                Exome sequencing reveals pathogenic mutations in 91 strains of mice with Mendelian disorders
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Fairfield H, Srivastava A, Ananda G, Liu R, Kircher M, Lakshminarayana A,
-                                                            Harris BS, Karst SY, Dionne LA, Kane CC, Curtain M, Berry ML, Ward-Bailey PF,
-                                                            Greenstein I, Byers C, Czechanski A, Sharp J, Palmer K, Gudis P, Martin W,
-                                                            Tadenev A, Bogdanik L, Pratt CH, Chang B, Schroeder DG, Cox GA, Cliften P,
-                                                            Milbrandt J, Murray S, Burgess R, Bergstrom DE, Donahue LR, Hamamy H, Masri A,
-                                                            Santoni FA, Makrythanasis P, Antonarakis SE, Shendure J, Reinholdt LG.
-                                                            <br>
-                                                            Genome Res. 2015 Jul;25(7):948-57. doi: 10.1101/gr.186882.114. Epub
-                                                            2015 Apr 27. PubMed PMID: 25917818; PubMed Central PMCID: PMC4484392.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/25659760-dsp-rul-a-spontaneous-mouse-mutation-in-desmoplakin-as-a-model-of-carvajal-huerta-syndrome" rel="noopener noreferrer" target="_blank">
-                                                                Dsp rul: a spontaneous mouse mutation in desmoplakin as a model of Carvajal-Huerta syndrome
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Herbert Pratt C, Potter CS, Fairfield H, Reinholdt LG, Bergstrom DE, Harris
-                                                            BS, Greenstein I, Dadras SS, Liang BT, Schofield PN, Sundberg JP.
-                                                            <br>
-                                                            Exp Mol Pathol. 2015 Apr;98(2):164-72. doi: 10.1016/j.yexmp.2015.01.015. Epub
-                                                            2015 Feb 7. PubMed PMID: 25659760; PubMed Central PMCID: PMC4388778.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/24884803-discovery-of-transgene-insertion-sites-by-high-throughput-sequencing-of-mate-pair-libraries" rel="noopener noreferrer" target="_blank">
-                                                                Discovery of transgene insertion sites by high throughput sequencing of mate pair libraries
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Srivastava A, Philip VM, Greenstein I, Rowe LB, Barter M, Lutz C, Reinholdt LG.
-                                                            <br>
-                                                            BMC Genomics. 2014 May 14;15:367. doi: 10.1186/1471-2164-15-367.
-                                                            PubMed PMID: 24884803; PubMed Central PMCID: PMC4035081.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/24045954-a-mutation-in-the-nuclear-pore-complex-gene-tmem48-causes-gametogenesis-defects-in-skeletal-fusions-with-sterility-sks-mice" rel="noopener noreferrer" target="_blank">
-                                                                A mutation in the nuclear pore complex gene Tmem48 causes gametogenesis defects in skeletal fusions with sterility (sks) mice
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Akiyama K, Noguchi J, Hirose M, Kajita S, Katayama K, Khalaj M, Tsuji T,
-                                                            Fairfield H, Byers C, Reinholdt L, Ogura A, Kunieda T.
-                                                            <br>
-                                                            J Biol Chem. 2013 Nov 1;288(44):31830-41. doi:
-                                                            10.1074/jbc.M113.492306. Epub 2013 Sep 17. PubMed PMID: 24045954; PubMed Central PMCID: PMC3814776.
-                                                        </p>
-                                                    </li>
-                                                    <li>
-                                                        <h4>
-                                                            <a href="https://pubmed.ncbi.nlm.nih.gov/21917142-mutation-discovery-in-mice-by-whole-exome-sequencing" rel="noopener noreferrer" target="_blank">
-                                                                Mutation discovery in mice by whole exome sequencing
-                                                            </a>
-                                                        </h4>
-                                                        <p>
-                                                            Fairfield H, Gilbert GJ, Barter M, Corrigan RR, Curtain M, Ding Y, D'Ascenzo
-                                                            M, Gerhardt DJ, He C, Huang W, Richmond T, Rowe L, Probst FJ, Bergstrom DE,
-                                                            Murray SA, Bult C, Richardson J, Kile BT, Gut I, Hager J, Sigurdsson S, Mauceli
-                                                            E, Di Palma F, Lindblad-Toh K, Cunningham ML, Cox TC, Justice MJ, Spector MS,
-                                                            Lowe SW, Albert T, Donahue LR, Jeddeloh J, Shendure J, Reinholdt LG.
-                                                            <br>
-                                                            Genome Biol. 2011 Sep 14;12(9):R86.
-                                                            doi: 10.1186/gb-2011-12-9-r86. PubMed PMID: 21917142; PubMed Central PMCID:PMC3308049.
-                                                        </p>
-                                                    </li>
-                                                </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div></div>
                             </mat-tab>
 
                             <mat-tab label="Contact Us">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1"><p><br></p></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-                                            <ul style="list-style-type: none">
-                                                <li>
-                                                    <p>For program or data related questions, please contact Laura Reinholdt, Ph.D. <a href="mailto:laura.reinholdt@jax.org" target="_top">laura.reinholdt@jax.org</a></p>
-                                                </li>
-                                                <li>
-                                                    <p>For database related questions, please contact Francisco Castellanos, M.S. <a href="francisco.castellanos@jax.org" target="_top">francisco.castellanos@jax.org</a></p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-
-                            <mat-tab label="License">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-1"><p><br></p></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-
-                                                <h3 align="center">SOFTWARE LICENSE AGREEMENT</h3>
-                                                <h3 align="center">FOR NON-COMMERCIAL USE</h3>
-                                                <p>This Software License Agreement (this “Agreement”) is made between you (“You,” “Your,” or “Licensee”) and The Jackson Laboratory (“Licensor”). This Agreement grants to You a license to the Licensed Software subject to Your acceptance of all the terms and conditions contained in this Agreement. Please read the terms and conditions carefully. Your access and use of the Licensed Software shall be deemed your acceptance of this Agreement and the terms and conditions contained herein. If You do not agree to these terms, Licensor is unwilling to grant you the license contained in this Agreement and You should not access or use the Licensed Software.</p>
-
-                                                <h4>1. LICENSE</h4>
-
-                                                <p>1.1	<u>Grant</u>. Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a worldwide, royalty-free, non-exclusive, non-transferable, non-sublicensable license to download, copy, display, and use an unmodified copy of the Licensed Software in source and binary forms for Non-Commercial purposes only. “Licensed Software” means the current version of the computation analysis software called SYNTENY made available to You via Licensor’s website and requiring your acceptance of the terms and conditions of this Agreement as a condition of use. “Non-Commercial” means not intended or directed toward commercial advantage or monetary compensation.</p>
-                                                <p>1.2	<u>License Limitations</u>. Nothing in this Agreement shall be construed to confer any rights upon Licensee except as expressly granted herein. Licensee may not use or exploit the Licensed Software other than expressly permitted by this Agreement. Licensee may not, nor may Licensee permit any third party, to modify, translate, reverse engineer, decompile, disassemble or create derivative works based on the Licensed Software or any portion thereof. You agree not to endorse or promote any product or service directly or indirectly resulting from use of the Licensed Software, from use of results provided by running the Licensed Software, or from distributing/redistributing the Licensed Software or results provided by running the Licensed Software, without specific prior written permission from the Licensor.  Subject to Section 1.1, Licensee may distribute the Licensed Software to a third party, provided that the recipient agrees to use the Licensed Software on the terms and conditions of this Agreement. Licensee acknowledges that Licensor reserves the right to offer to Licensee or any third party a license for commercial use and distribution of the Licensed Software on terms and conditions different than those contained in this Agreement.  If You are interested in commercial use of the Licensed Software, please contact the Licensor.</p>
-
-                                                <h4>2. OWNERSHIP OF INTELLECTUAL PROPERTY</h4>
-
-                                                <p>2.1	<u>Ownership Rights</u>. Except for the limited license rights expressly granted to Licensee under this Agreement, Licensee acknowledges that all right, title and interest in and to the Licensed Software and all intellectual property rights therein shall remain with Licensor or its licensors, as applicable.</p>
-
-                                                <h4>3. DISCLAIMER OF WARRANTY AND LIMITATION OF LIABILITY</h4>
-
-                                                <p>3.1 	<u>Disclaimer of Warranty</u>. LICENSOR PROVIDES THE LICENSED SOFTWARE ON A NO-FEE BASIS “AS IS” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. LICENSOR EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS OF ANY KIND, INCLUDING ANY WARRANTY OF MERCHANTABILITY, TITLE, SECURITY, ACCURACY, NON-INFRINGEMENT OR FITNESS FOR A PARTICULAR PURPOSE.</p>
-
-                                                <p>3.2	<u>Limitation of Liability</u>.  LICENSEE ASSUMES FULL RESPONSIBILITY AND RISK FOR ANY LOSS RESULTING FROM LICENSEE’s DOWNLOADING AND USE OF THE LICENSED SOFTWARE.  IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, ARISING FROM THE LICENSED SOFTWARE OR LICENSEE’S USE OF THE LICENSED SOFTWARE, REGARDLESS OF WHETHER LICENSOR IS ADVISED, OR HAS OTHER REASON TO KNOW, OR IN FACT KNOWS, OF THE POSSIBILITY OF THE FOREGOING.</p>
-
-                                                <p>3.3	<u>Acknowledgement</u>. Without limiting the generality of Sections 3.1 and 3.2, Licensee acknowledges that the Licensed Software is provided as an information resource only and should not be relied on for any diagnostic or treatment purposes.</p>
-
-                                                <h4>4. TERM AND TERMINATION</h4>
-
-                                                <p>4.1 	<u>Term</u>. This Agreement commences on the date this Agreement is executed and will continue until terminated in accordance with Section 4.2.</p>
-
-                                                <p>4.2	<u>Termination</u>. If Licensee breaches any provision hereunder, or otherwise engages in any unauthorized use of the Licensed Software, Licensor may terminate this Agreement immediately. Licensee may terminate this Agreement at any time upon written notice to Licensor. Upon termination, the license granted hereunder will terminate and Licensee will immediately cease using the Licensed Software and destroy all copies of the Licensed Software in its possession. Licensee will certify in writing that it has complied with the foregoing obligation.</p>
-
-                                                <h4>5. MISCELLANEOUS</h4>
-
-                                                <p>5.1	<u>Future Updates</u>. Use of the Licensed Software under this Agreement is subject to the terms and conditions contained herein. New or updated software may require additional or revised terms of use. Licensor will provide notice of and make available to Licensee any such revised terms.</p>
-
-                                                <p>5.2	<u>Entire Agreement</u>. This Agreement, including any Attachments hereto, constitutes the sole and entire agreement between the parties as to the subject matter set forth herein and supersedes are previous license agreements, understandings, or arrangements between the parties relating to such subject matter.</p>
-
-                                                <p>5.3 	<u>Governing Law</u>. This Agreement shall be construed, governed, interpreted and applied in accordance with the internal laws of the State of Maine, U.S.A., without regard to conflict of laws principles. The parties agree that any disputes between them may be heard only in the state or federal courts in the State of Maine, and the parties hereby consent to venue and jurisdiction in those courts.</p>
-
-
-                                        </div>
-                                    </div>
-                                </div>
+                                <div></div>
                             </mat-tab>
 
                         </mat-tab-group>

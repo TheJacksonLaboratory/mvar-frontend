@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {SearchService} from "../analysis/search.service";
-import {MMRDBStats} from "../models";
+import {MVARStats} from "../models";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,13 +11,13 @@ import {MMRDBStats} from "../models";
 export class DashboardComponent implements OnInit {
 
   searchOption = 'variant';
-  mmrdbStats: MMRDBStats;
+  mmrdbStats: MVARStats;
 
   constructor(private searchService: SearchService, private router: Router) { }
   ngOnInit() {
       this.searchService.getStats();
 
-      this.searchService.mmrdbStatsSubject.subscribe(data => {
+      this.searchService.mvarStatsSubject.subscribe(data => {
           this.mmrdbStats = data;
       });
   }

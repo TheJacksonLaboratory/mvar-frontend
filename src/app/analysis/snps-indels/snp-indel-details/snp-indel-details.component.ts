@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {Variant, Sample, Phenotype, VariantAnnotation} from '../../../models';
+import { Component, OnInit, Input } from '@angular/core';
+import {Variant, Sample, Phenotype} from '../../../models';
 import {MatDialogRef, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
@@ -8,8 +8,6 @@ import {SampleDialogComponent} from '../../dialogs/sample-dialog/sample-dialog.c
 import {environment} from '../../../../environments/environment';
 import {RouterEvent, Router} from '@angular/router';
 import {AnnotatedVarDialogComponent} from '../../dialogs/annotated-var-dialog/annotated-var-dialog.component';
-import {AuthenticationService} from "../../../login/authentication.service";
-
 
 @Component({
   selector: 'app-snp-indel-details',
@@ -20,36 +18,24 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @Input()
     variant: Variant;
-    displayedColumns = ['annotation', 'status', 'updatedBy', 'updateDate', 'notes', 'action']
+    displayedColumns = ['mpTermIdentifier', 'mpTermName', 'samples']
     phenotypeDataSource: Phenotype[] = [];
     dbSNPUrl = environment.NCBI_DBSNP_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
 
     dialogRef: any;
-    isUserLoggedIn = false;
-    currentUser: any;
 
-    @ViewChild(MatTable, {static: true}) annoTable: MatTable<any>;
-
-    constructor(public dialog: MatDialog, public router: Router, private authenticationService: AuthenticationService) { }
+    constructor(public dialog: MatDialog, public router: Router) { }
 
     ngOnInit() {
-    this.phenotypeDataSource = this.variant.sample.phenotypes;
+    // this.phenotypeDataSource = this.variant.sample.phenotypes;
 
-        this.router.events
-            .subscribe(() => {
-                if (this.dialogRef) {
-                    this.dialogRef.close();
-                }
-            });
-
-        this.currentUser = this.authenticationService.currentUserValue;
-        if (this.currentUser && this.currentUser.access_token) {
-            this.isUserLoggedIn = true;
-        } else {
-            this.isUserLoggedIn = false;
-        }
-
+    //     this.router.events
+    //         .subscribe(() => {
+    //             if (this.dialogRef) {
+    //                 this.dialogRef.close();
+    //             }
+    //         });
     }
 
     openGeneDialog() {
@@ -62,40 +48,33 @@ export class SnpIndelDetailsComponent implements OnInit {
       });
     }
 
-    openStrainDialog() {
-        console.log("open strain dialog");
-        this.dialogRef = this.dialog.open(StrainDialogComponent, {
-            width: '50%', height: '50%',
-            data: {
-                strain: this.variant.sample.strain
-            }
-        });
-    }
+    // openStrainDialog() {
+    //     console.log("open strain dialog");
+    //     this.dialogRef = this.dialog.open(StrainDialogComponent, {
+    //         width: '50%', height: '50%',
+    //         data: {
+    //             strain: this.variant.sample.strain
+    //         }
+    //     });
+    // }
 
-    openSampleDialog() {
-        console.log("open sample dialog");
-        this.dialogRef = this.dialog.open(SampleDialogComponent, {
-            width: '80%', height: '80%',
-            data: {
-                sample: this.variant.sample
-            }
-        });
-    }
+    // openSampleDialog() {
+    //     console.log("open sample dialog");
+    //     this.dialogRef = this.dialog.open(SampleDialogComponent, {
+    //         width: '80%', height: '80%',
+    //         data: {
+    //             sample: this.variant.sample
+    //         }
+    //     });
+    // }
 
-    openAnnotatedVarDialog(annotation: VariantAnnotation) {
-        console.log("open annotated var dialog ");
-        console.log (annotation)
+    openAnnotatedVarDialog() {
+        console.log("open annotated var dialog");
         this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
-            width: '40%', height: '75%',
+            width: '50%', height: '70%',
             data: {
-                variant: this.variant,
-                variantAnnotation: annotation,
-                svVariant: null,
+                variant: this.variant
             }
-        });
-
-        this.dialogRef.afterClosed().subscribe( result =>{
-            this.annoTable.renderRows();
         });
     }
 

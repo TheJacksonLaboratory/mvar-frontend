@@ -11,7 +11,6 @@ import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 
-import { StructuralVarComponent } from '../../analysis/structural-var/structural-var.component';
 import { FilesNavComponent } from '../../files-nav/files-nav.component';
 import { UploadDialogComponent } from '../../files-nav/upload-dialog/upload-dialog.component';
 import { SearchBoxComponent } from '../../shared/search/search-box/search-box.component';
@@ -23,11 +22,8 @@ import {SearchService} from '../../analysis/search.service';
 import { UploadService } from '../../files-nav/upload.service';
 import { FilesService} from '../../files-nav/files.service';
 import { AnnotationService} from '../../analysis/annotation.service';
-import { SampleService} from '../../analysis/sample.service';
-import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
-import { SampleDetailsComponent } from '../../analysis/samples/sample-details/sample-details.component';
 import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
 import { SnpIndelDetailsComponent } from '../../analysis/snps-indels/snp-indel-details/snp-indel-details.component';
 import { GeneComponent } from '../../analysis/gene/gene.component';
@@ -36,7 +32,6 @@ import { HelpDialogComponent} from '../../analysis/dialogs/help-dialog/help-dial
 import { SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component'
 import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
 import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
-import { SampleEditDialogComponent } from '../../analysis/dialogs/sample-edit-dialog/sample-edit-dialog.component';
 import { StrainComponent } from '../../analysis/strain/strain.component';
 import { AnnotatedVarComponent } from '../../analysis/annotated-var/annotated-var.component';
 import { AnnotatedVarDialogComponent } from '../../analysis/dialogs/annotated-var-dialog/annotated-var-dialog.component';
@@ -46,8 +41,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor} from '../../helpers/jwt.interceptor';
 import { ErrorInterceptor} from '../../helpers/error.interceptor';
 import {MatSortModule} from '@angular/material/sort'
-import { NumberDirective} from '../../directives/numbers-only.directive'
-import { SampleEditComponent } from '../../analysis/samples/sample-edit/sample-edit.component';
 
 import {
     MatButtonModule,
@@ -100,15 +93,12 @@ import {
     UserProfileComponent,
     NotificationsComponent,
       SnpsIndelsComponent,
-      StructuralVarComponent,
       FilesNavComponent,
       SearchBoxComponent,
       SearchCriteriaBoxComponent,
       UploadDialogComponent,
-      SamplesComponent,
       AboutUsComponent,
       AnalysisComponent,
-      SampleDetailsComponent,
       SnpIndelDetailsComponent,
       GeneComponent,
       GeneDialogComponent,
@@ -116,19 +106,16 @@ import {
       SpinnerDialogComponent,
       StrainDialogComponent,
       SampleDialogComponent,
-      SampleEditDialogComponent,
       StrainComponent,
       AnnotatedVarComponent,
       AnnotatedVarDialogComponent,
-      LoginComponent,
-      NumberDirective,
-      SampleEditComponent
+      LoginComponent
   ],
-  providers: [FilesService, UploadService, SearchService, AnnotationService, AuthenticationService, SampleService,
+  providers: [FilesService, UploadService, SearchService, AnnotationService, AuthenticationService,
       {provide: MatDialogRef, useValue: {}},
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, SampleEditDialogComponent, AnnotatedVarDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
 })
 
 export class AdminLayoutModule {}

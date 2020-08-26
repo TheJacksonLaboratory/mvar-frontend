@@ -4,12 +4,14 @@
     <mat-icon color="warn" matSuffix>search</mat-icon>
 
     <mat-autocomplete #auto="matAutocomplete">   <!--(optionSelected)="getSelected($event.option.value)">
-      <!--<mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+      <!--
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      -->
 
-      <span *ngIf="sampleCount > 0"> <span><b>Samples</b></span><span style="font-size:x-small"> Count({{sampleCount}})</span></span>
-      <mat-option *ngFor="let option of sampleOptions" (onSelectionChange)="selectedChanged('sample', option, option.sampleId)">
+      <!-- <span *ngIf="sampleCount > 0"> <span><b>Samples</b></span><span style="font-size:x-small"> Count({{sampleCount}})</span></span> -->
+      <!-- <mat-option *ngFor="let option of sampleOptions" (onSelectionChange)="selectedChanged('sample', option, option.sampleId)">
         ({{option.sampleId}}) {{option.sampleName}}{{option.jaxRegistryId?', JR:' + option.jaxRegistryId:''}}{{option.newMutantId?', NM:' + option.newMutantId:''}}
-      </mat-option>
+      </mat-option> -->
 
 
       <span *ngIf="geneCount > 0"><span><b>Genes</b> </span><span style="font-size:x-small"> Count({{geneCount}})</span></span>
@@ -29,10 +31,10 @@
       </mat-option>
 
 
-      <span *ngIf="phenotypeCount > 0"> <span><b>Phenotypes</b></span><span style="font-size:x-small"> Count({{phenotypeCount}})</span></span>
+      <!-- <span *ngIf="phenotypeCount > 0"> <span><b>Phenotypes</b></span><span style="font-size:x-small"> Count({{phenotypeCount}})</span></span>
       <mat-option *ngFor="let option of phenotypeOptions" (onSelectionChange)="selectedChanged('phenotype', option, option.mpTermName)">
         {{option.mpTermName}}
-      </mat-option>
+      </mat-option> -->
 
 
     </mat-autocomplete>
