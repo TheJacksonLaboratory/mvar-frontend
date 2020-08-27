@@ -7,7 +7,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 const urlVcfFile = environment.MVAR_API_VCF_FILE_URL + '/upload/';
-const urlSampleFile = environment.MVAR_API_SAMPLE_FILE_URL + '/upload/';
 
 
 @Injectable({
@@ -98,10 +97,7 @@ export class UploadService {
 
   private setCall(fileType: string){
 
-    if (fileType === 'sample'){
-      this.url = urlSampleFile;
-      this.paramName = 'sampleFile';
-    } else if (fileType === 'vcf'){
+    if (fileType === 'vcf'){
       this.url = urlVcfFile;
       this.paramName = 'vcfFile';
     }

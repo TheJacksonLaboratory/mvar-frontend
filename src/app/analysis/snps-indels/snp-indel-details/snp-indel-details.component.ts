@@ -7,7 +7,6 @@ import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.c
 import {SampleDialogComponent} from '../../dialogs/sample-dialog/sample-dialog.component';
 import {environment} from '../../../../environments/environment';
 import {RouterEvent, Router} from '@angular/router';
-import {AnnotatedVarDialogComponent} from '../../dialogs/annotated-var-dialog/annotated-var-dialog.component';
 
 @Component({
   selector: 'app-snp-indel-details',
@@ -68,14 +67,14 @@ export class SnpIndelDetailsComponent implements OnInit {
     //     });
     // }
 
-    openAnnotatedVarDialog() {
-        console.log("open annotated var dialog");
-        this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
-            width: '50%', height: '70%',
-            data: {
-                variant: this.variant
-            }
-        });
-    }
+    // openAnnotatedVarDialog() {
+    //     console.log("open annotated var dialog");
+    //     this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
+    //         width: '50%', height: '70%',
+    //         data: {
+    //             variant: this.variant
+    //         }
+    //     });
+    // }
 
 }

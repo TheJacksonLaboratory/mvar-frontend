@@ -10,14 +10,9 @@ import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
 const geneUrl = environment.MVAR_API_GENE_URL;
 const strainUrl = environment.MVAR_API_STRAIN_URL;
 const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
-const sampleUrl = environment.MVAR_API_SAMPLE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
-const sampleQueryUrl = environment.MVAR_API_SAMPLE_URL + '/query';
-const sampleStudiesQueryUrl = environment.MVAR_API_SAMPLE_URL + '/study';
-const svVariantQueryUrl = environment.MVAR_API_SV_VARIANT_SEARCH_URL;
 const variantExportCSVUrl = environment.MVAR_API_VARIANT_EXPORT_CSV_URL;
-const svVariantExportCSVUrl = environment.MVAR_API_SV_VARIANT_EXPORT_CSV_URL;
 
 @Injectable({
     providedIn: 'root'
@@ -144,30 +139,9 @@ export class SearchService {
     getStats() {
 
         //TODO consolidate these service calls to a single request, and use stats domain when available.
-        if (this.mvarStats.exomeSamplesCount === -1) {
-            this.http.get<any>(sampleQueryUrl, {params: {study: 'MMR', max: '1'}}).subscribe(data => {
-                this.mvarStats.exomeSamplesCount = data.sampleCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
-
-        if (this.mvarStats.wholeGenomeSamplesCount === -1) {
-            this.http.get<any>(sampleQueryUrl, {params: {study: 'MMR-WGS', max: '1'}}).subscribe(data => {
-                this.mvarStats.wholeGenomeSamplesCount = data.sampleCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
-
         if (this.mvarStats.snpIndelVariantsCount === -1) {
             this.http.get<any>(variantQueryUrl, {params: {max: '1'}}).subscribe(data => {
                 this.mvarStats.snpIndelVariantsCount = data.variantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
-
-        if (this.mvarStats.svVariantsCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {max: '1'}}).subscribe(data => {
-                this.mvarStats.svVariantsCount = data.svVariantCount;
                 this.mvarStatsSubject.next(this.mvarStats)
             });
         }
@@ -187,23 +161,9 @@ export class SearchService {
             });
         }
 
-        if (this.mvarStats.confirmedSVMutationCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
-                this.mvarStats.confirmedSVMutationCount = data.svVariantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
-
         if (this.mvarStats.snpIndelCandidateCount === -1) {
             this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
                 this.mvarStats.snpIndelCandidateCount = data.variantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
-
-        if (this.mvarStats.svMutantCandidateCount === -1) {
-            this.http.get<any>(svVariantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
-                this.mvarStats.svMutantCandidateCount = data.svVariantCount;
                 this.mvarStatsSubject.next(this.mvarStats)
             });
         }

@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 
 
 const url = environment.MVAR_API_VCF_FILE_URL;
-const sampleUrl = environment.MVAR_API_SAMPLE_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +51,6 @@ export class FilesService {
   }
 
   public loadVcfFiles(files: string[], varType: string){
-      return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files, varType: varType}});
+      return this.http.get(url + '/loadVcf', {params: {vcfFile: files, varType: varType}});
   }
 }

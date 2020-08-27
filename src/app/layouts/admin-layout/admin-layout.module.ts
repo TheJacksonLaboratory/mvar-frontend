@@ -21,7 +21,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import {SearchService} from '../../analysis/search.service';
 import { UploadService } from '../../files-nav/upload.service';
 import { FilesService} from '../../files-nav/files.service';
-import { AnnotationService} from '../../analysis/annotation.service';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import { AnalysisComponent } from '../../analysis/analysis.component';
 import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
@@ -33,8 +32,6 @@ import { SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-d
 import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
 import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
 import { StrainComponent } from '../../analysis/strain/strain.component';
-import { AnnotatedVarComponent } from '../../analysis/annotated-var/annotated-var.component';
-import { AnnotatedVarDialogComponent } from '../../analysis/dialogs/annotated-var-dialog/annotated-var-dialog.component';
 import { LoginComponent} from '../../login/login.component';
 import { AuthenticationService} from '../../login/authentication.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -107,15 +104,13 @@ import {
       StrainDialogComponent,
       SampleDialogComponent,
       StrainComponent,
-      AnnotatedVarComponent,
-      AnnotatedVarDialogComponent,
       LoginComponent
   ],
-  providers: [FilesService, UploadService, SearchService, AnnotationService, AuthenticationService,
+  providers: [FilesService, UploadService, SearchService, AuthenticationService,
       {provide: MatDialogRef, useValue: {}},
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, AnnotatedVarDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
 })
 
 export class AdminLayoutModule {}
