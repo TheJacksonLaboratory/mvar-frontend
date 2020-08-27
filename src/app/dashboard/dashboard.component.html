@@ -10,7 +10,14 @@
                       <div class="row">
                           <div class="col-md-1">
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-10">
+                          <app-search-criteria-box searchType="variant"
+                                         [searchCriteria]="currSearchParams"
+                                         (searchCriteriaChange)="onSearchCriteriaChange($event)"
+                                         [showVarFilters]="showVarFilters">
+                        </app-search-criteria-box>
+                    </div>
+                          <!-- <div class="col-md-3">
                               <mat-form-field>
                                   <mat-label>Select search type</mat-label>
                                   <mat-select [(value)]="searchOption" disableOptionCentering>
@@ -23,7 +30,6 @@
                               </mat-form-field>
                           </div>
                           <div class="col-md-7">
-                              <!--<div class="card-body">-->
                                   <div>
                                       <app-search-box [searchType]="searchOption" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
                                       <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'" align="start">
@@ -39,8 +45,7 @@
                                           <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
                                       </mat-hint>
                                   </div>
-                              <!--</div>-->
-                          </div>
+                          </div> -->
                       </div>
                       <div class="row">
                           <div class="col-md-1"></div>
