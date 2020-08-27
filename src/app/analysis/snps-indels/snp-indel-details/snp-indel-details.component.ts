@@ -4,7 +4,6 @@ import {MatDialogRef, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
 import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
-import {SampleDialogComponent} from '../../dialogs/sample-dialog/sample-dialog.component';
 import {environment} from '../../../../environments/environment';
 import {RouterEvent, Router} from '@angular/router';
 

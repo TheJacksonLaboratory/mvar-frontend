@@ -139,34 +139,34 @@ export class SearchService {
     getStats() {
 
         //TODO consolidate these service calls to a single request, and use stats domain when available.
-        if (this.mvarStats.snpIndelVariantsCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {max: '1'}}).subscribe(data => {
-                this.mvarStats.snpIndelVariantsCount = data.variantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
+        // if (this.mvarStats.snpIndelVariantsCount === -1) {
+        //     this.http.get<any>(variantQueryUrl, {params: {max: '1'}}).subscribe(data => {
+        //         this.mvarStats.snpIndelVariantsCount = data.variantCount;
+        //         this.mvarStatsSubject.next(this.mvarStats)
+        //     });
+        // }
 
-        if (this.mvarStats.strainCount === -1) {
-            this.http.get<any>(strainUrl, {params: {inmmr: 'y'}}).subscribe(data => {
-                this.mvarStats.strainCount = data.strainCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
+        // if (this.mvarStats.strainCount === -1) {
+        //     this.http.get<any>(strainUrl, {params: {inmmr: 'y'}}).subscribe(data => {
+        //         this.mvarStats.strainCount = data.strainCount;
+        //         this.mvarStatsSubject.next(this.mvarStats)
+        //     });
+        // }
 
-        console.log('this.mvarStats.confirmedSnpIndelMutationCount = ' + this.mvarStats.confirmedSnpIndelMutationCount)
-        if (this.mvarStats.confirmedSnpIndelMutationCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
-                this.mvarStats.confirmedSnpIndelMutationCount = data.variantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
+        // console.log('this.mvarStats.confirmedSnpIndelMutationCount = ' + this.mvarStats.confirmedSnpIndelMutationCount)
+        // if (this.mvarStats.confirmedSnpIndelMutationCount === -1) {
+        //     this.http.get<any>(variantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
+        //         this.mvarStats.confirmedSnpIndelMutationCount = data.variantCount;
+        //         this.mvarStatsSubject.next(this.mvarStats)
+        //     });
+        // }
 
-        if (this.mvarStats.snpIndelCandidateCount === -1) {
-            this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
-                this.mvarStats.snpIndelCandidateCount = data.variantCount;
-                this.mvarStatsSubject.next(this.mvarStats)
-            });
-        }
+        // if (this.mvarStats.snpIndelCandidateCount === -1) {
+        //     this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
+        //         this.mvarStats.snpIndelCandidateCount = data.variantCount;
+        //         this.mvarStatsSubject.next(this.mvarStats)
+        //     });
+        // }
 
     }
 

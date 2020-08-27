@@ -11,14 +11,14 @@ import {MVARStats} from "../models";
 export class DashboardComponent implements OnInit {
 
   searchOption = 'variant';
-  mmrdbStats: MVARStats;
+  mvarStats: MVARStats;
 
   constructor(private searchService: SearchService, private router: Router) { }
   ngOnInit() {
       this.searchService.getStats();
 
       this.searchService.mvarStatsSubject.subscribe(data => {
-          this.mmrdbStats = data;
+          this.mvarStats = data;
       });
   }
 
@@ -26,10 +26,6 @@ export class DashboardComponent implements OnInit {
       this.searchService.setSelectedSearchItems(event);
       if (this.searchOption === 'variant') {
           this.router.navigate(['/snpsIndels'])
-      } else if (this.searchOption === 'svVariant') {
-          this.router.navigate(['/structuralVar'])
-      } else if (this.searchOption === 'sample') {
-          this.router.navigate(['/samples'])
       }
   }
 }

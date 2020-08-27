@@ -30,7 +30,6 @@ import { GeneDialogComponent } from '../../analysis/dialogs/gene-dialog/gene-dia
 import { HelpDialogComponent} from '../../analysis/dialogs/help-dialog/help-dialog.component';
 import { SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component'
 import { StrainDialogComponent } from '../../analysis/dialogs/strain-dialog/strain-dialog.component';
-import { SampleDialogComponent } from '../../analysis/dialogs/sample-dialog/sample-dialog.component';
 import { StrainComponent } from '../../analysis/strain/strain.component';
 import { LoginComponent} from '../../login/login.component';
 import { AuthenticationService} from '../../login/authentication.service';
@@ -102,7 +101,6 @@ import {
       HelpDialogComponent,
       SpinnerDialogComponent,
       StrainDialogComponent,
-      SampleDialogComponent,
       StrainComponent,
       LoginComponent
   ],
@@ -110,7 +108,7 @@ import {
       {provide: MatDialogRef, useValue: {}},
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, SampleDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
+  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
 })
 
 export class AdminLayoutModule {}
