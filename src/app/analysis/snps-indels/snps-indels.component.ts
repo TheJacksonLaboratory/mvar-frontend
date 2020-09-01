@@ -28,7 +28,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    // displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
     displayedColumns = ['caid', 'symbol', 'chr', 'pos', 'ref', 'alt', 'hgvs', 'type', 'impact', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
@@ -74,14 +73,11 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 this.currSearchParams.confirmedVar = true;
             }
 
-            const sample = paramsIn.get('sample');
-            if (sample) {
+            const variant = paramsIn.get('variant');
 
-                this.currSearchParams.selectedItems = [{
-                    selectedType: 'sample',
-                    selectedValue: {sampleId: sample},
-                    displayedValue: paramsIn.get('sample')
-                }];
+            if (variant) {
+
+                this.currSearchParams.selectedItems = this.searchService.getSelectedSearchItems;
 
                 this._queryVariants(this.currSearchParams);
             }
@@ -134,10 +130,9 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             let temp = data.variants as Variant[];
 
             temp.forEach(variant => {
-                if (!variant.gene) {
-                    variant.gene = new Gene()
+                if (!variant.hgvs) {
+                    variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
                 }
-                ;
             });
             this.varDataSource = temp;
 

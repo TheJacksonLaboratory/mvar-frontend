@@ -78,6 +78,7 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     }
 
     const selectedItems = this.searchService.getSelectedSearchItems();
+
     if (selectedItems && selectedItems.selectedValue) {
       console.log("box")
       console.log(selectedItems)
@@ -168,9 +169,6 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
 
     //set external id
     this.searchCriteria.withoutExternalId = this.withoutExternalId;
-
-    //Sv inExon
-    this.searchCriteria.inExon = this.svInExon;
 
     //emit change
     this.searchCriteriaChange.emit(this.searchCriteria);

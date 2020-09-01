@@ -33,9 +33,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelectedItem(event: any) {
-    // this.searchService.setSelectedSearchItems(event);
+    this.searchService.setSelectedSearchItems(event);
+    console.log("dashboard event:" + event);
     // if (this.searchOption === 'variant') {
-    //   this.router.navigate(['/variant'])
+    this.router.navigate(['/variant'])
     // }
   }
 }

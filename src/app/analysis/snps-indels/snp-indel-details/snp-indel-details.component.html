@@ -11,13 +11,19 @@
           </div>
           <div class="row">
             <div class="col-md-4">
+              <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}} <span *ngIf="variant.canonVarIdentifier.caID"><i style="cursor: pointer;"   class="material-icons vertical-align-middle" (click)="openVariantDialog()" matTooltip="Variant details">info</i></span>
+            </div>
+            <div class="col-md-4">
               <b>Gene: </b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;"   class="material-icons vertical-align-middle" (click)="openGeneDialog()" matTooltip="Gene details">info</i></span>
             </div>
             <div class="col-md-4">
               <b>Chromosome:</b> {{variant.chr}}
             </div>
             <div class="col-md-4">
-              <b>Position: </b> {{variant.pos}} ({{variant.assembly}})
+              <b>Position: </b> {{variant.position}} ({{variant.position}})
+            </div>
+            <div class="col-md-4">
+              <b>Assembly: </b> {{variant.assembly}} ({{variant.assembly}})
             </div>
             <!--<div class="col-md-4">-->
               <!--<b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>-->
@@ -35,49 +41,17 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <b>Sample: </b> {{variant.sample.sampleId}} <span *ngIf="variant.sample"><i style="cursor: pointer;" class="material-icons vertical-align-middle" (click)="openSampleDialog()" matTooltip="Sample details">info</i></span>
+              <b>Functional Class: </b> {{variant.functionalClassCode}}
             </div>
             <div class="col-md-4">
-              <b>Study: </b> {{variant.sample.study}}
+              <b>Impact: </b> {{variant.impact}}
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <b>Strain: </b> <span *ngIf="variant.sample.strain">{{variant.sample.strain.name}}<i style="cursor: pointer;" class="material-icons vertical-align-middle" (click)="openStrainDialog()" matTooltip="Strain details">info</i></span>
-            </div>
+            </div> -->
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" rel="noopener noreferrer" target="_blank">{{snpid}}, </a></span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Allele Count: </b> {{variant.alleleCount}}
-            </div>
-            <div class="col-md-4">
-              <b>Allele Frequency: </b> {{variant.alleleFrequency}}
-            </div>
-            <div class="col-md-4">
-              <b>Read Depth: </b> {{variant.readDepth}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Quality: </b> {{variant.qual}}
-            </div>
-            <div class="col-md-4">
-              <b>Filter: </b> {{variant.filter}}
-            </div>
-            <div class="col-md-4">
-              <b>Seq. Source: </b> {{(variant.seqSource === 'WGS')?'Whole Genome (WGS)' : (variant.seqSource === 'WES')? 'Whole Exome (WES)': ''}}
-            </div>
-          </div>
-          <div class="row detail-anno1-title">
-            <div class="col-md-12">
-              <br>
-              <h4 style="color: darkblue">SNP Effect Annotations:</h4>
-            </div>
-          </div>
-          <div class="row">
+          
+         <div class="row">
             <div class="col-md-4">
               <b>Effect: </b> {{variant.snpEffEffect}}
             </div>
@@ -88,54 +62,8 @@
               <b>Impact: </b> {{variant.snpEffImpact}}
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Exon #: </b> {{variant.snpEffExonId}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <p><b>Codon Change: </b> {{variant.snpEffCodonChange}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <p><b>Amino Acid Change: </b> {{variant.snpEffAminoAcidChange}}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Transcript Id: </b> <a *ngIf="variant.snpEffTranscriptId" [href]="ensemblTransUrl + variant.snpEffTranscriptId" rel="noopener noreferrer" target="_blank">{{variant.snpEffTranscriptId}}</a>
-            </div>
-            <div class="col-md-4">
-              <b>Gene Name:</b> {{variant.snpEffGeneName}}
-            </div>
-            <div class="col-md-4">
-              <b>Gene Biotype: </b> {{variant.snpEffGeneBiotype}}
-            </div>
-          </div>
-          <div class="row detail-anno1-title">
-            <div class="col-md-12">
-             <br>
-              <h4 style="color:darkblue">Analysis</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Sample Count: </b> {{variant.sampleCount}}
-            </div>
-            <div class="col-md-4">
-              <b>Proportion of Variant Occurrence: </b> {{variant.varFreq}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <b>Low Frequency Variant (<= 1%): </b> <span>{{(variant.varFreq <= 0.01)?'Yes':'No'}}</span>
-            </div>
-            <div class="col-md-4">
-              <b>Mutant Candidate (likely pathogenic): </b> <span>{{(variant.mutantCandidate === 'Y')?'Yes':'Unknown'}}</span>
-            </div>
-          </div>
+          
+                  
             <!--<div class="col-md-4">-->
               <!--<b>Annotation: </b> <span>{{variant.variantAnnotation?variant.variantAnnotation.status:'None'}}</span>&lt;!&ndash;<i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>&ndash;&gt;-->
               <!--<span *ngIf="variant.annotatedMutation">{{variant.annotatedMutation.status}} </span>-->
@@ -143,17 +71,8 @@
               <!--<span><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>-->
               <!--&lt;!&ndash;<span *ngIf="variant.mutantCandidate === 'Y' "><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>&ndash;&gt;-->
             <!--</div>-->
-            <div class="row detail-anno1-title">
-              <div class="col-md-12">
-                <br>
-                <span><h4 style="color:darkblue">Annotations
-                  <button mat-icon-button [disabled]="! isUserLoggedIn || variant.variantAnnotations.length > 0" (click)="openAnnotatedVarDialog(null)" matTooltip="Add annotation">
-                        <mat-icon  style="cursor: pointer;">add</mat-icon>
-                  </button></h4></span>
-              </div>
-            </div>
             <div class="row">
-              <div class="col-md-12">
+              <!-- <div class="col-md-12">
 
                   <table style="width: 100%" class="table" mat-table class="table-hover" [(dataSource)]="variant.variantAnnotations" #annoTable>
                     <ng-container matColumnDef="annotation">
@@ -182,19 +101,13 @@
                         <button mat-icon-button [disabled]="! isUserLoggedIn" (click)="openAnnotatedVarDialog(annotation)" matTooltip="Edit annotation">
                           <mat-icon  style="cursor: pointer;">create</mat-icon>
                         </button>
-                        <!--<i disabled="isUserLoggedIn" class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog(annotation)">create</i>  -->
                       </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
 
-                  <!--<div *ngFor="let annotation of variant.variantAnnotations" class="col-md-4">-->
-                        <!--<span>{{annotation.annotation}} , {{annotation.status}}, {{annotation.updatedBy}}, {{annotation.udadateDate}}</span>-->
-                        <!--<span>{{annotation.notes}}</span>-->
-                  <!--</div>-->
-
-              </div>
+              </div> -->
             </div>
         </div>
       </div>

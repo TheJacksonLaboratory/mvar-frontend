@@ -1,23 +1,22 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-body">
-                      <div class="row">
-                          <br>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-1">
-                          </div>
-                          <div class="col-md-10">
-                          <app-search-criteria-box searchType="variant"
-                                         [searchCriteria]="currSearchParams"
-                                         (searchCriteriaChange)="onSearchCriteriaChange($event)"
-                                         [showVarFilters]="showVarFilters">
-                        </app-search-criteria-box>
-                    </div>
-                          <!-- <div class="col-md-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-10">
+                                <app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams"
+                                    (searchCriteriaChange)="onSelectedItem($event)"
+                                    [showVarFilters]="showVarFilters">
+                                </app-search-criteria-box>
+                            </div>
+                            <!-- <div class="col-md-3">
                               <mat-form-field>
                                   <mat-label>Select search type</mat-label>
                                   <mat-select [(value)]="searchOption" disableOptionCentering>
@@ -46,79 +45,89 @@
                                       </mat-hint>
                                   </div>
                           </div> -->
-                      </div>
-                      <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10">
-                              <h3>Mouse Variation Allele Registry</h3>
-                              <p>Model organisms are essential to
-                                 understanding the biological and disease
-                                 consequences of
-                                 human
-                                genome variation.
-                                 Bioinformatics
-                                 resources
-                                 that support meaningful
-                                 comparisons of mouse and
-                                 human genotype-
-                                to-phenotype data
-                                 and knowledge
-                                 are
-                                 needed to support the
-                                 translation
-                                 from
-                                 bench
-                                 to bedside and back again.  </p>
-                              <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More About MVAR</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-          <br>
-      </div>
-      <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-warning card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">scatter_plot</i>
-                      </div>
-                      <p class="card-title">Exome Sequenced Samples: <strong>{{mvarStats.exomeSamplesCount | number}}</strong></p>
-                      <p class="card-title">Whole Genome Sequenced Samples: <strong>{{mvarStats.wholeGenomeSamplesCount | number}}</strong></p>
-                      <p class="card-title">SNP and Indel Variations: <strong>{{mvarStats.snpIndelVariantsCount | number}}</strong></p>
-                      <p class="card-title">Structural Variations: <strong>{{mvarStats.svVariantsCount | number}}</strong></p>
-                      <p class="card-title">Sequenced Strains With Medelian Diseases: <strong>{{mvarStats.strainCount | number}}</strong></p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">table_chart</i> MVAR database stats
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                  <div class="card-header card-header-danger card-header-icon">
-                      <div class="card-icon">
-                          <i class="material-icons">pie_chart</i>
-                      </div>
-                      <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
-                      <p class="card-title">Confirmed SNP and Small Indel Mutations: <strong>{{mvarStats.confirmedSnpIndelMutationCount | number}}</strong></p>
-                      <p class="card-title">Confirmed Structural Mutations: <strong>{{mvarStats.confirmedSVMutationCount| number}}</strong></p>
-                      <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations: <strong>{{mvarStats.snpIndelCandidateCount | number}}</strong></p>
-                      <p class="card-title">Likely Pathogenic Structural Mutations: <strong>{{mvarStats.svMutantCandidateCount | number}}</strong></p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">table_chart</i> Analysis Stats
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <h3>Mouse Variation Allele Registry</h3>
+                                <p>Model organisms are essential to
+                                    understanding the biological and disease
+                                    consequences of
+                                    human
+                                    genome variation.
+                                    Bioinformatics
+                                    resources
+                                    that support meaningful
+                                    comparisons of mouse and
+                                    human genotype-
+                                    to-phenotype data
+                                    and knowledge
+                                    are
+                                    needed to support the
+                                    translation
+                                    from
+                                    bench
+                                    to bedside and back again. </p>
+                                <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More
+                                    About MVAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">scatter_plot</i>
+                        </div>
+                        <p class="card-title">Exome Sequenced Samples:
+                            <strong>{{mvarStats.exomeSamplesCount | number}}</strong></p>
+                        <p class="card-title">Whole Genome Sequenced Samples:
+                            <strong>{{mvarStats.wholeGenomeSamplesCount | number}}</strong></p>
+                        <p class="card-title">SNP and Indel Variations:
+                            <strong>{{mvarStats.snpIndelVariantsCount | number}}</strong></p>
+                        <p class="card-title">Structural Variations:
+                            <strong>{{mvarStats.svVariantsCount | number}}</strong></p>
+                        <p class="card-title">Sequenced Strains With Medelian Diseases:
+                            <strong>{{mvarStats.strainCount | number}}</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> MVAR database stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">pie_chart</i>
+                        </div>
+                        <h5 class="card-title">Mendelian Pathogenic Mutations</h5>
+                        <p class="card-title">Confirmed SNP and Small Indel Mutations:
+                            <strong>{{mvarStats.confirmedSnpIndelMutationCount | number}}</strong></p>
+                        <p class="card-title">Confirmed Structural Mutations:
+                            <strong>{{mvarStats.confirmedSVMutationCount| number}}</strong></p>
+                        <p class="card-title">Likely Pathogenic SNP and Small Indel Mutations:
+                            <strong>{{mvarStats.snpIndelCandidateCount | number}}</strong></p>
+                        <p class="card-title">Likely Pathogenic Structural Mutations:
+                            <strong>{{mvarStats.svMutantCandidateCount | number}}</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> Analysis Stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  </div>
+    </div>
 </div>

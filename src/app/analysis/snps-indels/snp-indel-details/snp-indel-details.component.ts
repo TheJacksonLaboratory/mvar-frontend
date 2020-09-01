@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Variant, Sample, Phenotype} from '../../../models';
+import {Variant, Phenotype} from '../../../models';
 import {MatDialogRef, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
@@ -46,34 +46,25 @@ export class SnpIndelDetailsComponent implements OnInit {
       });
     }
 
-    // openStrainDialog() {
-    //     console.log("open strain dialog");
-    //     this.dialogRef = this.dialog.open(StrainDialogComponent, {
-    //         width: '50%', height: '50%',
-    //         data: {
-    //             strain: this.variant.sample.strain
-    //         }
-    //     });
-    // }
+    openStrainDialog() {
+        console.log("open strain dialog");
+        this.dialogRef = this.dialog.open(StrainDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                strains: this.variant.strains
+            }
+        });
+    }
 
-    // openSampleDialog() {
-    //     console.log("open sample dialog");
-    //     this.dialogRef = this.dialog.open(SampleDialogComponent, {
-    //         width: '80%', height: '80%',
-    //         data: {
-    //             sample: this.variant.sample
-    //         }
-    //     });
-    // }
-
-    // openAnnotatedVarDialog() {
-    //     console.log("open annotated var dialog");
-    //     this.dialogRef = this.dialog.open(AnnotatedVarDialogComponent, {
-    //         width: '50%', height: '70%',
-    //         data: {
-    //             variant: this.variant
-    //         }
-    //     });
-    // }
+    openVariantDialog() {
+        console.log("open variant dialog");
+        // TODO
+        // this.dialogRef = this.dialog.open(VariantDialogComponent, {
+        //     width: '80%', height: '80%',
+        //     data: {
+        //         variant: this.variant
+        //     }
+        // });
+    }
 
 }

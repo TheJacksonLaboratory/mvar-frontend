@@ -39,7 +39,7 @@
 
                     <ng-container matColumnDef="caid">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> MVAR id </th>
-                      <td mat-cell *matCellDef="let element"> {{element.canonIdentifier.caid}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.canonVarIdentifier.caID}} </td>
                     </ng-container>
                     <!-- Name Column -->
                     <ng-container matColumnDef="symbol">
@@ -56,7 +56,7 @@
                     <!-- Position Column -->
                     <ng-container matColumnDef="pos">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Position </th>
-                      <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
                     </ng-container>
 
                     <!-- Ref Allele Column -->
