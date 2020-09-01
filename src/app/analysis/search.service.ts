@@ -9,6 +9,8 @@ import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
 
 const geneUrl = environment.MVAR_API_GENE_URL;
 const strainUrl = environment.MVAR_API_STRAIN_URL;
+const transcriptUrl = environment.MVAR_API_TRANSCRIPT_URL;
+const alleleUrl = environment.MVAR_API_ALLELE_URL;
 const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
@@ -49,11 +51,19 @@ export class SearchService {
     }
 
     public searchGene(symbol: string): Observable<any> {
-        return this.http.get(variantUrl + '?gene=' + symbol);
+        return this.http.get(geneUrl + '?symbol=' + symbol);
     }
 
     public searchStrain(name: string): Observable<any> {
-        return this.http.get(variantUrl + '?name=' + name);
+        return this.http.get(strainUrl + '?name=' + name);
+    }
+
+    public searchTranscript(id: string): Observable<any> {
+        return this.http.get(transcriptUrl + '?primary_id=' + id);
+    }
+
+    public searchAllele(name: string): Observable<any> {
+        return this.http.get(alleleUrl + '?symbol=' + name);
     }
 
     // public searchPhenotype(name: string): Observable<any> {

@@ -28,6 +28,12 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   strainOptions: any[] = [];
   strainCount: number;
 
+  transcriptOptions: any[] = [];
+  transcriptCount: number;
+  
+  alleleOptions: any[] = [];
+  alleleCount: number;
+
   phenotypeOptions: any[] = [];
   phenotypeCount: number;
 
@@ -90,6 +96,10 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     this._searchStrains(filterValue);
 
+    this._searchTranscripts(filterValue);
+
+    this._searchAlleles(filterValue);
+
     // this._searchPhenotypes(filterValue);
   }
   // private _searchPhenotypes(filterValue: string) {
@@ -106,24 +116,34 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
   private _searchStrains(filterValue: string) {
     this.searchService.searchStrain(filterValue).subscribe(data => {
-
-      console.log('strain count = ' + data.strainCount);
-
-      this.strainCount = data.strainCount;
-      this.strainOptions = data.strains;
-      //console.log(this.strainOptions);
-
+      console.log('strain count = ' + data.length);
+      this.strainCount = data.length;
+      this.strainOptions = data;
     });
   }
 
   private _searchGenes(filterValue: string) {
     this.searchService.searchGene(filterValue).subscribe(data => {
-      console.log('gene count = ' + data.geneCount);
+      console.log('gene count = ' + data.length);
+      console.log('gene  = ' + data); 
+      this.geneCount = data.length;
+      this.geneOptions = data;
+    });
+  }
 
-      this.geneCount = data.geneCount;
-      this.geneOptions = data.genes;
-      //console.log(this.geneOptions);
+  private _searchTranscripts(filterValue: string) {
+    this.searchService.searchTranscript(filterValue).subscribe(data => {
+      console.log('transcript count = ' + data.length);
+      this.transcriptCount = data.length;
+      this.transcriptOptions = data;
+    });
+  }
 
+  private _searchAlleles(filterValue: string) {
+    this.searchService.searchAllele(filterValue).subscribe(data => {
+      console.log('allele count = ' + data.length);
+      this.alleleCount = data.alleleCount;
+      this.alleleOptions = data.alleleList;
     });
   }
 
