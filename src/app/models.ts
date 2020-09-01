@@ -55,49 +55,14 @@ export class VarCanonIdentifier {
   }
 }
 
-export class  Sample {
-  id: number;
-  sampleId: string;
-  jaxRegistryId: string;
-  newMutantId: string;
-  inheritance: string;
-  sampleName: string;
-  limsSampleName: string;
-  genotype: string;
-  researcher: string;
-  study: string;
-  chrLinkage: string;
-  fileName: string;
-  phenotypeStatus; string;
-  platform: string;
-  strainOfOrigin: string;
-  phenotypes: Phenotype[];
-  totalVarCount: number;
-  rareVarCount: number;
-  candidateVarCount: number;
-  confirmedVarCount: number;
-  totalSvVarCount: number;
-  rareSvVarCount: number;
-  candidateSvVarCount: number;
-  confirmedSvVarCount: number;
-  strain: Strain;
-  strainBackground: string;
-  refGenome: string;
-  limsSampleId: string;
-
-  constructor() {
-    this.strain = new Strain();
-  }
-}
-
 export class Variant {
   id: number;
-  canonIdentifier: VarCanonIdentifier;
+  canonVarIdentifier: VarCanonIdentifier;
   gene: Gene;
   chr: string;
   ref: string;
   alt: string;
-  pos: number;
+  position: number;
   type: string;
   hgvs: string;
   assembly: string;
@@ -107,60 +72,19 @@ export class Variant {
   functionalClassCode: string;
   dnaHgvsNotation: string;
   proteinHgvsNotation: string;
-  
+  strains: string[];
   variantRefTxt: string;
 
   constructor() {
     this.gene = new Gene();
-    this.canonIdentifier = new VarCanonIdentifier();
+    this.canonVarIdentifier = new VarCanonIdentifier();
   }
 
   public setGene(gene: Gene) {
     this.gene = gene;
   }
-  public setVarCanonIdentifier(canonIdentifier: VarCanonIdentifier) {
-    this.canonIdentifier = canonIdentifier;
-  }
-}
-
-export class SvVariant {
-    id: number;
-    //gene: Gene;
-    chr: string;
-    chr2: string;
-    pos: number;
-    endPos: number;
-    svLength: number;
-    svType: string;
-    sample: Sample;
-    filter: string;
-    mutantCandidate: string;
-    varFreq: number;
-    assembly: string;
-    status: string;
-    annotatedMutation: AnnotatedMutation;
-    supp: number;
-    suppVec: string;
-    inExon: boolean;
-
-    constructor() {
-        ///this.gene = new Gene();
-        this.sample = new Sample();
-    }
-}
-
-export class AnnotatedMutation {
-
-  id: number;
-  status: string;
-  notes: string;
-  updatedBy: string;
-  udadateDate: string;
-  sample: Sample;
-
-  constructor(){
-    this.status = '';
-    this.notes = '' ;
+  public setVarCanonIdentifier(canonVarIdentifier: VarCanonIdentifier) {
+    this.canonVarIdentifier = canonVarIdentifier;
   }
 }
 
