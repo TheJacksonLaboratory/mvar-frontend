@@ -46,6 +46,11 @@ export class FilesService {
 
   }
 
+  public getSampleFiles(sampleName: string): Observable<any> {
+
+      return this.http.get(url + '?sample=' + sampleName);
+  }
+
   public deleteFile(id: string){
 
     return this.http.delete(url + '/' + id);

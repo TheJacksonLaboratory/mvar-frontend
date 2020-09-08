@@ -258,6 +258,7 @@ export class SearchService {
         const phenotypes: string[] = [];
         const samples: string[] = [];
         let studies: string[] = [];
+        let seqType = '';
 
         let max = '';
         let offset = '';
@@ -293,6 +294,10 @@ export class SearchService {
         if (paramsIn.study && paramsIn.study !== 'All') {
             studies = paramsIn.study
         }
+
+        if (paramsIn.seqType && paramsIn.seqType !== 'All') {
+            seqType = paramsIn.seqType
+        }
         return this.http.get(sampleQueryUrl, {
             params:
                 {
@@ -301,6 +306,7 @@ export class SearchService {
                     phenotype: phenotypes,
                     sample: samples,
                     study: studies,
+                    seqType: seqType,
                     max: max,
                     offset: offset,
                     sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',

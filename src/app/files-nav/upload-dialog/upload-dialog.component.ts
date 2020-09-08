@@ -35,13 +35,13 @@ export class UploadDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.fileType === 'sample'){
+    if (this.fileType === 'sample' || this.fileType === 'sampleStats'){
       this.pedingSeqSource = false;
     }
   }
 
   addFiles() {
-    if (this.fileType === 'vcf') {
+    if (this.fileType === 'vcf' || this.fileType === 'sampleStats') {
         this.filesUploadBtn.nativeElement.multiple = true;
     }
     this.filesUploadBtn.nativeElement.click();
@@ -91,59 +91,49 @@ export class UploadDialogComponent implements OnInit {
 
 
     // When all progress-observables are completed...
-    forkJoin(allProgressObservables).subscribe((end: any) =>{
+    forkJoin(allProgressObservables).subscribe(response => {
 
-      console.log("fork end")
-      //console.log(end);
+        console.log("fork end")
+        console.log(response);
 
-      end.forEach((res: any) => {
-        if (res.data) {
+        response.forEach((res: any) => {
+            if (res.data) {
 
-          if (res.data.errors) {
-              res.data.errors.forEach(error => {
-                  this.allProgressErrors.push(error);
-              });
-          }
+                if (res.data.errors) {
+                    res.data.errors.forEach(error => {
+                        this.allProgressErrors.push(error);
+                    });
+                }
 
-          if (res.data.message){
-              this.allProgressInfo.push(res.data.message);
-          }
+                if (res.data.message) {
+                    this.allProgressInfo.push(res.data.message);
+                }
+            }
+        });
+
+        // ... the dialog can be closed again...
+        this.canBeClosed = true;
+        this.dialogRef.disableClose = false;
+
+        // ... the upload was successful...
+        this.uploadSuccessful = true;
+
+        if (this.fileType === 'vcf') {
+            // //emit file changes event
+            this.uploadService.isThereFileChanges.next(true);
         }
-      });
 
-      // ... the dialog can be closed again...
-      this.canBeClosed = true;
-      this.dialogRef.disableClose = false;
+        if (this.fileType === 'sample' || this.fileType === 'sampleStats') {
+            // //emit sample changes event
+            this.uploadService.isThereSampleChanges.next(true);
+        }
 
-      // ... the upload was successful...
-      this.uploadSuccessful = true;
-
-      if (this.fileType === 'vcf') {
-          // //emit file changes event
-          this.uploadService.isThereFileChanges.next(true);
-      }
-
-      if (this.fileType === 'sample'){
-          // //emit sample changes event
-          this.uploadService.isThereSampleChanges.next(true);
-      }
-
-      // ... and the component is no longer uploading
-      this.uploading = false;
-
-      console.log('allProgressErrors')
-      console.log(this.allProgressErrors)
-    }, error => {
-        this.allProgressErrors.push(error.error);
+        // ... and the component is no longer uploading
+        this.uploading = false;
 
         console.log('allProgressErrors')
         console.log(this.allProgressErrors)
-
-        this.canBeClosed = true;
-        this.uploadSuccessful = true;
-    },
-        () => console.log('end')
-    );
+    });
   }
 
   setSequenceSource(source: string, event) {
@@ -153,5 +143,10 @@ export class UploadDialogComponent implements OnInit {
           this.pedingSeqSource = false;
       }
   }
+
+    getAllprogressErrors(){
+      const errors = this.allProgressErrors.map(error => error.message).join('\n\n');
+      return errors;
+    }
 
 }

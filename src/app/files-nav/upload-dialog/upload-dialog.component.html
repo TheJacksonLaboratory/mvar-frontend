@@ -56,15 +56,10 @@
 
   <!-- Errrors -->
 
-  <mat-list *ngIf="allProgressErrors && allProgressErrors.length > 0">
-    <h3 mat-subheader>Errors</h3>
-    <mat-list-item *ngFor="let error of allProgressErrors">
-        <mat-icon mat-list-icon>warning</mat-icon>
-        <p id="error-message" mat-line>{{error.message}}</p>
-    </mat-list-item>
-  </mat-list>
-
-
+  <mat-form-field *ngIf="allProgressErrors && allProgressErrors.length > 0" class="full-width">
+    <mat-label>Errors</mat-label>
+    <textarea matInput rows="10" cols="120" [value]="getAllprogressErrors()" disabled="true"></textarea>
+  </mat-form-field>
 
   <!-- This are the actions of the dialog, containing the primary and the cancel button-->
   <mat-dialog-actions class="actions">

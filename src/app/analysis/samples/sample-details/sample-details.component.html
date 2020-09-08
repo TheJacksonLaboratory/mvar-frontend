@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-4">
                   <span class="pull-right">
-                      <button mat-icon-button [disabled]="! isUserLoggedIn" (click)="openEditDialog()" matTooltip="Edit sample">
-                      <mat-icon  style="cursor: pointer;">create</mat-icon> <span>Edit</span>
+                      <button mat-button [disabled]="! isUserLoggedIn" class="nav-link active" (click)="openEditDialog()" matTooltip="Edit sample">
+                        <i class="material-icons">create</i> Edit
                       </button>
                   </span>
                 </div>
@@ -75,69 +75,25 @@
               </div>
             </div>
             </div>
-            <div *ngIf="sample.sampleStats != undefined" class="row">
+            <div *ngIf="sample.sampleStats && sample.sampleStats.length > 0" class="row">
               <div class="col-md-12">
-                <h4>Sample Stats</h4>
+                <h4>Sample Stats
+                  <i *ngIf="! expandStatStatus" class="material-icons vertical-align-middle" (click)="expandStats(true)">keyboard_arrow_down</i>
+                  <i *ngIf="expandStatStatus" class="material-icons vertical-align-middle" (click)="expandStats(false)">keyboard_arrow_up</i>
+                </h4>
               </div>
             </div>
-            <div *ngIf="sample.sampleStats != undefined" class="col-lg-12 col-md-12 detail-head">
-              <div class="row">
-                <div class="col-md-3">
-                  <b>total num reads:</b> {{sample.sampleStats.totalNumReads}}
+            <div *ngIf="expandStatStatus">
+                <div *ngFor="let stats of sample.sampleStats" class="row">
+                  <div class="col-md-12">
+                    <mat-form-field class="full-width">
+                      <mat-label>{{stats.type}}</mat-label>
+                      <textarea matInput rows="10" cols="120" [value]="stats.statsTxt" disabled="true"></textarea>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  <b>total num hq reads:</b> {{sample.sampleStats.totalNumHqReads}}
-                </div>
-                <div class="col-md-3">
-                  <b>num pf unique reads:</b> {{sample.sampleStats.numPfUniqueReads}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct of uq reads aligned:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct selected bases:</b> {{sample.sampleStats.pctSelectedBases}}
-                </div>
-                <div class="col-md-3">
-                  <b>mean target coverage:</b> {{sample.sampleStats.meanTargetCoverage}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 2X:</b> {{sample.sampleStats.pctTargetBasesCovered_2x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 10X:</b> {{sample.sampleStats.pctPfUqReadsAligned}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct target bases covered 20X:</b> {{sample.sampleStats.pctTargetBasesCovered_20x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 30X:</b> {{sample.sampleStats.pctTargetBasesCovered_30x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 40X:</b> {{sample.sampleStats.pctTargetBasesCovered_40x}}
-                </div>
-                <div class="col-md-3">
-                  <b>pct target bases covered 50X:</b> {{sample.sampleStats.pctTargetBasesCovered_50x}}
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <b>pct target bases covered 100X:</b> {{sample.sampleStats.pctTargetBasesCovered_100x}}
-                </div>
-                <div class="col-md-3">
-                  <b>number of spns:</b> {{sample.sampleStats.numSnps}}
-                </div>
-                <div class="col-md-3">
-                  <b>number of indels:</b> {{sample.sampleStats.numIndels}}
-                </div>
-                <div class="col-md-3">
+            </div>
 
-                </div>
-              </div>
-            </div>
             <div class="row">
                   <div class="col-md-12">
                     <h4>Variant Summary</h4>
@@ -197,7 +153,25 @@
                   </div>
                 </div>
               </mat-tab>
-              <mat-tab label="Notes">
+              <mat-tab label="Files">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <table style="width: 100%" class="table" mat-table class="table-hover" [dataSource]="fileDataSource">
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                      </ng-container>
+                      <!-- Action Column -->
+                      <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action</th>
+                        <td mat-cell *matCellDef="let element"> <span style="float: right"><mat-icon (click)="downloadFile(element.id)" matTooltip="Download">save_alt</mat-icon></span></td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="fileTableColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: fileTableColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
               </mat-tab>
             </mat-tab-group>
           </div>

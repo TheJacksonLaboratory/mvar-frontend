@@ -221,8 +221,8 @@ export class SamplesComponent implements OnInit, AfterViewInit {
         });
     }
 
-    public openUploadDialog() {
-        const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:'sample', titleText:'Upload Samples Metadata File'} });
+    public openUploadDialog(type: string) {
+        const dialogRef = this.dialog.open(UploadDialogComponent, { width: '50%', height: '50%', data:{fileType:type, titleText:'Upload Samples Metadata File'} });
 
     }
 
