@@ -58,21 +58,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         this.route.paramMap.subscribe(paramsIn => {
             console.log(paramsIn.get('sample'));
 
-            const candidateVar = paramsIn.get('candidateVar');
-            if (candidateVar) {
-                this.currSearchParams.candidateVar = true;
-            }
-
-            const rareVars = paramsIn.get('rareVar');
-            if (rareVars) {
-                this.currSearchParams.rareVar = true;
-            }
-
-            const confirmedVar = paramsIn.get('confirmedVar');
-            if (confirmedVar) {
-                this.currSearchParams.confirmedVar = true;
-            }
-
             const variant = paramsIn.get('variant');
 
             if (variant) {
