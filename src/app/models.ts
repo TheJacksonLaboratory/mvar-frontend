@@ -24,6 +24,14 @@ export class Gene {
   }
 }
 
+export class Transcript {
+  id: number;
+  dnaHGVS: string;
+  proteinHGVS: string;
+  locationStart: number;
+  locationEnd: number;
+}
+
 export class Phenotype {
 
   id: number;
@@ -37,6 +45,7 @@ export class Strain {
   id: number;
   identifier: string;
   name: string;
+  attributes: string;
   description: string;
   carriesAlleleSymbol: string;
   carriesAlleleName: string;
@@ -72,7 +81,9 @@ export class Variant {
   functionalClassCode: string;
   dnaHgvsNotation: string;
   proteinHgvsNotation: string;
-  strains: string[];
+  strains: Strain[];
+  transcripts: Transcript[];
+
   variantRefTxt: string;
 
   constructor() {
