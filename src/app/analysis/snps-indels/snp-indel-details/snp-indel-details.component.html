@@ -10,108 +10,121 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
-              <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}} <span *ngIf="variant.canonVarIdentifier.caID"><i style="cursor: pointer;"   class="material-icons vertical-align-middle" (click)="openVariantDialog()" matTooltip="Variant details">info</i></span>
+            <div class="col-md-2">
+              <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}} <span *ngIf="variant.canonVarIdentifier.caID"><i
+                  style="cursor: pointer;" class="material-icons vertical-align-middle" (click)="openVariantDialog()"
+                  matTooltip="Variant details">info</i></span>
             </div>
-            <div class="col-md-4">
-              <b>Gene: </b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;"   class="material-icons vertical-align-middle" (click)="openGeneDialog()" matTooltip="Gene details">info</i></span>
+            <div class="col-md-2">
+              <b>Gene: </b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;"
+                  class="material-icons vertical-align-middle" (click)="openGeneDialog()"
+                  matTooltip="Gene details">info</i></span>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
               <b>Chromosome:</b> {{variant.chr}}
             </div>
-            <div class="col-md-4">
-              <b>Position: </b> {{variant.position}} ({{variant.position}})
+            <div class="col-md-2">
+              <b>Position: </b> {{variant.position}}
             </div>
-            <div class="col-md-4">
-              <b>Assembly: </b> {{variant.assembly}} ({{variant.assembly}})
-            </div>
-            <!--<div class="col-md-4">-->
-              <!--<b>dbSNPId: </b> <span *ngFor="let snpid of variant.dbSNPId.split(';')"> <a *ngIf="snpid && snpid != '.'" [href]="dbSNPUrl + snpid" target="_blank">{{snpid}}, </a></span>-->
-            <!--</div>-->
-          </div>
-          <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-2">
               <div class="a"><b>Ref. Allele:</b> {{variant.ref}}</div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
+
+            <div class="col-md-2">
               <div class="a"><b>Allele: </b> {{variant.alt}}</div>
             </div>
           </div>
+
           <div class="row">
+            <div class="col-md-4">
+              <b>Assembly: </b> {{variant.assembly}}
+            </div>
             <div class="col-md-4">
               <b>Functional Class: </b> {{variant.functionalClassCode}}
             </div>
             <div class="col-md-4">
               <b>Impact: </b> {{variant.impact}}
             </div>
-            <!-- <div class="col-md-4">
-              <b>Strain: </b> <span *ngIf="variant.sample.strain">{{variant.sample.strain.name}}<i style="cursor: pointer;" class="material-icons vertical-align-middle" (click)="openStrainDialog()" matTooltip="Strain details">info</i></span>
-            </div> -->
           </div>
-          
-         <div class="row">
-            <div class="col-md-4">
-              <b>Effect: </b> {{variant.snpEffEffect}}
-            </div>
-            <div class="col-md-4">
-              <b>Functional Class: </b> {{variant.snpEffFunctionalClass}}
-            </div>
-            <div class="col-md-4">
-              <b>Impact: </b> {{variant.snpEffImpact}}
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-tab-group dynamicHeight>
+                <mat-tab label="Transcript">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table style="width: 100%" class="table" mat-table class="table-hover"
+                        [(dataSource)]="transcriptDataSource" matSort #transcriptTable>
+                        <ng-container matColumnDef="id">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                          <td mat-cell *matCellDef="let transcript">
+                            <a [href]="ensemblTransUrl + transcript.primaryIdentifier" rel="noopener noreferrer" target="_blank">{{transcript.primaryIdentifier}}</a>
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dnaHGVS">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> DNA HGVS</th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.dnaHGVS}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="proteinHGVS">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Protein HGVS</th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.proteinHGVS}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="locationStart">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Start </th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.locationStart}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="locationEnd">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Location End </th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.locationEnd}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="transcriptDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: transcriptDisplayedColumns;"></tr>
+                      </table>
+                      <mat-paginator #transcriptPaginator [length]="transcriptPageLength" [pageSize]="transcriptPageSize"
+                        [pageSizeOptions]="pageSizeOptions" (page)="doTranscriptPageChange($event)">
+                      </mat-paginator>
+                    </div>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Strain">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table style="width: 100%" class="table" mat-table class="table-hover"
+                        [(dataSource)]="strainDataSource" matSort #strainTable>
+                        <ng-container matColumnDef="identifier">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Identifier </th>
+                          <td mat-cell *matCellDef="let strain">
+                            <a [href]="mgiStrainUrl + strain.primaryIdentifier" rel="noopener noreferrer" target="_blank">{{strain.primaryIdentifier}}</a>
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                          <td mat-cell *matCellDef="let strain" > {{strain.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="attributes">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Attributes </th>
+                          <td mat-cell *matCellDef="let strain"> {{strain.attributes}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="strainDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: strainDisplayedColumns;"></tr>
+                      </table>
+                      <mat-paginator #strainPaginator [length]="strainPageLength" [pageSize]="strainPageSize"
+                        [pageSizeOptions]="pageSizeOptions" (page)="doStrainPageChange($event)">
+                      </mat-paginator>
+                    </div>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+
+
+
+
             </div>
           </div>
-          
-                  
-            <!--<div class="col-md-4">-->
-              <!--<b>Annotation: </b> <span>{{variant.variantAnnotation?variant.variantAnnotation.status:'None'}}</span>&lt;!&ndash;<i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>&ndash;&gt;-->
-              <!--<span *ngIf="variant.annotatedMutation">{{variant.annotatedMutation.status}} </span>-->
-              <!--<span *ngIf="!variant.annotatedMutation">None </span>-->
-              <!--<span><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>-->
-              <!--&lt;!&ndash;<span *ngIf="variant.mutantCandidate === 'Y' "><i class="material-icons vertical-align-middle" (click)="openAnnotatedVarDialog()">create</i></span>&ndash;&gt;-->
-            <!--</div>-->
-            <div class="row">
-              <!-- <div class="col-md-12">
-
-                  <table style="width: 100%" class="table" mat-table class="table-hover" [(dataSource)]="variant.variantAnnotations" #annoTable>
-                    <ng-container matColumnDef="annotation">
-                      <th mat-header-cell *matHeaderCellDef> Annotation </th>
-                      <td mat-cell *matCellDef="let annotation"> {{annotation.annotation}}  </td>
-                    </ng-container>
-                    <ng-container matColumnDef="status">
-                      <th mat-header-cell *matHeaderCellDef> Status</th>
-                      <td mat-cell *matCellDef="let annotation"> {{annotation.status}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="updatedBy">
-                      <th mat-header-cell *matHeaderCellDef> Updated By </th>
-                      <td mat-cell *matCellDef="let annotation"> {{annotation.updateBy}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="updateDate">
-                      <th mat-header-cell *matHeaderCellDef> Update Date </th>
-                      <td mat-cell *matCellDef="let annotation"> {{annotation.updateDate | date:'shortDate'}}  </td>
-                    </ng-container>
-                    <ng-container matColumnDef="notes">
-                      <th mat-header-cell *matHeaderCellDef> Notes </th>
-                      <td mat-cell *matCellDef="let annotation"> {{annotation.notes}}  </td>
-                    </ng-container>
-                    <ng-container matColumnDef="action">
-                      <th mat-header-cell *matHeaderCellDef> Action </th>
-                      <td mat-cell *matCellDef="let annotation">
-                        <button mat-icon-button [disabled]="! isUserLoggedIn" (click)="openAnnotatedVarDialog(annotation)" matTooltip="Edit annotation">
-                          <mat-icon  style="cursor: pointer;">create</mat-icon>
-                        </button>
-                      </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-
-              </div> -->
-            </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

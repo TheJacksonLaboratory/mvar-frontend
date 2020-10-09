@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {Variant, Phenotype} from '../../../models';
-import {MatDialogRef, MatTable} from '@angular/material';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {Variant, Phenotype, Transcript, Strain} from '../../../models';
+import {MatDialogRef, MatPaginator, MatSort, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
 import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
@@ -14,11 +14,26 @@ import {RouterEvent, Router} from '@angular/router';
 })
 export class SnpIndelDetailsComponent implements OnInit {
 
+    @ViewChild('transcriptPaginator', {static: true}) transcriptPaginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) transcriptSort: MatSort;
+    @ViewChild('strainPaginator', {static: true}) strainPaginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) strainSort: MatSort;
+
     @Input()
     variant: Variant;
-    displayedColumns = ['mpTermIdentifier', 'mpTermName', 'samples']
-    phenotypeDataSource: Phenotype[] = [];
-    dbSNPUrl = environment.NCBI_DBSNP_URL;
+    transcriptDisplayedColumns = ['id', 'dnaHGVS', 'proteinHGVS', 'locationStart', 'locationEnd']
+    transcriptDataSource: Transcript[] = [];
+
+    strainDisplayedColumns = ['identifier', 'name', 'attributes']
+    strainDataSource: Strain[] = [];
+    // MatPaginator Inputs
+    transcriptPageLength = 0;
+    transcriptPageSize = 10;
+    strainPageLength = 0;
+    strainPageSize = 10;
+    pageSizeOptions: number[] = [10, 50, 100];
+    
+    mgiStrainUrl = environment.MGI_STRAIN_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
 
     dialogRef: any;
@@ -26,14 +41,22 @@ export class SnpIndelDetailsComponent implements OnInit {
     constructor(public dialog: MatDialog, public router: Router) { }
 
     ngOnInit() {
-    // this.phenotypeDataSource = this.variant.sample.phenotypes;
+        this.strainDataSource = this.variant.strains;
+        
+        const dnaHGVS = this.variant.dnaHgvsNotation.split(",");
+        const proteinHGVS = this.variant.proteinHgvsNotation.split(",");
 
-    //     this.router.events
-    //         .subscribe(() => {
-    //             if (this.dialogRef) {
-    //                 this.dialogRef.close();
-    //             }
-    //         });
+        this.variant.transcripts.forEach((transcript, i) => {
+            transcript.dnaHGVS = dnaHGVS[i];
+            transcript.proteinHGVS = proteinHGVS[i];
+        });
+
+        this.transcriptDataSource = this.variant.transcripts;
+
+        this.transcriptPageLength = this.variant.transcripts.length;
+        this.strainPageLength = this.variant.strains.length;
+        this.transcriptPaginator.pageIndex = 0;
+        this.strainPaginator.pageIndex = 0;
     }
 
     openGeneDialog() {
@@ -65,6 +88,16 @@ export class SnpIndelDetailsComponent implements OnInit {
         //         variant: this.variant
         //     }
         // });
+    }
+
+    doTranscriptPageChange(pageEvent: any) {
+
+        
+    }
+
+    doStrainPageChange(pageEvent: any) {
+
+        
     }
 
 }
