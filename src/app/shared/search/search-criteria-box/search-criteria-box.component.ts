@@ -184,21 +184,21 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     }
   }
 
-    updateSearch() {
+  // updateSearch() {
 
-        if (this.endPos === ''){
-            this.endPos = this.startPos;
-        }
-        //start and end pos
-        this.searchCriteria.startPos = this.startPos;
-        this.searchCriteria.endPos = this.endPos;
+  //   if (this.endPos === '') {
+  //     this.endPos = this.startPos;
+  //   }
+  //   //start and end pos
+  //   this.searchCriteria.startPos = this.startPos;
+  //   this.searchCriteria.endPos = this.endPos;
 
-        //emit change
-        this.searchCriteriaChange.emit(this.searchCriteria);
-    }
+  //   //emit change
+  //   this.searchCriteriaChange.emit(this.searchCriteria);
+  // }
 
-    hideFilters() {
-        this.showVarFilters = false;
-        this.showVarFiltersChange.emit(this.showVarFilters)
-    }
+  // hideFilters() {
+  //   this.showVarFilters = false;
+  //   this.showVarFiltersChange.emit(this.showVarFilters)
+  // }
 }
