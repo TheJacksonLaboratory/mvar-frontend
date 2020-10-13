@@ -58,7 +58,7 @@ export class Strain {
 
 export class VarCanonIdentifier {
   id: number;
-  caid: string;
+  caID: string;
   variantRefTxt: string;
   constructor() {
   }
