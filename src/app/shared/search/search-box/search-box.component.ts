@@ -96,7 +96,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     this._searchStrains(filterValue);
 
-    this._searchTranscripts(filterValue);
+   // this._searchTranscripts(filterValue);
 
     this._searchAlleles(filterValue);
 

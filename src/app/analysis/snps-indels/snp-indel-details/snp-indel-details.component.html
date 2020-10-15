@@ -40,7 +40,7 @@
               <b>Assembly: </b> {{variant.assembly}}
             </div>
             <div class="col-md-4">
-              <b>Functional Class: </b> {{variant.functionalClassCode}}
+              <b>Jannovar Annotation: </b> {{variant.functionalClassCode}}
             </div>
             <div class="col-md-4">
               <b>Impact: </b> {{variant.impact}}
@@ -69,13 +69,13 @@
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Protein HGVS</th>
                           <td mat-cell *matCellDef="let transcript"> {{transcript.proteinHGVS}} </td>
                         </ng-container>
-                        <ng-container matColumnDef="locationStart">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Start </th>
-                          <td mat-cell *matCellDef="let transcript"> {{transcript.locationStart}} </td>
+                        <ng-container matColumnDef="annotation">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Jannovar Annotation </th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.annotation}} </td>
                         </ng-container>
-                        <ng-container matColumnDef="locationEnd">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Location End </th>
-                          <td mat-cell *matCellDef="let transcript"> {{transcript.locationEnd}} </td>
+                        <ng-container matColumnDef="impact">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Impact </th>
+                          <td mat-cell *matCellDef="let transcript"> {{transcript.impact}} </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="transcriptDisplayedColumns"></tr>

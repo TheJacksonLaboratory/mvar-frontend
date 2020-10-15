@@ -21,7 +21,7 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @Input()
     variant: Variant;
-    transcriptDisplayedColumns = ['id', 'dnaHGVS', 'proteinHGVS', 'locationStart', 'locationEnd']
+    transcriptDisplayedColumns = ['id', 'dnaHGVS', 'proteinHGVS', 'annotation', 'impact']
     transcriptDataSource: Transcript[] = [];
 
     strainDisplayedColumns = ['identifier', 'name', 'attributes']
@@ -45,10 +45,14 @@ export class SnpIndelDetailsComponent implements OnInit {
         
         const dnaHGVS = this.variant.dnaHgvsNotation.split(",");
         const proteinHGVS = this.variant.proteinHgvsNotation.split(",");
+        const jannovarAnnotation = this.variant.functionalClassCodes.split(",");
+        const impact = this.variant.impacts.split(",");
 
         this.variant.transcripts.forEach((transcript, i) => {
             transcript.dnaHGVS = dnaHGVS[i];
             transcript.proteinHGVS = proteinHGVS[i];
+            transcript.annotation = jannovarAnnotation[i];
+            transcript.impact = impact[i];
         });
 
         this.transcriptDataSource = this.variant.transcripts;

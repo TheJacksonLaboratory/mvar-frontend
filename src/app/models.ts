@@ -28,6 +28,8 @@ export class Transcript {
   id: number;
   dnaHGVS: string;
   proteinHGVS: string;
+  impact: string;
+  annotation: string;
   locationStart: number;
   locationEnd: number;
 }
@@ -76,9 +78,11 @@ export class Variant {
   hgvs: string;
   assembly: string;
   impact: string;
+  impacts: string; // stores all impacts
   accession: string;
   externalId: string;
   functionalClassCode: string;
+  functionalClassCodes: string; // stores all annotations
   dnaHgvsNotation: string;
   proteinHgvsNotation: string;
   strains: Strain[];

@@ -115,9 +115,16 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             let temp = data.variants as Variant[];
 
             temp.forEach(variant => {
+                // set hgvs variant info
                 if (!variant.hgvs) {
                     variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
                 }
+                // set impact at variant level and the list of impacts for all transcript
+                variant.impacts = variant.impact;
+                variant.impact = variant.impact.split(",")[0]
+                // set annotation at variant level and the list of annotations for all transcripts
+                variant.functionalClassCodes = variant.functionalClassCode;
+                variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
             });
             this.varDataSource = temp;
 
