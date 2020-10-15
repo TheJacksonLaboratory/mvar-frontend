@@ -59,7 +59,7 @@ export class SearchService {
     }
 
     public searchTranscript(id: string): Observable<any> {
-        return this.http.get(transcriptUrl + '?primary_id=' + id);
+        return this.http.get(transcriptUrl + '?primary_identifier=' + id);
     }
 
     public searchAllele(name: string): Observable<any> {
@@ -123,14 +123,13 @@ export class SearchService {
             gene: genes,
             strain: strains,
             // phenotype: phenotypes,
-            // rareVar: paramsIn.rareVar ? paramsIn.rareVar : '',
-            // mutantVar: paramsIn.candidateVar ? paramsIn.candidateVar : '',
-            // confirmedVar: paramsIn.confirmedVar ? paramsIn.confirmedVar : '',
             type: paramsIn.varType ? paramsIn.varType : [],
             funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
-            // impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+            impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
-            // withoutExternalId: paramsIn.withoutExternalId ? paramsIn.withoutExternalId : '',
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
             max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',

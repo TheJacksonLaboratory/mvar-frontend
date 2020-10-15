@@ -16,6 +16,8 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
   searchCriteria: any;
 
   @Output()
+  showVarFiltersChange = new EventEmitter();
+  @Output()
   searchCriteriaChange = new EventEmitter<any>();
 
 
@@ -55,7 +57,33 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
   varImpactMODIFIER = false;
 
   studyOptions = [];
-  selectedStudy = 'All'
+  chromosomes = [{ value: 'All', viewValue: 'All' },
+  { value: '1', viewValue: '1' },
+  { value: '2', viewValue: '2' },
+  { value: '3', viewValue: '3' },
+  { value: '4', viewValue: '4' },
+  { value: '5', viewValue: '5' },
+  { value: '6', viewValue: '6' },
+  { value: '7', viewValue: '7' },
+  { value: '8', viewValue: '8' },
+  { value: '9', viewValue: '9' },
+  { value: '10', viewValue: '10' },
+  { value: '11', viewValue: '11' },
+  { value: '12', viewValue: '12' },
+  { value: '13', viewValue: '13' },
+  { value: '14', viewValue: '14' },
+  { value: '15', viewValue: '15' },
+  { value: '16', viewValue: '17' },
+  { value: '18', viewValue: '18' },
+  { value: '19', viewValue: '19' },
+  { value: 'X', viewValue: 'X' },
+  { value: 'Y', viewValue: 'Y' },
+  { value: 'MT', viewValue: 'MT' }];
+
+  selectedChr = 'All';
+
+  startPos = '';
+  endPos = '';
 
   constructor(private searchService: SearchService) { }
 
@@ -117,10 +145,6 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     if (!this.searchCriteria.selectedItems) {
       this.searchCriteria.selectedItems = []
     }
-
-    this.searchCriteria.rareVar = this.rareVariantsCheck;
-    this.searchCriteria.candidateVar = this.mutantCandidatesCheck;
-    this.searchCriteria.confirmedVar = this.confirmedMutationsCheck;
 
     //set variation type to search criteria
     if (criteriaType === 'varType') {
@@ -184,21 +208,36 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // updateSearch() {
+  setChromosome(value: string, event: any) {
 
-  //   if (this.endPos === '') {
-  //     this.endPos = this.startPos;
-  //   }
-  //   //start and end pos
-  //   this.searchCriteria.startPos = this.startPos;
-  //   this.searchCriteria.endPos = this.endPos;
+    if (event.isUserInput === true) {
+      console.log(value)
+      this.selectedChr = value;
+      if (value === 'All') {
+        this.searchCriteria.chr = ''
+        this.startPos = ''
+        this.endPos = ''
+      } else {
+        this.searchCriteria.chr = value
+      }
+    }
+  }
 
-  //   //emit change
-  //   this.searchCriteriaChange.emit(this.searchCriteria);
-  // }
+  updateSearch() {
 
-  // hideFilters() {
-  //   this.showVarFilters = false;
-  //   this.showVarFiltersChange.emit(this.showVarFilters)
-  // }
+    if (this.endPos === '') {
+      this.endPos = this.startPos;
+    }
+    //start and end pos
+    this.searchCriteria.startPos = this.startPos;
+    this.searchCriteria.endPos = this.endPos;
+
+    //emit change
+    this.searchCriteriaChange.emit(this.searchCriteria);
+  }
+
+  hideFilters() {
+    this.showVarFilters = false;
+    this.showVarFiltersChange.emit(this.showVarFilters)
+  }
 }
