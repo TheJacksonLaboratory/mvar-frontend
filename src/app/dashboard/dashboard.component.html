@@ -8,46 +8,20 @@
                             <br>
                         </div>
                         <div class="row">
-                            <div class="col-md-1">
+                            <div class="col-md-12">
+                                <app-search-box [searchType]="searchOption"
+                                                    (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+                                <mat-hint>E.g.
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a>
+                                        |
+                                        <a mat-button class="nav-link active"
+                                           (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
+                                </mat-hint>
                             </div>
-                            <div class="col-md-10">
-                                <app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams"
-                                    (searchCriteriaChange)="onSelectedItem($event)">
-                                </app-search-criteria-box>
-                            </div>
-                            <!-- <div class="col-md-3">
-                              <mat-form-field>
-                                  <mat-label>Select search type</mat-label>
-                                  <mat-select [(value)]="searchOption" disableOptionCentering>
-                                      <mat-option value="variant">SNP and INDEL Variants</mat-option>
-                                      <mat-option value="hgvs">HGVS/Descriptor</mat-option>
-                                      <mat-option value="cai">Canonical Allele Identifier</mat-option>
-                                      <mat-option value="gene">Gene Symbol</mat-option>
-                                      <mat-option value="refseqpos">Reference sequence & position</mat-option>
-                                  </mat-select>
-                              </mat-form-field>
-                          </div>
-                          <div class="col-md-7">
-                                  <div>
-                                      <app-search-box [searchType]="searchOption" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
-                                      <mat-hint *ngIf="searchOption === 'variant' || searchOption ==='svVariant'" align="start">
-                                          E.g.
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
-                                      </mat-hint>
-                                      <mat-hint *ngIf="searchOption === 'sample'" align="start">
-                                          E.g.
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'sample','selectedValue':{'sampleId':'MMR:000001'}, 'displayedValue':'MMR:000001'})">MMR:000001</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'phenotype','selectedValue':{'mpTermIdentifier':'MP:0005391'}, 'displayedValue':'vision/eye phenotype'})">Vision/eye phenotype</a> |
-                                          <a mat-button class="nav-link active" (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6J'}, 'displayedValue':'C57BL/6J'})">C57BL/6J</a>
-                                      </mat-hint>
-                                  </div>
-                          </div> -->
                         </div>
                         <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <h3>Mouse Variation Allele Registry</h3>
                                 <p>Model organisms are essential to
                                     understanding the biological and disease

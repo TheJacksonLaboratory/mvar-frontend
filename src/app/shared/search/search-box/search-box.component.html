@@ -20,20 +20,20 @@
       </mat-option>
 
 
-      <span *ngIf="transcriptCount > 0"> <span><b>Transcripts</b></span><span style="font-size:x-small"> Count({{transcriptCount}})</span></span>
+      <!-- <span *ngIf="transcriptCount > 0"> <span><b>Transcripts</b></span><span style="font-size:x-small"> Count({{transcriptCount}})</span></span>
       <mat-option *ngFor="let option of transcriptOptions" (onSelectionChange)="selectedChanged('transcript', option, option.id)">
         {{option.id}}
-      </mat-option>
+      </mat-option> -->
 
       <span *ngIf="strainCount > 0"> <span><b>Strains</b></span><span style="font-size:x-small"> Count({{strainCount}})</span></span>
       <mat-option *ngFor="let option of strainOptions" (onSelectionChange)="selectedChanged('strain', option, option.name)">
         {{option.name}}
       </mat-option>
 
-      <span *ngIf="alleleCount > 0"> <span><b>Alleles</b></span><span style="font-size:x-small"> Count({{alleleCount}})</span></span>
+      <!-- <span *ngIf="alleleCount > 0"> <span><b>Alleles</b></span><span style="font-size:x-small"> Count({{alleleCount}})</span></span>
       <mat-option *ngFor="let option of alleleOptions" (onSelectionChange)="selectedChanged('allele', option, option.name)">
         {{option.name}}
-      </mat-option>
+      </mat-option> -->
 
 
       <!-- <span *ngIf="phenotypeCount > 0"> <span><b>Phenotypes</b></span><span style="font-size:x-small"> Count({{phenotypeCount}})</span></span>

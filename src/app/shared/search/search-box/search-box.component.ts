@@ -65,7 +65,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
       if (this.searchType === 'variant') {
 
-          this.placeHolderTxt = 'Search for snps and indels by gene, allele registry id, strain';
+          this.placeHolderTxt = 'Search for snps and indels by gene and/or strain';
           this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
                   this.geneOptions = [];
                   this.strainOptions = [];
@@ -98,7 +98,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
    // this._searchTranscripts(filterValue);
 
-    this._searchAlleles(filterValue);
+    // this._searchAlleles(filterValue);
 
     // this._searchPhenotypes(filterValue);
   }
