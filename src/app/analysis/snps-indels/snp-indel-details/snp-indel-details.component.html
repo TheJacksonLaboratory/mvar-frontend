@@ -40,7 +40,8 @@
               <b>Assembly: </b> {{variant.assembly}}
             </div>
             <div class="col-md-4">
-              <b>Jannovar Annotation: </b> {{variant.functionalClassCode}}
+              <b>Jannovar Annotation: </b> 
+              <a [href]="sequenceOntologyUrl + variant.functionalClassSOid" rel="noopener noreferrer" target="_blank">{{variant.functionalClassCode}}</a>
             </div>
             <div class="col-md-4">
               <b>Impact: </b> {{variant.impact}}

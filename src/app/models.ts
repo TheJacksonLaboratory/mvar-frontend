@@ -83,6 +83,7 @@ export class Variant {
   externalId: string;
   functionalClassCode: string;
   functionalClassCodes: string; // stores all annotations
+  functionalClassSOid: string; // SO id of functional class
   dnaHgvsNotation: string;
   proteinHgvsNotation: string;
   strains: Strain[];

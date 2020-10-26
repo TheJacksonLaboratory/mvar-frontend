@@ -11,6 +11,7 @@ const geneUrl = environment.MVAR_API_GENE_URL;
 const strainUrl = environment.MVAR_API_STRAIN_URL;
 const transcriptUrl = environment.MVAR_API_TRANSCRIPT_URL;
 const alleleUrl = environment.MVAR_API_ALLELE_URL;
+const sequenceOntologyUrl = environment.MVAR_API_SEQUENCE_ONTOLOGY_URL;
 const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
@@ -66,6 +67,9 @@ export class SearchService {
         return this.http.get(alleleUrl + '?symbol=' + name);
     }
 
+    public searchAnnotation(name: string): Observable<any> {
+        return this.http.get(sequenceOntologyUrl + '?name=' + name);
+    }
     // public searchPhenotype(name: string): Observable<any> {
     //     return this.http.get(phenotypeUrl + '?name=' + name + '&inmmr=y');
     // }
@@ -96,6 +100,7 @@ export class SearchService {
 
         const genes: string[] = [];
         const strains: string[] = [];
+        const annotations: string[] = [];
         const phenotypes: string[] = [];
 
         console.log('max = ' + paramsIn.max);
@@ -112,6 +117,9 @@ export class SearchService {
                     strains.push(item.selectedValue.name);
                 }
 
+                if (item.selectedType === 'annotation') {
+                    annotations.push(item.selectedValue.name);
+                }
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermIdentifier);
                 }
@@ -124,7 +132,7 @@ export class SearchService {
             strain: strains,
             // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            funcClass: paramsIn.varFuncClass ? paramsIn.varFuncClass : [],
+            annotation: annotations,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             chr: paramsIn.chr ? paramsIn.chr : '',

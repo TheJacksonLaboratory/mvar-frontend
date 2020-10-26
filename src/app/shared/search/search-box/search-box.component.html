@@ -29,6 +29,11 @@
       <mat-option *ngFor="let option of strainOptions" (onSelectionChange)="selectedChanged('strain', option, option.name)">
         {{option.name}}
       </mat-option>
+      
+      <span *ngIf="annotationCount > 0"> <span><b>Sequence Ontology/Annotation</b></span><span style="font-size:x-small"> Count({{annotationCount}})</span></span>
+      <mat-option *ngFor="let option of annotationOptions" (onSelectionChange)="selectedChanged('annotation', option, option.name)">
+        {{option.name}}
+      </mat-option>
 
       <!-- <span *ngIf="alleleCount > 0"> <span><b>Alleles</b></span><span style="font-size:x-small"> Count({{alleleCount}})</span></span>
       <mat-option *ngFor="let option of alleleOptions" (onSelectionChange)="selectedChanged('allele', option, option.name)">

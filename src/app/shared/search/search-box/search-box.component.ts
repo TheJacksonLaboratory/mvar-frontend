@@ -1,9 +1,9 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {SearchService} from '../../../analysis/search.service';
-import {Gene} from '../../../models';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { SearchService } from '../../../analysis/search.service';
+import { Gene } from '../../../models';
 
 
 @Component({
@@ -14,10 +14,10 @@ import {Gene} from '../../../models';
 export class SearchBoxComponent implements OnInit, OnChanges {
 
   @Input()
-    searchType: string;
+  searchType: string;
 
   @Output()
-    selectedSearchItem = new EventEmitter<any>();
+  selectedSearchItem = new EventEmitter<any>();
 
   myControl = new FormControl();
   myControlSubscription: any;
@@ -30,7 +30,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
   transcriptOptions: any[] = [];
   transcriptCount: number;
-  
+
   alleleOptions: any[] = [];
   alleleCount: number;
 
@@ -39,6 +39,9 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
   sampleOptions: any[] = [];
   sampleCount: number;
+
+  annotationOptions: any[] = [];
+  annotationCount: number;
 
   placeHolderTxt = '';
 
@@ -53,41 +56,33 @@ export class SearchBoxComponent implements OnInit, OnChanges {
     this.setSearchBox()
   }
 
-  ngOnChanges(changes: SimpleChanges){
-      console.log(changes.searchType.currentValue)
-      this.setSearchBox()
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.searchType.currentValue)
+    this.setSearchBox()
   }
 
-  setSearchBox(){
-      if (this.myControlSubscription ) {
-          this.myControlSubscription.unsubscribe();
-      }
-
-      if (this.searchType === 'variant') {
-
-          this.placeHolderTxt = 'Search for snps and indels by gene and/or strain';
-          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                  this.geneOptions = [];
-                  this.strainOptions = [];
-                  // this.phenotypeOptions = [];
-                  // this.sampleOptions = [];
-                  if (value && value.length > 0) {
-                      this._variantFilter(value);
-                  }
-              }
-          );
-      }
-
+  setSearchBox() {
+    if (this.myControlSubscription) {
+      this.myControlSubscription.unsubscribe();
     }
 
-  // private _sampleFilter(value: string) {
-  //     const filterValue = value.toLowerCase();
+    if (this.searchType === 'variant') {
 
-  //     this._searchStrains(filterValue);
+      this.placeHolderTxt = 'Search for snps and indels by gene, strain and/or annotation (sequence ontology)';
+      this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+        this.geneOptions = [];
+        this.strainOptions = [];
+        this.annotationOptions = [];
+        // this.phenotypeOptions = [];
+        // this.sampleOptions = [];
+        if (value && value.length > 0) {
+          this._variantFilter(value);
+        }
+      }
+      );
+    }
 
-  //     // this._searchPhenotypes(filterValue);
-
-  // }
+  }
 
   private _variantFilter(value: string) {
     const filterValue = value.toLowerCase();
@@ -96,7 +91,9 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     this._searchStrains(filterValue);
 
-   // this._searchTranscripts(filterValue);
+    this._searchAnnotation(filterValue);
+
+    // this._searchTranscripts(filterValue);
 
     // this._searchAlleles(filterValue);
 
@@ -125,10 +122,19 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   private _searchGenes(filterValue: string) {
     this.searchService.searchGene(filterValue).subscribe(data => {
       console.log('gene count = ' + data.length);
-      console.log('gene  = ' + data); 
+      console.log('gene  = ' + data);
       this.geneCount = data.length;
       this.geneOptions = data;
     });
+  }
+
+  private _searchAnnotation(filterValue: string) {
+    this.searchService.searchAnnotation(filterValue).subscribe(data => {
+      console.log('sequence ontology count = ' + data.length);
+      console.log('fsequence ontology = ' + data);
+      this.annotationCount = data.length;
+      this.annotationOptions = data;
+    })
   }
 
   private _searchTranscripts(filterValue: string) {
@@ -148,7 +154,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   }
 
   public selectedChanged(type: string, value: any, displayValue: string) {
-    this.selectedSearchItem.emit({selectedType: type, selectedValue: value, displayedValue: displayValue});
+    this.selectedSearchItem.emit({ selectedType: type, selectedValue: value, displayedValue: displayValue });
     this.myControl.setValue('');
     console.log(this.selectedSearchItem);
   }

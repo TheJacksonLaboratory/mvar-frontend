@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {Variant, Phenotype, Transcript, Strain} from '../../../models';
+import {Variant, Transcript, Strain} from '../../../models';
 import {MatDialogRef, MatPaginator, MatSort, MatTable} from '@angular/material';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
@@ -35,6 +35,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     
     mgiStrainUrl = environment.MGI_STRAIN_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
+    sequenceOntologyUrl = environment.SEQUENCE_ONTOLOGY_URL;
 
     dialogRef: any;
 

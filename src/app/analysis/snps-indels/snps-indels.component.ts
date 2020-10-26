@@ -125,6 +125,10 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 // set annotation at variant level and the list of annotations for all transcripts
                 variant.functionalClassCodes = variant.functionalClassCode;
                 variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
+                // search for annotation in Sequence Ontology table and get SO id
+                this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
+                    variant.functionalClassSOid = annotation[0].accession;
+                });
             });
             this.varDataSource = temp;
 
