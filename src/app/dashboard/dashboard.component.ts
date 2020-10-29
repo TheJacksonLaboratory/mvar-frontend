@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {SearchService} from "../analysis/search.service";
-import {MMRDBStats} from "../models";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { SearchService } from "../analysis/search.service";
+import { MVARStats } from "../models";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,25 +11,32 @@ import {MMRDBStats} from "../models";
 export class DashboardComponent implements OnInit {
 
   searchOption = 'variant';
-  mmrdbStats: MMRDBStats;
+  mvarStats: MVARStats;
+
+  //searchparams
+  currSearchParams: any = {}
 
   constructor(private searchService: SearchService, private router: Router) { }
   ngOnInit() {
-      this.searchService.getStats();
+    this.searchService.getStats();
 
-      this.searchService.mmrdbStatsSubject.subscribe(data => {
-          this.mmrdbStats = data;
-      });
+    const selectedItems = this.searchService.getSelectedSearchItems();
+    if (selectedItems && selectedItems.selectedValue) {
+      console.log("box")
+      console.log(selectedItems)
+      this.onSelectedItem(selectedItems);
+      this.searchService.setSelectedSearchItems({})
+    }
+    this.searchService.mvarStatsSubject.subscribe(data => {
+      this.mvarStats = data;
+    });
   }
 
-  onSelectedItem(event: any){
-      this.searchService.setSelectedSearchItems(event);
-      if (this.searchOption === 'variant') {
-          this.router.navigate(['/snpsIndels'])
-      } else if (this.searchOption === 'svVariant') {
-          this.router.navigate(['/structuralVar'])
-      } else if (this.searchOption === 'sample') {
-          this.router.navigate(['/samples'])
-      }
+  onSelectedItem(event: any) {
+    this.searchService.setSelectedSearchItems(event);
+    console.log("dashboard event:" + event);
+    // if (this.searchOption === 'variant') {
+    this.router.navigate(['/variant'])
+    // }
   }
 }

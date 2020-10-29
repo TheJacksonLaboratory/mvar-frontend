@@ -1,9 +1,9 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {SearchService} from '../../../analysis/search.service';
-import {Gene} from '../../../models';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { SearchService } from '../../../analysis/search.service';
+import { Gene } from '../../../models';
 
 
 @Component({
@@ -14,10 +14,10 @@ import {Gene} from '../../../models';
 export class SearchBoxComponent implements OnInit, OnChanges {
 
   @Input()
-    searchType: string;
+  searchType: string;
 
   @Output()
-    selectedSearchItem = new EventEmitter<any>();
+  selectedSearchItem = new EventEmitter<any>();
 
   myControl = new FormControl();
   myControlSubscription: any;
@@ -28,14 +28,20 @@ export class SearchBoxComponent implements OnInit, OnChanges {
   strainOptions: any[] = [];
   strainCount: number;
 
-  strainBackgroundOptions: any[] = [];
-  strainBackgroundCount: number;
+  transcriptOptions: any[] = [];
+  transcriptCount: number;
+
+  alleleOptions: any[] = [];
+  alleleCount: number;
 
   phenotypeOptions: any[] = [];
   phenotypeCount: number;
 
   sampleOptions: any[] = [];
   sampleCount: number;
+
+  annotationOptions: any[] = [];
+  annotationCount: number;
 
   placeHolderTxt = '';
 
@@ -50,71 +56,32 @@ export class SearchBoxComponent implements OnInit, OnChanges {
     this.setSearchBox()
   }
 
-  ngOnChanges(changes: SimpleChanges){
-      console.log(changes.searchType.currentValue)
-      this.setSearchBox()
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.searchType.currentValue)
+    this.setSearchBox()
   }
 
-  setSearchBox(){
-      if (this.myControlSubscription ) {
-          this.myControlSubscription.unsubscribe();
+  setSearchBox() {
+    if (this.myControlSubscription) {
+      this.myControlSubscription.unsubscribe();
+    }
+
+    if (this.searchType === 'variant') {
+
+      this.placeHolderTxt = 'Search for snps and indels by gene, strain and/or annotation (sequence ontology)';
+      this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+        this.geneOptions = [];
+        this.strainOptions = [];
+        this.annotationOptions = [];
+        // this.phenotypeOptions = [];
+        // this.sampleOptions = [];
+        if (value && value.length > 0) {
+          this._variantFilter(value);
+        }
       }
+      );
+    }
 
-      if (this.searchType === 'variant') {
-
-          this.placeHolderTxt = 'Search for snps and indels by gene, sample, jax registry id, new mutant id, strain, strain background, or phenotype';
-          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                  this.geneOptions = [];
-                  this.strainOptions = [];
-                  this.phenotypeOptions = [];
-                  this.sampleOptions = [];
-                  if (value && value.length > 0) {
-                      this._variantFilter(value);
-                  }
-              }
-          );
-      }
-
-      if (this.searchType === 'svVariant') {
-
-          this.placeHolderTxt = 'Search for structural variants by gene, sample, jax registry id, new mutant id, strain, strain background, or phenotype';
-          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                  this.geneOptions = [];
-                  this.strainOptions = [];
-                  this.phenotypeOptions = [];
-                  this.sampleOptions = [];
-                  if (value && value.length > 0) {
-                      this._svVariantFilter(value);
-                  }
-              }
-          );
-      }
-
-      if (this.searchType === 'sample') {
-
-          this.placeHolderTxt = 'Search for samples by id, name, jax registry id, new mutant id, strain, strain background, or phenotype';
-          this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                  this.strainOptions = [];
-                  this.phenotypeOptions = [];
-                  this.sampleOptions = [];
-                  if (value && value.length > 0) {
-                      this._sampleFilter(value);
-                  }
-              }
-          );
-      }
-  }
-
-  private _sampleFilter(value: string) {
-      const filterValue = value.toLowerCase();
-
-      this._searchStrains(filterValue);
-
-      this._searchStrainBackground(filterValue);
-
-      this._searchPhenotypes(filterValue);
-
-      this._searchSamples(filterValue);
   }
 
   private _variantFilter(value: string) {
@@ -124,85 +91,70 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     this._searchStrains(filterValue);
 
-    this._searchStrainBackground(filterValue);
+    this._searchAnnotation(filterValue);
 
-    this._searchPhenotypes(filterValue);
+    // this._searchTranscripts(filterValue);
 
-    this._searchSamples(filterValue);
+    // this._searchAlleles(filterValue);
+
+    // this._searchPhenotypes(filterValue);
   }
+  // private _searchPhenotypes(filterValue: string) {
+  //   this.searchService.searchPhenotype(filterValue).subscribe(data => {
 
-  private _svVariantFilter(value: string) {
-     const filterValue = value.toLowerCase();
+  //     console.log('phenotype count = ' + data.phenotypeCount);
 
-        this._searchGenes(filterValue);
+  //     this.phenotypeCount = data.phenotypeCount;
+  //     this.phenotypeOptions = data.phenotypes;
+  //     //console.log(this.phenotypeOptions);
 
-        this._searchStrains(filterValue);
-
-        this._searchStrainBackground(filterValue);
-
-        this._searchPhenotypes(filterValue);
-
-        this._searchSamples(filterValue);
-  }
-
-  private _searchSamples(filterValue: string) {
-    this.searchService.searchSample(filterValue).subscribe(data => {
-
-      console.log('Sample count = ' + data.sampleCount);
-
-      this.sampleCount = data.sampleCount;
-      this.sampleOptions = data.samples;
-
-      console.log(this.sampleOptions);
-
-    });
-  }
-
-  private _searchPhenotypes(filterValue: string) {
-    this.searchService.searchPhenotype(filterValue).subscribe(data => {
-
-      console.log('phenotype count = ' + data.phenotypeCount);
-
-      this.phenotypeCount = data.phenotypeCount;
-      this.phenotypeOptions = data.phenotypes;
-      //console.log(this.phenotypeOptions);
-
-    });
-  }
-
-    private _searchStrainBackground(filterValue: string) {
-        this.searchService.searchStrainBackground(filterValue).subscribe(data => {
-
-            this.strainBackgroundCount = data.count;
-            this.strainBackgroundOptions = data.strainBackgrounds;
-        });
-    }
+  //   });
+  // }
 
   private _searchStrains(filterValue: string) {
     this.searchService.searchStrain(filterValue).subscribe(data => {
-
-      console.log('strain count = ' + data.strainCount);
-
-      this.strainCount = data.strainCount;
-      this.strainOptions = data.strains;
-      //console.log(this.strainOptions);
-
+      console.log('strain count = ' + data.length);
+      this.strainCount = data.length;
+      this.strainOptions = data;
     });
   }
 
   private _searchGenes(filterValue: string) {
     this.searchService.searchGene(filterValue).subscribe(data => {
-      console.log('gene count = ' + data.geneCount);
+      console.log('gene count = ' + data.length);
+      console.log('gene  = ' + data);
+      this.geneCount = data.length;
+      this.geneOptions = data;
+    });
+  }
 
-      this.geneCount = data.geneCount;
-      this.geneOptions = data.genes;
-      //console.log(this.geneOptions);
+  private _searchAnnotation(filterValue: string) {
+    this.searchService.searchAnnotation(filterValue).subscribe(data => {
+      console.log('sequence ontology count = ' + data.length);
+      console.log('fsequence ontology = ' + data);
+      this.annotationCount = data.length;
+      this.annotationOptions = data;
+    })
+  }
 
+  private _searchTranscripts(filterValue: string) {
+    this.searchService.searchTranscript(filterValue).subscribe(data => {
+      console.log('transcript count = ' + data.length);
+      this.transcriptCount = data.length;
+      this.transcriptOptions = data;
+    });
+  }
+
+  private _searchAlleles(filterValue: string) {
+    this.searchService.searchAllele(filterValue).subscribe(data => {
+      console.log('allele count = ' + data.length);
+      this.alleleCount = data.alleleCount;
+      this.alleleOptions = data.alleleList;
     });
   }
 
   public selectedChanged(type: string, value: any, displayValue: string) {
-    this.selectedSearchItem.emit({selectedType: type, selectedValue: value, displayedValue: displayValue});
+    this.selectedSearchItem.emit({ selectedType: type, selectedValue: value, displayedValue: displayValue });
     this.myControl.setValue('');
     console.log(this.selectedSearchItem);
   }

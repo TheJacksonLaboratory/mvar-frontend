@@ -4,9 +4,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
-import {StructuralVarComponent} from "../../analysis/structural-var/structural-var.component";
 import {FilesNavComponent} from "../../files-nav/files-nav.component";
-import { SamplesComponent } from '../../analysis/samples/samples.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import {LoginComponent} from '../../login/login.component';
 
@@ -58,12 +56,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'login',   component: LoginComponent },
     { path: 'notifications',  component: NotificationsComponent },
-    { path: 'snpsIndels',     component: SnpsIndelsComponent },
-    { path: 'snpsIndels/:sample/:rareVar/:candidateVar/:confirmedVar',     component: SnpsIndelsComponent},
-    { path: 'structuralVar',     component: StructuralVarComponent },
-    { path: 'structuralVar/:sample/:rareVar/:candidateVar/:confirmedVar',     component: StructuralVarComponent },
+    { path: 'variant',     component: SnpsIndelsComponent },
+    // { path: 'variant/:rareVar/:candidateVar/:confirmedVar',     component: SnpsIndelsComponent},
     { path: 'filesNav', component: FilesNavComponent },
-    { path: 'samples', component: SamplesComponent},
     { path: 'aboutUs', component: AboutUsComponent },
     { path: 'aboutUs/:selectedTab', component: AboutUsComponent },
 ];

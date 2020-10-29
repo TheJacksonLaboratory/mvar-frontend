@@ -8,7 +8,6 @@ import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
-import {AuthenticationService} from '../../login/authentication.service';
 
 @Component({
     selector: 'app-snps-indels',
@@ -29,7 +28,8 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['symbol', 'chr', 'pos', 'ref', 'alt', 'type', 'seqSource', 'snpEffImpact', 'snpEffFunctionalClass', 'varFreq', 'mutantCandidate', 'sampleId']; //'filter' 'dbSNPId'
+    displayedColumns = ['caid', 'symbol', 'chr', 'pos', 'ref', 'alt', 'hgvs', 'type', 'impact', 'functionalClassCode'];
+
     varDataSource: Variant[] = [];
     varCount: number;
 
@@ -48,11 +48,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     dialogRef: any;
     spinnerDialogRef: any;
 
-    isUserLoggedIn = false;
-    currentUser: any;
-
-    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog,
-                private authenticationService: AuthenticationService) {
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -62,40 +58,15 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         this.route.paramMap.subscribe(paramsIn => {
             console.log(paramsIn.get('sample'));
 
-            const candidateVar = paramsIn.get('candidateVar');
-            if (candidateVar) {
-                this.currSearchParams.candidateVar = true;
-            }
+            const variant = paramsIn.get('variant');
 
-            const rareVars = paramsIn.get('rareVar');
-            if (rareVars) {
-                this.currSearchParams.rareVar = true;
-            }
+            if (variant) {
 
-            const confirmedVar = paramsIn.get('confirmedVar');
-            if (confirmedVar) {
-                this.currSearchParams.confirmedVar = true;
-            }
-
-            const sample = paramsIn.get('sample');
-            if (sample) {
-
-                this.currSearchParams.selectedItems = [{
-                    selectedType: 'sample',
-                    selectedValue: {sampleId: sample},
-                    displayedValue: paramsIn.get('sample')
-                }];
+                this.currSearchParams.selectedItems = this.searchService.getSelectedSearchItems;
 
                 this._queryVariants(this.currSearchParams);
             }
         });
-
-        this.currentUser = this.authenticationService.currentUserValue;
-        if (this.currentUser && this.currentUser.access_token) {
-            this.isUserLoggedIn = true;
-        } else {
-            this.isUserLoggedIn = false;
-        }
     }
 
     ngAfterViewInit() {
@@ -123,7 +94,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         this.varPaginator.pageIndex = 0;
         this.clearSort();
 
-        if (searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) {
+        if (searchCriteria.selectedItems.length > 0) {
             this.currSearchParams.selectedItems = searchCriteria.selectedItems;
             this._queryVariants(this.currSearchParams);
         } else {
@@ -144,10 +115,20 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             let temp = data.variants as Variant[];
 
             temp.forEach(variant => {
-                if (!variant.gene) {
-                    variant.gene = new Gene()
+                // set hgvs variant info
+                if (!variant.hgvs) {
+                    variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
                 }
-                ;
+                // set impact at variant level and the list of impacts for all transcript
+                variant.impacts = variant.impact;
+                variant.impact = variant.impact.split(",")[0]
+                // set annotation at variant level and the list of annotations for all transcripts
+                variant.functionalClassCodes = variant.functionalClassCode;
+                variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
+                // search for annotation in Sequence Ontology table and get SO id
+                this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
+                    variant.functionalClassSOid = annotation[0].accession;
+                });
             });
             this.varDataSource = temp;
 

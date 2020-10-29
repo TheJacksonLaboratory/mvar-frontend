@@ -6,8 +6,7 @@ import {File} from '../models';
 import { environment } from '../../environments/environment';
 
 
-const url = environment.MMRDB_API_VCF_FILE_URL;
-const sampleUrl = environment.MMRDB_API_SAMPLE_URL;
+const url = environment.MVAR_API_VCF_FILE_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -46,17 +45,12 @@ export class FilesService {
 
   }
 
-  public getSampleFiles(sampleName: string): Observable<any> {
-
-      return this.http.get(url + '?sample=' + sampleName);
-  }
-
   public deleteFile(id: string){
 
     return this.http.delete(url + '/' + id);
   }
 
   public loadVcfFiles(files: string[], varType: string){
-      return this.http.get(sampleUrl + '/loadVcf', {params: {vcfFile: files, varType: varType}});
+      return this.http.get(url + '/loadVcf', {params: {vcfFile: files, varType: varType}});
   }
 }
