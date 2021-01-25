@@ -20,13 +20,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.searchService.getStats();
 
-    const selectedItems = this.searchService.getSelectedSearchItems();
-    if (selectedItems && selectedItems.selectedValue) {
-      console.log("box")
-      console.log(selectedItems)
-      this.onSelectedItem(selectedItems);
-      this.searchService.setSelectedSearchItems({})
-    }
+    // const selectedItems = this.searchService.getSelectedSearchItems();
+    // if (selectedItems && selectedItems.selectedValue) {
+    //   console.log("box")
+    //   console.log(selectedItems)
+    //   this.onSelectedItem(selectedItems);
+    //   this.searchService.setSelectedSearchItems({})
+    // }
     this.searchService.mvarStatsSubject.subscribe(data => {
       this.mvarStats = data;
     });
