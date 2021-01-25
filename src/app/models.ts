@@ -88,6 +88,7 @@ export class Variant {
   proteinHgvsNotation: string;
   strains: Strain[];
   transcripts: Transcript[];
+  externalSource: string;
 
   variantRefTxt: string;
 
@@ -118,27 +119,25 @@ export class User {
 
 export class MVARStats {
 
-    exomeSamplesCount: number;
-    wholeGenomeSamplesCount: number;
-    snpIndelVariantsCount: number;
-    svVariantsCount: number;
+    alleleCount: number;
+    geneCount: number;
     strainCount: number;
-    confirmedSnpIndelMutationCount: number;
-    confirmedSVMutationCount: number;
-    snpIndelCandidateCount: number;
-    svMutantCandidateCount: number;
-    publicationCount: number;
+    transcriptCount: number;
+    variantCount: number;
+    variantCanonIdentifierCount: number;
+
+    variantStrainCount: number;
+    variantTranscriptCount: number;
 
     constructor() {
-        this.exomeSamplesCount = -1;
-        this.wholeGenomeSamplesCount = -1;
-        this.snpIndelVariantsCount = -1;
-        this.svVariantsCount = -1;
+        this.alleleCount = -1;
+        this.geneCount = -1;
         this.strainCount = -1;
-        this.confirmedSnpIndelMutationCount = -1;
-        this.confirmedSVMutationCount = -1;
-        this.snpIndelCandidateCount = -1;
-        this.svMutantCandidateCount = -1;
-        this.publicationCount = -1;
+        this.transcriptCount = -1;
+        this.variantCount = -1;
+        this.variantCanonIdentifierCount = -1;
+
+        this.variantStrainCount = -1;
+        this.variantTranscriptCount = -1;
     }
 }

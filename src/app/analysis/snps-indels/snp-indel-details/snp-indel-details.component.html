@@ -36,15 +36,18 @@
           </div>
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <b>Assembly: </b> {{variant.assembly}}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <b>Jannovar Annotation: </b> 
               <a [href]="sequenceOntologyUrl + variant.functionalClassSOid" rel="noopener noreferrer" target="_blank">{{variant.functionalClassCode}}</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <b>Impact: </b> {{variant.impact}}
+            </div>
+            <div class="col-md-3">
+              <b>Source: </b>{{variant.externalSource}}
             </div>
           </div>
 
