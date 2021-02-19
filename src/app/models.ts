@@ -129,6 +129,9 @@ export class MVARStats {
     variantStrainCount: number;
     variantTranscriptCount: number;
 
+    strainAnalysisCount: number;
+    transcriptAnalysisCount: number;
+
     constructor() {
         this.alleleCount = -1;
         this.geneCount = -1;
@@ -139,5 +142,8 @@ export class MVARStats {
 
         this.variantStrainCount = -1;
         this.variantTranscriptCount = -1;
+
+        this.strainAnalysisCount = -1;
+        this.transcriptAnalysisCount = -1;
     }
 }

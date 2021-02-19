@@ -15,6 +15,7 @@ const sequenceOntologyUrl = environment.MVAR_API_SEQUENCE_ONTOLOGY_URL;
 const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
+const mvarStatsUrl = environment.MVAR_API_STATS_URL;
 const variantExportCSVUrl = environment.MVAR_API_VARIANT_EXPORT_CSV_URL;
 
 @Injectable({
@@ -154,37 +155,23 @@ export class SearchService {
     }
 
     getStats() {
-
-        //TODO consolidate these service calls to a single request, and use stats domain when available.
-        // if (this.mvarStats.snpIndelVariantsCount === -1) {
-        //     this.http.get<any>(variantQueryUrl, {params: {max: '1'}}).subscribe(data => {
-        //         this.mvarStats.snpIndelVariantsCount = data.variantCount;
-        //         this.mvarStatsSubject.next(this.mvarStats)
-        //     });
-        // }
-
-        // if (this.mvarStats.strainCount === -1) {
-        //     this.http.get<any>(strainUrl, {params: {inmmr: 'y'}}).subscribe(data => {
-        //         this.mvarStats.strainCount = data.strainCount;
-        //         this.mvarStatsSubject.next(this.mvarStats)
-        //     });
-        // }
-
-        // console.log('this.mvarStats.confirmedSnpIndelMutationCount = ' + this.mvarStats.confirmedSnpIndelMutationCount)
-        // if (this.mvarStats.confirmedSnpIndelMutationCount === -1) {
-        //     this.http.get<any>(variantQueryUrl, {params: {confirmedVar: 'true', max: '1'}}).subscribe(data => {
-        //         this.mvarStats.confirmedSnpIndelMutationCount = data.variantCount;
-        //         this.mvarStatsSubject.next(this.mvarStats)
-        //     });
-        // }
-
-        // if (this.mvarStats.snpIndelCandidateCount === -1) {
-        //     this.http.get<any>(variantQueryUrl, {params: {mutantVar: 'true', max: '1'}}).subscribe(data => {
-        //         this.mvarStats.snpIndelCandidateCount = data.variantCount;
-        //         this.mvarStatsSubject.next(this.mvarStats)
-        //     });
-        // }
-
+        if (this.mvarStats.alleleCount === -1) {
+            this.http.get<any>(mvarStatsUrl).subscribe(data => {
+                console.log(data);
+                this.mvarStats.alleleCount = data[0].alleleCount;
+                this.mvarStats.geneCount = data[0].geneCount;
+                this.mvarStats.strainCount = data[0].strainCount;
+                this.mvarStats.transcriptCount = data[0].transcriptCount;
+                this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStats.variantCount = data[0].variantCount;
+                this.mvarStats.variantStrainCount = data[0].variantStrainCount;
+                this.mvarStats.variantTranscriptCount = data[0].variantTranscriptCount;
+                this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStats.strainAnalysisCount = data[0].strainAnalysisCount;
+                this.mvarStats.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
+                this.mvarStatsSubject.next(this.mvarStats);
+            });
+        }
     }
 
 }
