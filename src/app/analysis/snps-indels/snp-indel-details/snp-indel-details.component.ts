@@ -16,7 +16,7 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @ViewChild('transcriptPaginator', {static: true}) transcriptPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) transcriptSort: MatSort;
-    @ViewChild('strainPaginator', {static: true}) strainPaginator: MatPaginator;
+    //@ViewChild('strainPaginator', {static: true}) strainPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) strainSort: MatSort;
 
     @Input()
@@ -59,9 +59,9 @@ export class SnpIndelDetailsComponent implements OnInit {
         this.transcriptDataSource = this.variant.transcripts;
 
         this.transcriptPageLength = this.variant.transcripts.length;
-        this.strainPageLength = this.variant.strains.length;
+        //this.strainPageLength = this.variant.strains.length;
         this.transcriptPaginator.pageIndex = 0;
-        this.strainPaginator.pageIndex = 0;
+        //this.strainPaginator.pageIndex = 0;
     }
 
     openGeneDialog() {
