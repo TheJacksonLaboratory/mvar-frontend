@@ -4,9 +4,10 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { SnpsIndelsComponent } from '../../analysis/snps-indels/snps-indels.component';
-import {FilesNavComponent} from "../../files-nav/files-nav.component";
+import {FilesNavComponent} from '../../files-nav/files-nav.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import {LoginComponent} from '../../login/login.component';
+import {StrainVariantComponent} from '../../analysis/strain-variant/strain-variant.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -57,6 +58,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'login',   component: LoginComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'variant',     component: SnpsIndelsComponent },
+    { path: 'strain-variant',     component: StrainVariantComponent },
     // { path: 'variant/:rareVar/:candidateVar/:confirmedVar',     component: SnpsIndelsComponent},
     { path: 'filesNav', component: FilesNavComponent },
     { path: 'aboutUs', component: AboutUsComponent },

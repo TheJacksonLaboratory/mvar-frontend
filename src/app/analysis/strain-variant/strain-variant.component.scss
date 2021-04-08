@@ -1,0 +1,79 @@
+
+.table-responsive{
+  padding-top: 0px;
+  padding-left: 0px;
+  max-height: 700px;
+}
+
+th {
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
+}
+
+th.rotated-text {
+  height: 120px;
+  white-space: nowrap;
+  padding: 0 !important;
+  vertical-align: bottom;
+  font-size: small;
+  font-weight: 500;
+}
+
+th.rotated-text > div {
+  transform:
+          translate(5px, 0px)
+          rotate(315deg);
+  width: 30px;
+}
+
+th.rotated-text > div > span {
+  padding: 5px 10px;
+}
+
+td {
+  text-align: center;
+  font-weight: 700;
+  color: blueviolet;
+  border: 1px solid #ccc;
+}
+
+th {
+  padding: 5px 10px;
+}
+
+th.row-header {
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  left: 0;
+  background: white;
+}
+
+/* To have the header in the first column stick to the left: */
+
+thead th:first-child {
+  left: 0;
+  z-index: 2;
+  background: white
+}
+
+.yellow {
+  color: #212529;
+  background: #ffee58;
+}
+
+.red {
+  color: #212529;
+  background: #f77066;
+}
+
+.blue {
+  color: #212529;
+  background: #40c4ff;
+}
+
+.green {
+  color: #212529;
+  background: #1de9b6;
+}

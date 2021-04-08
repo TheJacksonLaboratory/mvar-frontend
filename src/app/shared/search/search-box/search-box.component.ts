@@ -82,6 +82,18 @@ export class SearchBoxComponent implements OnInit, OnChanges {
       );
     }
 
+    if (this.searchType === 'strain-variant') {
+
+        this.placeHolderTxt = 'Search by gene';
+        this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
+                this.geneOptions = [];
+                if (value && value.length > 0) {
+                    this._strainVariantFilter(value);
+                }
+            }
+        );
+    }
+
   }
 
   private _variantFilter(value: string) {
@@ -99,6 +111,14 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     // this._searchPhenotypes(filterValue);
   }
+
+
+  private _strainVariantFilter(value: string) {
+      const filterValue = value.toLowerCase();
+
+      this._searchGenes(filterValue);
+  }
+
   // private _searchPhenotypes(filterValue: string) {
   //   this.searchService.searchPhenotype(filterValue).subscribe(data => {
 

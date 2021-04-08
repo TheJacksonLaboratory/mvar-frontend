@@ -10,16 +10,10 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Mouse Variation Registry',  icon: 'dashboard', class: '' },
     { path: '/login', title: 'User Login',  icon:'person', class: '' },
-    // { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
     { path: '/variant', title: 'Mouse SNPs / INDELs',  icon:'table_chart', class: '' },
+    { path: '/strain-variant', title: 'Strain Variant',  icon:'tune', class: '' },
     { path: '/filesNav', title: 'VCF Files',  icon:'folder', class: '' },
-    // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
-    //{ path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-
     { path: '/aboutUs', title: 'About',  icon:'explore', class: '' },
-    // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
 @Component({

@@ -17,6 +17,7 @@ const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
 const mvarStatsUrl = environment.MVAR_API_STATS_URL;
 const variantExportCSVUrl = environment.MVAR_API_VARIANT_EXPORT_CSV_URL;
+const variantStrainUrl = environment.MVAR_API_VARIANT_STRAIN_URL;
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,8 @@ export class SearchService {
 
     selectedSearchItems: any;
     selectedSearchItemSubject: BehaviorSubject<any>;
-
+    seqStrainsSource: Observable<any>;
+    seqStrains: any[] = [];
 
     //stats
     mvarStats: MVARStats;
@@ -38,6 +40,14 @@ export class SearchService {
         this.mvarStats = new MVARStats();
         this.mvarStatsSubject = new BehaviorSubject(this.mvarStats);
 
+        this.loadSequencedStrains();
+    }
+
+    loadSequencedStrains() {
+        if (! this.seqStrainsSource) {
+            this.seqStrainsSource = this.http.get(variantStrainUrl + '/strains')
+        }
+        return this.seqStrainsSource
     }
 
     getSelectedSearchItems() {
@@ -174,4 +184,32 @@ export class SearchService {
         }
     }
 
+    getVariantStrains(paramsIn: any): Observable<any> {
+
+        const genes: string[] = [];
+        const consequeneces: string[] = [];
+
+        if (paramsIn.selectedItems) {
+            paramsIn.selectedItems.forEach(item => {
+                if (item.selectedType === 'gene') {
+                    genes.push(item.selectedValue.symbol);
+                }
+            });
+        }
+
+        const options = {
+            gene: genes,
+            type: paramsIn.varType ? paramsIn.varType : [],
+            consequences: consequeneces,
+            impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+            chr: paramsIn.chr ? paramsIn.chr : '',
+            startPos: paramsIn.startPos ? paramsIn.startPos : '',
+            endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            max: paramsIn.max ? paramsIn.max : '',
+            offset: paramsIn.offset ? paramsIn.offset : ''
+        }
+
+        return this.http.get(variantStrainUrl + '/query', {params: options});
+
+    }
 }
