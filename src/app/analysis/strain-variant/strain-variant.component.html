@@ -1,0 +1,58 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <app-search-criteria-box searchType="strain-variant"
+                                             [searchCriteria]="currSearchParams"
+                                             (searchCriteriaChange)="onSearchCriteriaChange($event)"
+                                             [showVarFilters]="showVarFilters">
+                    </app-search-criteria-box>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="card-body table-responsive scrolltable">
+                          <table *ngIf="displayColumns?.length > 0 && dataSource?.length > 0" class="table table-hover">
+                            <thead class="membership-tiers text-left">
+                                <tr>
+                                    <th></th>
+                                    <th *ngFor="let header of displayColumns" class="rotated-text" scope="col"><div><span>{{header.strain}}</span></div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let variant of dataSource">
+                                    <th class="row-header">{{variant.variant}}</th>
+
+                                  <td *ngFor="let strain of displayColumns"
+                                      [class.yellow]="variant.strainMap.get(strain.id) === 'T'"
+                                      [class.blue]="variant.strainMap.get(strain.id) === 'A'"
+                                      [class.red]="variant.strainMap.get(strain.id) === 'C'"
+                                      [class.green]="variant.strainMap.get(strain.id) === 'G'">
+                                      {{variant.strainMap.get(strain.id)}}
+                                  </td>
+                                </tr>
+                            </tbody>
+                          </table>
+
+                          <mat-paginator #varPaginator [length]="pageLength"
+                                         [pageSize]="pageSize"
+                                         [pageSizeOptions]="pageSizeOptions"
+                                         (page)="doPageChange($event)">
+                          </mat-paginator>
+                      </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
