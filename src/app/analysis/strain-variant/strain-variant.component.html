@@ -7,11 +7,27 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <app-search-criteria-box searchType="strain-variant"
-                                             [searchCriteria]="currSearchParams"
-                                             (searchCriteriaChange)="onSearchCriteriaChange($event)"
-                                             [showVarFilters]="showVarFilters">
-                    </app-search-criteria-box>
+                    <!--<app-search-criteria-box searchType="strain-variant"-->
+                                             <!--[searchCriteria]="currSearchParams"-->
+                                             <!--(searchCriteriaChange)="onSearchCriteriaChange($event)"-->
+                                             <!--[showVarFilters]="showVarFilters">-->
+                    <!--</app-search-criteria-box>-->
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="cardSearchBox">
+                                  <div class="card-body">
+
+                                      <div class="row">
+                                          <div class="col-md-9">
+                                              <app-search-box [searchType]="'variant'" [showHint]="false" (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
+                                              <!--<app-search-box [searchType]="searchOption" [showHint]="true" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>-->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
 
                   </div>
                 </div>

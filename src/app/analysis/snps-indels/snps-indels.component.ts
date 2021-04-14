@@ -8,6 +8,7 @@ import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-snps-indels',
@@ -48,7 +49,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     dialogRef: any;
     spinnerDialogRef: any;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog) {
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public dialog: MatDialog, private router: Router) {
     }
 
     ngOnInit() {
@@ -56,7 +57,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         const params: any = {};
 
         this.route.paramMap.subscribe(paramsIn => {
-            console.log(paramsIn.get('sample'));
 
             const variant = paramsIn.get('variant');
 
@@ -89,13 +89,18 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
+        console.log("WE ARE HEEEERREEEE");
+        console.log(searchCriteria);
+
         const params: any = {};
         this.currSearchParams.offset = 0;
         this.varPaginator.pageIndex = 0;
         this.clearSort();
 
-        if (searchCriteria.selectedItems.length > 0) {
-            this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) || searchCriteria.chr) {
+            //this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+            this.currSearchParams = searchCriteria;
+            this.searchService.setSelectedSearchItems(searchCriteria);
             this._queryVariants(this.currSearchParams);
         } else {
             this.varDataSource = []
@@ -114,22 +119,22 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
             let temp = data.variants as Variant[];
 
-            temp.forEach(variant => {
-                // set hgvs variant info
-                if (!variant.hgvs) {
-                    variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
-                }
-                // set impact at variant level and the list of impacts for all transcript
-                variant.impacts = variant.impact;
-                variant.impact = variant.impact.split(",")[0]
-                // set annotation at variant level and the list of annotations for all transcripts
-                variant.functionalClassCodes = variant.functionalClassCode;
-                variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
-                // search for annotation in Sequence Ontology table and get SO id
-                this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
-                    variant.functionalClassSOid = annotation[0].accession;
-                });
-            });
+            // temp.forEach(variant => {
+            //     // set hgvs variant info
+            //     if (!variant.hgvs) {
+            //         variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
+            //     }
+            //     // set impact at variant level and the list of impacts for all transcript
+            //     variant.impacts = variant.impact;
+            //     variant.impact = variant.impact.split(",")[0]
+            //     // set annotation at variant level and the list of annotations for all transcripts
+            //     variant.functionalClassCodes = variant.functionalClassCode;
+            //     variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
+            //     // search for annotation in Sequence Ontology table and get SO id
+            //     this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
+            //         variant.functionalClassSOid = annotation[0].accession;
+            //     });
+            // });
             this.varDataSource = temp;
 
             this.varCount = data.variantCount;
@@ -193,6 +198,16 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 disableClose: true
         });
     }
+
+    showStrainDistribution() {
+
+        //this.searchService.setSelectedSearchItems(event);
+        console.log("SEARCH PARAMS")
+        console.log(this.currSearchParams)
+        this.searchService.setSelectedSearchItems(this.currSearchParams);
+        this.router.navigate(['/strain-variant'])
+    }
+
 }
 
 

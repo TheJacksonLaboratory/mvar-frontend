@@ -55,7 +55,7 @@ export class SearchService {
     }
 
     setSelectedSearchItems(searchItems: any) {
-        console.log("setting search item")
+        console.log("****** STORED SEARCH ITEMS ******")
         console.log(searchItems)
 
         this.selectedSearchItems = searchItems;

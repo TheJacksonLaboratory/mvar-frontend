@@ -15,11 +15,13 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
   @Input()
   searchCriteria: any;
 
+
   @Output()
   showVarFiltersChange = new EventEmitter();
   @Output()
   searchCriteriaChange = new EventEmitter<any>();
 
+  selectedSearchBy: string;
 
 
   selectable = true;
@@ -105,12 +107,18 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
       }
     }
 
-    const selectedItems = this.searchService.getSelectedSearchItems();
+    const searchItems = this.searchService.getSelectedSearchItems();
+    this.selectedSearchBy = searchItems.selectedSearchBy;
 
-    if (selectedItems && selectedItems.selectedValue) {
+    console.log(searchItems);
+
+
+      const selectedItems = searchItems.selectedItems;
+
+    if (selectedItems) {
       console.log("box")
       console.log(selectedItems)
-      this.onSelectedItem(selectedItems);
+      this.onSelectedItem(searchItems);
       this.searchService.setSelectedSearchItems({})
     }
 
@@ -127,14 +135,34 @@ export class SearchCriteriaBoxComponent implements OnInit, AfterViewInit {
     this.searchCriteriaChange.emit(this.searchCriteria);
   }
 
-  public onSelectedItem(selected: any) {
-    console.log('on selected')
-    console.log(selected);
+  public onSelectedItem(searchItems: any) {
+    console.log('******** ON SELECTED ITEM CALLED ********')
+    console.log(searchItems);
 
     if (!this.searchCriteria.selectedItems) {
       this.searchCriteria.selectedItems = []
     }
-    this.searchCriteria.selectedItems.push(selected);
+
+    if (searchItems.selectedItems) {
+        searchItems.selectedItems.forEach( item => {
+            this.searchCriteria.selectedItems.push(item);
+        });
+    }
+
+    console.log('******** LOADED ********')
+    console.log(this.searchCriteria);
+
+    if (searchItems.chr) {
+        this.searchCriteria.selectedItems = []
+        this.searchCriteria.chr = searchItems.chr;
+        this.searchCriteria.startPos = searchItems.startPos;
+        this.searchCriteria.endPos = searchItems.endPos;
+    } else {
+        this.searchCriteria.chr = '';
+        this.searchCriteria.startPos = '';
+        this.searchCriteria.endPos = '';
+    }
+
     this.searchCriteriaChange.emit(this.searchCriteria);
   }
 

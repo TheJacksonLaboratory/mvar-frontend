@@ -1,55 +1,118 @@
-<form>
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="{{placeHolderTxt}}"  aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-icon color="warn" matSuffix>search</mat-icon>
 
-    <mat-autocomplete #auto="matAutocomplete">   <!--(optionSelected)="getSelected($event.option.value)">
-      <!--
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      -->
+<!--<div class="row">-->
+  <!--<div class="col-md-12">-->
+      <!--<h4>Search for mouse variants</h4>-->
+  <!--</div>-->
+<!--</div>-->
 
-      <!-- <span *ngIf="sampleCount > 0"> <span><b>Samples</b></span><span style="font-size:x-small"> Count({{sampleCount}})</span></span> -->
-      <!-- <mat-option *ngFor="let option of sampleOptions" (onSelectionChange)="selectedChanged('sample', option, option.sampleId)">
-        ({{option.sampleId}}) {{option.sampleName}}{{option.jaxRegistryId?', JR:' + option.jaxRegistryId:''}}{{option.newMutantId?', NM:' + option.newMutantId:''}}
-      </mat-option> -->
+<div class="row">
+  <div class="col-md-3">
+    <mat-form-field>
+      <mat-label>Search for variants by</mat-label>
+      <mat-select placeholder="Search by" disableOptionCentering [(value)]="selectedSearchBy" (selectionChange)="reset()">
+        <!--<mat-option *ngFor="let chr of chromosomes" (onSelectionChange)="setChromosome(chr.value, $event)"-->
+                    <!--[value]="chr.value">{{chr.viewValue}}</mat-option>-->
+
+        <mat-option value="gene">Gene Symbol</mat-option>
+        <mat-option value="region">Genomic Region</mat-option>
+        <mat-option value="hgvs">HGVS</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="selectedSearchBy === 'region'" class="col-md-6">
+    <div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label>Chromosome</mat-label>
+            <mat-select [(value)]="chr" disableOptionCentering>
+              <mat-option *ngFor="let chr of chromosomes" (onSelectionChange)="setChromosome(chr.value, $event)"
+                          [value]="chr.value">{{chr.viewValue}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input [disabled]="selectedChr === 'All'" numbersOnly matInput placeholder="Start Position"
+                   [(ngModel)]="startPos">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="example-full-width">
+            <input [disabled]="selectedChr === 'All'" numbersOnly matInput placeholder="End Position"
+                   [(ngModel)]="endPos">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedSearchBy === 'gene'" class="col-md-6">
+
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="{{placeHolderTxt}}"  aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-icon color="warn" matSuffix>search</mat-icon>
+
+          <mat-autocomplete #auto="matAutocomplete">
+
+            <span *ngIf="geneCount > 0"><span><b>Genes</b> </span><span style="font-size:x-small"> Count({{geneCount}})</span></span>
+            <mat-option *ngFor="let option of geneOptions" (onSelectionChange)="selectedChanged('gene', option, option.symbol)">
+              {{option.symbol}}
+            </mat-option>
 
 
-      <span *ngIf="geneCount > 0"><span><b>Genes</b> </span><span style="font-size:x-small"> Count({{geneCount}})</span></span>
-      <mat-option *ngFor="let option of geneOptions" (onSelectionChange)="selectedChanged('gene', option, option.symbol)">
-        {{option.symbol}}
-      </mat-option>
+            <!--<span *ngIf="strainCount > 0"> <span><b>Strains</b></span><span style="font-size:x-small"> Count({{strainCount}})</span></span>-->
+            <!--<mat-option *ngFor="let option of strainOptions" (onSelectionChange)="selectedChanged('strain', option, option.name)">-->
+              <!--{{option.name}}-->
+            <!--</mat-option>-->
+
+            <!--<span *ngIf="annotationCount > 0"> <span><b>Sequence Ontology/Annotation</b></span><span style="font-size:x-small"> Count({{annotationCount}})</span></span>-->
+            <!--<mat-option *ngFor="let option of annotationOptions" (onSelectionChange)="selectedChanged('annotation', option, option.name)">-->
+              <!--{{option.name}}-->
+            <!--</mat-option>-->
+
+          </mat-autocomplete>
+
+        </mat-form-field>
+        <mat-hint *ngIf="showHint">E.g.
+          <a mat-button class="nav-link active"
+          (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a>
+        </mat-hint>
+  </div>
 
 
-      <!-- <span *ngIf="transcriptCount > 0"> <span><b>Transcripts</b></span><span style="font-size:x-small"> Count({{transcriptCount}})</span></span>
-      <mat-option *ngFor="let option of transcriptOptions" (onSelectionChange)="selectedChanged('transcript', option, option.id)">
-        {{option.id}}
-      </mat-option> -->
+  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-6">
 
-      <span *ngIf="strainCount > 0"> <span><b>Strains</b></span><span style="font-size:x-small"> Count({{strainCount}})</span></span>
-      <mat-option *ngFor="let option of strainOptions" (onSelectionChange)="selectedChanged('strain', option, option.name)">
-        {{option.name}}
-      </mat-option>
-      
-      <span *ngIf="annotationCount > 0"> <span><b>Sequence Ontology/Annotation</b></span><span style="font-size:x-small"> Count({{annotationCount}})</span></span>
-      <mat-option *ngFor="let option of annotationOptions" (onSelectionChange)="selectedChanged('annotation', option, option.name)">
-        {{option.name}}
-      </mat-option>
+    <mat-form-field class="example-full-width">
+      <input type="text" aria-label="Number" matInput>
+    </mat-form-field>
+    <mat-hint *ngIf="showHint">E.g.
+      <a mat-button class="nav-link active"
+         (click)="onSelectedItem({'selectedType':'hgvs','selectedValue':{'hgvs':'g.1092902T>A'}, 'displayedValue':'g.1092902T>A'})">g.1092902T>A</a>
+    </mat-hint>
 
-      <!-- <span *ngIf="alleleCount > 0"> <span><b>Alleles</b></span><span style="font-size:x-small"> Count({{alleleCount}})</span></span>
-      <mat-option *ngFor="let option of alleleOptions" (onSelectionChange)="selectedChanged('allele', option, option.name)">
-        {{option.name}}
-      </mat-option> -->
+  </div>
 
+  <div *ngIf="selectedSearchBy === 'hgvs' || selectedSearchBy === 'region'" class="col-md-3">
+    <button class="search_button" mat-raised-button  (click)="searchByPosition()">Search</button>
+  </div>
 
-      <!-- <span *ngIf="phenotypeCount > 0"> <span><b>Phenotypes</b></span><span style="font-size:x-small"> Count({{phenotypeCount}})</span></span>
-      <mat-option *ngFor="let option of phenotypeOptions" (onSelectionChange)="selectedChanged('phenotype', option, option.mpTermName)">
-        {{option.mpTermName}}
-      </mat-option> -->
+</div>
 
-
-    </mat-autocomplete>
-
-
-  </mat-form-field>
-
-</form>
+<div class="row">
+  <div class="col-md-12">
+    <mat-chip-list #chipList aria-label="Search criteria selection">
+      <mat-chip *ngFor="let searchTerm of searchCriteria.selectedItems" [selectable]="selectable"
+                [removable]="removable" (removed)="remove(searchTerm)">
+        {{searchTerm.selectedType}} : {{searchTerm.displayedValue}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <mat-chip *ngIf="searchCriteria.chr" [selectable]="selectable"
+                [removable]="removable" (removed)="removeRegion()">
+            region : {{searchCriteria.chr}}:{{searchCriteria.startPos}}-{{searchCriteria.endPos}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

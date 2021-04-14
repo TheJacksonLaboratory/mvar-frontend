@@ -7,3 +7,11 @@
 .example-full-width {
   width: 100%;
 }
+
+.search_button {
+  display: block;
+  border: none;
+  height: 40px;
+  color:#fff;
+  background: #3458bf;
+}

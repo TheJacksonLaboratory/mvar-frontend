@@ -4,27 +4,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <!--<div class="row">-->
+                            <!--<br>-->
+                        <!--</div>-->
                         <div class="row">
-                            <br>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <app-search-box [searchType]="searchOption"
-                                                    (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
-                                <mat-hint>E.g.
-                                        <a mat-button class="nav-link active"
-                                           (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a>
-                                        |
-                                        <a mat-button class="nav-link active"
-                                           (click)="onSelectedItem({'selectedType':'strain','selectedValue':{'name':'C57BL/6NJ'}, 'displayedValue':'C57BL/6NJ'})">C57BL/6NJ</a>
-                                        |
-                                        <a mat-button class="nav-link active"
-                                           (click)="onSelectedItem({'selectedType':'annotation','selectedValue':{'name':'intergenic_variant'}, 'displayedValue':'intergenic_variant'})">intergenic_variant</a>
-                                </mat-hint>
+                            <div class="col-md-1">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <h3>Mouse Variation Registry</h3>
                                 <p>Model organisms are essential to
                                     understanding the biological and disease
@@ -46,6 +32,22 @@
                                     to bedside and back again. </p>
                                 <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More
                                     About MVAR</button>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-10 search">
+                                <h3>Search for mouse variants</h3>
+                                <app-search-box [searchType]="searchOption" [showHint]="true"
+                                                (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+                            </div>
+                            <div class="col-md-1">
                             </div>
                         </div>
                     </div>
