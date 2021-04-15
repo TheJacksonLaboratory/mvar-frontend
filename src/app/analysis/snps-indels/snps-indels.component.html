@@ -4,14 +4,6 @@
         <div class="col-md-12">
 
           <div class="card">
-            <!--card header-->
-              <!--<div class="card-header card-header-tabs card-header-primary">-->
-                <!--<h6>Mouse SNPs and Indels</h6>-->
-
-                <!--<app-search-criteria-box searchType="variant" [searchCriteria]="currSearchParams" (searchCriteriaChange)="onSearchCriteriaChange($event)"></app-search-criteria-box>-->
-              <!--</div>-->
-
-
             <!--Card Body-->
               <div class="card-body table-responsive">
                 <div class="row">
@@ -25,7 +17,7 @@
                                   <i class="material-icons">tune</i> View Strain Distribution
                                   <div class="ripple-container"></div>
                               </a>
-                              <a mat-button class="nav-link active" (click)="showFilters()">
+                              <a mat-button class="nav-link active" [disabled]="! enableFilters" (click)="showFilters()">
                                                   <i class="material-icons">filter_list</i> Filters
                                                   <div class="ripple-container"></div>
                               </a>
@@ -36,19 +28,16 @@
                 </span>
                   </div>
                 </div>
-                <!--<app-search-criteria-box searchType="variant"-->
-                                         <!--[searchCriteria]="currSearchParams"-->
-                                         <!--(searchCriteriaChange)="onSearchCriteriaChange($event)"-->
-                                         <!--[showVarFilters]="showVarFilters">-->
-                <!--</app-search-criteria-box>-->
+
+                <!-- Search box -->
                 <div class="row">
                   <div class="col-md-12">
                         <div class="cardSearchBox">
                           <div class="card-body">
 
                             <div class="row">
-                              <div class="col-md-9">
-                                <app-search-box [searchType]="'variant'" [showHint]="false" (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
+                              <div class="col-md-12">
+                                <app-search-box [searchType]="'variant'" [showFilters]="showVarFilters" [showHint]="false" (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
                               </div>
                             </div>
                           </div>

@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {SearchService} from '../../../analysis/search.service';
-import {Gene} from '../../../models';
+import {Gene, chromosomes} from '../../../models';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {Gene} from '../../../models';
     templateUrl: './search-box.component.html',
     styleUrls: ['./search-box.component.css']
 })
-export class SearchBoxComponent implements OnInit, OnChanges {
+export class SearchBoxComponent implements OnInit {
 
     @Input()
     searchType: string;
@@ -24,6 +24,11 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
     @Input()
     showHint;
+
+    @Input()
+    showFilters: boolean;
+
+    chromosomes = chromosomes;
 
     searchCriteria: any = {selectedItems: []};
 
@@ -51,6 +56,7 @@ export class SearchBoxComponent implements OnInit, OnChanges {
     annotationOptions: any[] = [];
     annotationCount: number;
 
+    seqStrains: any[] = [];
 
     placeHolderTxt = '';
     chr = '';
@@ -60,29 +66,17 @@ export class SearchBoxComponent implements OnInit, OnChanges {
     selectable = true;
     removable = true;
 
+    showStrains = false;
+    selectedStrains: string[] = [];
 
-    chromosomes = [
-        {value: '1', viewValue: '1'},
-        {value: '2', viewValue: '2'},
-        {value: '3', viewValue: '3'},
-        {value: '4', viewValue: '4'},
-        {value: '5', viewValue: '5'},
-        {value: '6', viewValue: '6'},
-        {value: '7', viewValue: '7'},
-        {value: '8', viewValue: '8'},
-        {value: '9', viewValue: '9'},
-        {value: '10', viewValue: '10'},
-        {value: '11', viewValue: '11'},
-        {value: '12', viewValue: '12'},
-        {value: '13', viewValue: '13'},
-        {value: '14', viewValue: '14'},
-        {value: '15', viewValue: '15'},
-        {value: '16', viewValue: '17'},
-        {value: '18', viewValue: '18'},
-        {value: '19', viewValue: '19'},
-        {value: 'X', viewValue: 'X'},
-        {value: 'Y', viewValue: 'Y'},
-        {value: 'MT', viewValue: 'MT'}];
+    varTypeSNP = false;
+    varTypeINS = false;
+    varTypeDEL = false;
+
+    varImpactHIGH = false;
+    varImpactMODERATE = false;
+    varImpactLOW = false;
+    varImpactMODIFIER = false;
 
     constructor(private searchService: SearchService) {
         console.log('contructor searchBox, type = ' + this.searchType);
@@ -106,6 +100,12 @@ export class SearchBoxComponent implements OnInit, OnChanges {
         }
 
         this.setSearchBox();
+
+
+        this.searchService.loadSequencedStrains().subscribe(data => {
+            this.seqStrains = data.strains;
+            this.searchService.seqStrains = data.strains;
+        });
     }
 
 
@@ -119,13 +119,6 @@ export class SearchBoxComponent implements OnInit, OnChanges {
         });
         console.log(this.selectedSearchItem);
     }
-
-
-    ngOnChanges(changes: SimpleChanges) {
-        console.log(changes.searchType.currentValue)
-        this.setSearchBox()
-    }
-
 
     setSearchBox() {
         if (this.myControlSubscription) {
@@ -167,15 +160,6 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
         this._searchGenes(filterValue);
 
-        // this._searchStrains(filterValue);
-        //
-        // this._searchAnnotation(filterValue);
-
-        // this._searchTranscripts(filterValue);
-
-        // this._searchAlleles(filterValue);
-
-        // this._searchPhenotypes(filterValue);
     }
 
 
@@ -249,17 +233,17 @@ export class SearchBoxComponent implements OnInit, OnChanges {
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.selectedSearchItem.emit(this.searchCriteria);
         //this.myControl.setValue('');
-        console.log(this.selectedSearchItem);
+        //console.log(this.selectedSearchItem);
     }
 
     public searchByPosition() {
-        console.log('Search by position');
 
         this.searchCriteria.chr = this.chr;
         this.searchCriteria.startPos = this.startPos;
         this.searchCriteria.endPos = this.endPos;
         this.searchCriteria.selectedItems = []
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
+        this.showFilterOptions();
 
         this.selectedSearchItem.emit(this.searchCriteria);
     }
@@ -270,23 +254,9 @@ export class SearchBoxComponent implements OnInit, OnChanges {
             this.startPos = ''
             this.endPos = ''
         }
-
-
-        // if (event.isUserInput === true) {
-        //     console.log(value)
-        //     this.selectedChr = value;
-        //     if (value === 'All') {
-        //         this.searchCriteria.chr = ''
-        //         this.startPos = ''
-        //         this.endPos = ''
-        //     } else {
-        //         this.searchCriteria.chr = value
-        //     }
-        // }
     }
 
     reset() {
-        console.log('RESET')
         this.chr = '';
         this.startPos = '';
         this.endPos = '';
@@ -309,5 +279,84 @@ export class SearchBoxComponent implements OnInit, OnChanges {
 
         this.selectedSearchItem.emit(this.searchCriteria);
 
+    }
+
+    showFilterOptions() {
+        if (this.showFilters) {
+            this.showFilters = false;
+        } else {
+            this.showFilters = true;
+        }
+    }
+
+    showStrainsList() {
+        if (this.showStrains) {
+            this.showStrains = false;
+        } else {
+            this.showStrains = true;
+        }
+    }
+
+
+    onSearchCriteriaChange(criteriaType: string, value: any) {
+
+        if (!this.searchCriteria.selectedItems) {
+            this.searchCriteria.selectedItems = []
+        }
+
+        //set variation type to search criteria
+        if (criteriaType === 'varType') {
+            if (!this.searchCriteria.varType) {
+                this.searchCriteria.varType = []
+            }
+
+            const indx = this.searchCriteria.varType.indexOf(value);
+            if (indx === -1) {
+                this.searchCriteria.varType.push(value)
+            } else {
+                this.searchCriteria.varType.splice(indx, 1)
+            }
+        }
+
+        //set impact to search criteria
+        if (criteriaType === 'varImpact') {
+            if (!this.searchCriteria.varImpact) {
+                this.searchCriteria.varImpact = []
+            }
+
+            const indx = this.searchCriteria.varImpact.indexOf(value);
+            if (indx === -1) {
+                this.searchCriteria.varImpact.push(value);
+            } else {
+                this.searchCriteria.varImpact.splice(indx, 1);
+            }
+        }
+    }
+
+    isStrainChecked(name: string) {
+        const indx = this.selectedStrains.indexOf(name);
+        if (indx === -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    onStrainChange(name: string) {
+        const indx = this.selectedStrains.indexOf(name);
+        if (indx === -1) {
+            this.selectedStrains.push(name)
+        } else {
+            this.selectedStrains.splice(indx, 1);
+        }
+    }
+
+    updateSearch() {
+
+        this.searchCriteria.strains = this.selectedStrains;
+        //emit change
+        this.selectedSearchItem.emit(this.searchCriteria);
+
+        this.showFilterOptions();
     }
 }

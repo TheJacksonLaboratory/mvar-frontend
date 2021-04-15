@@ -15,3 +15,15 @@
   color:#fff;
   background: #3458bf;
 }
+
+.section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.check {
+  margin: 0 5px 0px;
+  /*width: 40%*/
+}

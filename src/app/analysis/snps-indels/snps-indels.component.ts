@@ -43,6 +43,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     currSearchParams: any = {}
 
     showVarFilters = false;
+    enableFilters = false;
 
     expandedElement: Variant | null;
 
@@ -89,8 +90,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        console.log("WE ARE HEEEERREEEE");
-        console.log(searchCriteria);
+        //console.log(searchCriteria);
 
         const params: any = {};
         this.currSearchParams.offset = 0;
@@ -106,6 +106,8 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             this.varDataSource = []
             this.varCount = 0
             this.pageLength = 0
+            this.enableFilters = false;
+            this.showVarFilters = false;
         }
     }
 
@@ -119,26 +121,34 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
             let temp = data.variants as Variant[];
 
-            // temp.forEach(variant => {
-            //     // set hgvs variant info
-            //     if (!variant.hgvs) {
-            //         variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
-            //     }
-            //     // set impact at variant level and the list of impacts for all transcript
-            //     variant.impacts = variant.impact;
-            //     variant.impact = variant.impact.split(",")[0]
-            //     // set annotation at variant level and the list of annotations for all transcripts
-            //     variant.functionalClassCodes = variant.functionalClassCode;
-            //     variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
-            //     // search for annotation in Sequence Ontology table and get SO id
-            //     this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
-            //         variant.functionalClassSOid = annotation[0].accession;
-            //     });
-            // });
+            // TODO:  Below code seems unnecessary. Instead load variation details on demand in the SNP-indel details component
+
+            temp.forEach(variant => {
+                // set hgvs variant info
+                if (!variant.hgvs) {
+                    variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
+                }
+                // set impact at variant level and the list of impacts for all transcript
+                variant.impacts = variant.impact;
+                variant.impact = variant.impact.split(",")[0]
+                // set annotation at variant level and the list of annotations for all transcripts
+                variant.functionalClassCodes = variant.functionalClassCode;
+                variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
+                // search for annotation in Sequence Ontology table and get SO id
+                // this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
+                //     variant.functionalClassSOid = annotation[0].accession;
+                // });
+            });
             this.varDataSource = temp;
 
             this.varCount = data.variantCount;
             this.pageLength = this.varCount;
+
+            if (this.varDataSource.length > 0){
+                this.enableFilters = true;
+            }else {
+                this.enableFilters = false;
+            }
 
             this.spinnerDialogRef.close();
         },
@@ -157,10 +167,12 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     showFilters() {
-        if (this.showVarFilters) {
-            this.showVarFilters = false;
-        } else {
-            this.showVarFilters = true;
+        if (this.enableFilters) {
+            if (this.showVarFilters) {
+                this.showVarFilters = false;
+            } else {
+                this.showVarFilters = true;
+            }
         }
     }
 
@@ -182,7 +194,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     openHelpDialog() {
-        console.log("open help dialog");
         this.dialogRef = this.dialog.open(HelpDialogComponent, {
             width: '50%', height: '50%',
             data: {
@@ -192,7 +203,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     openSpinnerDialog() {
-        console.log("open spinner dialog");
         this.spinnerDialogRef = this.dialog.open(SpinnerDialogComponent, {
                 panelClass: 'transparent',
                 disableClose: true
@@ -201,8 +211,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     showStrainDistribution() {
 
-        //this.searchService.setSelectedSearchItems(event);
-        console.log("SEARCH PARAMS")
         console.log(this.currSearchParams)
         this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/strain-variant'])

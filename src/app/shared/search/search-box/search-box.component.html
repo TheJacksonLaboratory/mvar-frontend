@@ -1,18 +1,8 @@
-
-<!--<div class="row">-->
-  <!--<div class="col-md-12">-->
-      <!--<h4>Search for mouse variants</h4>-->
-  <!--</div>-->
-<!--</div>-->
-
 <div class="row">
   <div class="col-md-3">
     <mat-form-field>
       <mat-label>Search for variants by</mat-label>
       <mat-select placeholder="Search by" disableOptionCentering [(value)]="selectedSearchBy" (selectionChange)="reset()">
-        <!--<mat-option *ngFor="let chr of chromosomes" (onSelectionChange)="setChromosome(chr.value, $event)"-->
-                    <!--[value]="chr.value">{{chr.viewValue}}</mat-option>-->
-
         <mat-option value="gene">Gene Symbol</mat-option>
         <mat-option value="region">Genomic Region</mat-option>
         <mat-option value="hgvs">HGVS</mat-option>
@@ -61,23 +51,12 @@
               {{option.symbol}}
             </mat-option>
 
-
-            <!--<span *ngIf="strainCount > 0"> <span><b>Strains</b></span><span style="font-size:x-small"> Count({{strainCount}})</span></span>-->
-            <!--<mat-option *ngFor="let option of strainOptions" (onSelectionChange)="selectedChanged('strain', option, option.name)">-->
-              <!--{{option.name}}-->
-            <!--</mat-option>-->
-
-            <!--<span *ngIf="annotationCount > 0"> <span><b>Sequence Ontology/Annotation</b></span><span style="font-size:x-small"> Count({{annotationCount}})</span></span>-->
-            <!--<mat-option *ngFor="let option of annotationOptions" (onSelectionChange)="selectedChanged('annotation', option, option.name)">-->
-              <!--{{option.name}}-->
-            <!--</mat-option>-->
-
           </mat-autocomplete>
 
         </mat-form-field>
         <mat-hint *ngIf="showHint">E.g.
           <a mat-button class="nav-link active"
-          (click)="onSelectedItem({'selectedType':'gene','selectedValue':{'symbol':'Rock2'}, 'displayedValue':'Rock2'})">Rock2</a>
+          (click)="selectedChanged('gene', {'symbol':'Rock2'}, 'Rock2')">Rock2</a>
         </mat-hint>
   </div>
 
@@ -116,3 +95,77 @@
     </mat-chip-list>
   </div>
 </div>
+
+
+<div *ngIf="showFilters">
+
+    <div class="row">
+      <div class="col-md-12">
+        <span class="pull-right">
+          <a mat-button class="nav-link active" (click)="updateSearch()">Refresh
+            <i class="material-icons">refresh</i>
+            <div class="ripple-container"></div>
+          </a>
+          <a mat-button class="nav-link active" (click)="showFilterOptions()">Hide
+            <i class="material-icons">expand_less</i>
+            <div class="ripple-container"></div>
+          </a>
+        </span>
+      </div>
+    </div>
+
+    <!-- Variant type -->
+    <div class="row">
+      <div class="col-md-12">
+        <section class="section">
+          <label class="mat-checkbox-layout"><b>Variant type:</b></label>
+          <mat-checkbox class="check" [(ngModel)]="varTypeSNP"
+                        (change)="onSearchCriteriaChange('varType', 'SNP')">Point Mutation</mat-checkbox>
+          <mat-checkbox class="check" [(ngModel)]="varTypeINS"
+                        (change)="onSearchCriteriaChange('varType', 'INS')">Insertion </mat-checkbox>
+          <mat-checkbox class="check" [(ngModel)]="varTypeDEL"
+                        (change)="onSearchCriteriaChange('varType', 'DEL')">Deletion</mat-checkbox>
+        </section>
+      </div>
+    </div>
+
+    <!-- Impact -->
+    <div class="row">
+      <div class="col-md-6">
+        <section class="section">
+          <label class="mat-checkbox-layout"><b>Impact:</b> </label>
+          <mat-checkbox class="check" [(ngModel)]="varImpactHIGH"
+                        (change)="onSearchCriteriaChange('varImpact', 'HIGH')">High</mat-checkbox>
+          <mat-checkbox class="check" [(ngModel)]="varImpactMODERATE"
+                        (change)="onSearchCriteriaChange('varImpact', 'MODERATE')">Moderate</mat-checkbox>
+          <mat-checkbox class="check" [(ngModel)]="varImpactMODIFIER"
+                        (change)="onSearchCriteriaChange('varImpact', 'MODIFIER')">Modifier</mat-checkbox>
+          <mat-checkbox class="check" [(ngModel)]="varImpactLOW"
+                        (change)="onSearchCriteriaChange('varImpact', 'LOW')">Low</mat-checkbox>
+        </section>
+      </div>
+    </div>
+
+    <!-- Strains -->
+    <div class="row">
+      <a mat-button class="nav-link active" (click)="showStrainsList()"> Strains
+        <i *ngIf="showStrains" class="material-icons">expand_less</i>
+        <i *ngIf="! showStrains" class="material-icons">expand_more</i>
+        <div class="ripple-container"></div>
+      </a>
+      <div *ngIf="showStrains" class="col-md-12">
+        <section>
+          <span *ngFor="let strain of seqStrains" >
+            <mat-checkbox class="check" [checked]="isStrainChecked(strain.strain)"
+                          (change)="onStrainChange(strain.strain)">{{strain.strain}}
+            </mat-checkbox>
+          </span>
+
+        </section>
+
+      </div>
+    </div>
+
+
+</div>
+
