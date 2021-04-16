@@ -52,6 +52,9 @@ tr.example-detail-row {
   color: white !important;
 }
 
+.cardSearchBox {
+  background: #fafafa;
+}
 /*.mat-table__wrapper .mat-table {*/
   /*min-width: auto !important;*/
   /*width: 100% !important;*/

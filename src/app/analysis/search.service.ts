@@ -55,7 +55,7 @@ export class SearchService {
     }
 
     setSelectedSearchItems(searchItems: any) {
-        console.log("setting search item")
+        console.log("****** STORED SEARCH ITEMS ******")
         console.log(searchItems)
 
         this.selectedSearchItems = searchItems;
@@ -107,16 +107,12 @@ export class SearchService {
 
     private sendVariantQueryRequest(paramsIn: any, url: string): Observable<any> {
 
-        console.log(paramsIn)
+        //console.log(paramsIn)
 
         const genes: string[] = [];
         const strains: string[] = [];
         const annotations: string[] = [];
         const phenotypes: string[] = [];
-
-        console.log('max = ' + paramsIn.max);
-        console.log('selected items');
-        console.log(paramsIn.selectedItems);
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
@@ -140,7 +136,8 @@ export class SearchService {
 
         const options = {
             gene: genes,
-            strain: strains,
+            //strain: strains,
+            strain: paramsIn.strains ? paramsIn.strains : [],
             // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
             annotation: annotations,

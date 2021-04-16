@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
   searchOption = 'variant';
   mvarStats: MVARStats;
 
+  selectedSearchBy: string;
+
   //searchparams
   currSearchParams: any = {}
 

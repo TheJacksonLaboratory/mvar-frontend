@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../search.service';
 import {MatPaginator} from '@angular/material';
+import {servicebroker_v1} from "googleapis";
 
 
 @Component({
@@ -38,6 +39,11 @@ export class StrainVariantComponent implements OnInit {
             this.displayColumns = this.seqStrains
             this.displayedColumns = this.seqStrains.map(seqStrain => seqStrain.strain);
         });
+
+        const storedSearchParameters = this.searchService.getSelectedSearchItems();
+        if (storedSearchParameters) {
+            this.currSearchParams = storedSearchParameters;
+        }
     }
 
     loadVariantStrainData() {
@@ -77,6 +83,8 @@ export class StrainVariantComponent implements OnInit {
     }
 
     public onSearchCriteriaChange(searchCriteria: any) {
+
+        console.log('WE ARE HERE CRITERIA CHANGE AT STRAIN VARIANT')
 
         const params: any = {};
         this.currSearchParams.offset = 0;
