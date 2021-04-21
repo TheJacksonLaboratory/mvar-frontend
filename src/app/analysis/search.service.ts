@@ -112,6 +112,7 @@ export class SearchService {
         const genes: string[] = [];
         const strains: string[] = [];
         const annotations: string[] = [];
+        const hgvs: string[] = [];
         const phenotypes: string[] = [];
 
         if (paramsIn.selectedItems) {
@@ -127,6 +128,9 @@ export class SearchService {
                 if (item.selectedType === 'annotation') {
                     annotations.push(item.selectedValue.name);
                 }
+                if (item.selectedType === 'hgvs') {
+                    hgvs.push(item.selectedValue.name);
+                }
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermIdentifier);
                 }
@@ -141,6 +145,7 @@ export class SearchService {
             // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
             annotation: annotations,
+            hgvs: hgvs,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             chr: paramsIn.chr ? paramsIn.chr : '',
@@ -174,6 +179,7 @@ export class SearchService {
                 this.mvarStats.variantStrainCount = data[0].variantStrainCount;
                 this.mvarStats.variantTranscriptCount = data[0].variantTranscriptCount;
                 this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStats.geneAnalysisCount = data[0].geneAnalysisCount;
                 this.mvarStats.strainAnalysisCount = data[0].strainAnalysisCount;
                 this.mvarStats.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
                 this.mvarStatsSubject.next(this.mvarStats);
