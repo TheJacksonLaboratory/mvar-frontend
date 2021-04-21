@@ -9,7 +9,7 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Mouse Variation Registry',  icon: 'dashboard', class: '' },
-    { path: '/login', title: 'User Login',  icon:'person', class: '' },
+    // { path: '/login', title: 'User Login',  icon:'person', class: '' },
     { path: '/variant', title: 'Mouse SNPs / INDELs',  icon:'table_chart', class: '' },
     { path: '/strain-variant', title: 'Strain Variant',  icon:'tune', class: '' },
     { path: '/filesNav', title: 'VCF Files',  icon:'folder', class: '' },
