@@ -21,7 +21,7 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @Input()
     variant: Variant;
-    transcriptDisplayedColumns = ['id', 'dnaHGVS', 'proteinHGVS', 'annotation', 'impact']
+    transcriptDisplayedColumns = ['id', 'mRNAid', 'dnaHGVS', 'proteinHGVS', 'annotation', 'impact']
     transcriptDataSource: Transcript[] = [];
 
     strainDisplayedColumns = ['identifier', 'name', 'attributes']

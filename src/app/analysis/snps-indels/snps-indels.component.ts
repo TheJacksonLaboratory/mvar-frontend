@@ -29,7 +29,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['caid', 'symbol', 'chr', 'pos', 'ref', 'alt', 'hgvs', 'type', 'impact', 'functionalClassCode'];
+    displayedColumns = ['chr', 'caid', 'hgvs', 'symbol', 'type', 'impact', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
     varCount: number;
@@ -124,10 +124,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             // TODO:  Below code seems unnecessary. Instead load variation details on demand in the SNP-indel details component
 
             temp.forEach(variant => {
-                // set hgvs variant info
-                if (!variant.hgvs) {
-                    variant.hgvs = "g." + variant.position + variant.ref + ">" + variant.alt;
-                }
                 // set impact at variant level and the list of impacts for all transcript
                 variant.impacts = variant.impact;
                 variant.impact = variant.impact.split(",")[0]
