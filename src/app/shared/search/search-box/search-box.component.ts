@@ -227,7 +227,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public selectedChanged(type: string, value: any, displayValue: string) {
-
         this.searchCriteria.selectedItems.push({
             selectedType: type,
             selectedValue: value,
@@ -240,7 +239,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByPosition() {
-
         this.searchCriteria.chr = this.chr;
         this.searchCriteria.startPos = this.startPos;
         this.searchCriteria.endPos = this.endPos;
@@ -251,9 +249,12 @@ export class SearchBoxComponent implements OnInit {
         this.selectedSearchItem.emit(this.searchCriteria);
     }
 
-    public searchByHGVS() {
-
-        this.searchCriteria.hgvs = this.hgvs;
+    public searchByHGVS(hgvs: String) {
+        if (hgvs === undefined) {
+            this.searchCriteria.hgvs = this.hgvs;
+        } else {
+            this.searchCriteria.hgvs = hgvs;
+        }
         this.searchCriteria.selectedItems = []
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.showFilterOptions();
