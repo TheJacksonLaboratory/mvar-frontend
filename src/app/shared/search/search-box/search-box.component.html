@@ -64,17 +64,20 @@
   <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-6">
 
     <mat-form-field class="example-full-width">
-      <input type="text" aria-label="Number" matInput>
+      <input type="text" aria-label="Number" matInput [(ngModel)]="hgvs">
     </mat-form-field>
     <mat-hint *ngIf="showHint">E.g.
       <a mat-button class="nav-link active"
-         (click)="onSelectedItem({'selectedType':'hgvs','selectedValue':{'hgvs':'g.1092902T>A'}, 'displayedValue':'g.1092902T>A'})">g.1092902T>A</a>
+          (click)="selectedChanged('hgvs', {'hgvs':'g.1092902T>A'}, 'g.1092902T>A')">g.1092902T>A</a>
     </mat-hint>
 
   </div>
 
-  <div *ngIf="selectedSearchBy === 'hgvs' || selectedSearchBy === 'region'" class="col-md-3">
+  <div *ngIf="selectedSearchBy === 'region'" class="col-md-3">
     <button class="search_button" mat-raised-button  (click)="searchByPosition()">Search</button>
+  </div>
+  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-3">
+    <button class="search_button" mat-raised-button (click)="searchByHGVS()">Search</button>
   </div>
 
 </div>

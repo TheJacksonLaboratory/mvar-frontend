@@ -112,7 +112,6 @@ export class SearchService {
         const genes: string[] = [];
         const strains: string[] = [];
         const annotations: string[] = [];
-        const hgvs: string[] = [];
         const phenotypes: string[] = [];
 
         if (paramsIn.selectedItems) {
@@ -128,9 +127,6 @@ export class SearchService {
                 if (item.selectedType === 'annotation') {
                     annotations.push(item.selectedValue.name);
                 }
-                if (item.selectedType === 'hgvs') {
-                    hgvs.push(item.selectedValue.name);
-                }
                 if (item.selectedType === 'phenotype') {
                     phenotypes.push(item.selectedValue.mpTermIdentifier);
                 }
@@ -145,7 +141,7 @@ export class SearchService {
             // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
             annotation: annotations,
-            hgvs: hgvs,
+            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             chr: paramsIn.chr ? paramsIn.chr : '',
@@ -190,7 +186,7 @@ export class SearchService {
     getVariantStrains(paramsIn: any): Observable<any> {
 
         const genes: string[] = [];
-        const consequeneces: string[] = [];
+        const consequences: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
@@ -203,8 +199,9 @@ export class SearchService {
         const options = {
             gene: genes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            consequences: consequeneces,
+            consequences: consequences,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
