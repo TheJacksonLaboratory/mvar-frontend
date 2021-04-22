@@ -4,14 +4,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row">
+                            <!-- <div class="col-md-1">
+                            </div> -->
+                            <div class="col-md-12 search">
+                                <h3>Search for mouse variants</h3>
+                                <app-search-box [searchType]="searchOption" [showHint]="true"
+                                    (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
+                            </div>
+                            <!-- <div class="col-md-1">
+                            </div> -->
+                        </div>
                         <!--<div class="row">-->
-                            <!--<br>-->
+                        <!--<br>-->
                         <!--</div>-->
                         <div class="row">
-                            <div class="col-md-1">
-                            </div>
-                            <div class="col-md-10">
-                                <h3>Mouse Variation Registry</h3>
+                            <!-- <div class="col-md-1">
+                            </div> -->
+                            <div class="col-md-12">
+                                <!-- <h3>Mouse Variation Registry</h3> -->
                                 <p>Model organisms are essential to
                                     understanding the biological and disease
                                     consequences of
@@ -33,22 +44,70 @@
                                 <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More
                                     About MVAR</button>
                             </div>
-                            <div class="col-md-1">
-                            </div>
+                            <!-- <div class="col-md-1">
+                            </div> -->
                         </div>
                         <div class="row">
                             <br>
                         </div>
-                        <div class="row">
-                            <div class="col-md-1">
-                            </div>
-                            <div class="col-md-10 search">
-                                <h3>Search for mouse variants</h3>
-                                <app-search-box [searchType]="searchOption" [showHint]="true"
-                                                (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
-                            </div>
-                            <div class="col-md-1">
-                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card ">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">pie_chart</i>
+                        </div>
+                        <h5 class="card-title">MVAR Data Source
+                        </h5>
+                        <p class="card-title">Currently the MVAR data consist of Mouse Variation data from the Sanger Institute (https://www.sanger.ac.uk/data/mouse-genomes-project/), 
+                            which has been pre-processed and annotated (type of change, predicted functional consequence) using a custom pipeline. 
+                            The database will be soon be updated with data from the Mouse Genome Infomratics (Jax), dbSNP (NCBI), the Mouse Mutant Repository database (Jax)
+                             and the Diversity Outbred Database (Jax).</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> MVAR Data source
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">scatter_plot</i>
+                        </div>
+                        <h5 class="card-title">MVAR database Stats
+                        </h5>
+                        <p class="card-title">MVAR Canonical Variants:
+                            <strong>{{mvarStats.variantCanonIdentifierCount | number}}</strong>
+                        </p>
+                        <p class="card-title">Number of Strains:
+                            <strong>{{mvarStats.strainAnalysisCount | number}}</strong>
+                        </p>
+                        <p class="card-title">Number of Genes:
+                            <strong>{{mvarStats.geneAnalysisCount| number}}</strong>
+                        <p class="card-title">Number of Transcripts:
+                            <strong>{{mvarStats.transcriptAnalysisCount| number}}</strong>
+                        </p>
+                        <p class="card-title">Number of Variants/Strains relationships:
+                            <strong>{{mvarStats.variantStrainCount | number}}</strong>
+                        </p>
+                        <p class="card-title">Number of Variants/Transcripts relationships:
+                            <strong>{{mvarStats.variantTranscriptCount | number}}</strong>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">table_chart</i> MVAR database stats
                         </div>
                     </div>
                 </div>
@@ -58,53 +117,24 @@
             <br>
         </div>
         <div class="row">
-            <!--<div class="col-lg-6 col-md-6 col-sm-6">-->
-                <!--<div class="card card-stats">-->
-                    <!--<div class="card-header card-header-warning card-header-icon">-->
-                        <!--<div class="card-icon">-->
-                            <!--<i class="material-icons">scatter_plot</i>-->
-                        <!--</div>-->
-                        <!--<p class="card-title">Total number of available Alleles:-->
-                            <!--<strong>{{mvarStats.alleleCount| number}}</strong></p>-->
-                        <!--<p class="card-title">Total number of available Genes:-->
-                            <!--<strong>{{mvarStats.geneCount | number}}</strong></p>-->
-                        <!--<p class="card-title">Total number of available Strains:-->
-                            <!--<strong>{{mvarStats.strainCount | number}}</strong></p>-->
-                        <!--<p class="card-title">MVAR Canonical Variants:-->
-                            <!--<strong>{{mvarStats.variantCanonIdentifierCount | number}}</strong></p>-->
-                        <!--<p class="card-title">Number of Variants/Strains relationships:-->
-                            <!--<strong>{{mvarStats.variantStrainCount | number}}</strong></p>-->
-                        <!--<p class="card-title">Number of Variants/Transcripts relationships:-->
-                            <!--<strong>{{mvarStats.variantTranscriptCount | number}}</strong></p>-->
-                    <!--</div>-->
-                    <!--<div class="card-footer">-->
-                        <!--<div class="stats">-->
-                            <!--<i class="material-icons">table_chart</i> MVAR database stats-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-lg-6 col-md-6 col-sm-6">-->
-                <!--<div class="card card-stats">-->
-                    <!--<div class="card-header card-header-danger card-header-icon">-->
-                        <!--<div class="card-icon">-->
-                            <!--<i class="material-icons">pie_chart</i>-->
-                        <!--</div>-->
-                        <!--<h5 class="card-title">MVAR database Analysis-->
-                        <!--</h5>-->
-                        <!--<p class="card-title">Current number of strains:-->
-                            <!--<strong>{{mvarStats.strainAnalysisCount | number}}</strong></p>-->
-                        <!--<p class="card-title">Current number of transcripts:-->
-                            <!--<strong>{{mvarStats.transcriptAnalysisCount| number}}</strong></p>-->
-                    <!--</div>-->
-                    <!--<div class="card-footer">-->
-                        <!--<div class="stats">-->
-                            <!--<i class="material-icons">table_chart</i> Analysis Stats-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>MVAR API details</h3>
+                                <p>The Mouse Variation Registry supports querying/registration using its API. The registry can be searched using Endpoints,
+                                    which enable users to search the database by Variant, Strain, Gene and Transcript. 
+                                    The MVAR API is based on HTTP/HTTPS requests. Three type of requests are supported by this API: <b>GET, POST and PUT</b>. 
+                                    All requests can be sent through any browser using the corresponding URL in the address bar of the browser. The response to
+                                     a request is in the application/json format. To see a list of the available endpoints and their corresponding parameters,
+                                    follow the link below.</p>
+                                <a mat-raised-button class="learn-more-button" href="localhost:8080/apiDoc">Access MVAR API</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>

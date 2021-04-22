@@ -26,6 +26,7 @@ export class Gene {
 
 export class Transcript {
   id: number;
+  mRNAid: string;
   dnaHGVS: string;
   proteinHGVS: string;
   impact: string;
@@ -75,7 +76,7 @@ export class Variant {
   alt: string;
   position: number;
   type: string;
-  hgvs: string;
+  variantHgvsNotation: string;
   assembly: string;
   impact: string;
   impacts: string; // stores all impacts
@@ -130,6 +131,7 @@ export class MVARStats {
     variantTranscriptCount: number;
 
     strainAnalysisCount: number;
+    geneAnalysisCount: number;
     transcriptAnalysisCount: number;
 
     constructor() {
@@ -144,6 +146,7 @@ export class MVARStats {
         this.variantTranscriptCount = -1;
 
         this.strainAnalysisCount = -1;
+        this.geneAnalysisCount = -1;
         this.transcriptAnalysisCount = -1;
     }
 }

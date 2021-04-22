@@ -63,6 +63,8 @@ export class SearchBoxComponent implements OnInit {
     startPos = '';
     endPos = '';
 
+    hgvs = '';
+
     selectable = true;
     removable = true;
 
@@ -115,7 +117,8 @@ export class SearchBoxComponent implements OnInit {
             selectedItems: searchItems.selectedItems,
             chr: searchItems.chr,
             startPos: searchItems.startPos,
-            endPos: searchItems.endPos
+            endPos: searchItems.endPos,
+            hgvs: searchItems.hgvs
         });
         console.log(this.selectedSearchItem);
     }
@@ -224,7 +227,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public selectedChanged(type: string, value: any, displayValue: string) {
-
         this.searchCriteria.selectedItems.push({
             selectedType: type,
             selectedValue: value,
@@ -237,10 +239,22 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByPosition() {
-
         this.searchCriteria.chr = this.chr;
         this.searchCriteria.startPos = this.startPos;
         this.searchCriteria.endPos = this.endPos;
+        this.searchCriteria.selectedItems = []
+        this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
+        this.showFilterOptions();
+
+        this.selectedSearchItem.emit(this.searchCriteria);
+    }
+
+    public searchByHGVS(hgvs: String) {
+        if (hgvs === undefined) {
+            this.searchCriteria.hgvs = this.hgvs;
+        } else {
+            this.searchCriteria.hgvs = hgvs;
+        }
         this.searchCriteria.selectedItems = []
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.showFilterOptions();

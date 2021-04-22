@@ -141,6 +141,7 @@ export class SearchService {
             // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
             annotation: annotations,
+            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             chr: paramsIn.chr ? paramsIn.chr : '',
@@ -174,6 +175,7 @@ export class SearchService {
                 this.mvarStats.variantStrainCount = data[0].variantStrainCount;
                 this.mvarStats.variantTranscriptCount = data[0].variantTranscriptCount;
                 this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStats.geneAnalysisCount = data[0].geneAnalysisCount;
                 this.mvarStats.strainAnalysisCount = data[0].strainAnalysisCount;
                 this.mvarStats.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
                 this.mvarStatsSubject.next(this.mvarStats);
@@ -184,7 +186,7 @@ export class SearchService {
     getVariantStrains(paramsIn: any): Observable<any> {
 
         const genes: string[] = [];
-        const consequeneces: string[] = [];
+        const consequences: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
@@ -197,8 +199,9 @@ export class SearchService {
         const options = {
             gene: genes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            consequences: consequeneces,
+            consequences: consequences,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',

@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private searchService: SearchService, private router: Router) { }
   ngOnInit() {
-    //this.searchService.getStats();
+    this.searchService.getStats();
 
     // const selectedItems = this.searchService.getSelectedSearchItems();
     // if (selectedItems && selectedItems.selectedValue) {
@@ -29,9 +29,9 @@ export class DashboardComponent implements OnInit {
     //   this.onSelectedItem(selectedItems);
     //   this.searchService.setSelectedSearchItems({})
     // }
-    // this.searchService.mvarStatsSubject.subscribe(data => {
-    //   this.mvarStats = data;
-    // });
+    this.searchService.mvarStatsSubject.subscribe(data => {
+      this.mvarStats = data;
+    });
   }
 
   onSelectedItem(event: any) {
