@@ -11,12 +11,14 @@
           </div>
           <div class="row">
             <div class="col-md-2">
-              <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}} <span *ngIf="variant.canonVarIdentifier.caID"><i
+              <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}} 
+              <!-- <span *ngIf="variant.canonVarIdentifier.caID"><i
                   style="cursor: pointer;" class="material-icons vertical-align-middle" (click)="openVariantDialog()"
-                  matTooltip="Variant details">info</i></span>
+                  matTooltip="Variant details">info</i></span> -->
             </div>
             <div class="col-md-2">
-              <b>Gene: </b> {{variant.gene.symbol}} <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;"
+              <b>Gene: </b> <a [href]="mgiGeneUrl + variant.gene.mgiId" rel="noopener noreferrer" target="_blank"><i class="material-icons">open_in_new</i> {{variant.gene.symbol}}</a>
+              <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;"
                   class="material-icons vertical-align-middle" (click)="openGeneDialog()"
                   matTooltip="Gene details">info</i></span>
             </div>

@@ -37,6 +37,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
     sequenceOntologyUrl = environment.SEQUENCE_ONTOLOGY_URL;
     sangerSourceUrl = environment.SANGER_SOURCE_URL;
+    mgiGeneUrl = environment.MGI_GENE_URL;
 
     dialogRef: any;
 
