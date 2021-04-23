@@ -29,7 +29,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['chr', 'caid', 'hgvs', 'symbol', 'type', 'impact', 'functionalClassCode'];
+    displayedColumns = ['chr', 'caid', 'hgvs', 'symbol', 'type', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
     varCount: number;
@@ -131,9 +131,11 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 variant.functionalClassCodes = variant.functionalClassCode;
                 variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
                 // search for annotation in Sequence Ontology table and get SO id
-                // this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
-                //     variant.functionalClassSOid = annotation[0].accession;
-                // });
+                // TODO Move search of transcrip relating information to the snp-detail component instead of 
+                // loading all the data at once in this component
+                this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
+                    variant.functionalClassSOid = annotation[0].accession;
+                });
             });
             this.varDataSource = temp;
 
