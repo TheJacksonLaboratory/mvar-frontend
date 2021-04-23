@@ -1,9 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {SearchService} from '../../../analysis/search.service';
-import {Gene, chromosomes} from '../../../models';
+import {chromosomes} from '../../../models';
 
 
 @Component({
@@ -64,6 +62,7 @@ export class SearchBoxComponent implements OnInit {
     endPos = '';
 
     hgvs = '';
+    mvarId = '';
 
     selectable = true;
     removable = true;
@@ -118,7 +117,8 @@ export class SearchBoxComponent implements OnInit {
             chr: searchItems.chr,
             startPos: searchItems.startPos,
             endPos: searchItems.endPos,
-            hgvs: searchItems.hgvs
+            hgvs: searchItems.hgvs,
+            mvarId: searchItems.mvarId
         });
         console.log(this.selectedSearchItem);
     }
@@ -242,11 +242,7 @@ export class SearchBoxComponent implements OnInit {
         this.searchCriteria.chr = this.chr;
         this.searchCriteria.startPos = this.startPos;
         this.searchCriteria.endPos = this.endPos;
-        this.searchCriteria.selectedItems = []
-        this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
-        this.showFilterOptions();
-
-        this.selectedSearchItem.emit(this.searchCriteria);
+        this._searchItem();
     }
 
     public searchByHGVS(hgvs: String) {
@@ -255,10 +251,22 @@ export class SearchBoxComponent implements OnInit {
         } else {
             this.searchCriteria.hgvs = hgvs;
         }
+        this._searchItem();
+    }
+
+    public searchByMVARid(mvarId: string) {
+        if (mvarId === undefined) {
+            this.searchCriteria.mvarId = this.mvarId;
+        } else {
+            this.searchCriteria.mvarId = mvarId;
+        }
+        this._searchItem();
+    }
+
+    private _searchItem() {
         this.searchCriteria.selectedItems = []
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.showFilterOptions();
-
         this.selectedSearchItem.emit(this.searchCriteria);
     }
 
@@ -274,6 +282,8 @@ export class SearchBoxComponent implements OnInit {
         this.chr = '';
         this.startPos = '';
         this.endPos = '';
+        this.hgvs = '';
+        this.mvarId = '';
     }
 
     remove(selected: any) {

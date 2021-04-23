@@ -6,6 +6,7 @@
         <mat-option value="gene">Gene Symbol</mat-option>
         <mat-option value="region">Genomic Region</mat-option>
         <mat-option value="hgvs">HGVS</mat-option>
+        <mat-option value="mvarId">MVAR Id</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -72,12 +73,24 @@
     </mat-hint>
 
   </div>
+  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-6">
+    <mat-form-field class="example-full-width">
+      <input type="text" aria-label="Number" matInput [(ngModel)]="mvarId">
+    </mat-form-field>
+    <mat-hint *ngIf="showHint">E.g.
+      <a mat-button class="nav-link active"
+          (click)="searchByMVARid('MCA_7154')">MCA_7154</a>
+    </mat-hint>
+  </div>
 
   <div *ngIf="selectedSearchBy === 'region'" class="col-md-3">
     <button class="search_button" mat-raised-button  (click)="searchByPosition()">Search</button>
   </div>
   <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-3">
     <button class="search_button" mat-raised-button (click)="searchByHGVS()">Search</button>
+  </div>
+  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-3">
+    <button class="search_button" mat-raised-button (click)="searchByMVARid()">Search</button>
   </div>
 
 </div>
