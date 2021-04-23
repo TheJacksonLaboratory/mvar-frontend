@@ -62,13 +62,13 @@
                       <table style="width: 100%" class="table" mat-table class="table-hover"
                         [(dataSource)]="transcriptDataSource" matSort #transcriptTable>
                         <ng-container matColumnDef="id">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ensembl Id </th>
                           <td mat-cell *matCellDef="let transcript">
                             <a [href]="ensemblTransUrl + transcript.primaryIdentifier" rel="noopener noreferrer" target="_blank">{{transcript.primaryIdentifier}}<i class="material-icons">open_in_new</i></a>
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="mRNAid">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> mRNA Id </th>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> NCBI Id </th>
                           <td mat-cell *matCellDef="let transcript"> {{transcript.mRnaId}} </td>
                         </ng-container>
                         <ng-container matColumnDef="dnaHGVS">

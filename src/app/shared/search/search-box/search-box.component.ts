@@ -284,6 +284,8 @@ export class SearchBoxComponent implements OnInit {
         this.endPos = '';
         this.hgvs = '';
         this.mvarId = '';
+        this.searchCriteria.hgvs = this.hgvs;
+        this.searchCriteria.mvarId = this.mvarId;
     }
 
     remove(selected: any) {
