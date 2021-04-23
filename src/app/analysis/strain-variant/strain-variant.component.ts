@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../search.service';
-import {MatPaginator} from '@angular/material';
+import {MatDialog, MatPaginator} from '@angular/material';
 import {servicebroker_v1} from "googleapis";
+import { Router } from '@angular/router';
+import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
 
 
 @Component({
@@ -21,13 +23,16 @@ export class StrainVariantComponent implements OnInit {
     dataSource: any[] = [];
     displayedColumns: string[];
     showVarFilters = false;
+    enableFilters = false;
+
+    dialogRef: any;
 
     // MatPaginator Inputs
     pageLength = 0;
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
 
-    constructor(private searchService: SearchService) {
+    constructor(private searchService: SearchService, private router: Router, public dialog: MatDialog,) {
     }
 
 
@@ -53,6 +58,11 @@ export class StrainVariantComponent implements OnInit {
                 this.dataSource = data.variants as any[]
                 this.pageLength = data.variantCount;
                 this.setStrainMap()
+                if (this.dataSource.length > 0){
+                    this.enableFilters = true;
+                }else {
+                    this.enableFilters = false;
+                }
 
             }
         );
@@ -106,5 +116,29 @@ export class StrainVariantComponent implements OnInit {
             this.currSearchParams.max = pageEvent.pageSize;
             this.loadVariantStrainData();
         }
+    }
+
+    showFilters() {
+        if (this.enableFilters) {
+            if (this.showVarFilters) {
+                this.showVarFilters = false;
+            } else {
+                this.showVarFilters = true;
+            }
+        }
+    }
+
+    openHelpDialog() {
+        this.dialogRef = this.dialog.open(HelpDialogComponent, {
+            width: '50%', height: '50%',
+            data: {
+                helpType: 'SNPandIndelGeneral'
+            }
+        });
+    }
+
+    public showSNPIndels() {
+        this.searchService.setSelectedSearchItems(this.currSearchParams);
+        this.router.navigate(['/variant'])
     }
 }

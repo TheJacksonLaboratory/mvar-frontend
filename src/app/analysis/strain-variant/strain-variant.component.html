@@ -4,67 +4,86 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!--<app-search-criteria-box searchType="strain-variant"-->
+                <!--[searchCriteria]="currSearchParams"-->
+                <!--(searchCriteriaChange)="onSearchCriteriaChange($event)"-->
+                <!--[showVarFilters]="showVarFilters">-->
+                <!--</app-search-criteria-box>-->
                 <div class="row">
                   <div class="col-md-12">
-
-                    <!--<app-search-criteria-box searchType="strain-variant"-->
-                                             <!--[searchCriteria]="currSearchParams"-->
-                                             <!--(searchCriteriaChange)="onSearchCriteriaChange($event)"-->
-                                             <!--[showVarFilters]="showVarFilters">-->
-                    <!--</app-search-criteria-box>-->
-
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="cardSearchBox">
-                                  <div class="card-body">
-
-                                      <div class="row">
-                                          <div class="col-md-9">
-                                              <app-search-box [searchType]="'variant'" [showHint]="false" (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
-                                              <!--<app-search-box [searchType]="searchOption" [showHint]="true" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>-->
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
+                    <span class="pull-right">
+                      <a mat-button class="nav-link active" (click)="showSNPIndels()">
+                        <i class="material-icons">tune</i> View SNP/INDELS results
+                        <div class="ripple-container"></div>
+                      </a>
+                      <a mat-button class="nav-link active" [disabled]="! enableFilters" (click)="showFilters()">
+                        <i class="material-icons">filter_list</i> Filters
+                        <div class="ripple-container"></div>
+                      </a>
+                      <a mat-button class="nav-link active" (click)="openHelpDialog()">
+                        <i class="material-icons">help_outline</i> Help
+                        <div class="ripple-container"></div>
+                      </a>
+                    </span>
                   </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
-                      <div class="card-body table-responsive scrolltable">
-                          <table *ngIf="displayColumns?.length > 0 && dataSource?.length > 0" class="table table-hover">
-                            <thead class="membership-tiers text-left">
-                                <tr>
-                                    <th></th>
-                                    <th *ngFor="let header of displayColumns" class="rotated-text" scope="col"><div><span>{{header.strain}}</span></div></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let variant of dataSource">
-                                    <th class="row-header">{{variant.variant}}</th>
+                  <div class="col-md-12">
+                    <div class="cardSearchBox">
+                      <div class="card-body">
 
-                                  <td *ngFor="let strain of displayColumns"
-                                      [class.yellow]="variant.strainMap.get(strain.id) === 'T'"
-                                      [class.blue]="variant.strainMap.get(strain.id) === 'A'"
-                                      [class.red]="variant.strainMap.get(strain.id) === 'C'"
-                                      [class.green]="variant.strainMap.get(strain.id) === 'G'">
-                                      {{variant.strainMap.get(strain.id)}}
-                                  </td>
-                                </tr>
-                            </tbody>
-                          </table>
-
-                          <mat-paginator #varPaginator [length]="pageLength"
-                                         [pageSize]="pageSize"
-                                         [pageSizeOptions]="pageSizeOptions"
-                                         (page)="doPageChange($event)">
-                          </mat-paginator>
+                        <div class="row">
+                          <div class="col-md-9">
+                            <app-search-box [searchType]="'variant'" [showFilters]="showVarFilters" [showHint]="false"
+                              (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
+                            <!--<app-search-box [searchType]="searchOption" [showHint]="true" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>-->
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  </div>
                 </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card-body table-responsive scrolltable">
+                  <table *ngIf="displayColumns?.length > 0 && dataSource?.length > 0" class="table table-hover">
+                    <thead class="membership-tiers text-left">
+                      <tr>
+                        <th></th>
+                        <th *ngFor="let header of displayColumns" class="rotated-text" scope="col">
+                          <div><span>{{header.strain}}</span></div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let variant of dataSource">
+                        <th class="row-header">{{variant.variant}}</th>
+
+                        <td *ngFor="let strain of displayColumns"
+                          [class.yellow]="variant.strainMap.get(strain.id) === 'T'"
+                          [class.blue]="variant.strainMap.get(strain.id) === 'A'"
+                          [class.red]="variant.strainMap.get(strain.id) === 'C'"
+                          [class.green]="variant.strainMap.get(strain.id) === 'G'">
+                          {{variant.strainMap.get(strain.id)}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <mat-paginator #varPaginator [length]="pageLength" [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions" (page)="doPageChange($event)">
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
