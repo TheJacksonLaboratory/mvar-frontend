@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-3">
               <b>Consequence: </b> 
-              <a [href]="sequenceOntologyUrl + variant.functionalClassSOid" rel="noopener noreferrer" target="_blank">{{variant.functionalClassCode}}</a>
+              <a [href]="sequenceOntologyUrl + variant.functionalClassSOid" rel="noopener noreferrer" target="_blank">{{variant.functionalClassCode}}<i class="material-icons">open_in_new</i></a>
             </div>
             <div class="col-md-3">
               <b>Impact: </b> {{variant.impact}}
@@ -62,7 +62,7 @@
                         <ng-container matColumnDef="id">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
                           <td mat-cell *matCellDef="let transcript">
-                            <a [href]="ensemblTransUrl + transcript.primaryIdentifier" rel="noopener noreferrer" target="_blank">{{transcript.primaryIdentifier}}</a>
+                            <a [href]="ensemblTransUrl + transcript.primaryIdentifier" rel="noopener noreferrer" target="_blank">{{transcript.primaryIdentifier}}<i class="material-icons">open_in_new</i></a>
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="mRNAid">
