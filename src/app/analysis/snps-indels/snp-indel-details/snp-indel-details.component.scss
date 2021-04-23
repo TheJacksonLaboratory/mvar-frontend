@@ -19,14 +19,113 @@ div.a {
   word-break: break-all;
 }
 
-table {
-  width: 100%;
-  table-layout: fixed;
-}
+// table {
+//   width: 100%;
+//   table-layout: fixed;
+// }
 
-th, td {
-  overflow: hidden;
-  width:auto;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+// th, td {
+//   overflow: hidden;
+//   width:auto;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+
+table{
+  width: 100%;
+ }
+ 
+ .mat-column-id {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 15% !important;
+   width: 15% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-mRNAid {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 12% !important;
+   width: 12% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-dnaHGVS {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 17% !important;
+   width: 17% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-proteinHGVS {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 9% !important;
+   width: 9% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-annotation {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 25% !important;
+   width: 25% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ .mat-column-impact {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 7% !important;
+  width: 7% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
