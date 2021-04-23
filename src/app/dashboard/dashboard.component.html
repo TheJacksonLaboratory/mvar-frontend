@@ -5,22 +5,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <!-- <div class="col-md-1">
-                            </div> -->
                             <div class="col-md-12 search">
                                 <h3>Search for mouse variants</h3>
                                 <app-search-box [searchType]="searchOption" [showHint]="true"
                                     (selectedSearchItem)="onSelectedItem($event)"></app-search-box>
                             </div>
-                            <!-- <div class="col-md-1">
-                            </div> -->
                         </div>
-                        <!--<div class="row">-->
-                        <!--<br>-->
-                        <!--</div>-->
                         <div class="row">
-                            <!-- <div class="col-md-1">
-                            </div> -->
                             <div class="col-md-12">
                                 <!-- <h3>Mouse Variation Registry</h3> -->
                                 <p>Model organisms are essential to
@@ -44,8 +35,6 @@
                                 <button class="learn-more-button" mat-raised-button routerLink="/aboutUs">Learn More
                                     About MVAR</button>
                             </div>
-                            <!-- <div class="col-md-1">
-                            </div> -->
                         </div>
                         <div class="row">
                             <br>
@@ -69,7 +58,7 @@
                         </h5>
                         <p class="card-title">Currently the MVAR data consist of Mouse Variation data from the Sanger Institute (https://www.sanger.ac.uk/data/mouse-genomes-project/), 
                             which has been pre-processed and annotated (type of change, predicted functional consequence) using a custom pipeline. 
-                            The database will be soon be updated with data from the Mouse Genome Infomratics (Jax), dbSNP (NCBI), the Mouse Mutant Repository database (Jax)
+                            The database will be soon be updated with data from the Mouse Genome Informatics (Jax), dbSNP (NCBI), the Mouse Mutant Repository database (Jax)
                              and the Diversity Outbred Database (Jax).</p>
                     </div>
                     <div class="card-footer">
@@ -129,7 +118,7 @@
                                     All requests can be sent through any browser using the corresponding URL in the address bar of the browser. The response to
                                      a request is in the application/json format. To see a list of the available endpoints and their corresponding parameters,
                                     follow the link below.</p>
-                                <a mat-raised-button class="learn-more-button" href="localhost:8080/apiDoc">Access MVAR API</a>
+                                <button mat-raised-button class="learn-more-button"><a href="{{apiUrl}}" target="_blank" style="color:white;"><i class="material-icons">open_in_new</i> Access MVAR API</a></button>
                             </div>
                         </div>
                     </div>

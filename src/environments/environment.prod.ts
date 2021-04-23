@@ -1,6 +1,7 @@
 const MVAR_API_BASE_URL = 'http://ctmvr01lt.jax.org:8080/mvar-core-01/';
 export const environment = {
 
+    MVAR_API_SWAGGER_URL: MVAR_API_BASE_URL + 'apiDoc',
     MVAR_API_VARIANT_SEARCH_URL: MVAR_API_BASE_URL + 'variant/query',
     MVAR_API_VARIANT_EXPORT_CSV_URL: MVAR_API_BASE_URL + 'variant/exportCsv',
     MVAR_API_GENE_URL: MVAR_API_BASE_URL + 'gene',

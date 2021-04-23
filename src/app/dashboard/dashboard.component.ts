@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { environment } from 'environments/environment';
 import { SearchService } from "../analysis/search.service";
 import { MVARStats } from "../models";
 
@@ -15,11 +16,14 @@ export class DashboardComponent implements OnInit {
 
   selectedSearchBy: string;
 
+  apiUrl: string;
+
   //searchparams
   currSearchParams: any = {}
 
   constructor(private searchService: SearchService, private router: Router) { }
   ngOnInit() {
+    this.apiUrl = environment.MVAR_API_SWAGGER_URL;
     this.searchService.getStats();
 
     // const selectedItems = this.searchService.getSelectedSearchItems();
