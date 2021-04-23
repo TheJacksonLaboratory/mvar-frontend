@@ -17,6 +17,7 @@ export const environment = {
     MVAR_API_USER_AUTH_URL: MVAR_API_BASE_URL + 'auth/mylogin',
     MGI_GENE_URL: 'http://www.informatics.jax.org/marker/',
     MGI_STRAIN_URL: 'http://www.informatics.jax.org/strain/',
+    SANGER_SOURCE_URL: 'https://www.sanger.ac.uk/data/mouse-genomes-project/',
     NCBI_DBSNP_URL: 'https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?do_not_redirect&rs=',
     ENSEMBL_TRANSCRIPT_URL: 'http://useast.ensembl.org/Mus_musculus/Transcript/Summary?t=',
     SEQUENCE_ONTOLOGY_URL: 'http://www.sequenceontology.org/browser/current_release/term/',
