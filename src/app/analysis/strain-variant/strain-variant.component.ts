@@ -41,8 +41,9 @@ export class StrainVariantComponent implements OnInit {
         this.searchService.loadSequencedStrains().subscribe(data => {
             this.seqStrains = data.strains;
             this.searchService.seqStrains = data.strains;
-            this.displayColumns = this.seqStrains
-            this.displayedColumns = this.seqStrains.map(seqStrain => seqStrain.strain);
+            //this.displayColumns = this.seqStrains;
+            //this.displayedColumns = this.seqStrains.map(seqStrain => seqStrain.strain);
+            this.displayedColumns = this.seqStrains;
         });
 
         const storedSearchParameters = this.searchService.getSelectedSearchItems();
@@ -58,12 +59,7 @@ export class StrainVariantComponent implements OnInit {
                 this.dataSource = data.variants as any[]
                 this.pageLength = data.variantCount;
                 this.setStrainMap()
-                if (this.dataSource.length > 0){
-                    this.enableFilters = true;
-                }else {
-                    this.enableFilters = false;
-                }
-
+                this.enableFilters = true;
             }
         );
     }
@@ -94,13 +90,22 @@ export class StrainVariantComponent implements OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        console.log('WE ARE HERE CRITERIA CHANGE AT STRAIN VARIANT')
+        //console.log('CRITERIA CHANGE AT STRAIN VARIANT')
+        //console.log(searchCriteria)
+
+        if (searchCriteria.strains && searchCriteria.strains.length > 0) {
+            //console.log("selected strains :" + searchCriteria.strains.length)
+
+            this.displayedColumns = searchCriteria.strains;
+        } else {
+            this.displayedColumns = this.seqStrains;
+        }
 
         const params: any = {};
         this.currSearchParams.offset = 0;
 
         if (searchCriteria.selectedItems.length > 0) {
-            this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+            this.currSearchParams = searchCriteria;
             this.loadVariantStrainData();
         } else {
             this.dataSource = []
@@ -120,6 +125,7 @@ export class StrainVariantComponent implements OnInit {
 
     showFilters() {
         if (this.enableFilters) {
+            console.log('varFilter : ' + this.showVarFilters)
             if (this.showVarFilters) {
                 this.showVarFilters = false;
             } else {

@@ -136,7 +136,7 @@
         <section class="section">
           <label class="mat-checkbox-layout"><b>Variant type:</b></label>
           <mat-checkbox class="check" [(ngModel)]="varTypeSNP"
-                        (change)="onSearchCriteriaChange('varType', 'SNP')">Point Mutation</mat-checkbox>
+                        (change)="onSearchCriteriaChange('varType', 'SNP')">Point mutation</mat-checkbox>
           <mat-checkbox class="check" [(ngModel)]="varTypeINS"
                         (change)="onSearchCriteriaChange('varType', 'INS')">Insertion </mat-checkbox>
           <mat-checkbox class="check" [(ngModel)]="varTypeDEL"
@@ -145,35 +145,119 @@
       </div>
     </div>
 
-    <!-- Impact -->
-    <div class="row">
-      <div class="col-md-6">
-        <section class="section">
-          <label class="mat-checkbox-layout"><b>Impact:</b> </label>
-          <mat-checkbox class="check" [(ngModel)]="varImpactHIGH"
-                        (change)="onSearchCriteriaChange('varImpact', 'HIGH')">High</mat-checkbox>
-          <mat-checkbox class="check" [(ngModel)]="varImpactMODERATE"
-                        (change)="onSearchCriteriaChange('varImpact', 'MODERATE')">Moderate</mat-checkbox>
-          <mat-checkbox class="check" [(ngModel)]="varImpactMODIFIER"
-                        (change)="onSearchCriteriaChange('varImpact', 'MODIFIER')">Modifier</mat-checkbox>
-          <mat-checkbox class="check" [(ngModel)]="varImpactLOW"
-                        (change)="onSearchCriteriaChange('varImpact', 'LOW')">Low</mat-checkbox>
+  <!-- Impact -->
+  <div class="row">
+    <div class="col-md-6">
+      <section class="section">
+        <label class="mat-checkbox-layout"><b>Impact:</b> </label>
+        <mat-checkbox class="check" [(ngModel)]="varImpactHIGH"
+                      (change)="onSearchCriteriaChange('varImpact', 'HIGH')">High</mat-checkbox>
+        <mat-checkbox class="check" [(ngModel)]="varImpactMODERATE"
+                      (change)="onSearchCriteriaChange('varImpact', 'MODERATE')">Moderate</mat-checkbox>
+        <mat-checkbox class="check" [(ngModel)]="varImpactMODIFIER"
+                      (change)="onSearchCriteriaChange('varImpact', 'MODIFIER')">Modifier</mat-checkbox>
+        <mat-checkbox class="check" [(ngModel)]="varImpactLOW"
+                      (change)="onSearchCriteriaChange('varImpact', 'LOW')">Low</mat-checkbox>
+      </section>
+    </div>
+  </div>
+
+  <!-- Consequence -->
+  <div class="row">
+      <a mat-button class="nav-link active" (click)="showConsequenceList()"> <b>Molecular Consequence/Functional Class/Variant Effect</b>
+        <i *ngIf="showConsequence" class="material-icons">expand_less</i>
+        <i *ngIf="! showConsequence" class="material-icons">expand_more</i>
+        <div class="ripple-container"></div>
+      </a>
+      <div *ngIf="showConsequence" class="col-md-12">
+        <section>
+          <span>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'stop_gained')">Stop gained</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'stop_lost')">Stop lost</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'stop_retained_variant')">Stop retained</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'frameshift')">Frameshift</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'inframe_insertion')">Inframe insertion</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'disruptive_inframe_insertion')">Disruptive inframe insertion </mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'inframe_deletion')">Inframe deletion</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'disruptive_inframe_deletion')">Disruptive inframe deletion</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'missense_variant')">Missense</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'start_lost')">Start lost</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'synonymous_variant')">Synonymous</mat-checkbox>
+          </span>
         </section>
       </div>
+  </div>
+
+  <!-- Variant Region -->
+  <div class="row">
+    <a mat-button class="nav-link active" (click)="showVarRegionList()"> <b>Variant Region</b>
+      <i *ngIf="showVarRegion" class="material-icons">expand_less</i>
+      <i *ngIf="! showVarRegion" class="material-icons">expand_more</i>
+      <div class="ripple-container"></div>
+    </a>
+    <div *ngIf="showVarRegion" class="col-md-12">
+      <section>
+          <span>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', '3_prime_UTR_exon_variant')">3 prime UTR exon</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', '3_prime_UTR_intron_variant')">3 prime UTR intron</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', '5_prime_UTR_exon_variant')">5 prime UTR exon</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', '5_prime_UTR_intron_variant')">5 prime UTR intron</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'non_coding_transcript_intron_variant')">Non coding transcript intron</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'coding_transcript_intron_variant')">Coding transcript intron</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'non_coding_transcript_exon_variant')">Non coding transcript exon</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'splice_region_variant')">Splice region</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'splice_donor_variant')">Splice donor</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'splice_acceptor_variant')">Splice acceptor</mat-checkbox>
+              <mat-checkbox class="check"
+                          (change)="onSearchCriteriaChange('consequence', 'downstream_gene_variant')">Downstream gene</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'upstream_gene_variant')">Upstream gene</mat-checkbox>
+              <mat-checkbox class="check"
+                            (change)="onSearchCriteriaChange('consequence', 'intergenic_variant')">Intergenic</mat-checkbox>
+          </span>
+      </section>
     </div>
+  </div>
 
     <!-- Strains -->
-    <div class="row">
-      <a mat-button class="nav-link active" (click)="showStrainsList()"> Strains
+    <div *ngIf="searchType === 'variant-strain'" class="row">
+      <a mat-button class="nav-link active" (click)="showStrainsList()"> <b>Strains</b>
         <i *ngIf="showStrains" class="material-icons">expand_less</i>
         <i *ngIf="! showStrains" class="material-icons">expand_more</i>
         <div class="ripple-container"></div>
+      </a>
+      <a *ngIf="showStrains" mat-button class="nav-link active" (click)="clearAllStrains()">Clear all strains
+        <i class="material-icons">unpublished</i>
+      </a>
+      <a *ngIf="showStrains" mat-button class="nav-link active" (click)="selectAllStrains()">Select all strains
+        <i class="material-icons">check_circle</i>
       </a>
       <div *ngIf="showStrains" class="col-md-12">
         <section>
           <span *ngFor="let strain of seqStrains" >
             <mat-checkbox class="check" [checked]="isStrainChecked(strain.strain)"
-                          (change)="onStrainChange(strain.strain)">{{strain.strain}}
+                          (change)="onStrainChange(strain)">{{strain.strain}}
             </mat-checkbox>
           </span>
 

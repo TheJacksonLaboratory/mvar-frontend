@@ -37,8 +37,8 @@
                       <div class="card-body">
 
                         <div class="row">
-                          <div class="col-md-9">
-                            <app-search-box [searchType]="'variant'" [showFilters]="showVarFilters" [showHint]="true"
+                          <div class="col-md-12">
+                            <app-search-box [searchType]="'variant-strain'" [(showFilters)]="showVarFilters" [showHint]="false"
                               (selectedSearchItem)="onSearchCriteriaChange($event)"></app-search-box>
                             <!--<app-search-box [searchType]="searchOption" [showHint]="true" (selectedSearchItem)="onSelectedItem($event)"></app-search-box>-->
                           </div>
@@ -54,11 +54,13 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card-body table-responsive scrolltable">
-                  <table *ngIf="displayColumns?.length > 0 && dataSource?.length > 0" class="table table-hover">
+                  <table *ngIf="displayedColumns?.length > 0 && dataSource?.length > 0" class="table table-hover">
                     <thead class="membership-tiers text-left">
                       <tr>
                         <th></th>
-                        <th *ngFor="let header of displayColumns" class="rotated-text" scope="col">
+                        <th class="colRegHeader">Gene</th>
+                        <th class="colRegHeader">Type</th>
+                        <th *ngFor="let header of displayedColumns" class="rotated-text" scope="col">
                           <div><span>{{header.strain}}</span></div>
                         </th>
                       </tr>
@@ -66,12 +68,14 @@
                     <tbody>
                       <tr *ngFor="let variant of dataSource">
                         <th class="row-header">{{variant.variant}}</th>
-
-                        <td *ngFor="let strain of displayColumns"
+                        <td>{{variant.gene}}</td>
+                        <td>{{variant.type}}</td>
+                        <td *ngFor="let strain of displayedColumns"
                           [class.yellow]="variant.strainMap.get(strain.id) === 'T'"
                           [class.blue]="variant.strainMap.get(strain.id) === 'A'"
                           [class.red]="variant.strainMap.get(strain.id) === 'C'"
-                          [class.green]="variant.strainMap.get(strain.id) === 'G'">
+                          [class.green]="variant.strainMap.get(strain.id) === 'G'"
+                          [class.other]="variant.strainMap.get(strain.id).length == 0 || variant.strainMap.get(strain.id).length > 1">
                           {{variant.strainMap.get(strain.id)}}
                         </td>
                       </tr>

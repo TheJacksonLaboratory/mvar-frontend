@@ -187,6 +187,7 @@ export class SearchService {
     getVariantStrains(paramsIn: any): Observable<any> {
 
         const genes: string[] = [];
+        const hgvsList: string[] = [];
         const consequences: string[] = [];
 
         if (paramsIn.selectedItems) {
@@ -194,15 +195,18 @@ export class SearchService {
                 if (item.selectedType === 'gene') {
                     genes.push(item.selectedValue.symbol);
                 }
+                if (item.selectedType === 'hgvs') {
+                    hgvsList.push(item.selectedValue);
+                }
             });
         }
 
         const options = {
             gene: genes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            consequences: consequences,
+            consequence: paramsIn.consequence ? paramsIn.consequence : [],
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
+            hgvs: hgvsList,
             mvarId: paramsIn.mvarId ? paramsIn.mvarId : '',
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
