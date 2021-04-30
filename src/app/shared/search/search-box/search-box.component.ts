@@ -26,6 +26,9 @@ export class SearchBoxComponent implements OnInit {
     @Input()
     showFilters: boolean;
 
+    @Input()
+    resetSearch: boolean;
+
     @Output()
     showFiltersChange = new EventEmitter<boolean>();
 
@@ -69,15 +72,6 @@ export class SearchBoxComponent implements OnInit {
     showVarRegion = false;
     selectedStrains = new Map();
 
-    varTypeSNP = false;
-    varTypeINS = false;
-    varTypeDEL = false;
-
-    varImpactHIGH = false;
-    varImpactMODERATE = false;
-    varImpactLOW = false;
-    varImpactMODIFIER = false;
-
     constructor(private searchService: SearchService) {
         console.log('contructor searchBox, type = ' + this.searchType);
     }
@@ -85,18 +79,16 @@ export class SearchBoxComponent implements OnInit {
     ngOnInit() {
         console.log('searchBox, type = ' + this.searchType);
 
+        if (! this.resetSearch) {
+            this.searchCriteria = this.searchService.getSelectedSearchItems();
+            console.log('###searchItems');
+            console.log(this.searchCriteria);
+        }
 
-        const searchItems = this.searchService.getSelectedSearchItems();
-        console.log('###searchItems');
-        console.log(searchItems);
+        if (this.searchCriteria.selectedSearchBy) {
 
-        if (searchItems.selectedSearchBy) {
-
-            this.selectedSearchBy = searchItems.selectedSearchBy;
-
-            this.initSearch(searchItems);
-            this.searchCriteria = searchItems;
-            this.searchService.setSelectedSearchItems({})
+            this.selectedSearchBy = this.searchCriteria.selectedSearchBy;
+            this.initSearch(this.searchCriteria);
         }
 
         this.setSearchBox();
@@ -107,22 +99,18 @@ export class SearchBoxComponent implements OnInit {
             this.searchService.seqStrains = data.strains;
 
             this.seqStrains.forEach(strain => {
-               this.selectedStrains.set(strain.strain, strain);
+                this.selectedStrains.set(strain.strain, strain);
             });
         });
     }
 
 
     initSearch(searchItems: any) {
-        this.selectedSearchItem.emit({
-            selectedSearchBy: searchItems.selectedSearchBy,
-            selectedItems: searchItems.selectedItems,
-            chr: searchItems.chr,
-            startPos: searchItems.startPos,
-            endPos: searchItems.endPos,
-            hgvs: searchItems.hgvs,
-            mvarId: searchItems.mvarId
-        });
+        this.selectedSearchItem.emit(this.searchCriteria);
+
+        if (!this.searchCriteria.selectedItems) {
+            this.searchCriteria.selectedItems = []
+        }
         console.log(this.selectedSearchItem);
     }
 
@@ -173,18 +161,6 @@ export class SearchBoxComponent implements OnInit {
         this._searchGenes(filterValue);
     }
 
-    // private _searchPhenotypes(filterValue: string) {
-    //   this.searchService.searchPhenotype(filterValue).subscribe(data => {
-
-    //     console.log('phenotype count = ' + data.phenotypeCount);
-
-    //     this.phenotypeCount = data.phenotypeCount;
-    //     this.phenotypeOptions = data.phenotypes;
-    //     //console.log(this.phenotypeOptions);
-
-    //   });
-    // }
-
     private _searchStrains(filterValue: string) {
         this.searchService.searchStrain(filterValue).subscribe(data => {
             console.log('strain count = ' + data.length);
@@ -228,6 +204,7 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public selectedChanged(type: string, value: any, displayValue: string) {
+
         this.searchCriteria.selectedItems.push({
             selectedType: type,
             selectedValue: value,
@@ -247,32 +224,31 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByHGVS(hgvs: String) {
-        if (hgvs === undefined) {
-            this.searchCriteria.hgvs = this.hgvs;
-        } else {
-            this.searchCriteria.selectedItems.push({
-                selectedType: 'hgvs',
-                selectedValue: hgvs,
-                displayedValue: 'hgvs:' + hgvs
-            });
-            //this.searchCriteria.hgvs = hgvs;
-        }
+
+        this.searchCriteria.selectedItems.push({
+            selectedType: 'hgvs',
+            selectedValue: hgvs,
+            displayedValue: hgvs
+        });
+
         this._searchItem();
     }
 
     public searchByMVARid(mvarId: string) {
-        if (mvarId === undefined) {
-            this.searchCriteria.mvarId = this.mvarId;
-        } else {
-            this.searchCriteria.mvarId = mvarId;
-        }
+
+        this.searchCriteria.selectedItems.push({
+            selectedType: 'mvarId',
+            selectedValue: mvarId,
+            displayedValue: mvarId
+        });
+
         this._searchItem();
     }
 
     private _searchItem() {
-        this.searchCriteria.selectedItems = []
+
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
-        this.showFilterOptions();
+        //this.showFilterOptions();
         this.selectedSearchItem.emit(this.searchCriteria);
     }
 
@@ -290,8 +266,11 @@ export class SearchBoxComponent implements OnInit {
         this.endPos = '';
         this.hgvs = '';
         this.mvarId = '';
-        this.searchCriteria.hgvs = this.hgvs;
-        this.searchCriteria.mvarId = this.mvarId;
+        this.searchCriteria.hgvs = [];
+        this.searchCriteria.mvarId = [];
+        this.searchCriteria.varType = [];
+        this.searchCriteria.consequence = [];
+        this.searchCriteria.varImpact = [];
     }
 
     remove(selected: any) {
@@ -398,8 +377,31 @@ export class SearchBoxComponent implements OnInit {
     }
 
     isStrainChecked(name: string) {
-        //const indx = this.selectedStrains.indexOf(name);
         if (this.selectedStrains.get(name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isVarTypeChecked(name: string) {
+        if (this.searchCriteria.varType && this.searchCriteria.varType.indexOf(name) !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isImpactChecked(name: string) {
+        if (this.searchCriteria.varImpact && this.searchCriteria.varImpact.indexOf(name) !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isConsequenceChecked(name: string) {
+        if (this.searchCriteria.consequence && this.searchCriteria.consequence.indexOf(name) !== -1) {
             return true;
         } else {
             return false;
@@ -413,14 +415,6 @@ export class SearchBoxComponent implements OnInit {
         } else {
             this.selectedStrains.set(strain.strain, strain)
         }
-
-
-        // const indx = this.selectedStrains.indexOf(name);
-        // if (indx === -1) {
-        //     this.selectedStrains.push(name)
-        // } else {
-        //     this.selectedStrains.splice(indx, 1);
-        // }
     }
 
     updateSearch() {

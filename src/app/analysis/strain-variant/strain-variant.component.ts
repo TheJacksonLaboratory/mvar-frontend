@@ -41,8 +41,6 @@ export class StrainVariantComponent implements OnInit {
         this.searchService.loadSequencedStrains().subscribe(data => {
             this.seqStrains = data.strains;
             this.searchService.seqStrains = data.strains;
-            //this.displayColumns = this.seqStrains;
-            //this.displayedColumns = this.seqStrains.map(seqStrain => seqStrain.strain);
             this.displayedColumns = this.seqStrains;
         });
 
@@ -90,11 +88,9 @@ export class StrainVariantComponent implements OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        //console.log('CRITERIA CHANGE AT STRAIN VARIANT')
         //console.log(searchCriteria)
 
         if (searchCriteria.strains && searchCriteria.strains.length > 0) {
-            //console.log("selected strains :" + searchCriteria.strains.length)
 
             this.displayedColumns = searchCriteria.strains;
         } else {
@@ -104,7 +100,11 @@ export class StrainVariantComponent implements OnInit {
         const params: any = {};
         this.currSearchParams.offset = 0;
 
-        if (searchCriteria.selectedItems.length > 0) {
+        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) ||
+            (searchCriteria.hgvs && searchCriteria.hgvs > 0) ||
+            (searchCriteria.mvarId && searchCriteria.mvarId.length > 0) ||
+             searchCriteria.chr
+        ) {
             this.currSearchParams = searchCriteria;
             this.loadVariantStrainData();
         } else {
@@ -144,7 +144,6 @@ export class StrainVariantComponent implements OnInit {
     }
 
     public showSNPIndels() {
-        this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/variant'])
     }
 }
