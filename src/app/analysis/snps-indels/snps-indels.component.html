@@ -51,36 +51,42 @@
 
             <table #varTable mat-table class="table-hover" [dataSource]="varDataSource" matSort multiTemplateDataRows>
 
+
+              <ng-container matColumnDef="caid">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> MVAR id </th>
+                <td mat-cell *matCellDef="let element"> {{element.canonVarIdentifier.caID}} </td>
+              </ng-container>
+
               <!-- Chormosome Column -->
               <ng-container matColumnDef="chr">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Chr </th>
                 <td mat-cell *matCellDef="let element"> {{element.chr}} </td>
               </ng-container>
-              <ng-container matColumnDef="caid">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> MVAR id </th>
-                <td mat-cell *matCellDef="let element"> {{element.canonVarIdentifier.caID}} </td>
+
+              <!-- Gene Column -->
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gene </th>
+                <td mat-cell *matCellDef="let element"> {{element.gene.symbol}} </td>
               </ng-container>
+              
+              <!-- Type Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+              </ng-container>
+
               <!-- HGVS genomic -->
               <ng-container matColumnDef="hgvs">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> HGVS </th>
                 <td mat-cell *matCellDef="let element"> {{element.variantHgvsNotation}} </td>
               </ng-container>
-              <!-- Name Column -->
-              <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gene </th>
-                <td mat-cell *matCellDef="let element"> {{element.gene.symbol}} </td>
-              </ng-container>
+
 
               <!-- Position Column -->
               <!-- <ng-container matColumnDef="pos">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Position </th>
                       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
                     </ng-container> -->
-              <!-- Type Column -->
-              <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
-              </ng-container>
 
               <!-- <ng-container matColumnDef="impact">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Impact </th>

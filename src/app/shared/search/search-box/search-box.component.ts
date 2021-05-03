@@ -171,8 +171,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchGenes(filterValue: string) {
         this.searchService.searchGene(filterValue).subscribe(data => {
-            console.log('gene count = ' + data.length);
-            console.log('gene  = ' + data);
             this.geneCount = data.length;
             this.geneOptions = data;
         });
@@ -189,7 +187,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchTranscripts(filterValue: string) {
         this.searchService.searchTranscript(filterValue).subscribe(data => {
-            console.log('transcript count = ' + data.length);
             this.transcriptCount = data.length;
             this.transcriptOptions = data;
         });
@@ -212,8 +209,6 @@ export class SearchBoxComponent implements OnInit {
         });
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.selectedSearchItem.emit(this.searchCriteria);
-        //this.myControl.setValue('');
-        //console.log(this.selectedSearchItem);
     }
 
     public searchByPosition() {
@@ -271,6 +266,11 @@ export class SearchBoxComponent implements OnInit {
         this.searchCriteria.varType = [];
         this.searchCriteria.consequence = [];
         this.searchCriteria.varImpact = [];
+        this.searchCriteria.selectedItems = [];
+
+        if (! this.resetSearch) {
+            this.selectedSearchItem.emit(this.searchCriteria);
+        }
     }
 
     remove(selected: any) {

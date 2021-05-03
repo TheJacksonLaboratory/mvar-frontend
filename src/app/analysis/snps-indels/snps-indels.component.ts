@@ -29,7 +29,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['chr', 'caid', 'hgvs', 'symbol', 'type', 'functionalClassCode'];
+    displayedColumns = ['caid', 'chr', 'symbol', 'hgvs', 'type', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
     varCount: number;
@@ -137,7 +137,9 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 // TODO Move search of transcrip relating information to the snp-detail component instead of 
                 // loading all the data at once in this component
                 this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
-                    variant.functionalClassSOid = annotation[0].accession;
+                    if (annotation && annotation.length > 0) {
+                        variant.functionalClassSOid = annotation[0].accession;
+                    }
                 });
             });
             this.varDataSource = temp;
