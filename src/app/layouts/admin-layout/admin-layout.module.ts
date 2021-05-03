@@ -14,7 +14,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {FilesNavComponent} from '../../files-nav/files-nav.component';
 import {UploadDialogComponent} from '../../files-nav/upload-dialog/upload-dialog.component';
 import {SearchBoxComponent} from '../../shared/search/search-box/search-box.component';
-import {SearchCriteriaBoxComponent} from '../../shared/search/search-criteria-box/search-criteria-box.component';
 import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatChipsModule} from '@angular/material/chips';
@@ -94,7 +93,6 @@ import {NumberDirective} from 'app/directives/numbers-only.directive';
         SnpsIndelsComponent,
         FilesNavComponent,
         SearchBoxComponent,
-        SearchCriteriaBoxComponent,
         UploadDialogComponent,
         AboutUsComponent,
         AnalysisComponent,

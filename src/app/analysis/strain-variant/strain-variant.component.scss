@@ -9,21 +9,35 @@ th {
   position: -webkit-sticky; /* for Safari */
   position: sticky;
   top: 0;
+  background-color: #fff;
+  font-size: small;
+  font-weight: 500;
 }
 
 th.rotated-text {
-  height: 120px;
+  height: 150px;
   white-space: nowrap;
   padding: 0 !important;
   vertical-align: bottom;
   font-size: small;
   font-weight: 500;
+  text-align: center;
+  text-align: -webkit-center;
 }
+
+th.colRegHeader {
+  font-size: small;
+  font-weight: 500;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+
 
 th.rotated-text > div {
   transform:
           translate(5px, 0px)
-          rotate(315deg);
+          rotate(270deg);
   width: 30px;
 }
 
@@ -33,8 +47,8 @@ th.rotated-text > div > span {
 
 td {
   text-align: center;
-  font-weight: 700;
-  color: blueviolet;
+  font-weight: 500;
+  //color: blueviolet;
   border: 1px solid #ccc;
 }
 
@@ -48,6 +62,7 @@ th.row-header {
   position: sticky;
   left: 0;
   background: white;
+  vertical-align: middle;
 }
 
 /* To have the header in the first column stick to the left: */
@@ -61,21 +76,30 @@ thead th:first-child {
 .yellow {
   color: #212529;
   background: #ffee58;
+  font-weight: 700;
 }
 
 .red {
   color: #212529;
   background: #f77066;
+  font-weight: 700;
 }
 
 .blue {
   color: #212529;
   background: #40c4ff;
+  font-weight: 700;
 }
 
 .green {
   color: #212529;
   background: #1de9b6;
+  font-weight: 700;
+}
+
+.other {
+  color: blueviolet;
+  font-weight: 700;
 }
 
 .cardSearchBox {

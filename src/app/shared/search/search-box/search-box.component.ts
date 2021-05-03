@@ -26,6 +26,12 @@ export class SearchBoxComponent implements OnInit {
     @Input()
     showFilters: boolean;
 
+    @Input()
+    resetSearch: boolean;
+
+    @Output()
+    showFiltersChange = new EventEmitter<boolean>();
+
     chromosomes = chromosomes;
 
     searchCriteria: any = {selectedItems: []};
@@ -45,12 +51,6 @@ export class SearchBoxComponent implements OnInit {
     alleleOptions: any[] = [];
     alleleCount: number;
 
-    phenotypeOptions: any[] = [];
-    phenotypeCount: number;
-
-    sampleOptions: any[] = [];
-    sampleCount: number;
-
     annotationOptions: any[] = [];
     annotationCount: number;
 
@@ -68,16 +68,9 @@ export class SearchBoxComponent implements OnInit {
     removable = true;
 
     showStrains = false;
-    selectedStrains: string[] = [];
-
-    varTypeSNP = false;
-    varTypeINS = false;
-    varTypeDEL = false;
-
-    varImpactHIGH = false;
-    varImpactMODERATE = false;
-    varImpactLOW = false;
-    varImpactMODIFIER = false;
+    showConsequence =  false;
+    showVarRegion = false;
+    selectedStrains = new Map();
 
     constructor(private searchService: SearchService) {
         console.log('contructor searchBox, type = ' + this.searchType);
@@ -86,18 +79,14 @@ export class SearchBoxComponent implements OnInit {
     ngOnInit() {
         console.log('searchBox, type = ' + this.searchType);
 
+        if (! this.resetSearch) {
+            this.searchCriteria = this.searchService.getSelectedSearchItems();
+        }
 
-        const searchItems = this.searchService.getSelectedSearchItems();
-        console.log('###searchItems');
-        console.log(searchItems);
+        if (this.searchCriteria.selectedSearchBy) {
 
-        if (searchItems.selectedSearchBy) {
-
-            this.selectedSearchBy = searchItems.selectedSearchBy;
-
-            this.initSearch(searchItems);
-            this.searchCriteria = searchItems;
-            this.searchService.setSelectedSearchItems({})
+            this.selectedSearchBy = this.searchCriteria.selectedSearchBy;
+            this.initSearch(this.searchCriteria);
         }
 
         this.setSearchBox();
@@ -106,20 +95,20 @@ export class SearchBoxComponent implements OnInit {
         this.searchService.loadSequencedStrains().subscribe(data => {
             this.seqStrains = data.strains;
             this.searchService.seqStrains = data.strains;
+
+            this.seqStrains.forEach(strain => {
+                this.selectedStrains.set(strain.strain, strain);
+            });
         });
     }
 
 
     initSearch(searchItems: any) {
-        this.selectedSearchItem.emit({
-            selectedSearchBy: searchItems.selectedSearchBy,
-            selectedItems: searchItems.selectedItems,
-            chr: searchItems.chr,
-            startPos: searchItems.startPos,
-            endPos: searchItems.endPos,
-            hgvs: searchItems.hgvs,
-            mvarId: searchItems.mvarId
-        });
+        this.selectedSearchItem.emit(this.searchCriteria);
+
+        if (!this.searchCriteria.selectedItems) {
+            this.searchCriteria.selectedItems = []
+        }
         console.log(this.selectedSearchItem);
     }
 
@@ -135,8 +124,6 @@ export class SearchBoxComponent implements OnInit {
                     this.geneOptions = [];
                     this.strainOptions = [];
                     this.annotationOptions = [];
-                    // this.phenotypeOptions = [];
-                    // this.sampleOptions = [];
                     if (value && value.length > 0) {
                         this._variantFilter(value);
                     }
@@ -144,7 +131,7 @@ export class SearchBoxComponent implements OnInit {
             );
         }
 
-        if (this.searchType === 'strain-variant') {
+        if (this.searchType === 'variant-strain') {
 
             this.placeHolderTxt = 'Enter gene symbol';
             this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
@@ -172,18 +159,6 @@ export class SearchBoxComponent implements OnInit {
         this._searchGenes(filterValue);
     }
 
-    // private _searchPhenotypes(filterValue: string) {
-    //   this.searchService.searchPhenotype(filterValue).subscribe(data => {
-
-    //     console.log('phenotype count = ' + data.phenotypeCount);
-
-    //     this.phenotypeCount = data.phenotypeCount;
-    //     this.phenotypeOptions = data.phenotypes;
-    //     //console.log(this.phenotypeOptions);
-
-    //   });
-    // }
-
     private _searchStrains(filterValue: string) {
         this.searchService.searchStrain(filterValue).subscribe(data => {
             console.log('strain count = ' + data.length);
@@ -194,8 +169,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchGenes(filterValue: string) {
         this.searchService.searchGene(filterValue).subscribe(data => {
-            console.log('gene count = ' + data.length);
-            console.log('gene  = ' + data);
             this.geneCount = data.length;
             this.geneOptions = data;
         });
@@ -203,8 +176,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchAnnotation(filterValue: string) {
         this.searchService.searchAnnotation(filterValue).subscribe(data => {
-            console.log('sequence ontology count = ' + data.length);
-            console.log('fsequence ontology = ' + data);
             this.annotationCount = data.length;
             this.annotationOptions = data;
         })
@@ -212,7 +183,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchTranscripts(filterValue: string) {
         this.searchService.searchTranscript(filterValue).subscribe(data => {
-            console.log('transcript count = ' + data.length);
             this.transcriptCount = data.length;
             this.transcriptOptions = data;
         });
@@ -220,13 +190,13 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchAlleles(filterValue: string) {
         this.searchService.searchAllele(filterValue).subscribe(data => {
-            console.log('allele count = ' + data.length);
             this.alleleCount = data.alleleCount;
             this.alleleOptions = data.alleleList;
         });
     }
 
     public selectedChanged(type: string, value: any, displayValue: string) {
+
         this.searchCriteria.selectedItems.push({
             selectedType: type,
             selectedValue: value,
@@ -234,8 +204,6 @@ export class SearchBoxComponent implements OnInit {
         });
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
         this.selectedSearchItem.emit(this.searchCriteria);
-        //this.myControl.setValue('');
-        //console.log(this.selectedSearchItem);
     }
 
     public searchByPosition() {
@@ -246,27 +214,31 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByHGVS(hgvs: String) {
-        if (hgvs === undefined) {
-            this.searchCriteria.hgvs = this.hgvs;
-        } else {
-            this.searchCriteria.hgvs = hgvs;
-        }
+
+        this.searchCriteria.selectedItems.push({
+            selectedType: 'hgvs',
+            selectedValue: hgvs,
+            displayedValue: hgvs
+        });
+
         this._searchItem();
     }
 
     public searchByMVARid(mvarId: string) {
-        if (mvarId === undefined) {
-            this.searchCriteria.mvarId = this.mvarId;
-        } else {
-            this.searchCriteria.mvarId = mvarId;
-        }
+
+        this.searchCriteria.selectedItems.push({
+            selectedType: 'mvarId',
+            selectedValue: mvarId,
+            displayedValue: mvarId
+        });
+
         this._searchItem();
     }
 
     private _searchItem() {
-        this.searchCriteria.selectedItems = []
+
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
-        this.showFilterOptions();
+        //this.showFilterOptions();
         this.selectedSearchItem.emit(this.searchCriteria);
     }
 
@@ -284,8 +256,16 @@ export class SearchBoxComponent implements OnInit {
         this.endPos = '';
         this.hgvs = '';
         this.mvarId = '';
-        this.searchCriteria.hgvs = this.hgvs;
-        this.searchCriteria.mvarId = this.mvarId;
+        this.searchCriteria.hgvs = [];
+        this.searchCriteria.mvarId = [];
+        this.searchCriteria.varType = [];
+        this.searchCriteria.consequence = [];
+        this.searchCriteria.varImpact = [];
+        this.searchCriteria.selectedItems = [];
+
+        if (! this.resetSearch) {
+            this.selectedSearchItem.emit(this.searchCriteria);
+        }
     }
 
     remove(selected: any) {
@@ -313,6 +293,8 @@ export class SearchBoxComponent implements OnInit {
         } else {
             this.showFilters = true;
         }
+
+        this.showFiltersChange.emit(this.showFilters)
     }
 
     showStrainsList() {
@@ -320,6 +302,22 @@ export class SearchBoxComponent implements OnInit {
             this.showStrains = false;
         } else {
             this.showStrains = true;
+        }
+    }
+
+    showConsequenceList() {
+        if (this.showConsequence) {
+            this.showConsequence = false;
+        } else {
+            this.showConsequence = true;
+        }
+    }
+
+    showVarRegionList() {
+        if (this.showVarRegion) {
+            this.showVarRegion = false;
+        } else {
+            this.showVarRegion = true;
         }
     }
 
@@ -357,32 +355,89 @@ export class SearchBoxComponent implements OnInit {
                 this.searchCriteria.varImpact.splice(indx, 1);
             }
         }
-    }
 
-    isStrainChecked(name: string) {
-        const indx = this.selectedStrains.indexOf(name);
-        if (indx === -1) {
-            return false;
-        } else {
-            return true;
+        //set variation consequence
+        if (criteriaType === 'consequence') {
+            if (!this.searchCriteria.consequence) {
+                this.searchCriteria.consequence = []
+            }
+
+            const indx = this.searchCriteria.consequence.indexOf(value);
+            if (indx === -1) {
+                this.searchCriteria.consequence.push(value)
+            } else {
+                this.searchCriteria.consequence.splice(indx, 1)
+            }
         }
     }
 
-    onStrainChange(name: string) {
-        const indx = this.selectedStrains.indexOf(name);
-        if (indx === -1) {
-            this.selectedStrains.push(name)
+    isStrainChecked(name: string) {
+        if (this.selectedStrains.get(name)) {
+            return true;
         } else {
-            this.selectedStrains.splice(indx, 1);
+            return false;
+        }
+    }
+
+    isVarTypeChecked(name: string) {
+        if (this.searchCriteria.varType && this.searchCriteria.varType.indexOf(name) !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isImpactChecked(name: string) {
+        if (this.searchCriteria.varImpact && this.searchCriteria.varImpact.indexOf(name) !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isConsequenceChecked(name: string) {
+        if (this.searchCriteria.consequence && this.searchCriteria.consequence.indexOf(name) !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    onStrainChange(strain: any) {
+
+        if (this.selectedStrains.get(strain.strain)) {
+            this.selectedStrains.delete(strain.strain);
+        } else {
+            this.selectedStrains.set(strain.strain, strain)
         }
     }
 
     updateSearch() {
 
-        this.searchCriteria.strains = this.selectedStrains;
+        this.searchCriteria.strains = Array.from(this.selectedStrains.values());
         //emit change
         this.selectedSearchItem.emit(this.searchCriteria);
 
         this.showFilterOptions();
+
+        if (this.selectedStrains.size < 1) {
+            this.setSelectedStrains();
+        }
+    }
+
+    setSelectedStrains() {
+        this.seqStrains.forEach(strain => {
+            this.selectedStrains.set(strain.strain, strain);
+        });
+    }
+
+    clearAllStrains() {
+        this.selectedStrains.clear();
+    }
+
+    selectAllStrains() {
+        this.selectedStrains.clear();
+        this.setSelectedStrains();
     }
 }
+

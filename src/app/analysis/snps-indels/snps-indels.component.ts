@@ -29,7 +29,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     //Table items
-    displayedColumns = ['chr', 'caid', 'hgvs', 'symbol', 'type', 'functionalClassCode'];
+    displayedColumns = ['caid', 'chr', 'symbol', 'hgvs', 'type', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
     varCount: number;
@@ -90,17 +90,18 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        //console.log(searchCriteria);
-
         const params: any = {};
         this.currSearchParams.offset = 0;
         this.varPaginator.pageIndex = 0;
         this.clearSort();
 
-        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) || searchCriteria.chr || searchCriteria.hgvs || searchCriteria.mvarId) {
-            //this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) ||
+            (searchCriteria.hgvs && searchCriteria.hgvs > 0) ||
+            (searchCriteria.mvarId && searchCriteria.mvarId.length > 0) ||
+             searchCriteria.chr
+           ) {
+
             this.currSearchParams = searchCriteria;
-            this.searchService.setSelectedSearchItems(searchCriteria);
             this._queryVariants(this.currSearchParams);
         } else {
             this.varDataSource = []
@@ -134,7 +135,9 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 // TODO Move search of transcrip relating information to the snp-detail component instead of 
                 // loading all the data at once in this component
                 this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
-                    variant.functionalClassSOid = annotation[0].accession;
+                    if (annotation && annotation.length > 0) {
+                        variant.functionalClassSOid = annotation[0].accession;
+                    }
                 });
             });
             this.varDataSource = temp;
@@ -142,12 +145,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             this.varCount = data.variantCount;
             this.pageLength = this.varCount;
 
-            if (this.varDataSource.length > 0){
-                this.enableFilters = true;
-            }else {
-                this.enableFilters = false;
-            }
-
+            this.enableFilters = true;
             this.spinnerDialogRef.close();
         },
         (error) => {
@@ -210,7 +208,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     showStrainDistribution() {
 
         console.log(this.currSearchParams)
-        this.searchService.setSelectedSearchItems(this.currSearchParams);
+        //this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/strain-variant'])
     }
 

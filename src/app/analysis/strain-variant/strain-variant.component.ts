@@ -41,8 +41,7 @@ export class StrainVariantComponent implements OnInit {
         this.searchService.loadSequencedStrains().subscribe(data => {
             this.seqStrains = data.strains;
             this.searchService.seqStrains = data.strains;
-            this.displayColumns = this.seqStrains
-            this.displayedColumns = this.seqStrains.map(seqStrain => seqStrain.strain);
+            this.displayedColumns = this.seqStrains;
         });
 
         const storedSearchParameters = this.searchService.getSelectedSearchItems();
@@ -58,12 +57,7 @@ export class StrainVariantComponent implements OnInit {
                 this.dataSource = data.variants as any[]
                 this.pageLength = data.variantCount;
                 this.setStrainMap()
-                if (this.dataSource.length > 0){
-                    this.enableFilters = true;
-                }else {
-                    this.enableFilters = false;
-                }
-
+                this.enableFilters = true;
             }
         );
     }
@@ -94,13 +88,22 @@ export class StrainVariantComponent implements OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        console.log('WE ARE HERE CRITERIA CHANGE AT STRAIN VARIANT')
+        if (searchCriteria.strains && searchCriteria.strains.length > 0) {
+
+            this.displayedColumns = searchCriteria.strains;
+        } else {
+            this.displayedColumns = this.seqStrains;
+        }
 
         const params: any = {};
         this.currSearchParams.offset = 0;
 
-        if (searchCriteria.selectedItems.length > 0) {
-            this.currSearchParams.selectedItems = searchCriteria.selectedItems;
+        if ((searchCriteria.selectedItems && searchCriteria.selectedItems.length > 0) ||
+            (searchCriteria.hgvs && searchCriteria.hgvs > 0) ||
+            (searchCriteria.mvarId && searchCriteria.mvarId.length > 0) ||
+             searchCriteria.chr
+        ) {
+            this.currSearchParams = searchCriteria;
             this.loadVariantStrainData();
         } else {
             this.dataSource = []
@@ -120,6 +123,7 @@ export class StrainVariantComponent implements OnInit {
 
     showFilters() {
         if (this.enableFilters) {
+            console.log('varFilter : ' + this.showVarFilters)
             if (this.showVarFilters) {
                 this.showVarFilters = false;
             } else {
@@ -138,7 +142,6 @@ export class StrainVariantComponent implements OnInit {
     }
 
     public showSNPIndels() {
-        this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/variant'])
     }
 }

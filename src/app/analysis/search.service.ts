@@ -81,9 +81,6 @@ export class SearchService {
     public searchAnnotation(name: string): Observable<any> {
         return this.http.get(sequenceOntologyUrl + '?name=' + name);
     }
-    // public searchPhenotype(name: string): Observable<any> {
-    //     return this.http.get(phenotypeUrl + '?name=' + name + '&inmmr=y');
-    // }
 
     public queryVariant(paramsIn: any): Observable<any> {
 
@@ -110,41 +107,30 @@ export class SearchService {
         //console.log(paramsIn)
 
         const genes: string[] = [];
-        const strains: string[] = [];
-        const annotations: string[] = [];
-        const phenotypes: string[] = [];
+        const hgvsList: string[] = [];
+        const mvarIdList: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
                 if (item.selectedType === 'gene') {
                     genes.push(item.selectedValue.symbol);
                 }
-
-                if (item.selectedType === 'strain') {
-                    strains.push(item.selectedValue.name);
+                if (item.selectedType === 'hgvs') {
+                    hgvsList.push(item.selectedValue);
                 }
-
-                if (item.selectedType === 'annotation') {
-                    annotations.push(item.selectedValue.name);
+                if (item.selectedType === 'mvarId') {
+                    mvarIdList.push(item.selectedValue);
                 }
-                if (item.selectedType === 'phenotype') {
-                    phenotypes.push(item.selectedValue.mpTermIdentifier);
-                }
-
             });
         }
 
         const options = {
             gene: genes,
-            //strain: strains,
-            strain: paramsIn.strains ? paramsIn.strains : [],
-            // phenotype: phenotypes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            annotation: annotations,
-            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
-            mvarId: paramsIn.mvarId ? paramsIn.mvarId : '',
+            consequence: paramsIn.consequence ? paramsIn.consequence : [],
+            hgvs: hgvsList,
+            mvarId: mvarIdList,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-            // lowQual: paramsIn.lowQual ? paramsIn.lowQual : false,
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
@@ -187,12 +173,19 @@ export class SearchService {
     getVariantStrains(paramsIn: any): Observable<any> {
 
         const genes: string[] = [];
-        const consequences: string[] = [];
+        const hgvsList: string[] = [];
+        const mvarIdList: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
                 if (item.selectedType === 'gene') {
                     genes.push(item.selectedValue.symbol);
+                }
+                if (item.selectedType === 'hgvs') {
+                    hgvsList.push(item.selectedValue);
+                }
+                if (item.selectedType === 'mvarId') {
+                    mvarIdList.push(item.selectedValue);
                 }
             });
         }
@@ -200,10 +193,10 @@ export class SearchService {
         const options = {
             gene: genes,
             type: paramsIn.varType ? paramsIn.varType : [],
-            consequences: consequences,
+            consequence: paramsIn.consequence ? paramsIn.consequence : [],
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
-            hgvs: paramsIn.hgvs ? paramsIn.hgvs : '',
-            mvarId: paramsIn.mvarId ? paramsIn.mvarId : '',
+            hgvs: hgvsList,
+            mvarId: mvarIdList,
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
