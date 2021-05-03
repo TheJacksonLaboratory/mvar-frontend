@@ -81,8 +81,6 @@ export class SearchBoxComponent implements OnInit {
 
         if (! this.resetSearch) {
             this.searchCriteria = this.searchService.getSelectedSearchItems();
-            console.log('###searchItems');
-            console.log(this.searchCriteria);
         }
 
         if (this.searchCriteria.selectedSearchBy) {
@@ -178,8 +176,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchAnnotation(filterValue: string) {
         this.searchService.searchAnnotation(filterValue).subscribe(data => {
-            console.log('sequence ontology count = ' + data.length);
-            console.log('fsequence ontology = ' + data);
             this.annotationCount = data.length;
             this.annotationOptions = data;
         })
@@ -194,7 +190,6 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchAlleles(filterValue: string) {
         this.searchService.searchAllele(filterValue).subscribe(data => {
-            console.log('allele count = ' + data.length);
             this.alleleCount = data.alleleCount;
             this.alleleOptions = data.alleleList;
         });

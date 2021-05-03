@@ -88,8 +88,6 @@ export class StrainVariantComponent implements OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        //console.log(searchCriteria)
-
         if (searchCriteria.strains && searchCriteria.strains.length > 0) {
 
             this.displayedColumns = searchCriteria.strains;

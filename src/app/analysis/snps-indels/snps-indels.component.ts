@@ -90,8 +90,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        console.log(searchCriteria);
-
         const params: any = {};
         this.currSearchParams.offset = 0;
         this.varPaginator.pageIndex = 0;
