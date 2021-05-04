@@ -46,7 +46,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     ngOnInit() {
         this.strainDataSource = this.variant.strains;
         
-        const dnaHGVS = this.variant.variantHgvsNotation.split(",");
+        const dnaHGVS = this.variant.dnaHgvsNotation.split(",");
         const proteinHGVS = this.variant.proteinHgvsNotation.split(",");
         const jannovarAnnotation = this.variant.functionalClassCodes.split(",");
         const impact = this.variant.impacts.split(",");
