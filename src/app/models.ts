@@ -110,6 +110,7 @@ export class Variant {
 export class Source {
   name: string;
   sourceVersion: string;
+  url: string;
   constructor() {
   }
 }
