@@ -90,6 +90,7 @@ export class Variant {
   strains: Strain[];
   transcripts: Transcript[];
   externalSource: string;
+  sources: Source[];
 
   variantRefTxt: string;
 
@@ -103,6 +104,14 @@ export class Variant {
   }
   public setVarCanonIdentifier(canonVarIdentifier: VarCanonIdentifier) {
     this.canonVarIdentifier = canonVarIdentifier;
+  }
+}
+
+export class Source {
+  name: string;
+  sourceVersion: string;
+  url: string;
+  constructor() {
   }
 }
 

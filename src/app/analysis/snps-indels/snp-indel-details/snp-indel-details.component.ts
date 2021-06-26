@@ -38,6 +38,8 @@ export class SnpIndelDetailsComponent implements OnInit {
     sequenceOntologyUrl = environment.SEQUENCE_ONTOLOGY_URL;
     sangerSourceUrl = environment.SANGER_SOURCE_URL;
     mgiGeneUrl = environment.MGI_GENE_URL;
+    ncbiIdUrl = environment.NCBI_ID_URL;
+    rsIdUrl = environment.EVA_ID_URL;
 
     dialogRef: any;
 
