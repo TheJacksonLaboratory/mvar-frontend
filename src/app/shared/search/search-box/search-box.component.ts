@@ -63,6 +63,7 @@ export class SearchBoxComponent implements OnInit {
 
     hgvs = '';
     mvarId = '';
+    dbSNPid = '';
 
     selectable = true;
     removable = true;
@@ -235,6 +236,17 @@ export class SearchBoxComponent implements OnInit {
         this._searchItem();
     }
 
+    public searchBydbSNPid(dbSNPid: string) {
+
+        this.searchCriteria.selectedItems.push({
+            selectedType: 'dbSNPid',
+            selectedValue: dbSNPid,
+            displayedValue: dbSNPid
+        });
+        this.dbSNPid = '';
+        this._searchItem();
+    }
+
     private _searchItem() {
 
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
@@ -256,8 +268,10 @@ export class SearchBoxComponent implements OnInit {
         this.endPos = '';
         this.hgvs = '';
         this.mvarId = '';
+        this.dbSNPid = '';
         this.searchCriteria.hgvs = [];
         this.searchCriteria.mvarId = [];
+        this.searchCriteria.dbSNPid = [];
         this.searchCriteria.varType = [];
         this.searchCriteria.consequence = [];
         this.searchCriteria.varImpact = [];

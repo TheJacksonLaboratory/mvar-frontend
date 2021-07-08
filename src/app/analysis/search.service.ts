@@ -55,7 +55,6 @@ export class SearchService {
     }
 
     setSelectedSearchItems(searchItems: any) {
-        console.log("****** STORED SEARCH ITEMS ******")
         console.log(searchItems)
 
         this.selectedSearchItems = searchItems;
@@ -109,6 +108,7 @@ export class SearchService {
         const genes: string[] = [];
         const hgvsList: string[] = [];
         const mvarIdList: string[] = [];
+        const dbSNPidList: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
@@ -121,6 +121,9 @@ export class SearchService {
                 if (item.selectedType === 'mvarId') {
                     mvarIdList.push(item.selectedValue);
                 }
+                if (item.selectedType === 'dbSNPid') {
+                    dbSNPidList.push(item.selectedValue);
+                }
             });
         }
 
@@ -130,6 +133,7 @@ export class SearchService {
             consequence: paramsIn.consequence ? paramsIn.consequence : [],
             hgvs: hgvsList,
             mvarId: mvarIdList,
+            dbSNPid: dbSNPidList,
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
@@ -175,6 +179,7 @@ export class SearchService {
         const genes: string[] = [];
         const hgvsList: string[] = [];
         const mvarIdList: string[] = [];
+        const dbSNPidList: string[] = [];
 
         if (paramsIn.selectedItems) {
             paramsIn.selectedItems.forEach(item => {
@@ -187,6 +192,9 @@ export class SearchService {
                 if (item.selectedType === 'mvarId') {
                     mvarIdList.push(item.selectedValue);
                 }
+                if (item.selectedType === 'dbSNPid') {
+                    dbSNPidList.push(item.selectedValue);
+                }
             });
         }
 
@@ -197,6 +205,7 @@ export class SearchService {
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             hgvs: hgvsList,
             mvarId: mvarIdList,
+            dbSNPid: dbSNPidList,
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
