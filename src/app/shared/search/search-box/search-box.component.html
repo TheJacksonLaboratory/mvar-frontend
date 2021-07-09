@@ -7,6 +7,7 @@
         <mat-option value="region">Genomic Region</mat-option>
         <mat-option value="hgvs">HGVS</mat-option>
         <mat-option value="mvarId">MVAR Id</mat-option>
+        <mat-option value="dbSNPid">dbSNP Id</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -83,16 +84,28 @@
     </mat-hint>
   </div>
 
-  <div *ngIf="selectedSearchBy === 'region'" class="col-md-3">
-    <button class="search_button" mat-raised-button  (click)="searchByPosition()">Search</button>
-  </div>
-  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-3">
-    <button class="search_button" mat-raised-button (click)="searchByHGVS(hgvs)">Search</button>
-  </div>
-  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-3">
-    <button class="search_button" mat-raised-button (click)="searchByMVARid(mvarId)">Search</button>
+  <div *ngIf="selectedSearchBy === 'dbSNPid'" class="col-md-6">
+    <mat-form-field class="example-full-width">
+        <input type="text" aria-label="Number" matInput [(ngModel)]="dbSNPid">
+    </mat-form-field>
+    <mat-hint *ngIf="showHint">E.g.
+        <a mat-button class="nav-link active"
+           (click)="searchBydbSNPid('rs51635653')">rs51635653</a>
+    </mat-hint>
   </div>
 
+  <div *ngIf="selectedSearchBy === 'region'" class="col-md-3">
+    <button class="search_button" disabled="{{chr.length <= 0 || startPos.length <= 0 || endPos.length <= 0}}" mat-raised-button  (click)="searchByPosition()">Search</button>
+  </div>
+  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-3">
+    <button class="search_button" disabled="{{hgvs.length <= 0}}" mat-raised-button (click)="searchByHGVS(hgvs)">Search</button>
+  </div>
+  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-3">
+    <button class="search_button" disabled="{{mvarId.length <= 0}}" mat-raised-button (click)="searchByMVARid(mvarId)">Search</button>
+  </div>
+  <div *ngIf="selectedSearchBy === 'dbSNPid'" class="col-md-3">
+    <button class="search_button" disabled="{{dbSNPid.length <= 0}}" mat-raised-button (click)="searchBydbSNPid(dbSNPid)">Search</button>
+  </div>
 </div>
 
 <div class="row">
