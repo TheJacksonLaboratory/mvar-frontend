@@ -146,9 +146,9 @@ export class SearchService {
 
 
         if (url === variantExportCSVUrl) {
-            return this.http.get(url, {responseType: 'arraybuffer', params: options});
+            return this.http.post(url, {responseType: 'arraybuffer', params: options});
         } else {
-            return this.http.get(url, {params: options});
+            return this.http.post(url, {params: options});
         }
 
     }
