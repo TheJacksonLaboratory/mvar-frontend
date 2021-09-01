@@ -55,6 +55,7 @@ import {
     MatAutocompleteModule
 } from '@angular/material';
 import {NumberDirective} from 'app/directives/numbers-only.directive';
+import { MvarApiComponent } from 'app/mvar-api';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import {NumberDirective} from 'app/directives/numbers-only.directive';
         SpinnerDialogComponent,
         StrainDialogComponent,
         StrainComponent,
+        MvarApiComponent,
         LoginComponent,
         NumberDirective,
         StrainVariantComponent
