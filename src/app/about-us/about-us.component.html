@@ -12,10 +12,11 @@
                                 <p> Model organisms are essential to understanding the biological and disease
                                     consequences of human genome variation. Bioinformatics resources that support
                                     meaningful comparisons of mouse and human genotype-to-phenotype data and knowledge
-                                    are needed to support the translation from bench to bedside and back again <b>[1]</b>.
+                                    are needed to support the translation from bench to bedside and back again.
                                     There is no genome variation resource for mouse comparable to resources available
-                                    for human genome variation data such as EXAC <b>[2]</b>, ClinVar <b>[3]</b>, or ClinGen 
-                                    <b>[4]</b>. NCBI resources such as dbSNP and ClinVar no longer accept data from model organisms.
+                                    for human genome variation data such as EXAC, ClinVar, or
+                                    ClinGen. NCBI resources such as dbSNP and ClinVar no longer accept data from
+                                    model organisms.
                                     While the European Bioinformatics Institute (EBI) will be accepting SNP data for
                                     mouse, the resource will not include all relevant mouse variation data and will not
                                     include all of the mouse-specific information (functional and phenotypic attributes)
@@ -23,19 +24,22 @@
                                 </p>
 
                                 <p>
-                                    Although the Mouse Genome Informatics database (MGI) <b>[5]</b> serves as a comprehensive
+                                    Although the Mouse Genome Informatics database (MGI) serves as a
+                                    comprehensive
                                     mouse allele registry, the data are not structured in a format consistent with the
                                     <a href="http://varnomen.hgvs.org/">Human Genome Variation Society (HGVS)</a>
-                                    format. Furthermore, not all sources of mouse variation reside in MGI. For example, the
+                                    format. Furthermore, not all sources of mouse variation reside in MGI. For example,
+                                    the
                                     Mutant Mouse Resource (MMR) created a stand-alone database for variants discovered
                                     via large-scale exome sequencing of mutant mice with Mendelian disease phenotypes
                                     but these data cannot currently be integrated with variation data in MGI because of
                                     data format differences. Plans to establish a collaborative effort on function of
                                     variation in long non-coding RNAs between MGI and the Robinson laboratory cannot
                                     proceed efficiently until the representation of sequence level variation in MGI is
-                                    possible. GeneWeaver <b>[6]</b> currently incorporates gene-level annotations from MGI but
+                                    possible. GeneWeaver currently incorporates gene-level annotations from
+                                    MGI but
                                     is currently incorporating sequence variation incrementally because of the lack of a
-                                    central repository of these data for mouse. MGI can only integrate with the JAX CKB <b>[7]</b>
+                                    central repository of these data for mouse. MGI can only integrate with the JAX CKB
                                     resource for cancer model information at the gene level because of the lack of
                                     sequence variant representation.
                                 </p>
@@ -50,36 +54,220 @@
                                     unify these efforts and build a common data resource.
 
                                 </p>
-                                <ol>
-                                    <li>Manolio, T.A., et al., <i>Bedside Back to Bench: Building Bridges between Basic and
-                                        Clinical Genomic Research.</i> Cell, 2017. <b>169</b>(1): p. 6-12.</li>
-                                    <li>Karczewski, K.J., et al., <i>The ExAC browser: displaying reference data information 
-                                        from over 60 000 exomes.</i> Nucleic Acids Res, 2017. <b>45</b>(D1): p.D840-D845.</li>
-                                    <li>Landrum, M.J., et al., <i>ClinVar: public archive of  relationships among sequence 
-                                       variation and human phenotype.</i> Nucleic Acids Res, 2014. <b>42</b>(Database issue): p. D980-5.</li>
-                                    <li>Rehm, H.L., et al., <i>ClinGen--the Clinical Genome Resource.</i> N Engl J Med, 2015. <b>372</b>
-                                        (23): p. 2235-42.</li>
-                                    <li>Bult, C.J., et al., <i>Mouse genome database 2016.</i> Nucleic Acids Res, 2016. <b>44</b>
-                                        (D1): p. D840-7.</li>
-                                    <li>Bubier, J.A., et al., <i>GeneWeaver: finding consilience in heterogeneous cross-species                  functional 
-                                       genomics data.</i> Mamm Genome, 2015. <b>26</b>(9-10): p. 556-66.</li>
-                                    <li>Patterson, S.E., et al., <i>The clinical trial landscape in oncology and connectivity of
-                                        somatic mutational profiles to targeted therapies.</i> Hum Genomics, 2016. <b>10</b>: p. 4.</li>
-                                </ol>
                             </mat-tab>
                             <mat-tab label="Team">
-                                <div></div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <ul>
+                                            <li>
+                                                <h3>
+                                                    <a href="https://www.jax.org/research-and-faculty/faculty/carol-bult"
+                                                        target="_blank">Carol Bult, Ph.D.</a>
+                                                </h3>
+                                                <span>{{ 'Professor, Knowlton Family Chair, Program PI' | uppercase
+                                                    }}</span>
+                                            </li>
+                                            <li>
+                                                <h3>
+                                                    <a href="https://www.jax.org/people/govindarajan-kunde-ramamoorthy"
+                                                        target="_blank">Govind Kunde-Ramamoorthy, Ph.D.</a>
+                                                </h3>
+                                                <span>{{ 'Director, Computational Sciences, Program co-PI' | uppercase
+                                                    }}</span>
+                                            </li>
+                                            <li>
+                                                <h3>
+                                                    <a href="https://www.jax.org/people/francisco-castellanos"
+                                                        target="_blank">Francisco Castellanos, M.S.</a>
+                                                </h3>
+                                                <span>{{ 'Senior Scientific Software Engineer' | uppercase}}</span>
+                                            </li>
+                                            <li>
+                                                <h3>
+                                                    <a href="https://www.jax.org/people/baha-el-kassaby"
+                                                        target="_blank">Bah&aacute; El Kassaby, M.S.</a>
+                                                </h3>
+                                                <span>{{ 'Senior Scientific Software Engineer' | uppercase
+                                                    }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </mat-tab>
 
 
                             <mat-tab label="Publications">
-                                <div></div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <ul>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1145/3459930.3469503" target="_blank">
+                                                        MVAR: a Mouse Variation Registry
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    El Kassaby B., Kunde-Ramamoorthy G., Castellanos F., Bult C.
+                                                    <br>
+                                                    BCB '21: Proceedings of the 12th ACM Conference on Bioinformatics,
+                                                    Computational Biology, and Health Informatics. 2021, August 1;
+                                                    Article
+                                                    No.: 74, Pages 1. doi: 10.1145/3459930.3469503
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1016/j.cell.2017.03.005"
+                                                        target="_blank">
+                                                        Bedside Back to Bench: Building Bridges between Basic and
+                                                        Clinical Genomic Research
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Manolio T.A., Fowler D.M., Starita L.M., et al.
+                                                    <br>
+                                                    Cell. 2017, March 23. 169(1):6-12. doi: 10.1016/j.cell.2017.03.005.
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://dx.doi.org/10.1093/nar/gkw971" target="_blank">
+                                                        The ExAC browser: displaying reference data information from
+                                                        over 60 000 exomes.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Karczewski K.J., Weisburd B., Thomas B., et al.
+                                                    <br>
+                                                    Nucleic Acids Res. 2017 Jan 4; 45(Database issue): D840–D845.
+                                                    doi: 10.1093/nar/gkw971
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1093/nar/gkt1113" target="_blank">
+                                                        ClinVar: public archive of relationships among sequence
+                                                        variation and human phenotype.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Landrum M.J., Lee J.M., Riley G.R., et al.
+                                                    <br>
+                                                    Nucleic Acids Res. 2014 Jan; 42(Database issue):D980-5. doi:
+                                                    10.1093/nar/gkt1113
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1056/nejmsr1406261" target="_blank">
+                                                        ClinGen - the Clinical Genome Resource.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Rehm H.L., Berg J.S., Brooks L.D., et al.
+                                                    <br>
+                                                    N Engl J Med. 2015 Jun 4;372(23):2235-42. doi: 10.1056/NEJMsr1406261
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1093/nar/gkv1211" target="_blank">
+                                                        Mouse genome database 2016.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Bult C.J., Eppig J.T., Blake J.A., Kadin J.A., Richardson J.E.
+                                                    <br>
+                                                    Nucleic Acids Res. 2016 Jan 4;44(D1):D840-7. doi:
+                                                    10.1093/nar/gkv1211
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1007/s00335-015-9575-x" target="_blank">
+                                                        GeneWeaver: finding consilience in heterogeneous cross-species
+                                                        functional genomics data.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Bubier J.A., Phillips C.A., Langston M.A., et al.
+                                                    <br>
+                                                    2015. 26, 556–566. doi: 10.1007/s00335-015-9575-x
+                                                </p>
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <h4>
+                                                    <a href="https://doi.org/10.1186/s40246-016-0061-7" target="_blank">
+                                                        The clinical trial landscape in oncology and connectivity of
+                                                        somatic mutational profiles to targeted therapies.
+                                                    </a>
+                                                </h4>
+                                                <p>
+                                                    Patterson S.E., Liu R., Statz C.M., et al..
+                                                    <br>
+                                                    Humam Genomics. 2016 January 16. 10, 4. doi:
+                                                    10.1186/s40246-016-0061-7
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </mat-tab>
 
                             <mat-tab label="Contact Us">
-                                <div></div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <p>
+                                            For program, data and/or web application related questions, please contact
+                                            Bah&aacute; El Kassaby, M.S.
+                                            <a href="mailto:baha.elkassaby@jax.org">baha.elkassaby@jax.org</a>
+                                        </p>
+                                    </div>
+                                </div>
                             </mat-tab>
 
+                            <mat-tab label="License">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <p>MVAR is licensed under the <a href="https://www.mit.edu/~amini/LICENSE.md"
+                                                target="_blank">MIT</a> license.</p>
+                                        <p>Copyright(c) 2021 The Jackson Laboratory</p>
+                                        <p>
+                                            Permission is hereby granted, free of charge, to any person obtaining a copy
+                                            of this software and associated documentation files (the "Software"), to
+                                            deal in the Software without restriction, including without limitation the
+                                            rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+                                            sell copies of the Software, and to permit persons to whom the Software is
+                                            furnished to do so, subject to the following conditions:</p>
+                                        <p>
+                                            The above copyright notice and this permission notice shall be included in
+                                            all copies or substantial portions of the Software.</p>
+                                        <p>
+                                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                                            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                                            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                                            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                                            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+                                            FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+                                            IN THE SOFTWARE.</p>
+                                    </div>
+                                </div>
+                            </mat-tab>
                         </mat-tab-group>
                     </div>
                 </div>
