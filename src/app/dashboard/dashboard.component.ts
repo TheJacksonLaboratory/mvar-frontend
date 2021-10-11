@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { environment } from 'environments/environment';
 import { SearchService } from "../analysis/search.service";
-import { MVARStats } from "../models";
+import { MVARStat } from "../models";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +12,7 @@ import { MVARStats } from "../models";
 export class DashboardComponent implements OnInit {
 
   searchOption = 'variant';
-  mvarStats: MVARStats;
+  mvarStat: MVARStat;
 
   selectedSearchBy: string;
 
@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
     //   this.onSelectedItem(selectedItems);
     //   this.searchService.setSelectedSearchItems({})
     // }
-    this.searchService.mvarStatsSubject.subscribe(data => {
-      this.mvarStats = data;
+    this.searchService.mvarStatSubject.subscribe(data => {
+      this.mvarStat = data;
     });
   }
 
