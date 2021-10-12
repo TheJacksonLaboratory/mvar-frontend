@@ -56,6 +56,9 @@ import {
 } from '@angular/material';
 import {NumberDirective} from 'app/directives/numbers-only.directive';
 import { MvarApiComponent } from 'app/mvar-api';
+import { TableOfContentsComponent } from 'app/components/table-of-contents/table-of-contents.component';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 
 @NgModule({
@@ -85,7 +88,9 @@ import { MvarApiComponent } from 'app/mvar-api';
         MatChipsModule,
         MatExpansionModule,
         MatSortModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        NgxPageScrollCoreModule,
+        NgxPageScrollModule
     ],
     declarations: [
         DashboardComponent,
@@ -107,7 +112,8 @@ import { MvarApiComponent } from 'app/mvar-api';
         MvarApiComponent,
         LoginComponent,
         NumberDirective,
-        StrainVariantComponent
+        StrainVariantComponent,
+        TableOfContentsComponent
     ],
     providers: [FilesService, UploadService, SearchService, AuthenticationService,
         {provide: MatDialogRef, useValue: {}},

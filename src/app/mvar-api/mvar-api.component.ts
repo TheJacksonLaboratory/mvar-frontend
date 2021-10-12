@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
 import { environment } from 'environments/environment';
-import { env } from 'process';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
   selector: 'mvar-api',
@@ -19,8 +20,9 @@ export class MvarApiComponent implements OnInit {
   soUrl: string;
   variantUrl: string;
   transcriptUrl: string;
-  mvarStatsUrl: string;
+  mvarStatUrl: string;
   mvarSourceUrl: string;
+  mvarApiPage: string;
 
   variantIdParameter: string;
   variantUrlQuery: string;
@@ -173,7 +175,7 @@ json = '{"max":1000, "offset":20, "gene":["xkr4"],
          "startPos":3400000, "endPos":3500000}'
 response <- POST (url = "https://mvar.jax.org/variant/query", content_type_json(), body = json)`;
 
-  constructor(private route: ActivatedRoute) { }
+constructor(private route: ActivatedRoute, private pageScrollService: PageScrollService, @Inject(DOCUMENT) private document: any) { }
 
   ngOnInit() {
     this.apiUrl = environment.MVAR_API_SWAGGER_URL;
@@ -186,16 +188,20 @@ response <- POST (url = "https://mvar.jax.org/variant/query", content_type_json(
     this.variantIdParameter = this.variantUrl + `/19`;
     this.variantUrlQuery = this.variantUrl + `/query`;
     this.transcriptUrl = environment.MVAR_API_TRANSCRIPT_URL;
-    this.mvarStatsUrl = environment.MVAR_API_STATS_URL;
+    this.mvarStatUrl = environment.MVAR_API_STAT_URL;
     this.mvarSourceUrl = environment.MVAR_API_SOURCE_URL;
 
     this.route.paramMap.subscribe(paramsIn => {
-
       const selectedTabIn = paramsIn.get('selectedTab');
       if (selectedTabIn) {
         this.selectedTab = selectedTabIn;
       }
     });
+    this.pageScrollService.scroll({
+      document: this.document,
+      scrollTarget: '.theEnd',
+    });
+
   }
 
   private getToc(content: any) {

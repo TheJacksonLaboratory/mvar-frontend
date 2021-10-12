@@ -1,16 +1,16 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-9">
         <div class="card">
           <!-- <div class="card-header card-header-primary">
-        <h3 class="card-title">MVAR API</h3>
-        <p class="card-category">MVAR Application Programming Interface documentation</p>
-      </div> -->
+          <h3 class="card-title">MVAR API</h3>
+          <p class="card-category">MVAR Application Programming Interface documentation</p>
+          </div> -->
 
           <div class="card-body">
             <div>
-              <h4><b>Sending HTTP requests</b></h4>
+              <h4 id="sending-http-requests"><b>Sending HTTP requests</b></h4>
               The MVAR API is based on HTTP requests. There are three types of HTTP requests used by the API: GET, POST
               and PUT. The base URL for the API is accessible from inside the Jackson Laboratory VPN at the following
               address: <a href={{apiUrl}}>{{apiUrl}}</a> and a list of the
@@ -52,9 +52,9 @@
                     <td>{{transcriptUrl}}</td>
                   </tr>
                   <tr>
-                    <td><code>mvarStats</code></td>
+                    <td><code>mvarStat</code></td>
                     <td>Stats endpoint</td>
-                    <td>{{mvarStatsUrl}}</td>
+                    <td>{{mvarStatUrl}}</td>
                   </tr>
                   <tr>
                     <td><code>source</code></td>
@@ -64,7 +64,7 @@
                 </tbody>
               </table>
 
-              <h6>Responses</h6>
+              <h6 id="responses">Responses</h6>
               <p>All responses with status different than HTTP SUCCESS (where status codes 200–299) contain a body with
                 a single JSON object consisting of the following fields: "error_code" and "message". Possible response
                 type include the following:
@@ -162,7 +162,7 @@
 
             <br>-->
             <div>
-              <h4><b>Variant</b></h4>
+              <h4 id="variant-endpoint"><b>Variant</b></h4>
               <p>The <code>variant</code> endpoint (<code>{{variantUrl}}</code>) enables users/services to query the
                 MVAR database for canonical variants. The following methods can be called on this endpoint:
               </p>
@@ -325,23 +325,23 @@
                 <code>{{variantUrlQuery}}</code> in different programming languages.
               </p>
 
-              <h6>Bash</h6>
+              <h6 id="bash-example">Bash</h6>
               <p>We use <code>CURL</code> to make this request.</p>
               <pre class="small-code-container">{{bashVariantQuery}}</pre>
               <br>
 
-              <h6>Python</h6>
+              <h6 id="python-example">Python</h6>
               <p>The HTTP request in Python is done with the <code>requests</code> library.
               </p>
               <pre class="small-code-container">{{pythonVariantQuery}}</pre>
               <br>
 
-              <h6>Java</h6>
+              <h6 id="java-example">Java</h6>
               <p>The Java equivalent HTTP request is the following:</p>
               <pre class="code-container">{{javaVariantQuery}}</pre>
               <br>
 
-              <h6>R</h6>
+              <h6 id="r-example">R</h6>
               <p>Finally, the R equivalent HTTP request with the help of the
                 <code><a hreaf="https://httr.r-lib.org/reference/">httr</a></code>
               </p>
@@ -351,7 +351,7 @@
             </div>
 
             <div>
-              <h4><b>Strain</b></h4>
+              <h4 id="strain-endpoint"><b>Strain</b></h4>
               <p>The <code>strain</code> endpoint (<code>{{strainUrl}}</code>) is useful to
                 view most existing mouse strains, which can be found on MGI and MPD. The methods of this endpoint
                 are the following:</p>
@@ -401,6 +401,18 @@
           </div>
 
         </div>
+      </div>
+      <div class="col-md-3">
+        <table-of-contents listTitle="Overview Content">
+          <a pageScroll href="#sending-http-requests">Sending HTTP requests</a>
+          <a class="level-1" pageScroll href="#responses">Responses</a>
+          <a pageScroll href="#variant-endpoint">Variant endpoint</a>
+          <a class="level-1" pageScroll href="#bash-example">Bash example</a>
+          <a class="level-1" pageScroll href="#python-example">Python example</a>
+          <a class="level-1" pageScroll href="#java-example">Java example</a>
+          <a class="level-1" pageScroll href="#r-example">R example</a>
+          <a pageScroll href="#strain-endpoint">Strain endpoint</a>
+        </table-of-contents>
       </div>
     </div>
   </div>
