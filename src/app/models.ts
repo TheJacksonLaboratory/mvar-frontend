@@ -127,7 +127,7 @@ export class User {
     refresh_token?: string;
 }
 
-export class MVARStats {
+export class MVARStat {
 
     alleleCount: number;
     geneCount: number;

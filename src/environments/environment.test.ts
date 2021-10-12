@@ -13,7 +13,7 @@ export const environment = {
     MVAR_API_VARIANT_URL: MVAR_API_BASE_URL + 'variant',
     MVAR_API_VARIANT_STRAIN_URL: MVAR_API_BASE_URL + 'variantStrain',
     MVAR_API_SOURCE_URL: MVAR_API_BASE_URL + 'source',
-    MVAR_API_STATS_URL: MVAR_API_BASE_URL + 'mvarStats',
+    MVAR_API_STAT_URL: MVAR_API_BASE_URL + 'mvarStat',
     MVAR_API_VCF_FILE_URL: MVAR_API_BASE_URL + 'vcfFile',
     MVAR_API_SAMPLE_FILE_URL: MVAR_API_BASE_URL + 'sampleFile',
     MVAR_API_ANNOTATED_MUTATION_URL: MVAR_API_BASE_URL + 'annotatedMutation',

@@ -2,7 +2,7 @@ import {Injectable, ɵregisterNgModuleType} from '@angular/core';
 import {HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
 import {Observable, of, BehaviorSubject} from 'rxjs';
-import {File, MVARStats} from '../models';
+import {File, MVARStat} from '../models';
 import {forEachComment} from "tslint";
 import {environment} from '../../environments/environment';
 import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
@@ -15,7 +15,7 @@ const sequenceOntologyUrl = environment.MVAR_API_SEQUENCE_ONTOLOGY_URL;
 const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
-const mvarStatsUrl = environment.MVAR_API_STATS_URL;
+const mvarStatUrl = environment.MVAR_API_STAT_URL;
 const variantExportCSVUrl = environment.MVAR_API_VARIANT_EXPORT_CSV_URL;
 const variantStrainUrl = environment.MVAR_API_VARIANT_STRAIN_URL;
 
@@ -30,22 +30,22 @@ export class SearchService {
     seqStrains: any[] = [];
 
     //stats
-    mvarStats: MVARStats;
-    mvarStatsSubject: BehaviorSubject<MVARStats>;
+    mvarStat: MVARStat;
+    mvarStatSubject: BehaviorSubject<MVARStat>;
 
     constructor(private http: HttpClient) {
         this.selectedSearchItems = {}
         this.selectedSearchItemSubject = new BehaviorSubject(this.selectedSearchItems)
 
-        this.mvarStats = new MVARStats();
-        this.mvarStatsSubject = new BehaviorSubject(this.mvarStats);
+        this.mvarStat = new MVARStat();
+        this.mvarStatSubject = new BehaviorSubject(this.mvarStat);
 
         this.loadSequencedStrains();
     }
 
     loadSequencedStrains() {
         if (! this.seqStrainsSource) {
-            this.seqStrainsSource = this.http.get(variantStrainUrl + '/strains')
+            this.seqStrainsSource = this.http.get(variantStrainUrl + '/strainsInDB')
         }
         return this.seqStrainsSource
     }
@@ -138,6 +138,8 @@ export class SearchService {
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
+            // default set to 0
+            imputed: '0',
             max: paramsIn.max ? paramsIn.max : '',
             offset: paramsIn.offset ? paramsIn.offset : '',
             sortBy: paramsIn.sortBy ? paramsIn.sortBy : '',
@@ -146,30 +148,30 @@ export class SearchService {
 
 
         if (url === variantExportCSVUrl) {
-            return this.http.post(url, {responseType: 'arraybuffer', params: options});
+            return this.http.get(url, {responseType: 'arraybuffer', params: options});
         } else {
-            return this.http.post(url, {params: options});
+            return this.http.get(url, {params: options});
         }
 
     }
 
     getStats() {
-        if (this.mvarStats.alleleCount === -1) {
-            this.http.get<any>(mvarStatsUrl).subscribe(data => {
+        if (this.mvarStat.alleleCount === -1) {
+            this.http.get<any>(mvarStatUrl).subscribe(data => {
                 console.log(data);
-                this.mvarStats.alleleCount = data[0].alleleCount;
-                this.mvarStats.geneCount = data[0].geneCount;
-                this.mvarStats.strainCount = data[0].strainCount;
-                this.mvarStats.transcriptCount = data[0].transcriptCount;
-                this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
-                this.mvarStats.variantCount = data[0].variantCount;
-                this.mvarStats.variantStrainCount = data[0].variantStrainCount;
-                this.mvarStats.variantTranscriptCount = data[0].variantTranscriptCount;
-                this.mvarStats.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
-                this.mvarStats.geneAnalysisCount = data[0].geneAnalysisCount;
-                this.mvarStats.strainAnalysisCount = data[0].strainAnalysisCount;
-                this.mvarStats.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
-                this.mvarStatsSubject.next(this.mvarStats);
+                this.mvarStat.alleleCount = data[0].alleleCount;
+                this.mvarStat.geneCount = data[0].geneCount;
+                this.mvarStat.strainCount = data[0].strainCount;
+                this.mvarStat.transcriptCount = data[0].transcriptCount;
+                this.mvarStat.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStat.variantCount = data[0].variantCount;
+                this.mvarStat.variantStrainCount = data[0].variantStrainCount;
+                this.mvarStat.variantTranscriptCount = data[0].variantTranscriptCount;
+                this.mvarStat.variantCanonIdentifierCount = data[0].variantCanonIdentifierCount;
+                this.mvarStat.geneAnalysisCount = data[0].geneAnalysisCount;
+                this.mvarStat.strainAnalysisCount = data[0].strainAnalysisCount;
+                this.mvarStat.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
+                this.mvarStatSubject.next(this.mvarStat);
             });
         }
     }
@@ -207,6 +209,7 @@ export class SearchService {
             mvarId: mvarIdList,
             dbSNPid: dbSNPidList,
             chr: paramsIn.chr ? paramsIn.chr : '',
+            imputed: '0',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
             endPos: paramsIn.endPos ? paramsIn.endPos : '',
             max: paramsIn.max ? paramsIn.max : '',
