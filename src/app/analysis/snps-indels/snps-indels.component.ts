@@ -136,7 +136,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
                 // loading all the data at once in this component
                 this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
                     if (annotation && annotation.length > 0) {
-                        variant.functionalClassSOid = annotation[0].accession;
+                        variant.functionalClassSOid = annotation[0].soId;
                     }
                 });
             });
