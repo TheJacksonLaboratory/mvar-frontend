@@ -1,14 +1,9 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="card">
-          <!-- <div class="card-header card-header-primary">
-          <h3 class="card-title">MVAR API</h3>
-          <p class="card-category">MVAR Application Programming Interface documentation</p>
-          </div> -->
-
-          <div class="card-body">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-10">
             <div>
               <h4 id="sending-http-requests"><b>Sending HTTP requests</b></h4>
               The MVAR API is based on HTTP requests. There are three types of HTTP requests used by the API: GET, POST
@@ -107,60 +102,6 @@
               </table>
             </div>
 
-            <!-- <div>
-              <h4><b>Authentication</b></h4>
-              <p>The MVAR API endpoints require users/services to authenticate using JSON Web Token (JWT) as a way to
-                create
-                a
-                timed authenticated session. After a token expires, the user/service has to re-authenticate to generate
-                a
-                new
-                JWT. The authentication of the API is done with the <code>auth</code> endpoint
-                (<code>https://bhcape01.jax.org/api/auth</code>).</p>
-              <p>There are two methods that can be called. The first one is the <code>login</code> method
-                (<code>https://bhcape01.jax.org/api/auth/login</code>) and the other HTTP request available on the
-                authorization
-                endpoint is <code>refresh</code>, which creates a new access token from a refresh token
-                (<code>https://bhcape01.jax.org/api/auth/refresh</code>). Both use the POST request method.
-              </p>
-              <p>Below are all the different methods that can be called in the auth URL, in different programming
-                languages.
-              </p>
-              <br>
-              <h6>Bash</h6>
-              <p>In Bash, HTTP requests can be made with tools like <a href="https://curl.se/">CURL</a> and <a
-                  href="https://stedolan.github.io/jq/">jq</a>. First we authenticate to retrieve the JWT token using
-                the
-                "auth" endpoint:</p>
-              <pre class="small-code-container">{{bashGetToken}}</pre>
-              <p>This bearer token will be passed in the authorization header of one of the chosen HTTP requests of the
-                API
-                endpoints.</p>
-              <br>
-
-              <h6>Python</h6>
-              <p>In Python, a JWT token is retrieved using the following code example:</p>
-              <pre class="small-code-container">{{pythonGetToken}}</pre>
-              <br>
-
-              <h6>Java</h6>
-              <p>Below is a code snippet in Java showing how to call the "auth" endpoint and generate the JWT token:</p>
-              <pre class="code-container">{{javaGetToken}}</pre>
-              <br>
-
-              <h6>R</h6>
-              <p>Using the "httr" R library, the following code will retrieve the corresponding token:</p>
-              <pre class="small-code-container">{{rGetToken}}</pre>
-              <br>
-
-              <p>Finally, a successfull response JSON object will contain the JWT token and will look like the
-                following:
-              </p>
-              <pre class="small-code-container">{{authResponse}}</pre>
-              <br>
-            </div>
-
-            <br>-->
             <div>
               <h4 id="variant-endpoint"><b>Variant</b></h4>
               <p>The <code>variant</code> endpoint (<code>{{variantUrl}}</code>) enables users/services to query the
@@ -399,20 +340,19 @@
             <br>
 
           </div>
-
+          <div class="col-md-2">
+            <table-of-contents listTitle="Overview Content">
+              <a pageScroll href="#sending-http-requests">Sending HTTP requests</a>
+              <a class="level-1" pageScroll href="#responses">Responses</a>
+              <a pageScroll href="#variant-endpoint">Variant endpoint</a>
+              <a class="level-1" pageScroll href="#bash-example">Bash example</a>
+              <a class="level-1" pageScroll href="#python-example">Python example</a>
+              <a class="level-1" pageScroll href="#java-example">Java example</a>
+              <a class="level-1" pageScroll href="#r-example">R example</a>
+              <a pageScroll href="#strain-endpoint">Strain endpoint</a>
+            </table-of-contents>
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <table-of-contents listTitle="Overview Content">
-          <a pageScroll href="#sending-http-requests">Sending HTTP requests</a>
-          <a class="level-1" pageScroll href="#responses">Responses</a>
-          <a pageScroll href="#variant-endpoint">Variant endpoint</a>
-          <a class="level-1" pageScroll href="#bash-example">Bash example</a>
-          <a class="level-1" pageScroll href="#python-example">Python example</a>
-          <a class="level-1" pageScroll href="#java-example">Java example</a>
-          <a class="level-1" pageScroll href="#r-example">R example</a>
-          <a pageScroll href="#strain-endpoint">Strain endpoint</a>
-        </table-of-contents>
       </div>
     </div>
   </div>
