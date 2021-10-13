@@ -8,6 +8,7 @@ import {FilesNavComponent} from '../../files-nav/files-nav.component';
 import { AboutUsComponent } from '../../about-us/about-us.component';
 import {LoginComponent} from '../../login/login.component';
 import {StrainVariantComponent} from '../../analysis/strain-variant/strain-variant.component';
+import { MvarApiComponent } from 'app/mvar-api';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -61,6 +62,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'strain-variant',     component: StrainVariantComponent },
     // { path: 'variant/:rareVar/:candidateVar/:confirmedVar',     component: SnpsIndelsComponent},
     { path: 'filesNav', component: FilesNavComponent },
+    { path: 'mvar-api', component: MvarApiComponent },
     { path: 'aboutUs', component: AboutUsComponent },
     { path: 'aboutUs/:selectedTab', component: AboutUsComponent },
 ];

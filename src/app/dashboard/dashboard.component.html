@@ -39,7 +39,7 @@
                         <div class="row">
                             <br>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -56,10 +56,13 @@
                         </div>
                         <h5 class="card-title">MVAR Data Source
                         </h5>
-                        <p class="card-title">Currently the MVAR data consist of Mouse Variation data from the Sanger Institute (https://www.sanger.ac.uk/data/mouse-genomes-project/), 
-                            which has been pre-processed and annotated (type of change, predicted functional consequence) using a custom pipeline. 
-                            The database will be soon be updated with data from the Mouse Genome Informatics (Jax), dbSNP (NCBI), the Mouse Mutant Repository database (Jax)
-                             and the Diversity Outbred Database (Jax).</p>
+                        <p class="card-title">Currently the MVAR data consist of Mouse Variation data from the Sanger
+                            Institute (https://www.sanger.ac.uk/data/mouse-genomes-project/),
+                            which has been pre-processed and annotated (type of change, predicted functional
+                            consequence) using a custom pipeline.
+                            The database will be soon be updated with data from the Mouse Genome Informatics (Jax),
+                            dbSNP (NCBI), the Mouse Mutant Repository database (Jax)
+                            and the Diversity Outbred Database (Jax).</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -77,21 +80,21 @@
                         <h5 class="card-title">MVAR database Stats
                         </h5>
                         <p class="card-title">MVAR Canonical Variants:
-                            <strong>{{mvarStats.variantCanonIdentifierCount | number}}</strong>
+                            <strong>{{mvarStat.variantCanonIdentifierCount | number}}</strong>
                         </p>
                         <p class="card-title">Number of Strains:
-                            <strong>{{mvarStats.strainAnalysisCount | number}}</strong>
+                            <strong>{{mvarStat.strainAnalysisCount | number}}</strong>
                         </p>
                         <p class="card-title">Number of Genes:
-                            <strong>{{mvarStats.geneAnalysisCount| number}}</strong>
+                            <strong>{{mvarStat.geneAnalysisCount| number}}</strong>
                         <p class="card-title">Number of Transcripts:
-                            <strong>{{mvarStats.transcriptAnalysisCount| number}}</strong>
+                            <strong>{{mvarStat.transcriptAnalysisCount| number}}</strong>
                         </p>
                         <p class="card-title">Number of Variants by Strains:
-                            <strong>{{mvarStats.variantStrainCount | number}}</strong>
+                            <strong>{{mvarStat.variantStrainCount | number}}</strong>
                         </p>
                         <p class="card-title">Number of Variants by Transcripts:
-                            <strong>{{mvarStats.variantTranscriptCount | number}}</strong>
+                            <strong>{{mvarStat.variantTranscriptCount | number}}</strong>
                         </p>
                     </div>
                     <div class="card-footer">
@@ -112,13 +115,18 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h3>MVAR API details</h3>
-                                <p>The Mouse Variation Registry supports querying/registration using its API. The registry can be searched using Endpoints,
-                                    which enable users to search the database by Variant, Strain, Gene and Transcript. 
-                                    The MVAR API is based on HTTP/HTTPS requests. Three type of requests are supported by this API: <b>GET, POST and PUT</b>. 
-                                    All requests can be sent through any browser using the corresponding URL in the address bar of the browser. The response to
-                                     a request is in the application/json format. To see a list of the available endpoints and their corresponding parameters,
+                                <p>The Mouse Variation Registry supports querying/registration using its API. The
+                                    registry can be searched using Endpoints,
+                                    which enable users to search the database by Variant, Strain, Gene and Transcript.
+                                    The MVAR API is based on HTTP/HTTPS requests. Three type of requests are supported
+                                    by this API: <b>GET, POST and PUT</b>.
+                                    All requests can be sent through any browser using the corresponding URL in the
+                                    address bar of the browser. The response to
+                                    a request is in the application/json format. To see a list of the available
+                                    endpoints and their corresponding parameters,
                                     follow the link below.</p>
-                                <button mat-raised-button class="learn-more-button"><a href="{{apiUrl}}" target="_blank" style="color:white;"><i class="material-icons">open_in_new</i> Access MVAR API</a></button>
+                                <button class="learn-more-button" mat-raised-button routerLink="/mvar-api">Learn More
+                                    About MVAR API</button>
                             </div>
                         </div>
                     </div>

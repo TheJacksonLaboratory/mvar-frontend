@@ -1,0 +1,359 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-10">
+            <div>
+              <h4 id="sending-http-requests"><b>Sending HTTP requests</b></h4>
+              The MVAR API is based on HTTP requests. There are three types of HTTP requests used by the API: GET, POST
+              and PUT. The base URL for the API is accessible from inside the Jackson Laboratory VPN at the following
+              address: <a href={{apiUrl}}>{{apiUrl}}</a> and a list of the
+              following end-points can be viewed thanks to the Swagger-UI interface available at this URL.
+              <br>
+              <br>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Endpoint name</th>
+                    <th>Description</th>
+                    <th>Request url</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>variant</code></td>
+                    <td>Variant endpoint</td>
+                    <td>{{variantUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>strain</code></td>
+                    <td>Strains endpoint</td>
+                    <td>{{strainUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>gene</code></td>
+                    <td>Genes endpoint</td>
+                    <td>{{geneUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>sequenceOntology</code></td>
+                    <td>SO nomenclature</td>
+                    <td>{{soUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>transcript</code></td>
+                    <td>Transcripts endpoint</td>
+                    <td>{{transcriptUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>mvarStat</code></td>
+                    <td>Stats endpoint</td>
+                    <td>{{mvarStatUrl}}</td>
+                  </tr>
+                  <tr>
+                    <td><code>source</code></td>
+                    <td>Data source endpoint</td>
+                    <td>{{mvarSourceUrl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h6 id="responses">Responses</h6>
+              <p>All responses with status different than HTTP SUCCESS (where status codes 200–299) contain a body with
+                a single JSON object consisting of the following fields: "error_code" and "message". Possible response
+                type include the following:
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Response type</th>
+                    <th>Description</th>
+                    <th>Status code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Success</td>
+                    <td>The request has succeeded</td>
+                    <td>200 (OK)</td>
+                  </tr>
+                  <tr>
+                    <td>HTTPException</td>
+                    <td>Bad Request</td>
+                    <td>400</td>
+                  </tr>
+                  <tr>
+                    <td>HTTPException</td>
+                    <td>Method Not Found Exception</td>
+                    <td>404</td>
+                  </tr>
+                  <tr>
+                    <td>HTTPException</td>
+                    <td>Method Not Allowed Exception.</td>
+                    <td>405</td>
+                  </tr>
+                  <tr>
+                    <td>Internal Server Error</td>
+                    <td>Database Exception</td>
+                    <td>500</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <h4 id="variant-endpoint"><b>Variant</b></h4>
+              <p>The <code>variant</code> endpoint (<code>{{variantUrl}}</code>) enables users/services to query the
+                MVAR database for canonical variants. The following methods can be called on this endpoint:
+              </p>
+              <p>Below are all the existing methods on the <code>variant</code> endpoint:</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method name</th>
+                    <th>Description</th>
+                    <th>Parameters example</th>
+                    <th>Type</th>
+                    <th>Response</th>
+                    <th>Authentication</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>/</code></td>
+                    <td>Return the variant with given id</td>
+                    <td>
+                      <pre>{{variantIdParameter}}<sup> *</sup></pre>
+                    </td>
+                    <td>GET</td>
+                    <td>JSON Variant object</td>
+                    <td>No</td>
+                  </tr>
+                  <tr>
+                    <td><code>query</code></td>
+                    <td>Query Variant with given parameters</td>
+                    <td>
+                      <pre>{{variantQueryParameters}}<sup> **</sup>+</pre>
+                      <pre>{{httpHeaderParam}}<sup> ***</sup></pre>
+                    </td>
+                    <td>POST</td>
+                    <td>List of JSON Variant objects</td>
+                    <td>No</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>
+                <small>
+                  <sup>*</sup>Unique parameter after URL path<br>
+                  <sup>**</sup>Parameter as a JSON payload<br>
+                  <sup>***</sup>HTTP Header parameters<br>
+                </small>
+              </p>
+              <p>
+                The <code>query</code> method has the following parameters, all of which are optional and are set in a
+                JSON payload:
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>type</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>max</code></td>
+                    <td>Max number of results</td>
+                    <td>Integer</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td><code>offset</code></td>
+                    <td>Offset value</td>
+                    <td>Integer</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td><code>sortBy</code></td>
+                    <td>Sorting condition</td>
+                    <td>string</td>
+                    <td>MVAR id</td>
+                  </tr>
+                  <tr>
+                    <td><code>sortDirection</code></td>
+                    <td>asc or desc</td>
+                    <td>string</td>
+                    <td>asc</td>
+                  </tr>
+                  <tr>
+                    <td><code>gene</code></td>
+                    <td>Gene symbol</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>strain</code></td>
+                    <td>Strain name</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>variantRefTxt</code></td>
+                    <td>Variant canonical Id</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>mvarId</code></td>
+                    <td>MVAR id: MCA_*</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>type</code></td>
+                    <td>Variant type: can be SNP, INS or DEL</td>
+                    <td>List of string</td>
+                    <td>["SNP", "INS", "DEL"]</td>
+                  </tr>
+                  <tr>
+                    <td><code>annotation</code></td>
+                    <td>Sequence Ontology name</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>hgvs</code></td>
+                    <td>HGVS genomic nomenclature</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>dbSNPid</code></td>
+                    <td>dbSNP ID</td>
+                    <td>List of string</td>
+                    <td>Empty list</td>
+                  </tr>
+                  <tr>
+                    <td><code>impact</code></td>
+                    <td>Variant impact</td>
+                    <td>List of string</td>
+                    <td>["HIGH", "MODERATE", "MODIFIER", "LOW"]</td>
+                  </tr>
+                  <tr>
+                    <td><code>chr</code></td>
+                    <td>Chromosome</td>
+                    <td>string</td>
+                    <td>All chromosomes</td>
+                  </tr>
+                  <tr>
+                    <td><code>startPos</code></td>
+                    <td>Starting position</td>
+                    <td>Integer</td>
+                    <td>N/A</td>
+                  </tr>
+                  <tr>
+                    <td><code>endPos</code></td>
+                    <td>Ending position</td>
+                    <td>Integer</td>
+                    <td>N/A</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Here is an example for the HTTP request <code>query</code> with the following URL
+                <code>{{variantUrlQuery}}</code> in different programming languages.
+              </p>
+
+              <h6 id="bash-example">Bash</h6>
+              <p>We use <code>CURL</code> to make this request.</p>
+              <pre class="small-code-container">{{bashVariantQuery}}</pre>
+              <br>
+
+              <h6 id="python-example">Python</h6>
+              <p>The HTTP request in Python is done with the <code>requests</code> library.
+              </p>
+              <pre class="small-code-container">{{pythonVariantQuery}}</pre>
+              <br>
+
+              <h6 id="java-example">Java</h6>
+              <p>The Java equivalent HTTP request is the following:</p>
+              <pre class="code-container">{{javaVariantQuery}}</pre>
+              <br>
+
+              <h6 id="r-example">R</h6>
+              <p>Finally, the R equivalent HTTP request with the help of the
+                <code><a hreaf="https://httr.r-lib.org/reference/">httr</a></code>
+              </p>
+              <pre class="small-code-container">{{rVariantQuery}}</pre>
+              <br>
+
+            </div>
+
+            <div>
+              <h4 id="strain-endpoint"><b>Strain</b></h4>
+              <p>The <code>strain</code> endpoint (<code>{{strainUrl}}</code>) is useful to
+                view most existing mouse strains, which can be found on MGI and MPD. The methods of this endpoint
+                are the following:</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method name</th>
+                    <th>Description</th>
+                    <th>Parameters example</th>
+                    <th>Type</th>
+                    <th>Response</th>
+                    <th>Authentication</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>/</code></td>
+                    <td>Return the strain with given id</td>
+                    <td>
+                      <pre>{{strainIdParameter}}</pre>
+                    </td>
+                    <td>GET</td>
+                    <td>JSON Strain object</td>
+                    <td>No</td>
+                  </tr>
+                  <tr>
+                    <td><code>query</code></td>
+                    <td>Query strains with given parameters</td>
+                    <td>
+                      <pre>{{strainQueryParameters}} +</pre>
+                      <pre>{{httpHeaderParam}}</pre>
+                    </td>
+                    <td>POST</td>
+                    <td>List of JSON Variant objects</td>
+                    <td>No</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>Use the same code examples as for the <code>variant</code> endpoint above and adjust accordingly the
+                parameters. The other endpoinds as described in the first table at the beginning of this document can be
+                accessed the same way as for the <code>variant</code> and <code>strain</code> endpoints. More details on
+                the parameters and options that each of these endpoints accept can be viewed at the following url: <a
+                  href={{apiUrl}}>{{apiUrl}}</a></p>
+            </div>
+            <br>
+
+          </div>
+          <div class="col-md-2">
+            <table-of-contents listTitle="Overview Content">
+              <a pageScroll href="#sending-http-requests">Sending HTTP requests</a>
+              <a class="level-1" pageScroll href="#responses">Responses</a>
+              <a pageScroll href="#variant-endpoint">Variant endpoint</a>
+              <a class="level-1" pageScroll href="#bash-example">Bash example</a>
+              <a class="level-1" pageScroll href="#python-example">Python example</a>
+              <a class="level-1" pageScroll href="#java-example">Java example</a>
+              <a class="level-1" pageScroll href="#r-example">R example</a>
+              <a pageScroll href="#strain-endpoint">Strain endpoint</a>
+            </table-of-contents>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

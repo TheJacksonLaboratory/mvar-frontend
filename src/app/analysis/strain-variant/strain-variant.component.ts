@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../search.service';
 import {MatDialog, MatPaginator} from '@angular/material';
-import {servicebroker_v1} from "googleapis";
 import { Router } from '@angular/router';
 import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
 
@@ -67,14 +66,14 @@ export class StrainVariantComponent implements OnInit {
             const strainMap = new Map();
             variant.strains.forEach(strain => {
 
-                const altAllele = this.findAtlAllele(variant, strain)
+                const altAllele = this.findAltAllele(variant, strain)
                 strainMap.set(strain.id, altAllele)
             });
             variant.strainMap = strainMap;
         });
     }
 
-    findAtlAllele(variant: any, strain: any) {
+    findAltAllele(variant: any, strain: any) {
         if (strain.genotype === './.') {
             return '';  // unknown
 
