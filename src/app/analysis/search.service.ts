@@ -77,8 +77,8 @@ export class SearchService {
         return this.http.get(alleleUrl + '?symbol=' + name);
     }
 
-    public searchAnnotation(name: string): Observable<any> {
-        return this.http.get(sequenceOntologyUrl + '?name=' + name);
+    public searchAnnotation(label: string): Observable<any> {
+        return this.http.get(sequenceOntologyUrl + '?label=' + label);
     }
 
     public queryVariant(paramsIn: any): Observable<any> {
