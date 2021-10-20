@@ -23,8 +23,8 @@
               <b>Assembly: </b> {{variant.assembly}}
             </div>
             <div class="col-md-9">
-              <b>Source: </b><a [href]="variant.sources[0].url" target="_blank">{{variant.sources[0].name + " " +
-                variant.sources[0].sourceVersion}}<i class="material-icons">open_in_new</i></a>
+              <b>Source: </b><div *ngIf="variant.sources[0]!=null"><a [href]="variant.sources[0].url" target="_blank">{{variant.sources[0].name + " " +
+                variant.sources[0].sourceVersion}}<i class="material-icons">open_in_new</i></a></div>
             </div>
           </div>
           <div class="row">
