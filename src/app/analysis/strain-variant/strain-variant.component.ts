@@ -3,6 +3,7 @@ import {SearchService} from '../search.service';
 import {MatDialog, MatPaginator} from '@angular/material';
 import { Router } from '@angular/router';
 import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
+import { SpinnerDialogComponent } from 'app/components/spinner-dialog/spinner-dialog.component';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class StrainVariantComponent implements OnInit {
     enableFilters = false;
 
     dialogRef: any;
+    spinnerDialogRef: any;
 
     // MatPaginator Inputs
     pageLength = 0;
@@ -50,6 +52,7 @@ export class StrainVariantComponent implements OnInit {
     }
 
     loadVariantStrainData() {
+        this.openSpinnerDialog();
 
         this.searchService.getVariantStrains(this.currSearchParams).subscribe(
             data => {
@@ -57,8 +60,11 @@ export class StrainVariantComponent implements OnInit {
                 this.pageLength = data.variantCount;
                 this.setStrainMap()
                 this.enableFilters = true;
-            }
-        );
+                this.spinnerDialogRef.close();
+            },
+            (error) => {
+                this.spinnerDialogRef.close();
+            });
     }
 
     setStrainMap() {
@@ -142,5 +148,12 @@ export class StrainVariantComponent implements OnInit {
 
     public showSNPIndels() {
         this.router.navigate(['/variant'])
+    }
+
+    openSpinnerDialog() {
+        this.spinnerDialogRef = this.dialog.open(SpinnerDialogComponent, {
+                panelClass: 'transparent',
+                disableClose: true
+        });
     }
 }
