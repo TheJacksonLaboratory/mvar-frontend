@@ -28,6 +28,9 @@ export class SearchService {
     selectedSearchItemSubject: BehaviorSubject<any>;
     seqStrainsSource: Observable<any>;
     seqStrains: any[] = [];
+    source = 'Sanger_V7'; // TODO link this variable to a combobox on the variant/strain UI
+    // source = 'SNPGrid_V1';
+
 
     //stats
     mvarStat: MVARStat;
@@ -45,9 +48,13 @@ export class SearchService {
 
     loadSequencedStrains() {
         if (! this.seqStrainsSource) {
-            this.seqStrainsSource = this.http.get(variantStrainUrl + '/strainsInDB')
+            this.seqStrainsSource = this.http.get(variantStrainUrl + '/strainsInDB?source=' + this.source)
         }
         return this.seqStrainsSource
+    }
+
+    setSource(source: string) {
+        this.source = source;
     }
 
     getSelectedSearchItems() {
@@ -201,6 +208,7 @@ export class SearchService {
         }
 
         const options = {
+            source: this.source,
             gene: genes,
             type: paramsIn.varType ? paramsIn.varType : [],
             consequence: paramsIn.consequence ? paramsIn.consequence : [],
