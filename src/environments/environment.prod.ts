@@ -1,4 +1,4 @@
-const MVAR_API_BASE_URL = 'http://ctmvr01lt.jax.org:8080/mvar-core-0.1/';
+const MVAR_API_BASE_URL = '../mvar/';
 export const environment = {
 
     MVAR_API_SWAGGER_URL: MVAR_API_BASE_URL + 'apiDoc',
@@ -25,5 +25,5 @@ export const environment = {
     SEQUENCE_ONTOLOGY_URL: 'http://www.sequenceontology.org/browser/current_release/term/',
     JAX_STRAIN_REGISTRY_URL: 'https://www.jax.org/strain/',
     JAX_MAMMALIAN_PHENOTYPE_URL: 'http://www.informatics.jax.org/vocab/mp_ontology/',
-    production: false
+    production: true
 };
