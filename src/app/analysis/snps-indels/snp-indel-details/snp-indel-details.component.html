@@ -10,56 +10,52 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <b>MVAR Id: </b> {{variant.canonVarIdentifier.caID}}
             </div>
-            <div class="col-md-9">
+            <div class="col-md-4">
+              <b>Chromosome:</b> {{variant.chr}}
+            </div>
+            <div class="col-md-4">
               <b>External Id: </b> <span *ngIf="variant.accession"><a [href]="rsIdUrl + variant.accession" rel="noopener noreferrer"
                 target="_blank">{{variant.accession}}<i class="material-icons">open_in_new</i></a></span>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <b>Assembly: </b> {{variant.assembly}}
             </div>
-            <div class="col-md-9">
-              <b>Source: </b><div *ngIf="variant.sources[0]!=null"><a [href]="variant.sources[0].url" target="_blank">{{variant.sources[0].name + " " +
-                variant.sources[0].sourceVersion}}<i class="material-icons">open_in_new</i></a></div>
+            <div class="col-md-4">
+              <b>Position: </b> {{variant.position}}
+            </div>
+            <div class="col-md-4">
+              <b>Source: </b><a *ngIf="variant.sources[0]!=null" [href]="variant.sources[0].url" target="_blank">{{variant.sources[0].name + " " +
+                variant.sources[0].sourceVersion}}</a>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <b>Gene: </b> <a [href]="mgiGeneUrl + variant.gene.mgiId" rel="noopener noreferrer" target="_blank"><i
-                  class="material-icons">open_in_new</i> {{variant.gene.symbol}}</a>
+            <div class="col-md-4">
+              <b>Gene: </b> <a [href]="mgiGeneUrl + variant.gene.mgiId" rel="noopener noreferrer" target="_blank">{{variant.gene.symbol}}</a>
               <span *ngIf="variant.gene.symbol"><i style="cursor: pointer;" class="material-icons vertical-align-middle"
                   (click)="openGeneDialog()" matTooltip="Gene details">info</i></span>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <b>Chromosome:</b> {{variant.chr}}
-            </div>
-            <div class="col-md-9">
-              <b>Position: </b> {{variant.position}}
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="a"><b>Ref. Allele:</b> {{variant.ref}}</div>
             </div>
-            <div class="col-md-9">
-              <div class="a"><b>Allele: </b> {{variant.alt}}</div>
+            <div class="col-md-4">
+              <b>Impact: </b> {{variant.impact}}
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <b>Consequence: </b>
               <a [href]="sequenceOntologyUrl + variant.functionalClassSOid" rel="noopener noreferrer"
-                target="_blank">{{variant.functionalClassCode}}<i class="material-icons">open_in_new</i></a>
+                target="_blank">{{variant.functionalClassCode}}</a>
             </div>
-            <div class="col-md-9">
-              <b>Impact: </b> {{variant.impact}}
+            <div class="col-md-4">
+              <div class="a"><b>Allele: </b> {{variant.alt}}</div>
             </div>
+            <div class="col-md-4"></div>
           </div>
 
           <div class="row">
