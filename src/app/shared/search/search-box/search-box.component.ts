@@ -169,7 +169,7 @@ export class SearchBoxComponent implements OnInit {
     }
 
     private _searchGenes(filterValue: string) {
-        this.searchService.searchGene(filterValue).subscribe(data => {
+        this.searchService.searchMvarGene(filterValue).subscribe(data => {
             this.geneCount = data.length;
             this.geneOptions = data;
         });

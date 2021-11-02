@@ -72,6 +72,10 @@ export class SearchService {
         return this.http.get(geneUrl + '?symbol=' + symbol);
     }
 
+    public searchMvarGene(symbol: string): Observable<any> {
+        return this.http.get(geneUrl + '?symbol=' + symbol + "&mvar=true");
+    }
+
     public searchStrain(name: string): Observable<any> {
         return this.http.get(strainUrl + '?name=' + name);
     }
