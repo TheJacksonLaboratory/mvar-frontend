@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/login', title: 'User Login',  icon:'person', class: '' },
     { path: '/variant', title: 'Mouse SNPs / INDELs',  icon:'table_chart', class: '' },
     { path: '/strain-variant', title: 'Strain Variant',  icon:'tune', class: '' },
-    { path: '/filesNav', title: 'VCF Files',  icon:'folder', class: '' },
+    // { path: '/filesNav', title: 'VCF Files',  icon:'folder', class: '' },
     { path: '/mvar-api', title: 'API Documentation', icon:'api', class: '' },
     { path: '/aboutUs', title: 'About',  icon:'explore', class: '' },
 ];
