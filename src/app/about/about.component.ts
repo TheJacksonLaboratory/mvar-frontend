@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router'
 
 @Component({
-  selector: 'app-about-us',
-  templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.scss']
+  selector: 'about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss']
 })
-export class AboutUsComponent implements OnInit {
+export class AboutComponent implements OnInit {
 
   selectedTab: any;
 
