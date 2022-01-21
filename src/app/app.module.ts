@@ -105,7 +105,7 @@ import { routing } from './app.routing';
     StrainVariantComponent,
     TableOfContentsComponent
   ],
-  providers: [FilesService, UploadService, SearchService, AuthenticationService, Location,
+  providers: [FilesService, UploadService, SearchService, AuthenticationService,
     { provide: MatDialogRef, useValue: {} },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
