@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Gene, Variant} from '../../models';
+import {Variant} from '../../models';
 import {SearchService} from '../search.service';
 import {MatPaginator} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatSort} from '@angular/material/sort';
 import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
 import { Router } from "@angular/router";
 
@@ -144,7 +144,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
             this.varCount = data.variantCount;
             this.pageLength = this.varCount;
-
+            this.varPaginator.pageSize = params.max;
             this.enableFilters = true;
             this.spinnerDialogRef.close();
         },
@@ -206,8 +206,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     showStrainDistribution() {
-
-        console.log(this.currSearchParams)
         //this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/strain-variant'])
     }
