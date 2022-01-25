@@ -8,6 +8,7 @@ import {environment} from '../../environments/environment';
 import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
 
 const geneUrl = environment.MVAR_API_GENE_URL;
+const mvarGeneUrl = environment.MVAR_API_MVAR_GENE_URL;
 const strainUrl = environment.MVAR_API_STRAIN_URL;
 const transcriptUrl = environment.MVAR_API_TRANSCRIPT_URL;
 const alleleUrl = environment.MVAR_API_ALLELE_URL;
@@ -77,7 +78,7 @@ export class SearchService {
     }
 
     public getAllMvarGenes(): Observable<any> {
-        return this.http.get(geneUrl + '?all=true');
+        return this.http.get(mvarGeneUrl);
     }
 
     public searchStrain(name: string): Observable<any> {

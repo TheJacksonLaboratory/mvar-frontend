@@ -5,6 +5,7 @@ export const environment = {
     MVAR_API_VARIANT_SEARCH_URL: MVAR_API_BASE_URL + 'variant/query',
     MVAR_API_VARIANT_EXPORT_CSV_URL: MVAR_API_BASE_URL + 'variant/exportCsv',
     MVAR_API_GENE_URL: MVAR_API_BASE_URL + 'gene',
+    MVAR_API_MVAR_GENE_URL: MVAR_API_BASE_URL + 'mvarGene',
     MVAR_API_STRAIN_URL: MVAR_API_BASE_URL + 'strain',
     MVAR_API_TRANSCRIPT_URL: MVAR_API_BASE_URL + 'transcript',
     MVAR_API_ALLELE_URL: MVAR_API_BASE_URL + 'allele',

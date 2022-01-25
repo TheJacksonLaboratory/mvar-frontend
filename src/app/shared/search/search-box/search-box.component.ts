@@ -175,8 +175,14 @@ export class SearchBoxComponent implements OnInit {
         let mvarGenes = JSON.parse(localStorage.getItem("mvar_genes"));
         let filteredList = mvarGenes.filter(item =>
             item.symbol.toLowerCase().includes(filterValue.toLowerCase()));
-        this.geneCount = filteredList.length;
-        this.geneOptions = filteredList;
+        // display only a max of 10 genes in the combo box
+        if (filteredList.length > 9) {
+            this.geneCount = 10;
+            this.geneOptions = filteredList.slice(0, 10);
+        } else {
+            this.geneCount = filteredList.length;
+            this.geneOptions = filteredList;
+        }
     }
 
     private _searchAnnotation(filterValue: string) {
