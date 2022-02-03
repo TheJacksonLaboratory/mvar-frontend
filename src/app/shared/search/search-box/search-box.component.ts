@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {SearchService} from '../../../analysis/search.service';
-import {chromosomes} from '../../../models';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { filter } from 'rxjs-compat/operator/filter';
+import { SearchService } from '../../../analysis/search.service';
+import { chromosomes } from '../../../models';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class SearchBoxComponent implements OnInit {
 
     chromosomes = chromosomes;
 
-    searchCriteria: any = {selectedItems: []};
+    searchCriteria: any = { selectedItems: [] };
 
     myControl = new FormControl();
     myControlSubscription: any;
@@ -69,7 +70,7 @@ export class SearchBoxComponent implements OnInit {
     removable = true;
 
     showStrains = false;
-    showConsequence =  false;
+    showConsequence = false;
     showVarRegion = false;
     selectedStrains = new Map();
 
@@ -80,7 +81,7 @@ export class SearchBoxComponent implements OnInit {
     ngOnInit() {
         console.log('searchBox, type = ' + this.searchType);
 
-        if (! this.resetSearch) {
+        if (!this.resetSearch) {
             this.searchCriteria = this.searchService.getSelectedSearchItems();
         }
 
@@ -91,7 +92,10 @@ export class SearchBoxComponent implements OnInit {
         }
 
         this.setSearchBox();
-
+        // get list of mvar genes and store them in LocalStorage
+        this.searchService.getAllMvarGenes().subscribe(data => {
+            localStorage.setItem("mvar_genes", JSON.stringify(data));
+        });
 
         this.searchService.loadSequencedStrains().subscribe(data => {
             this.seqStrains = data.strains;
@@ -122,26 +126,24 @@ export class SearchBoxComponent implements OnInit {
 
             this.placeHolderTxt = 'Enter gene symbol';
             this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                    this.geneOptions = [];
-                    this.strainOptions = [];
-                    this.annotationOptions = [];
-                    if (value && value.length > 0) {
-                        this._variantFilter(value);
-                    }
+                this.geneOptions = [];
+                this.strainOptions = [];
+                this.annotationOptions = [];
+                if (value && value.length > 0) {
+                    this._variantFilter(value);
                 }
-            );
+            });
         }
 
         if (this.searchType === 'variant-strain') {
 
             this.placeHolderTxt = 'Enter gene symbol';
             this.myControlSubscription = this.myControl.valueChanges.subscribe(value => {
-                    this.geneOptions = [];
-                    if (value && value.length > 0) {
-                        this._strainVariantFilter(value);
-                    }
+                this.geneOptions = [];
+                if (value && value.length > 0) {
+                    this._strainVariantFilter(value);
                 }
-            );
+            });
         }
 
     }
@@ -169,10 +171,18 @@ export class SearchBoxComponent implements OnInit {
     }
 
     private _searchGenes(filterValue: string) {
-        this.searchService.searchMvarGene(filterValue).subscribe(data => {
-            this.geneCount = data.length;
-            this.geneOptions = data;
-        });
+        // get list of mvar genes from localStorage
+        let mvarGenes = JSON.parse(localStorage.getItem("mvar_genes"));
+        let filteredList = mvarGenes.filter(item =>
+            item.symbol.toLowerCase().includes(filterValue.toLowerCase()));
+        // display only a max of 10 genes in the combo box
+        if (filteredList.length > 9) {
+            this.geneCount = 10;
+            this.geneOptions = filteredList.slice(0, 10);
+        } else {
+            this.geneCount = filteredList.length;
+            this.geneOptions = filteredList;
+        }
     }
 
     private _searchAnnotation(filterValue: string) {
@@ -277,7 +287,7 @@ export class SearchBoxComponent implements OnInit {
         this.searchCriteria.varImpact = [];
         this.searchCriteria.selectedItems = [];
 
-        if (! this.resetSearch) {
+        if (!this.resetSearch) {
             this.selectedSearchItem.emit(this.searchCriteria);
         }
     }

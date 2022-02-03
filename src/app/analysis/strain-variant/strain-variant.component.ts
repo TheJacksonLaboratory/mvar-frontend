@@ -58,6 +58,7 @@ export class StrainVariantComponent implements OnInit {
             data => {
                 this.dataSource = data.variants as any[]
                 this.pageLength = data.variantCount;
+                this.varPaginator.pageSize = this.currSearchParams.max;
                 this.setStrainMap()
                 this.enableFilters = true;
                 this.spinnerDialogRef.close();
