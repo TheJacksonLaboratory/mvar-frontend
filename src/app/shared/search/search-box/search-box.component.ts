@@ -226,6 +226,7 @@ export class SearchBoxComponent implements OnInit {
 
     public searchByHGVS(hgvs: String) {
 
+        hgvs = hgvs.trim();
         this.searchCriteria.selectedItems.push({
             selectedType: 'hgvs',
             selectedValue: hgvs,
