@@ -33,7 +33,7 @@ Run the front-end application
 
 Build command
 
-    ng build --base-href=/ -c dev  (development)
-    ng build --base-href=/ -c prod  (prodution)
+    ng build --base-href=/ -c test  (sqa environment)
+    ng build --base-href=/ -c production (production environment)
 
 
