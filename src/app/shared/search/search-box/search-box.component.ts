@@ -171,6 +171,7 @@ export class SearchBoxComponent implements OnInit {
     }
 
     private _searchGenes(filterValue: string) {
+        filterValue = filterValue.trim()
         // get list of mvar genes from localStorage
         let mvarGenes = JSON.parse(localStorage.getItem("mvar_genes"));
         let filteredList = mvarGenes.filter(item =>
@@ -238,6 +239,7 @@ export class SearchBoxComponent implements OnInit {
 
     public searchByMVARid(mvarId: string) {
 
+        mvarId = mvarId.trim()
         this.searchCriteria.selectedItems.push({
             selectedType: 'mvarId',
             selectedValue: mvarId,
@@ -249,6 +251,7 @@ export class SearchBoxComponent implements OnInit {
 
     public searchBydbSNPid(dbSNPid: string) {
 
+        dbSNPid = dbSNPid.trim()
         this.searchCriteria.selectedItems.push({
             selectedType: 'dbSNPid',
             selectedValue: dbSNPid,
