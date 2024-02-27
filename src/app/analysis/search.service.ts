@@ -1,11 +1,8 @@
-import {Injectable, ɵregisterNgModuleType} from '@angular/core';
-import {HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Subject} from 'rxjs/Subject';
-import {Observable, of, BehaviorSubject} from 'rxjs';
-import {File, MVARStat} from '../models';
-import {forEachComment} from "tslint";
+import {Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, BehaviorSubject} from 'rxjs';
+import {MVARStat} from '../models';
 import {environment} from '../../environments/environment';
-import {promptGlobalAnalytics} from "@angular/cli/models/analytics";
 
 const geneUrl = environment.MVAR_API_GENE_URL;
 const mvarGeneUrl = environment.MVAR_API_MVAR_GENE_URL;
@@ -33,7 +30,7 @@ export class SearchService {
     // source = 'SNPGrid_V1';
 
 
-    //stats
+    // stats
     mvarStat: MVARStat;
     mvarStatSubject: BehaviorSubject<MVARStat>;
 
@@ -108,10 +105,10 @@ export class SearchService {
     }
 
     private downloadExportFile(data: any, type: string) {
-        let blob = new Blob([data], {type: type});
-        let url = window.URL.createObjectURL(blob);
-        let pwa = window.open(url);
-        if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+        const blob = new Blob([data], {type: type});
+        const url = window.URL.createObjectURL(blob);
+        const pwa = window.open(url);
+        if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
             alert('Please disable your Pop-up blocker and try again.');
         }
         ;
@@ -119,7 +116,7 @@ export class SearchService {
 
     private sendVariantQueryRequest(paramsIn: any, url: string): Observable<any> {
 
-        //console.log(paramsIn)
+        // console.log(paramsIn)
 
         const genes: string[] = [];
         const hgvsList: string[] = [];
@@ -150,6 +147,7 @@ export class SearchService {
             hgvs: hgvsList,
             mvarId: mvarIdList,
             dbSNPid: dbSNPidList,
+            assembly: paramsIn.assembly ? paramsIn.assembly : 'mm39',
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
             chr: paramsIn.chr ? paramsIn.chr : '',
             startPos: paramsIn.startPos ? paramsIn.startPos : '',
@@ -222,6 +220,7 @@ export class SearchService {
             type: paramsIn.varType ? paramsIn.varType : [],
             consequence: paramsIn.consequence ? paramsIn.consequence : [],
             impact: paramsIn.varImpact ? paramsIn.varImpact : [],
+            assembly: paramsIn.assembly ? paramsIn.assembly : 'mm39',
             hgvs: hgvsList,
             mvarId: mvarIdList,
             dbSNPid: dbSNPidList,

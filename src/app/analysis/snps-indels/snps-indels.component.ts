@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Variant} from '../../models';
 import {SearchService} from '../search.service';
-import {MatPaginator} from '@angular/material';
+import {MatPaginator} from '@angular/material/paginator';
 import {ActivatedRoute} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MatSort} from '@angular/material/sort';
-import {HelpDialogComponent} from "../dialogs/help-dialog/help-dialog.component";
+import {HelpDialogComponent} from '../dialogs/help-dialog/help-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {SpinnerDialogComponent} from '../../components/spinner-dialog/spinner-dialog.component';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-snps-indels',
@@ -28,7 +28,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     @ViewChild('varPaginator', {static: true}) varPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-    //Table items
+    // Table items
     displayedColumns = ['caid', 'chr', 'symbol', 'hgvs', 'type', 'functionalClassCode'];
 
     varDataSource: Variant[] = [];
@@ -39,7 +39,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
 
-    //searchparams
+    // searchparams
     currSearchParams: any = {}
 
     showVarFilters = false;
@@ -120,19 +120,19 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
         this.openSpinnerDialog();
         this.searchService.queryVariant(params).subscribe(data => {
 
-            let temp = data.variants as Variant[];
+            const temp = data.variants as Variant[];
 
             // TODO:  Below code seems unnecessary. Instead load variation details on demand in the SNP-indel details component
 
             temp.forEach(variant => {
                 // set impact at variant level and the list of impacts for all transcript
                 variant.impacts = variant.impact;
-                variant.impact = variant.impact.split(",")[0]
+                variant.impact = variant.impact.split(',')[0]
                 // set annotation at variant level and the list of annotations for all transcripts
                 variant.functionalClassCodes = variant.functionalClassCode;
-                variant.functionalClassCode = variant.functionalClassCode.split(",")[0];
+                variant.functionalClassCode = variant.functionalClassCode.split(',')[0];
                 // search for annotation in Sequence Ontology table and get SO id
-                // TODO Move search of transcrip relating information to the snp-detail component instead of 
+                // TODO Move search of transcrip relating information to the snp-detail component instead of
                 // loading all the data at once in this component
                 this.searchService.searchAnnotation(variant.functionalClassCode).subscribe(annotation => {
                     if (annotation && annotation.length > 0) {
@@ -183,7 +183,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
             exportSearchCriteria.offset = 0;
             exportSearchCriteria.max = this.varCount;
 
-            if (confirm(this.varCount + " records will be exported to a CSV file, do you want to continue?")) {
+            if (confirm(this.varCount + ' records will be exported to a CSV file, do you want to continue?')) {
                 this.searchService.exportVariantsToCSV(exportSearchCriteria);
             }
         }
@@ -206,7 +206,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     showStrainDistribution() {
-        //this.searchService.setSelectedSearchItems(this.currSearchParams);
+        // this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/strain-variant'])
     }
 

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../search.service';
-import {MatDialog, MatPaginator} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { HelpDialogComponent } from '../dialogs/help-dialog/help-dialog.component';
 import { SpinnerDialogComponent } from 'app/components/spinner-dialog/spinner-dialog.component';
@@ -33,7 +34,7 @@ export class StrainVariantComponent implements OnInit {
     pageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
 
-    constructor(private searchService: SearchService, private router: Router, public dialog: MatDialog,) {
+    constructor(private searchService: SearchService, private router: Router, public dialog: MatDialog) {
     }
 
 

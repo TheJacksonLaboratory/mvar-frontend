@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import {Subject, BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { catchError } from "rxjs/internal/operators";
+import {catchError} from 'rxjs/operators';
 
 const urlVcfFile = environment.MVAR_API_VCF_FILE_URL + '/upload/';
 
@@ -51,7 +48,7 @@ export class UploadService {
             // send the http-request and subscribe for progress-updates
             const uploadRes$ = this.http.request(req).pipe(
                 catchError((err) => {
-                    console.log("CATCHING error");
+                    console.log('CATCHING error');
                     progress.next({ data: { errors: [{ message: err.message }] } });
                     progress.complete();
 
@@ -71,7 +68,7 @@ export class UploadService {
                     // pass the percentage into the progress-stream
                     progress.next({ percentDone: percentDone });
                 } else if (event instanceof HttpResponse) {
-                    //console.log(event.body)
+                    // console.log(event.body)
                     // Close the progress-stream if we get an answer form the API
                     // The upload is complete
                     progress.next({ data: event.body });
@@ -94,9 +91,8 @@ export class UploadService {
 
     errorHandler(error: HttpErrorResponse) {
         console.log('errror handler')
-        //console.log (error)
-
-        return Observable.throwError(error.message || 'Server Error');
+        // console.log (error)
+        return throwError(() => new Error(error.message || 'Server Error'));
     }
 
     private setCall(fileType: string) {
