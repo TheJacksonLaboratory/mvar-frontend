@@ -182,3 +182,8 @@ export const chromosomes = [
     {value: 'X', viewValue: 'X'},
     {value: 'Y', viewValue: 'Y'},
     {value: 'MT', viewValue: 'MT'}];
+
+export const assemblies = [
+    {value: 'mm10', viewValue: 'GRCm38/mm10'},
+    {value: 'mm39', viewValue: 'GRCm39/mm39'}
+];
