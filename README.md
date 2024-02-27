@@ -21,7 +21,7 @@ Install Node v16
 
 Install angular cli
 
-    sudo npm install -g @angular/cli@8.0.2 
+    sudo npm install -g @angular/cli@14.2.13 
 
 Run npm install
  
