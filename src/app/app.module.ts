@@ -4,12 +4,33 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule, MatPaginatorModule, MatTableModule, MatAutocompleteModule, MatTabsModule, MatCardModule, MatSidenavModule, MatIconModule, MatListModule, MatProgressBarModule, MatDialogModule, MatCheckboxModule, MatChipsModule, MatExpansionModule, MatSortModule, MatProgressSpinnerModule, MatDialogRef } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule} from '@angular/material/expansion';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -69,6 +90,7 @@ import { routing } from './app.routing';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatRadioModule,
     MatProgressBarModule,
     HttpClientModule,
     MatDialogModule,
@@ -79,7 +101,7 @@ import { routing } from './app.routing';
     MatProgressSpinnerModule,
     NgxPageScrollCoreModule,
     NgxPageScrollModule,
-    BrowserModule,
+    BrowserModule
   ],
   declarations: [
     AppComponent,
@@ -109,7 +131,7 @@ import { routing } from './app.routing';
     { provide: MatDialogRef, useValue: {} },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
-  entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
+  // entryComponents: [UploadDialogComponent, GeneDialogComponent, StrainDialogComponent, HelpDialogComponent, SpinnerDialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
