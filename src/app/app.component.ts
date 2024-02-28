@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   constructor(public location: Location, private router: Router) { }
 
   ngOnInit() {
-    const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    const isWindows = navigator.platform.indexOf('Win') > -1;
 
     if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
       // if we are on Windows OS we activate the perfectScrollbar function
@@ -51,16 +51,12 @@ export class AppComponent implements OnInit {
       elemMainPanel.scrollTop = 0;
       elemSidebar.scrollTop = 0;
     });
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      let ps = new PerfectScrollbar(elemMainPanel);
-      ps = new PerfectScrollbar(elemSidebar);
-    }
     this.router.navigate(['/dashboard']);
   }
   isMaps(path) {
-    let titlee = this.location.prepareExternalUrl(this.location.path());
-    titlee = titlee.slice(1);
-    return path !== titlee;
+    let title = this.location.prepareExternalUrl(this.location.path());
+    title = title.slice(1);
+    return path !== title;
   }
   runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

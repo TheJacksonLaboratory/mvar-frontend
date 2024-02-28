@@ -55,8 +55,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     ngOnInit() {
 
-        const params: any = {};
-
         this.route.paramMap.subscribe(paramsIn => {
 
             const variant = paramsIn.get('variant');
@@ -90,7 +88,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     public onSearchCriteriaChange(searchCriteria: any) {
 
-        const params: any = {};
         this.currSearchParams.offset = 0;
         this.varPaginator.pageIndex = 0;
         this.clearSort();
@@ -164,11 +161,7 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
 
     showFilters() {
         if (this.enableFilters) {
-            if (this.showVarFilters) {
-                this.showVarFilters = false;
-            } else {
-                this.showVarFilters = true;
-            }
+            this.showVarFilters = !this.showVarFilters;
         }
     }
 
@@ -206,7 +199,6 @@ export class SnpsIndelsComponent implements AfterViewInit, OnInit {
     }
 
     showStrainDistribution() {
-        // this.searchService.setSelectedSearchItems(this.currSearchParams);
         this.router.navigate(['/strain-variant'])
     }
 

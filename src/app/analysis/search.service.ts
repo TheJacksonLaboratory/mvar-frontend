@@ -27,8 +27,6 @@ export class SearchService {
     seqStrainsSource: Observable<any>;
     seqStrains: any[] = [];
     source = 'Sanger_V7'; // TODO link this variable to a combobox on the variant/strain UI
-    // source = 'SNPGrid_V1';
-
 
     // stats
     mvarStat: MVARStat;
@@ -111,13 +109,9 @@ export class SearchService {
         if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
             alert('Please disable your Pop-up blocker and try again.');
         }
-        ;
     }
 
     private sendVariantQueryRequest(paramsIn: any, url: string): Observable<any> {
-
-        // console.log(paramsIn)
-
         const genes: string[] = [];
         const hgvsList: string[] = [];
         const mvarIdList: string[] = [];

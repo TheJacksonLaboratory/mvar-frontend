@@ -34,7 +34,6 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { NotificationsComponent } from './notifications/notifications.component';
 import { SnpsIndelsComponent } from './analysis/snps-indels/snps-indels.component';
 import { AboutComponent } from './about/about.component';
 import { AnalysisComponent } from './analysis/analysis.component';
@@ -107,7 +106,6 @@ import { routing } from './app.routing';
     AppComponent,
     DashboardComponent,
     UserProfileComponent,
-    NotificationsComponent,
     SnpsIndelsComponent,
     FilesNavComponent,
     SearchBoxComponent,

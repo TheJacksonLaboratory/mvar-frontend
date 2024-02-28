@@ -17,7 +17,6 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @ViewChild('transcriptPaginator', {static: true}) transcriptPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) transcriptSort: MatSort;
-    // @ViewChild('strainPaginator', {static: true}) strainPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) strainSort: MatSort;
 
     @Input()
@@ -64,13 +63,10 @@ export class SnpIndelDetailsComponent implements OnInit {
         this.transcriptDataSource = this.variant.transcripts;
 
         this.transcriptPageLength = this.variant.transcripts.length;
-        // this.strainPageLength = this.variant.strains.length;
         this.transcriptPaginator.pageIndex = 0;
-        // this.strainPaginator.pageIndex = 0;
     }
 
     openGeneDialog() {
-      console.log('open gene dialog');
         this.dialogRef = this.dialog.open(GeneDialogComponent, {
           width: '50%', height: '50%',
           data: {
@@ -80,7 +76,6 @@ export class SnpIndelDetailsComponent implements OnInit {
     }
 
     openStrainDialog() {
-        console.log('open strain dialog');
         this.dialogRef = this.dialog.open(StrainDialogComponent, {
             width: '50%', height: '50%',
             data: {
@@ -89,9 +84,10 @@ export class SnpIndelDetailsComponent implements OnInit {
         });
     }
 
+    /**
+     * TODO Will be used when a VariantDialogComponent is made
+     */
     openVariantDialog() {
-        console.log('open variant dialog');
-        // TODO
         // this.dialogRef = this.dialog.open(VariantDialogComponent, {
         //     width: '80%', height: '80%',
         //     data: {
@@ -100,11 +96,19 @@ export class SnpIndelDetailsComponent implements OnInit {
         // });
     }
 
+    /**
+     * TODO Called when a transcript page changes
+     * @param pageEvent
+     */
     doTranscriptPageChange(pageEvent: any) {
 
 
     }
 
+    /**
+     * TODO Called when a strain page changes
+     * @param pageEvent
+     */
     doStrainPageChange(pageEvent: any) {
 
 
