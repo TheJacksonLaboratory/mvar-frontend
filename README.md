@@ -7,7 +7,7 @@ https://github.com/TheJacksonLaboratory/mvar-core
 #### Requirements
 
 - Node V 16
-- Angular cli V 8.0.2
+- Angular cli V 14.2.13
 
 ### Local setup
 
