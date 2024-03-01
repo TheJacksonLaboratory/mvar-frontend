@@ -8,13 +8,11 @@ import { SnpsIndelsComponent } from './analysis/snps-indels/snps-indels.componen
 import { StrainVariantComponent } from './analysis/strain-variant/strain-variant.component';
 import { FilesNavComponent } from './files-nav/files-nav.component';
 import { MvarApiComponent } from './mvar-api';
-import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes =[
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'notifications', component: NotificationsComponent },
   { path: 'variant', component: SnpsIndelsComponent },
   { path: 'strain-variant', component: StrainVariantComponent },
   { path: 'filesNav', component: FilesNavComponent },
