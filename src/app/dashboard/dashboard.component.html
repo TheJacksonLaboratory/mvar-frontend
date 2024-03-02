@@ -1,32 +1,32 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-body">-->
 
-                        <div class="row">
-                            <div class="col-md-1">
-                                <div class="logo-img">
-                                    <img src="/assets/img/progress.jpg" width="75"/>
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-1">-->
+<!--                                <div class="logo-img">-->
+<!--                                    <img src="/assets/img/progress.jpg" width="75"/>-->
 
-                                </div>
-                                <!-- <h3>Mouse Variation Registry</h3> -->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; <h3>Mouse Variation Registry</h3> &ndash;&gt;-->
 
 
-                            </div>
-                            <div class="col-md-11">
-                                <h4>The MVAR database is currently being updated to GRCm39 reference genome. </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <br>
-                        </div>
+<!--                            </div>-->
+<!--                            <div class="col-md-11">-->
+<!--                                <h4>The MVAR database is currently being updated to GRCm39 reference genome. </h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row">-->
+<!--                            <br>-->
+<!--                        </div>-->
 
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -117,11 +117,11 @@
                         <p class="card-title">Number of Transcripts:
                             <strong>{{mvarStat.transcriptAnalysisCount| number}}</strong>
                         </p>
-                        <p class="card-title">Number of Variants by Strains:
-                            <strong>{{mvarStat.variantStrainCount | number}}</strong>
+                        <p class="card-title">Number of sources:
+                            <strong>{{mvarStat.sourceCount | number}}</strong>
                         </p>
-                        <p class="card-title">Number of Variants by Transcripts:
-                            <strong>{{mvarStat.variantTranscriptCount | number}}</strong>
+                        <p class="card-title">Number of assemblies:
+                            <strong>{{mvarStat.assemblyCount | number}}</strong>
                         </p>
                     </div>
                     <div class="card-footer">

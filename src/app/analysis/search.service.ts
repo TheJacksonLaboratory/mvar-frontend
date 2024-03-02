@@ -179,6 +179,8 @@ export class SearchService {
                 this.mvarStat.geneAnalysisCount = data[0].geneAnalysisCount;
                 this.mvarStat.strainAnalysisCount = data[0].strainAnalysisCount;
                 this.mvarStat.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
+                this.mvarStat.sourceCount = data[0].sourceCount;
+                this.mvarStat.assemblyCount = data[0].assemblyCount;
                 this.mvarStatSubject.next(this.mvarStat);
             });
         }
