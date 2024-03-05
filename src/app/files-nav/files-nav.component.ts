@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {UploadDialogComponent} from './upload-dialog/upload-dialog.component';
 import {UploadService} from './upload.service';
 import {FilesService} from './files.service';
@@ -34,7 +34,8 @@ export class FilesNavComponent implements OnInit {
     isUserLoggedIn = false;
     currentUser: any;
 
-    constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router, private authenticationService: AuthenticationService) {
+    constructor(public dialog: MatDialog, public uploadService: UploadService, private fileService: FilesService, private router: Router,
+                private authenticationService: AuthenticationService) {
 
         this.uploadService.isThereFileChanges.subscribe(value => {
             this.isThereFileChanges = value;
@@ -157,7 +158,9 @@ export class FilesNavComponent implements OnInit {
     selectSVFile(checked: boolean, file: any) {
         file.selected = checked;
 
-        const selectedFiles = this.svVcfFiles.filter(file => file.selected === true);
+        const selectedFiles = this.svVcfFiles.filter(file => {
+            return file.selected === true;
+        });
         this.isSelectedSVFiles = (selectedFiles.length > 0)
 
     }
@@ -171,13 +174,13 @@ export class FilesNavComponent implements OnInit {
             selectedFiles.forEach(file => {
                 console.log('we are here')
                 this.fileService.loadVcfFiles([file.name], 'SNPNINDEL').subscribe(data => {
-                    //do nothing
+                    // do nothing
                 });
             });
-            //reload this component
+            // reload this component
             this.selectedTab = 1;
             this.delay(2000).then(any => {
-                //task after delay.
+                // ask after delay.
                 this.getNewFiles();
             });
         }
@@ -191,14 +194,14 @@ export class FilesNavComponent implements OnInit {
         if (selectedFiles.length > 0) {
             selectedFiles.forEach(file => {
                 this.fileService.loadVcfFiles([file.name], 'SV').subscribe(data => {
-                    //do nothing
+                    // do nothing
                 });
             });
 
-            //reload this component
+            // reload this component
             this.selectedTab = 1;
             this.delay(2000).then(any => {
-                //task after delay.
+                // task after delay.
                 this.getNewFiles();
             });
         }
@@ -210,7 +213,7 @@ export class FilesNavComponent implements OnInit {
     }
 
     async delay(ms: number) {
-        await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
+        await new Promise<void>(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
     }
 
     selectAllSNPChecks() {

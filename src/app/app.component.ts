@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location, PopStateEvent } from '@angular/common';
-import 'rxjs/add/operator/filter';
+import { filter } from 'rxjs/operators';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
 
 @Component({
@@ -19,10 +19,10 @@ export class AppComponent implements OnInit {
   constructor(public location: Location, private router: Router) { }
 
   ngOnInit() {
-    const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    const isWindows = navigator.platform.indexOf('Win') > -1;
 
     if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
-      // if we are on windows OS we activate the perfectScrollbar function
+      // if we are on Windows OS we activate the perfectScrollbar function
 
       document.getElementsByTagName('body')[0].classList.add('perfect-scrollbar-on');
     } else {
@@ -36,38 +36,27 @@ export class AppComponent implements OnInit {
     });
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
-        if (event.url != this.lastPoppedUrl)
+        if (event.url !== this.lastPoppedUrl)
           this.yScrollStack.push(window.scrollY);
       } else if (event instanceof NavigationEnd) {
-        if (event.url == this.lastPoppedUrl) {
+        if (event.url === this.lastPoppedUrl) {
           this.lastPoppedUrl = undefined;
           window.scrollTo(0, this.yScrollStack.pop());
-        } else
+        } else {
           window.scrollTo(0, 0);
+        }
       }
     });
-    this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
+    this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
       elemMainPanel.scrollTop = 0;
       elemSidebar.scrollTop = 0;
     });
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      let ps = new PerfectScrollbar(elemMainPanel);
-      ps = new PerfectScrollbar(elemSidebar);
-    }
     this.router.navigate(['/dashboard']);
   }
-  ngAfterViewInit() {
-    this.runOnRouteChange();
-  }
   isMaps(path) {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    titlee = titlee.slice(1);
-    if (path == titlee) {
-      return false;
-    }
-    else {
-      return true;
-    }
+    let title = this.location.prepareExternalUrl(this.location.path());
+    title = title.slice(1);
+    return path !== title;
   }
   runOnRouteChange(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

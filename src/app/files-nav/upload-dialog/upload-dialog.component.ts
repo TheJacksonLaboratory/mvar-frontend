@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UploadService } from '../upload.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { forkJoin } from 'rxjs';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload-dialog',
@@ -28,6 +28,7 @@ export class UploadDialogComponent implements OnInit {
   seqSource = '';
   pedingSeqSource = true;
 
+  // tslint:disable-next-line:max-line-length
   constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, public uploadService: UploadService, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.fileType = this.data.fileType;
@@ -35,7 +36,7 @@ export class UploadDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.fileType === 'sample'){
+    if (this.fileType === 'sample') {
       this.pedingSeqSource = false;
     }
   }
@@ -49,7 +50,8 @@ export class UploadDialogComponent implements OnInit {
 
   onFilesAdded() {
     const files: { [key: string]: File } = this.filesUploadBtn.nativeElement.files;
-    for (let key in files) {
+    for (const key in files) {
+      // tslint:disable-next-line:radix
       if (!isNaN(parseInt(key))) {
         this.files.add(files[key]);
       }
@@ -73,7 +75,7 @@ export class UploadDialogComponent implements OnInit {
     const allProgressObservables = [];
     this.allProgressErrors = [];
     this.allProgressInfo = [];
-    for (let key in this.progress) {
+    for (const key in this.progress) {
       allProgressObservables.push(this.progress[key].progress);
     }
 
@@ -91,10 +93,10 @@ export class UploadDialogComponent implements OnInit {
 
 
     // When all progress-observables are completed...
-    forkJoin(allProgressObservables).subscribe((end: any) =>{
+    forkJoin(allProgressObservables).subscribe((end: any) => {
 
-      console.log("fork end")
-      //console.log(end);
+      console.log('fork end')
+      // console.log(end);
 
       end.forEach((res: any) => {
         if (res.data) {
@@ -105,7 +107,7 @@ export class UploadDialogComponent implements OnInit {
               });
           }
 
-          if (res.data.message){
+          if (res.data.message) {
               this.allProgressInfo.push(res.data.message);
           }
         }
@@ -123,7 +125,7 @@ export class UploadDialogComponent implements OnInit {
           this.uploadService.isThereFileChanges.next(true);
       }
 
-      if (this.fileType === 'sample'){
+      if (this.fileType === 'sample') {
           // //emit sample changes event
           this.uploadService.isThereSampleChanges.next(true);
       }

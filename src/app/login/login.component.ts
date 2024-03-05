@@ -1,11 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog} from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import {AuthenticationService} from './authentication.service';
-import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
@@ -35,7 +33,7 @@ export class LoginComponent implements OnInit {
       private route: ActivatedRoute,
       private authenticationService: AuthenticationService) {
 
-      //this.authenticationService.logout();
+      // this.authenticationService.logout();
   }
 
     ngOnInit() {
@@ -48,7 +46,7 @@ export class LoginComponent implements OnInit {
         }
 
         // reset login status
-        //this.authenticationService.logout();
+        // this.authenticationService.logout();
         // this.alertSub = this.alertService.getMessage().subscribe(alert => {
         //     if (alert !== undefined && alert.type === 'error') {
         //         this.error = alert.message;
@@ -58,10 +56,6 @@ export class LoginComponent implements OnInit {
         // });
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-    }
-
-    ngOnDestroy(): void {
-        //this.alertSub.unsubscribe();
     }
 
     /**

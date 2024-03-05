@@ -8,7 +8,7 @@
               <h4 id="sending-http-requests"><b>Sending HTTP requests</b></h4>
               The MVAR API is based on HTTP requests. There are three types of HTTP requests used by the API: GET, POST
               and PUT. The base URL for the API is accessible from inside the Jackson Laboratory VPN at the following
-              address: <a href={{apiUrl}}>{{apiUrl}}</a> and a list of the
+              address: <a href={{apiUrl}} target="_blank">{{apiUrl}}</a> and a list of the
               following end-points can be viewed thanks to the Swagger-UI interface available at this URL.
               <br>
               <br>
@@ -201,6 +201,12 @@
                     <td>Empty list</td>
                   </tr>
                   <tr>
+                      <td><code>assembly</code></td>
+                      <td>Reference genome: mm10 or mm39</td>
+                      <td>string</td>
+                      <td>mm39</td>
+                  </tr>
+                  <tr>
                     <td><code>variantRefTxt</code></td>
                     <td>Variant canonical Id</td>
                     <td>List of string</td>
@@ -284,7 +290,7 @@
 
               <h6 id="r-example">R</h6>
               <p>Finally, the R equivalent HTTP request with the help of the
-                <code><a hreaf="https://httr.r-lib.org/reference/">httr</a></code>
+                <code><a href="https://httr.r-lib.org/reference/">httr</a></code>
               </p>
               <pre class="small-code-container">{{rVariantQuery}}</pre>
               <br>
