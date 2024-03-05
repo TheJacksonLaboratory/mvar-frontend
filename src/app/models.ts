@@ -142,8 +142,7 @@ export class MVARStat {
     strainAnalysisCount: number;
     geneAnalysisCount: number;
     transcriptAnalysisCount: number;
-    sourceCount: number;
-    assemblyCount: number;
+    assemblies: string;
 
     constructor() {
         this.alleleCount = -1;
@@ -160,8 +159,7 @@ export class MVARStat {
         this.geneAnalysisCount = -1;
         this.transcriptAnalysisCount = -1;
 
-        this.sourceCount = -1;
-        this.assemblyCount = -1;
+        this.assemblies ='';
     }
 }
 

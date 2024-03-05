@@ -1,7 +1,7 @@
 import {Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {MVARStat} from '../models';
+import {MVARStat, Source} from '../models';
 import {environment} from '../../environments/environment';
 
 const geneUrl = environment.MVAR_API_GENE_URL;
@@ -14,6 +14,7 @@ const phenotypeUrl = environment.MVAR_API_PHENOTYPE_URL;
 const variantUrl = environment.MVAR_API_VARIANT_URL;
 const variantQueryUrl = environment.MVAR_API_VARIANT_SEARCH_URL;
 const mvarStatUrl = environment.MVAR_API_STAT_URL;
+const mvarStatSourcesUrl = environment.MVAR_API_API_STAT_SOURCES_URL;
 const variantExportCSVUrl = environment.MVAR_API_VARIANT_EXPORT_CSV_URL;
 const variantStrainUrl = environment.MVAR_API_VARIANT_STRAIN_URL;
 
@@ -30,15 +31,18 @@ export class SearchService {
 
     // stats
     mvarStat: MVARStat;
+    sources: Source[];
     mvarStatSubject: BehaviorSubject<MVARStat>;
+    sourcesSubject: BehaviorSubject<Source[]>
 
     constructor(private http: HttpClient) {
         this.selectedSearchItems = {}
         this.selectedSearchItemSubject = new BehaviorSubject(this.selectedSearchItems)
 
         this.mvarStat = new MVARStat();
+        this.sources = [];
         this.mvarStatSubject = new BehaviorSubject(this.mvarStat);
-
+        this.sourcesSubject = new BehaviorSubject(this.sources);
         this.loadSequencedStrains();
     }
 
@@ -179,11 +183,26 @@ export class SearchService {
                 this.mvarStat.geneAnalysisCount = data[0].geneAnalysisCount;
                 this.mvarStat.strainAnalysisCount = data[0].strainAnalysisCount;
                 this.mvarStat.transcriptAnalysisCount = data[0].transcriptAnalysisCount;
-                this.mvarStat.sourceCount = data[0].sourceCount;
-                this.mvarStat.assemblyCount = data[0].assemblyCount;
+                this.mvarStat.assemblies = data[0].assemblies;
                 this.mvarStatSubject.next(this.mvarStat);
             });
         }
+    }
+
+    /**
+     * gets all the mvar sources
+     */
+    getSources() {
+        this.http.get<any>(mvarStatSourcesUrl).subscribe(data => {
+            for (let src of data) {
+                let source = new Source();
+                source.name = src.name;
+                source.sourceVersion = src.sourceVersion;
+                source.url = src.url;
+                this.sources.push(source);
+            }
+            this.sourcesSubject.next(this.sources);
+        });
     }
 
     getVariantStrains(paramsIn: any): Observable<any> {

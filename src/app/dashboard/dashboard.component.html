@@ -117,11 +117,13 @@
                         <p class="card-title">Number of Transcripts:
                             <strong>{{mvarStat.transcriptAnalysisCount| number}}</strong>
                         </p>
-                        <p class="card-title">Number of sources:
-                            <strong>{{mvarStat.sourceCount | number}}</strong>
+                        <p class="card-title">Sources:
+                            <strong *ngFor="let source of sources; let i = index">
+                                <a style="color: #9c27b0;" href={{source.url}} target="_blank">{{source.name}}</a>({{source.sourceVersion}}){{i === sources.length -1 ? '' : ',&nbsp;' }}
+                            </strong>
                         </p>
-                        <p class="card-title">Number of assemblies:
-                            <strong>{{mvarStat.assemblyCount | number}}</strong>
+                        <p class="card-title">Reference genomes:
+                            <strong>{{mvarStat.assemblies}}</strong>
                         </p>
                     </div>
                     <div class="card-footer">
