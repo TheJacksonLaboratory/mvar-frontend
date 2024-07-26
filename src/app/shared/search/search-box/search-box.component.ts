@@ -332,16 +332,12 @@ export class SearchBoxComponent implements OnInit {
         this.showVarRegion = !this.showVarRegion;
     }
 
-    setAssembly(value, event) {
-        if (event.isUserInput === true) {
-            this.assembly = ''
-            this.endPos = ''
-        }
-        this.assembly = value;
+    setAssembly(assembly) {
+        this.assembly = assembly;
+        this.searchCriteria.assembly = assembly;
     }
 
     onSearchCriteriaChange(criteriaType: string, value: any) {
-
         if (!this.searchCriteria.selectedItems) {
             this.searchCriteria.selectedItems = []
         }

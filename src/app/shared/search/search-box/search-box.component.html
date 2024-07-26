@@ -14,7 +14,7 @@
   <div class="col-md-2">
      <mat-form-field>
         <mat-label>Select reference genome</mat-label>
-        <mat-select [(value)]="assembly" placeholder="reference genome" disableOptionCentering>
+        <mat-select [(value)]="assembly" placeholder="reference genome" disableOptionCentering (selectionChange)="setAssembly($event.value)">
             <mat-option *ngFor="let assembly of assemblies"
                         [value]="assembly.value">{{assembly.viewValue}}</mat-option>
         </mat-select>
