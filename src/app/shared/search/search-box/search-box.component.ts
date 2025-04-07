@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { filter } from 'rxjs-compat/operator/filter';
 import { SearchService } from '../../../analysis/search.service';
-import { chromosomes } from '../../../models';
+import {assemblies, chromosomes} from '../../../models';
 
 
 @Component({
@@ -66,6 +65,9 @@ export class SearchBoxComponent implements OnInit {
     mvarId = '';
     dbSNPid = '';
 
+    assemblies = assemblies;
+    assembly = '';
+
     selectable = true;
     removable = true;
 
@@ -84,7 +86,7 @@ export class SearchBoxComponent implements OnInit {
         if (!this.resetSearch) {
             this.searchCriteria = this.searchService.getSelectedSearchItems();
         }
-
+        this.assembly = this.searchCriteria.assembly;
         if (this.searchCriteria.selectedSearchBy) {
 
             this.selectedSearchBy = this.searchCriteria.selectedSearchBy;
@@ -94,7 +96,7 @@ export class SearchBoxComponent implements OnInit {
         this.setSearchBox();
         // get list of mvar genes and store them in LocalStorage
         this.searchService.getAllMvarGenes().subscribe(data => {
-            localStorage.setItem("mvar_genes", JSON.stringify(data));
+            localStorage.setItem('mvar_genes', JSON.stringify(data));
         });
 
         this.searchService.loadSequencedStrains().subscribe(data => {
@@ -173,8 +175,8 @@ export class SearchBoxComponent implements OnInit {
     private _searchGenes(filterValue: string) {
         filterValue = filterValue.trim()
         // get list of mvar genes from localStorage
-        let mvarGenes = JSON.parse(localStorage.getItem("mvar_genes"));
-        let filteredList = mvarGenes.filter(item =>
+        const mvarGenes = JSON.parse(localStorage.getItem('mvar_genes'));
+        const filteredList = mvarGenes.filter(item =>
             item.symbol.toLowerCase().includes(filterValue.toLowerCase()));
         // display only a max of 10 genes in the combo box
         if (filteredList.length > 9) {
@@ -226,7 +228,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByHGVS(hgvs: String) {
-
         hgvs = hgvs.trim();
         this.searchCriteria.selectedItems.push({
             selectedType: 'hgvs',
@@ -238,7 +239,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchByMVARid(mvarId: string) {
-
         mvarId = mvarId.trim()
         this.searchCriteria.selectedItems.push({
             selectedType: 'mvarId',
@@ -250,7 +250,6 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public searchBydbSNPid(dbSNPid: string) {
-
         dbSNPid = dbSNPid.trim()
         this.searchCriteria.selectedItems.push({
             selectedType: 'dbSNPid',
@@ -262,9 +261,9 @@ export class SearchBoxComponent implements OnInit {
     }
 
     private _searchItem() {
-
+        this.searchCriteria.assembly = this.assembly;
         this.searchCriteria.selectedSearchBy = this.selectedSearchBy;
-        //this.showFilterOptions();
+        // this.showFilterOptions();
         this.selectedSearchItem.emit(this.searchCriteria);
     }
 
@@ -287,6 +286,7 @@ export class SearchBoxComponent implements OnInit {
         this.searchCriteria.mvarId = [];
         this.searchCriteria.dbSNPid = [];
         this.searchCriteria.varType = [];
+        this.searchCriteria.assembly = [];
         this.searchCriteria.consequence = [];
         this.searchCriteria.varImpact = [];
         this.searchCriteria.selectedItems = [];
@@ -316,47 +316,33 @@ export class SearchBoxComponent implements OnInit {
     }
 
     showFilterOptions() {
-        if (this.showFilters) {
-            this.showFilters = false;
-        } else {
-            this.showFilters = true;
-        }
-
+        this.showFilters = !this.showFilters;
         this.showFiltersChange.emit(this.showFilters)
     }
 
     showStrainsList() {
-        if (this.showStrains) {
-            this.showStrains = false;
-        } else {
-            this.showStrains = true;
-        }
+        this.showStrains = !this.showStrains;
     }
 
     showConsequenceList() {
-        if (this.showConsequence) {
-            this.showConsequence = false;
-        } else {
-            this.showConsequence = true;
-        }
+        this.showConsequence = !this.showConsequence;
     }
 
     showVarRegionList() {
-        if (this.showVarRegion) {
-            this.showVarRegion = false;
-        } else {
-            this.showVarRegion = true;
-        }
+        this.showVarRegion = !this.showVarRegion;
     }
 
+    setAssembly(assembly) {
+        this.assembly = assembly;
+        this.searchCriteria.assembly = assembly;
+    }
 
     onSearchCriteriaChange(criteriaType: string, value: any) {
-
         if (!this.searchCriteria.selectedItems) {
             this.searchCriteria.selectedItems = []
         }
 
-        //set variation type to search criteria
+        // set variation type to search criteria
         if (criteriaType === 'varType') {
             if (!this.searchCriteria.varType) {
                 this.searchCriteria.varType = []
@@ -370,7 +356,7 @@ export class SearchBoxComponent implements OnInit {
             }
         }
 
-        //set impact to search criteria
+        // set impact to search criteria
         if (criteriaType === 'varImpact') {
             if (!this.searchCriteria.varImpact) {
                 this.searchCriteria.varImpact = []
@@ -384,7 +370,20 @@ export class SearchBoxComponent implements OnInit {
             }
         }
 
-        //set variation consequence
+        // set genome reference
+        if (criteriaType === 'assembly') {
+            if (!this.searchCriteria.assembly) {
+                this.searchCriteria.assembly = []
+            }
+
+            const indx = this.searchCriteria.assembly.indexOf(value);
+            if (indx === -1) {
+                this.searchCriteria.assembly.push(value);
+            } else {
+                this.searchCriteria.assembly.splice(indx, 1);
+            }
+        }
+        // set variation consequence
         if (criteriaType === 'consequence') {
             if (!this.searchCriteria.consequence) {
                 this.searchCriteria.consequence = []
@@ -408,27 +407,15 @@ export class SearchBoxComponent implements OnInit {
     }
 
     isVarTypeChecked(name: string) {
-        if (this.searchCriteria.varType && this.searchCriteria.varType.indexOf(name) !== -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.searchCriteria.varType && this.searchCriteria.varType.indexOf(name) !== -1;
     }
 
     isImpactChecked(name: string) {
-        if (this.searchCriteria.varImpact && this.searchCriteria.varImpact.indexOf(name) !== -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.searchCriteria.varImpact && this.searchCriteria.varImpact.indexOf(name) !== -1;
     }
 
     isConsequenceChecked(name: string) {
-        if (this.searchCriteria.consequence && this.searchCriteria.consequence.indexOf(name) !== -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.searchCriteria.consequence && this.searchCriteria.consequence.indexOf(name) !== -1;
     }
 
     onStrainChange(strain: any) {
@@ -443,7 +430,8 @@ export class SearchBoxComponent implements OnInit {
     updateSearch() {
 
         this.searchCriteria.strains = Array.from(this.selectedStrains.values());
-        //emit change
+        this.searchCriteria.assembly = this.assembly;
+        // emit change
         this.selectedSearchItem.emit(this.searchCriteria);
 
         this.showFilterOptions();

@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {Variant, Transcript, Strain} from '../../../models';
-import {MatDialogRef, MatPaginator, MatSort, MatTable} from '@angular/material';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 import {GeneDialogComponent} from '../../dialogs/gene-dialog/gene-dialog.component';
 import {StrainDialogComponent} from '../../dialogs/strain-dialog/strain-dialog.component';
 import {environment} from '../../../../environments/environment';
-import {RouterEvent, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-snp-indel-details',
@@ -16,7 +17,6 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     @ViewChild('transcriptPaginator', {static: true}) transcriptPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) transcriptSort: MatSort;
-    //@ViewChild('strainPaginator', {static: true}) strainPaginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) strainSort: MatSort;
 
     @Input()
@@ -32,7 +32,7 @@ export class SnpIndelDetailsComponent implements OnInit {
     strainPageLength = 0;
     strainPageSize = 10;
     pageSizeOptions: number[] = [10, 50, 100];
-    
+
     mgiStrainUrl = environment.MGI_STRAIN_URL;
     ensemblTransUrl = environment.ENSEMBL_TRANSCRIPT_URL;
     sequenceOntologyUrl = environment.SEQUENCE_ONTOLOGY_URL;
@@ -47,11 +47,11 @@ export class SnpIndelDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.strainDataSource = this.variant.strains;
-        
-        const dnaHGVS = this.variant.dnaHgvsNotation.split(",");
-        const proteinHGVS = this.variant.proteinHgvsNotation.split(",");
-        const jannovarAnnotation = this.variant.functionalClassCodes.split(",");
-        const impact = this.variant.impacts.split(",");
+
+        const dnaHGVS = this.variant.dnaHgvsNotation.split(',');
+        const proteinHGVS = this.variant.proteinHgvsNotation.split(',');
+        const jannovarAnnotation = this.variant.functionalClassCodes.split(',');
+        const impact = this.variant.impacts.split(',');
 
         this.variant.transcripts.forEach((transcript, i) => {
             transcript.dnaHGVS = dnaHGVS[i];
@@ -63,13 +63,10 @@ export class SnpIndelDetailsComponent implements OnInit {
         this.transcriptDataSource = this.variant.transcripts;
 
         this.transcriptPageLength = this.variant.transcripts.length;
-        //this.strainPageLength = this.variant.strains.length;
         this.transcriptPaginator.pageIndex = 0;
-        //this.strainPaginator.pageIndex = 0;
     }
 
     openGeneDialog() {
-      console.log("open gene dialog");
         this.dialogRef = this.dialog.open(GeneDialogComponent, {
           width: '50%', height: '50%',
           data: {
@@ -79,7 +76,6 @@ export class SnpIndelDetailsComponent implements OnInit {
     }
 
     openStrainDialog() {
-        console.log("open strain dialog");
         this.dialogRef = this.dialog.open(StrainDialogComponent, {
             width: '50%', height: '50%',
             data: {
@@ -88,9 +84,10 @@ export class SnpIndelDetailsComponent implements OnInit {
         });
     }
 
+    /**
+     * TODO Will be used when a VariantDialogComponent is made
+     */
     openVariantDialog() {
-        console.log("open variant dialog");
-        // TODO
         // this.dialogRef = this.dialog.open(VariantDialogComponent, {
         //     width: '80%', height: '80%',
         //     data: {
@@ -99,14 +96,22 @@ export class SnpIndelDetailsComponent implements OnInit {
         // });
     }
 
+    /**
+     * TODO Called when a transcript page changes
+     * @param pageEvent
+     */
     doTranscriptPageChange(pageEvent: any) {
 
-        
+
     }
 
+    /**
+     * TODO Called when a strain page changes
+     * @param pageEvent
+     */
     doStrainPageChange(pageEvent: any) {
 
-        
+
     }
 
 }

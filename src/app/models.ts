@@ -142,6 +142,7 @@ export class MVARStat {
     strainAnalysisCount: number;
     geneAnalysisCount: number;
     transcriptAnalysisCount: number;
+    assemblies: string;
 
     constructor() {
         this.alleleCount = -1;
@@ -157,6 +158,8 @@ export class MVARStat {
         this.strainAnalysisCount = -1;
         this.geneAnalysisCount = -1;
         this.transcriptAnalysisCount = -1;
+
+        this.assemblies ='';
     }
 }
 
@@ -182,3 +185,8 @@ export const chromosomes = [
     {value: 'X', viewValue: 'X'},
     {value: 'Y', viewValue: 'Y'},
     {value: 'MT', viewValue: 'MT'}];
+
+export const assemblies = [
+    {value: 'mm10', viewValue: 'GRCm38/mm10'},
+    {value: 'mm39', viewValue: 'GRCm39/mm39'}
+];

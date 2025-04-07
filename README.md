@@ -7,7 +7,7 @@ https://github.com/TheJacksonLaboratory/mvar-core
 #### Requirements
 
 - Node V 16
-- Angular cli V 8.0.2
+- Angular cli V 14.2.13
 
 ### Local setup
 
@@ -21,7 +21,7 @@ Install Node v16
 
 Install angular cli
 
-    sudo npm install -g @angular/cli@8.0.2 
+    sudo npm install -g @angular/cli@14.2.13 
 
 Run npm install
  

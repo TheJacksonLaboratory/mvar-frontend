@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-2">
     <mat-form-field>
       <mat-label>Search for variants by</mat-label>
       <mat-select placeholder="Search by" disableOptionCentering [(value)]="selectedSearchBy" (selectionChange)="reset()">
@@ -10,6 +10,15 @@
         <mat-option value="dbSNPid">dbSNP Id</mat-option>
       </mat-select>
     </mat-form-field>
+  </div>
+  <div class="col-md-2">
+     <mat-form-field>
+        <mat-label>Select reference genome</mat-label>
+        <mat-select [(value)]="assembly" placeholder="reference genome" disableOptionCentering (selectionChange)="setAssembly($event.value)">
+            <mat-option *ngFor="let assembly of assemblies"
+                        [value]="assembly.value">{{assembly.viewValue}}</mat-option>
+        </mat-select>
+     </mat-form-field>
   </div>
 
   <div *ngIf="selectedSearchBy === 'region'" class="col-md-6">
@@ -94,16 +103,16 @@
     </mat-hint>
   </div>
 
-  <div *ngIf="selectedSearchBy === 'region'" class="col-md-3">
+  <div *ngIf="selectedSearchBy === 'region'" class="col-md-2">
     <button class="search_button" disabled="{{chr.length <= 0 || startPos.length <= 0 || endPos.length <= 0}}" mat-raised-button  (click)="searchByPosition()">Search</button>
   </div>
-  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-3">
+  <div *ngIf="selectedSearchBy === 'hgvs'" class="col-md-2">
     <button class="search_button" disabled="{{hgvs.length <= 0}}" mat-raised-button (click)="searchByHGVS(hgvs)">Search</button>
   </div>
-  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-3">
+  <div *ngIf="selectedSearchBy === 'mvarId'" class="col-md-2">
     <button class="search_button" disabled="{{mvarId.length <= 0}}" mat-raised-button (click)="searchByMVARid(mvarId)">Search</button>
   </div>
-  <div *ngIf="selectedSearchBy === 'dbSNPid'" class="col-md-3">
+  <div *ngIf="selectedSearchBy === 'dbSNPid'" class="col-md-2">
     <button class="search_button" disabled="{{dbSNPid.length <= 0}}" mat-raised-button (click)="searchBydbSNPid(dbSNPid)">Search</button>
   </div>
 </div>
@@ -143,6 +152,19 @@
       </div>
     </div>
 
+    <!-- Genome reference -->
+    <div class="row">
+        <div class="col-md-12">
+            <section class="section">
+                <label class="mat-radio-button"><b>Genome reference:</b></label>
+                <mat-radio-group  aria-label="Select a genome reference" [(ngModel)]="assembly">
+                    <mat-radio-button class="check" *ngFor="let assembl of assemblies" [value]="assembl.value">
+                        {{assembl.viewValue}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </section>
+        </div>
+    </div>
     <!-- Variant type -->
     <div class="row">
       <div class="col-md-12">
