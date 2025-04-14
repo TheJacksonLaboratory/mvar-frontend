@@ -27,5 +27,6 @@ export const environment = {
     SEQUENCE_ONTOLOGY_URL: 'http://www.sequenceontology.org/browser/current_release/term/',
     JAX_STRAIN_REGISTRY_URL: 'https://www.jax.org/strain/',
     JAX_MAMMALIAN_PHENOTYPE_URL: 'http://www.informatics.jax.org/vocab/mp_ontology/',
-    production: true
+    production: true,
+    cookieDomain: 'jax.org'
 };
