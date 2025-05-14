@@ -1,6 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -8,6 +10,12 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        { provide: NgcCookieConsentService, useValue: {
+            statusChange$: of({ status: 'allow', chosenBefore: false })
+          }
+        }
+      ]
     }).compileComponents();
   }));
 

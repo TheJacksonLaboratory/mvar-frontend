@@ -61,7 +61,41 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { AuthenticationService } from './login/authentication.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing } from './app.routing';
+import { NgcCookieConsentConfig, NgcCookieConsentModule } from 'ngx-cookieconsent';
+import { environment } from '../environments/environment';
 
+const cookieConfig: NgcCookieConsentConfig = {
+  cookie: {
+    domain: environment.cookieDomain // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  position: 'bottom',
+  palette: {
+    popup: {
+      background: '#E5E7EB'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'classic',
+  type: 'opt-out',
+  content: {
+    message: `Welcome! Our website uses cookies exclusively for usage analytics and reporting metrics to our
+    stakeholders and funding agencies about site usage. These cookies also help us understand how visitors
+    interact with our site, enabling us to improve your browsing experience and the content we offer. We
+    respect your privacy and ensure that all data collected is anonymized and used solely to guide our
+    enhancements. Additionally, we do not use this data for marketing purposes nor do we share any user
+    information with third parties.
+    By clicking "Accept," you consent to our use of cookies for these purposes. For more detailed information
+    on the cookies we use and how we handle your data, please review our`,
+    dismiss: 'Allow cookies',
+    deny: 'Decline',
+    allow: 'Accept',
+    link: 'Privacy Policy.',
+    href: 'https://www.jax.org/privacy-policy',
+    policy: 'Cookie Policy'
+  }
+}
 
 @NgModule({
   imports: [
@@ -100,7 +134,8 @@ import { routing } from './app.routing';
     MatProgressSpinnerModule,
     NgxPageScrollCoreModule,
     NgxPageScrollModule,
-    BrowserModule
+    BrowserModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   declarations: [
     AppComponent,
